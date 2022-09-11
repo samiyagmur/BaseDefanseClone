@@ -1,6 +1,6 @@
 ﻿namespace Datas.UnityObject
 {
-    internal class Soldier
+    public class Soldier
     {
         public int Damager;
         public float speed;

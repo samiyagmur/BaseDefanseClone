@@ -2,7 +2,7 @@
 
 namespace Datas.UnityObject
 {
-    internal class Enemy
+    public class Enemy
     {
         public List<EnemtTypeData> EnemyList;
     }

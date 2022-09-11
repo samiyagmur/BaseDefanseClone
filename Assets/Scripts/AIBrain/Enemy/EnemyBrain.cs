@@ -1,6 +1,7 @@
 using Abstraction;
 using AIBrain.Enemy.State;
-
+using Datas.UnityObject;
+using Enums;
 using StateBehavior;
 using System;
 using System.Collections;
@@ -12,30 +13,57 @@ namespace AIBrain
 {
     public class EnemyBrain : MonoBehaviour
     {
-       
+        private EnemtTypeData enemtTypeData;
         private StateMachine _stateMachine;
         private Animator _animator;
         private NavMeshAgent _navmeshAgent;
-        private float _atackRange;
+        private int _healt;
+        private int _damage;
+        private float _attackRange;
+        private float _attackSpeed;
+        private float _moveSpeed;
         private float _chaseSpeed;
         public List<Transform> TurretTaretList;
-
+        public EnemyType enemyType;
 
         public Transform Target;
+
+        public NavMeshAgent NavmeshAgent { get => _navmeshAgent; set => _navmeshAgent = value; }
 
         private void Awake()
         {
             GetReferanceState();
+            enemtTypeData = GetData();
+            SetAllData();
         }
+
+        private EnemtTypeData GetData()
+        {
+            return Resources.Load<CD_AIData>("Data/CD_Level").enemy.EnemyList[(int)enemyType];  
+        }
+
+        private void SetAllData()
+        {
+             _healt=enemtTypeData.Healt;
+             _damage=enemtTypeData.Damage;
+             _attackRange=enemtTypeData.AttackRange;
+             _attackSpeed=enemtTypeData.AttackSpeed;
+             _moveSpeed=enemtTypeData.MoveSpeed;
+             _chaseSpeed=enemtTypeData.ChaseSpeed;
+        }
+
+
+
         private void GetReferanceState()
         {
-            _navmeshAgent = GetComponent<NavMeshAgent>();
+            NavmeshAgent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
-            Bomb bomb= new Bomb(_navmeshAgent, _animator);
-            Attack attack= new Attack(this,_navmeshAgent,_animator,_atackRange);
-            Chase chase = new Chase(this,_navmeshAgent, _animator, _atackRange, _chaseSpeed);
-            Death death = new Death(_navmeshAgent, _animator);
-            Move move = new Move(_navmeshAgent, _animator);
+
+            Bomb bomb= new Bomb(NavmeshAgent, _animator);
+            Attack attack= new Attack(this,NavmeshAgent,_animator, _attackRange);
+            Chase chase = new Chase(this,NavmeshAgent, _animator, _attackRange, _chaseSpeed);
+            Death death = new Death(NavmeshAgent, _animator);
+            Move move = new Move(NavmeshAgent, _animator);
 
             _stateMachine = new StateMachine();
             At(bomb, attack, () => bomb.BombIsAlive);
@@ -50,7 +78,7 @@ namespace AIBrain
             At(chase, move, Targetnull());
             
             Func<bool> HasTarget() => () => Target != null;
-            Func<bool> HosNoTarget() => () => Target == null;
+            //Func<bool> HosNoTarget() => () => Target == null;
             Func<bool> AttackRange() => () => Target != null && chase.IsPlayerInRange;
             Func<bool> ExitAttackRange() => () => Target != null && !chase.IsPlayerInRange;
             Func<bool> Targetnull()=>()=> Target != null;

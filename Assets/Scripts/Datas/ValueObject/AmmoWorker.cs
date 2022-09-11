@@ -1,6 +1,6 @@
 ﻿namespace Datas.ValueObject
 {
-    internal class AmmoWorker
+    public class AmmoWorker
     {
         public int Capacity;
         public float Speed;

@@ -5,9 +5,8 @@ using System;
 namespace Datas.ValueObject
 {
     [Serializable]
-    public class InputData 
+    public class PlayerData 
     {
-
-        public float InputPrecision = 0.1f;
+       public PlayerMovementData playerMovementData;
     }
 }

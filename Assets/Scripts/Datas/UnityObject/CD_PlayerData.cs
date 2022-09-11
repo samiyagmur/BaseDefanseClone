@@ -1,14 +1,14 @@
-﻿using System.Collections;
+﻿using Datas.ValueObject;
+using System.Collections;
 using UnityEngine;
 
 namespace Datas.UnityObject
-{
-    [CreateAssetMenu(fileName = "CD_Player/Player", menuName = "Data/PlayerDatas", order = 0)]
-    public class CD_PlayerData : MonoBehaviour
+{   
+    [CreateAssetMenu(fileName = "CD_Player", menuName = "Data/PlayerData", order = 0)]
+    public class CD_PlayerData : ScriptableObject
     {
-        public int Healt;
-        public float Speed;
-        public float AtackRange;
-
+        
+        public PlayerData PlayerDatas=new PlayerData();
+        
     }
 }

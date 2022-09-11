@@ -37,17 +37,18 @@ namespace Managers
             _data = GetInputData();
             Init();
         }
-        private InputData GetInputData() => Resources.Load<CD_InputData>("Data/CD_Input").inputData;
+        private InputData GetInputData() => Resources.Load<CD_InputData>("Data/InputData").inputData;
 
         private void Init()
         {
-           // _inputPrecision = _data.InputPrecision;
+           //_inputPrecision = _data.InputPrecision;
         }
 
         private void Update()
         {
             JoystickInputUpdate();
         }
+
         private void JoystickInputUpdate()
         {
             if (Input.GetMouseButton(0))
@@ -58,10 +59,10 @@ namespace Managers
             {
                 if ((joystickInput.Direction - _inputValuesVector).sqrMagnitude == 0) return;
                 _inputValuesVector = new Vector2(joystickInput.Horizontal, joystickInput.Vertical);
-                //InputSignals.Instance.onInputDragged?.Invoke(new HorizontalInputParams()
-                //{
-                //    MovementVector = _inputValuesVector
-                //});
+                InputSignals.Instance.onInputDragged?.Invoke(new HorizontalInputParams()
+                {
+                    MovementVector = _inputValuesVector
+                });
                 if (_inputValuesVector.sqrMagnitude != 0) return;
                 _inputValuesVector = Vector2.zero;
                 _hasTouched = false;

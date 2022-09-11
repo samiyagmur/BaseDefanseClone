@@ -2,12 +2,13 @@
 using UnityEngine;
 using Extentions;
 using UnityEngine.Events;
+using Keys;
 
 namespace Signals
 {
     public class InputSignals : MonoSingleton<InputSignals>
     {
-        public UnityAction onInputDragged = delegate { };
+        public UnityAction<HorizontalInputParams> onInputDragged = delegate { };
 
     }
 }

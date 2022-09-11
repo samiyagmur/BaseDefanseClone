@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Datas.UnityObject
 {
-    [CreateAssetMenu(fileName ="CD_InputData/InputData",menuName ="Datas/InputData")]
-    public class CD_InputData : MonoBehaviour
+    [CreateAssetMenu(fileName ="CD_InputData",menuName ="Data/InputData")]
+    public class CD_InputData : ScriptableObject
     {
-        public InputData inputData;
+        public InputData inputData= new InputData();
         
     }
 }

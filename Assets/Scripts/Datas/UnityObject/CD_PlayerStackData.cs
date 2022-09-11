@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Datas.UnityObject
 {
-    [CreateAssetMenu(fileName = "CD_Player/Player", menuName = "Data/PlayerDatas", order = 0)]
+    [CreateAssetMenu(fileName = "CD_Player/PlayerStack", menuName = "Data/PlayerStackData", order = 0)]
     public class CD_PlayerStackData : ScriptableObject
     {
-        PlayerMoneyStackData playerMoneyStackData;
+        public  PlayerMoneyStackData playerMoneyStackData;
 
-        PlayerAmmoStackData playerAmmoStackData;
+        public  PlayerAmmoStackData playerAmmoStackData;
 
-        HostageStackData hostageStackData;
+        public  HostageStackData hostageStackData;
 
     }
 }

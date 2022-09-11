@@ -1,6 +1,6 @@
 ﻿namespace Datas.UnityObject
 {
-    internal class EnemtTypeData
+    public class EnemtTypeData
     {
         public int Healt;
         public int Damage;

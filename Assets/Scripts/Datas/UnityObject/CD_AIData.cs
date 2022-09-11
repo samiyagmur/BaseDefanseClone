@@ -7,11 +7,11 @@ namespace Datas.UnityObject
     [CreateAssetMenu(fileName = "CD_Level/AIData", menuName = "Data/AIData", order = 0)]
     public class CD_AIData: ScriptableObject
     {
-        AmmoWorker ammoWorker;
-        MoneyWorker moneyWorker;
-        MineWorker mineWorkeri;
-        Soldier soldier;
-        Enemy enemy;
+        public AmmoWorker ammoWorker;
+        public MoneyWorker moneyWorker;
+        public MineWorker mineWorkeri;
+        public Soldier soldier;
+        public Enemy enemy;
        
     }
 }
