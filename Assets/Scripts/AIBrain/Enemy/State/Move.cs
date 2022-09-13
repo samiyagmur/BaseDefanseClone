@@ -4,52 +4,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using AIBrain;
+using Assets.Scripts.Abstraction;
 
 namespace AIBrain.Enemy.State
 {
-    
 
-    public class Move : IState
+
+    public class Move :IState
     {
+        private Animator _animator;
+
+        private NavMeshAgent _navMeshAgent;
+
         private EnemyBrain _enemyBrain;
-        private readonly NavMeshAgent _navMeshAgent;
-        private readonly Animator _animator;
-        private readonly float _moveSpeed;
-        private static readonly int _speed = Animator.StringToHash("Speed");
-        //private Vector3 _lastPosition = Vector3.zero;
 
-       // public float TimeStuck;
-        public Move(NavMeshAgent navMeshAgent, Animator animator)
+        private float _movementSpeed;
+
+        private Transform _turretTransform;
+
+        private static readonly int Speed = Animator.StringToHash("Speed");
+
+        private Vector3 _lastPosition = Vector3.zero;
+
+        public Move(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, float movementSpeed, Transform turretTransform)
         {
-            _navMeshAgent = navMeshAgent;
             _animator = animator;
+            _navMeshAgent = navMeshAgent;
+            _enemyBrain = enemyBrain;
+            _movementSpeed = movementSpeed;
+            _turretTransform = turretTransform;
         }
 
-        public void Enter()
-        {//
-            //TimeStuck = 0;
-
-
+        public  void Enter()
+        {
+            
             _navMeshAgent.enabled = true;
-            _navMeshAgent.speed = _moveSpeed;
-
-            int randomTarget = Random.Range(0, _enemyBrain.TurretTaretList.Count);
-            _navMeshAgent.SetDestination(_enemyBrain.Target.position);
-            _animator.SetFloat(_speed, 1f);
-
+            _navMeshAgent.speed = _movementSpeed;
+            //_animator.SetBool("Walk", _navMeshAgent.velocity.magnitude > 0.01f);
+            _navMeshAgent.SetDestination(_turretTransform.position);
+            //_animator.SetFloat(Speed, 1f);
         }
+
+        public  void Exit()
+        {
+             //_navMeshAgent.enabled = false;
+             //_animator.SetFloat(Speed, 0f);
+        }
+
         public void Tick()
         {
-            //if (Vector3.Distance(_enemyBrain.Target.position, _lastPosition) <= 0)
-            //    TimeStuck += Time.deltaTime;
-
-            //    _lastPosition = _enemyBrain.transform.position;
-        }
-        public void Exit()
-        {
-            //_navMeshAgent.enabled = false;
-            //_animator.SetFloat(_speed, 0f);
-
+           
         }
     }
 }

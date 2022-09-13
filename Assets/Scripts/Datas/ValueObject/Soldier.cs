@@ -1,5 +1,8 @@
-﻿namespace Datas.UnityObject
+﻿using System;
+
+namespace Datas.UnityObject
 {
+    [Serializable]
     public class Soldier
     {
         public int Damager;

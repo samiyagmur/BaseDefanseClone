@@ -17,24 +17,22 @@ namespace Controllers
 
         [SerializeField] private List<GameObject> enemies = new List<GameObject>();
 
-        [SerializeField] private List<Transform> targetList = new List<Transform>();
+       // [SerializeField] private List<Transform> targetList = new List<Transform>();
 
 
         #endregion
 
         #region Public Variables
 
-        public Transform Player;
+       // public Transform Player;
 
         public int NumberOfEnemiesToSpawn = 50;
 
         public float SpawnDelay = 2;
 
-        public GameObject EnemyPrefab;
+       // public GameObject EnemyPrefab;
 
-        public SpawnMethod EnemySpawnMethod;
-
-        public Transform SpawnPos;
+       // public Transform SpawnPos;
 
         #endregion
 
@@ -53,20 +51,21 @@ namespace Controllers
         #endregion
         #endregion
 
+        private void Awake()
+        {
+            InitEnemyPool();
+            StartCoroutine(SpawnEnemies());
 
+        }
         private void InitEnemyPool()
         {
             for (int i = 0; i < enemies.Count; i++)
-                ObjectPoolManager.Instance.AddObjectPool(() => Instantiate(enemies[0]), TurnOnEnemyAI, TurnOffEnemyAI, ((EnemyType)i).ToString(), 50, true);
+                ObjectPoolManager.Instance.AddObjectPool(() => Instantiate(enemies[i]), TurnOnEnemyAI, TurnOffEnemyAI, ((EnemyType)i).ToString(), 50, true);
         }
 
         private void Start()
         {
-            InitEnemyPool();
-
-            triangulation = NavMesh.CalculateTriangulation();
-
-            StartCoroutine(SpawnEnemies());
+           // triangulation = NavMesh.CalculateTriangulation();
         }
         private void TurnOnEnemyAI(GameObject enemy)
         {
@@ -78,6 +77,11 @@ namespace Controllers
             enemy.SetActive(false);
 
         }
+
+        private void ReleaseEnemyObject(GameObject go, Type t)
+        {
+            ObjectPoolManager.Instance.ReturnObject(go, t.ToString());
+        }
         private IEnumerator SpawnEnemies()
         {
             WaitForSeconds wait = new WaitForSeconds(SpawnDelay);
@@ -86,77 +90,37 @@ namespace Controllers
 
             while (spawnedEnemies < NumberOfEnemiesToSpawn)
             {
-                if (EnemySpawnMethod == SpawnMethod.RoundRobin)
-                {
-                    SpawnRoundRobinEnemy(spawnedEnemies);
-                }
+                DoSpawnEnemy();
 
                 spawnedEnemies++;
                 yield return wait;
             }
         }
 
-        private void SpawnRoundRobinEnemy(int spawnedEnemies)
-        {
-            DoSpawnEnemy();
-        }
-
-        private void SpawnRandomEnemy()
-        {
-            DoSpawnEnemy();
-        }
-
-        private void ReleaseEnemyObject(GameObject go, Type t)
-        {
-            ObjectPoolManager.Instance.ReturnObject(go, t.ToString());
-        }
         private void DoSpawnEnemy()
         {
-            int randomType = UnityEngine.Random.Range(0, Enum.GetNames(typeof(EnemyType)).Length);
+            int randomType;
             int randomPercentage = UnityEngine.Random.Range(0, 101);
-            if (randomType == (int)EnemyType.Yellow)
-            {
-                if (randomPercentage < 30)
-                {
-                    randomType = (int)EnemyType.Red;
-                    Debug.Log(randomType);
-                }
-            }
-            _enemyAI = ObjectPoolManager.Instance.GetObject<GameObject>(((EnemyType)randomType).ToString());
-            _enemyBrain = _enemyAI.GetComponent<EnemyBrain>();
-
-
-            bool RandomPoint(Vector3 center, float range, out Vector3 result)
-            {
-                for (int i = 0; i < 60; i++)
-                {
-                    Vector3 randomPoint = center + UnityEngine.Random.insideUnitSphere * range;
-                    Vector3 randomPos = new Vector3(randomPoint.x, 0, SpawnPos.transform.position.z);
-                    NavMeshHit hit;
-                    if (NavMesh.SamplePosition(randomPos, out hit, 1.0f, 1))
-                    {
-                        result = hit.position;
-                        return true;
-
-                    }
-
-                }
-                result = Vector3.zero;
-                return false;
-            }
-
+            
            
-            Vector3 point;
-            if (!RandomPoint(SpawnPos.position, 20, out point)) return;
 
-            _enemyBrain.NavmeshAgent.Warp(point);
-            _enemyBrain.Target = targetList[UnityEngine.Random.Range(0, targetList.Count)];
-        }
-        public enum SpawnMethod
-        {
-            RoundRobin,
-            Random
-        }
+            if (randomPercentage<=15)
+            {
+                randomType = (int)EnemyType.Red;
+            }
+            else if (15< randomPercentage && randomPercentage <=50)
+            {
+                randomType = (int)EnemyType.Yellow;
+            }
+            else
+            {
+                randomType = (int)EnemyType.Orange;
 
+            }
+           
+             ObjectPoolManager.Instance.GetObject<GameObject>(((EnemyType)randomType).ToString());
+         
+
+        }
     }
 }

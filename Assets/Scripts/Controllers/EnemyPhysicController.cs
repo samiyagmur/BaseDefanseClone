@@ -8,44 +8,34 @@ namespace Contollers
 {
     public class EnemyPhysicController : MonoBehaviour
     {
+        [SerializeField]
+        private EnemyBrain brain;
         private Transform _detectedPlayer;
-        private Transform _detectedMine;
-        //private EnemyBrain _enemyAIBrain;
-        public bool IsPlayerInRange() => _detectedPlayer != null;
-        public bool IsBombInRange() => _detectedMine != null;
-        //private void Awake()
-        //{
-        //    _enemyAIBrain = this.gameObject.GetComponentInParent<EnemyBrain>();
-        //}
+        
+
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("Player is Found!");
-                _detectedPlayer = other.GetComponentInParent<PlayerManager>().transform;
+                _detectedPlayer=other.transform;
 
-                //sinyalle çakmayý dene
-                // _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
+                brain.SetPlayerTarget(_detectedPlayer);
             }
-
-            ///if (other.GetComponent<Mine>())
-            //{
-            //    _detectedMine = other.GetComponent<Mine>();
-            //}/
         }
-
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                _detectedPlayer = null;
-                //this.gameObject.GetComponentInParent<EnemyAIBrain>().PlayerTarget = null;
+                //_detectedPlayer = null;
+
+                this.gameObject.GetComponentInParent<EnemyBrain>().SetPlayerTarget(null);
+               // brain.SetPlayerTarget(_detectedPlayer);
+
+                
             }
 
-            ///if (other.GetComponent<Mine>())
-            //{
-
-            //}/
         }
+
     } 
 }

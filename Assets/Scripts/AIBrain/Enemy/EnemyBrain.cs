@@ -1,91 +1,130 @@
 using Abstraction;
 using AIBrain.Enemy.State;
+using Assets.Scripts.Abstraction;
 using Datas.UnityObject;
 using Enums;
 using StateBehavior;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace AIBrain
 {
-    public class EnemyBrain : MonoBehaviour
+    public class EnemyBrain :MonoBehaviour
     {
-        private EnemtTypeData enemtTypeData;
-        private StateMachine _stateMachine;
-        private Animator _animator;
-        private NavMeshAgent _navmeshAgent;
+        #region SelfVariables
+
+        #region Private Variables
+
+        private Transform _turretTarget;
+        private Transform _spawnPosition;
         private int _healt;
         private int _damage;
+        private StateMachine _stateMachine;
         private float _attackRange;
-        private float _attackSpeed;
         private float _moveSpeed;
-        private float _chaseSpeed;
-        public List<Transform> TurretTaretList;
-        public EnemyType enemyType;
+        private EnemyTypeData _enemyData;
+        private EnemyType enemyType;
+        private Transform _playerTarget;
+        private float _playerDamage;//not ready
 
-        public Transform Target;
 
-        public NavMeshAgent NavmeshAgent { get => _navmeshAgent; set => _navmeshAgent = value; }
+        #endregion
+
+        #region SerializeField Variables
+
+        [SerializeField]
+        private NavMeshAgent _navMeshAgent;
+
+        [SerializeField]
+        private Animator _animator;
+
+        #endregion
+
+        #endregion
+        public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
+        public Transform PlayerTarget { get => _playerTarget; set => _playerTarget = value; }
+
+        #region Get&SetData
 
         private void Awake()
         {
-            GetReferanceState();
-            enemtTypeData = GetData();
-            SetAllData();
+
+            _enemyData = GetData();
+            SetEnemyData();
+            GetStatesReferences();
+            //Debug.Log(_turretTarget.name);
         }
 
-        private EnemtTypeData GetData()
-        {
-            return Resources.Load<CD_AIData>("Data/CD_Level").enemy.EnemyList[(int)enemyType];  
-        }
+        private EnemyTypeData GetData() => Resources.Load<CD_AIData>("Data/CD_AIData").enemy.EnemyList[(int)enemyType];
 
-        private void SetAllData()
+        private void SetEnemyData()
         {
-             _healt=enemtTypeData.Healt;
-             _damage=enemtTypeData.Damage;
-             _attackRange=enemtTypeData.AttackRange;
-             _attackSpeed=enemtTypeData.AttackSpeed;
-             _moveSpeed=enemtTypeData.MoveSpeed;
-             _chaseSpeed=enemtTypeData.ChaseSpeed;
+            _healt = _enemyData.Healt;
+            _damage = _enemyData.Damage;
+            _attackRange = _enemyData.AttackRange;
+            MoveSpeed = _enemyData.MoveSpeed;
+            _turretTarget = _enemyData.TurretList[Random.Range(0, _enemyData.TurretList.Count)];
+            _spawnPosition = _enemyData.SpawnPosition;
         }
 
 
-
-        private void GetReferanceState()
+        #endregion
+        private void GetStatesReferences()
         {
-            NavmeshAgent = GetComponent<NavMeshAgent>();
-            _animator = GetComponent<Animator>();
-
-            Bomb bomb= new Bomb(NavmeshAgent, _animator);
-            Attack attack= new Attack(this,NavmeshAgent,_animator, _attackRange);
-            Chase chase = new Chase(this,NavmeshAgent, _animator, _attackRange, _chaseSpeed);
-            Death death = new Death(NavmeshAgent, _animator);
-            Move move = new Move(NavmeshAgent, _animator);
 
             _stateMachine = new StateMachine();
-            At(bomb, attack, () => bomb.BombIsAlive);
-            _stateMachine.SetState(move);
-            _stateMachine.AddAnyTransition(death, () => death.IsDeath);
+
+            Search _search = new Search(_animator, _navMeshAgent, this, _spawnPosition);
+            Move _move = new Move(_animator, _navMeshAgent, this, MoveSpeed, _turretTarget);
+            Chase _chase = new Chase(_animator,_navMeshAgent,this,MoveSpeed,_attackRange);///physic controllerdan player gelcek
+            Attack _atack = new Attack(_animator, _navMeshAgent, this,MoveSpeed, _damage);
+            Death _death = new Death();//Listeli bir yapý düsün
+
+            TransitionofState(_search, _move, _chase, _atack, _death);
+        }
+
+        private void TransitionofState(Search search, Move move, Chase chase, Attack attack, Death death)
+        {
             
+
+            At(search, move, HasTurretTarget()); // player chase range
+            At(move, chase, HasTarget()); // player chase range
+            At(chase, attack, IsAtackPlayer()); // remaining distance < 1f
+            At(attack, chase, () => attack.InPlayerAttackRange()); // remaining distance > 1f
+            At(chase, move, HasTargetNull());
+
+            _stateMachine.SetState(search);
+            //_stateMachine.AddAnyTransition(death, () => death.isDead);
+            //_stateMachine.AddAnyTransition(move, () => death.isDead);
+            //At(moveToBomb, attack, () => moveToBomb.BombIsAlive);
+
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
-            At(move, chase, HasTarget());//player in range
-            At(chase, attack, AttackRange());//remaining distance
-            At(attack, chase, ExitAttackRange());//remaining distance
-            At(chase, move, Targetnull());
-            
-            Func<bool> HasTarget() => () => Target != null;
-            //Func<bool> HosNoTarget() => () => Target == null;
-            Func<bool> AttackRange() => () => Target != null && chase.IsPlayerInRange;
-            Func<bool> ExitAttackRange() => () => Target != null && !chase.IsPlayerInRange;
-            Func<bool> Targetnull()=>()=> Target != null;
-        }
-        
-       
-        private void Update() => _stateMachine.Tick();
+            Func<bool> HasTurretTarget() => () => _turretTarget != null;
+            Func<bool> HasTarget() => () => PlayerTarget != null;
+            Func<bool> HasTargetNull() => () => PlayerTarget is null;
+            Func<bool> IsAtackPlayer() => () => PlayerTarget != null && chase.GetPlayerInRange();
+            Func<bool> AttackOffRange() => () => attack.InPlayerAttackRange();
 
-    } 
+        }
+
+        private void Update()
+        {
+            _stateMachine.Tick(); 
+        
+        } 
+
+
+
+        public void SetPlayerTarget(Transform target)
+        {
+            PlayerTarget = target;
+            
+
+        } 
+       
+    }
 }

@@ -1,13 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Datas.ValueObject
 {
+    [Serializable]
     public class WeaponData : MonoBehaviour
-    {
-        int Damage;
+    {   
 
-        float AttackRate;
+        public int Damage;
+        public float AttackRate;
 
         ParticleSystem WeaponParticle;
 

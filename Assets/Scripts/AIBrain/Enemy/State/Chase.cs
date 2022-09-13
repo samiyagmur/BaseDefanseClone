@@ -1,4 +1,5 @@
 ﻿using Abstraction;
+using Assets.Scripts.Abstraction;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -6,53 +7,74 @@ using UnityEngine.AI;
 
 namespace AIBrain.Enemy.State
 {
-    public class Chase : IState
+    public class Chase :IState
     {
-        private readonly EnemyBrain _enemyBrain;
-        private readonly NavMeshAgent _navMeshAgent;
-        private readonly Animator _animator;
-        private readonly float _attackRange;
-        private readonly float _chaseSpeed;
 
-        private bool _inAttack = false;
+        private Animator _animator;
 
-        public bool IsPlayerInRange;
+        private EnemyBrain _enemyBrain;
 
-        public Chase(EnemyBrain enemyBrain, NavMeshAgent navMeshAgent, Animator animator, float attackRange, float chaseSpeed)
+        private NavMeshAgent _navMeshAgent;
+
+        private Transform _playerTransform;
+
+        public bool _attackOnPlayer;
+
+        private float _movementSpeed;
+
+        private float _atackRange;
+
+        public Chase(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, float movementSpeed, float atackRange)
         {
-            _enemyBrain = enemyBrain;
-            _navMeshAgent = navMeshAgent;
             _animator = animator;
-            _attackRange = attackRange;
-            _chaseSpeed = chaseSpeed;
+            _navMeshAgent = navMeshAgent;
+            _movementSpeed = movementSpeed;
+            _atackRange = atackRange;
+            _enemyBrain = enemyBrain;
         }
 
-        public void Enter()
+        public  void Enter()
         {
-            _inAttack = false;
-            _navMeshAgent.speed = _chaseSpeed;
-            _navMeshAgent.SetDestination(_enemyBrain.Target.transform.position);
-           // _animator.SetTrigger("Run");
-        }
+            _attackOnPlayer = false;
 
-        public void Exit()
-        {
+
+            _playerTransform = _enemyBrain.PlayerTarget;
+
+            _navMeshAgent.speed= _movementSpeed/2;
+            
+            if (_playerTransform != null)
+            _navMeshAgent.SetDestination(_playerTransform.position);
+
+
+
+            Debug.Log("chase");
+
             
         }
 
-        public void Tick()
+        public  void Tick()
         {
-            _navMeshAgent.destination = _enemyBrain.Target.transform.position;
-            ChechDistanceChase();
-            //_animator.ResetTrigger("Run");
+           _navMeshAgent.destination = _playerTransform.position;
+
+           if (_enemyBrain.PlayerTarget != null)
+                _navMeshAgent.destination = _enemyBrain.PlayerTarget.transform.position;
+
+
+            checkDestance();
         }
 
-        private void ChechDistanceChase()
+        private void checkDestance()
         {
-            if (_navMeshAgent.remainingDistance<=_attackRange)
-            {
-                _inAttack = true;
-            }
+            if (_navMeshAgent.remainingDistance <= _atackRange)
+                _attackOnPlayer = true;
+        }
+
+        public bool GetPlayerInRange() => _attackOnPlayer;
+
+        public void Exit()
+        {
+            Debug.Log("exit");
+            _enemyBrain.MoveSpeed = 10;
         }
     }
 }

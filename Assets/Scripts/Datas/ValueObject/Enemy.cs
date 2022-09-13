@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Datas.UnityObject
 {
+    [Serializable]
     public class Enemy
     {
-        public List<EnemtTypeData> EnemyList;
+        public List<EnemyTypeData> EnemyList;
     }
 }

@@ -1,7 +1,16 @@
-﻿namespace Datas.UnityObject
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Datas.UnityObject
 {
-    public class EnemtTypeData
+    [Serializable]
+    public class EnemyTypeData
     {
+        public List<Transform> TurretList = new List<Transform>();
+
+        public Transform SpawnPosition;
+
         public int Healt;
         public int Damage;
         public float AttackRange;

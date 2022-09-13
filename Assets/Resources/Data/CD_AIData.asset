@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 314e3b5468e7ee04db156c066cbe72b9, type: 3}
+  m_Name: CD_AIData
+  m_EditorClassIdentifier: 
+  ammoWorker:
+    Capacity: 0
+    Speed: 0
+  moneyWorker:
+    Capacity: 0
+    Speed: 0
+  mineWorkeri:
+    Speed: 0
+  soldier:
+    Damager: 0
+    speed: 0
+    Healt: 0
+  enemy:
+    EnemyList:
+    - TurretList:
+      - {fileID: 6035725896159405286, guid: b2d15c0a398600c4793abf3d2b4ae446, type: 3}
+      - {fileID: 87952902983369043, guid: a76932c511b41424da77e559f7abb6ba, type: 3}
+      - {fileID: 6444823847421043389, guid: f3595e55ce6b03c4e9eddeb5f40f22fd, type: 3}
+      - {fileID: 6444736164568737574, guid: b6f5e5bfddc620d4c897e6e844922ae5, type: 3}
+      SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
+      Healt: 1
+      Damage: 1
+      AttackRange: 1.2
+      AttackSpeed: 1
+      MoveSpeed: 10
+      ChaseSpeed: 10
+    - TurretList:
+      - {fileID: 6035725896159405286, guid: b2d15c0a398600c4793abf3d2b4ae446, type: 3}
+      - {fileID: 87952902983369043, guid: a76932c511b41424da77e559f7abb6ba, type: 3}
+      - {fileID: 6444823847421043389, guid: f3595e55ce6b03c4e9eddeb5f40f22fd, type: 3}
+      - {fileID: 6444736164568737574, guid: b6f5e5bfddc620d4c897e6e844922ae5, type: 3}
+      SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
+      Healt: 1
+      Damage: 1
+      AttackRange: 1.2
+      AttackSpeed: 1
+      MoveSpeed: 10
+      ChaseSpeed: 10
+    - TurretList:
+      - {fileID: 6035725896159405286, guid: b2d15c0a398600c4793abf3d2b4ae446, type: 3}
+      - {fileID: 87952902983369043, guid: a76932c511b41424da77e559f7abb6ba, type: 3}
+      - {fileID: 6444823847421043389, guid: f3595e55ce6b03c4e9eddeb5f40f22fd, type: 3}
+      - {fileID: 6444736164568737574, guid: b6f5e5bfddc620d4c897e6e844922ae5, type: 3}
+      SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
+      Healt: 1
+      Damage: 1
+      AttackRange: 1.2
+      AttackSpeed: 1
+      MoveSpeed: 10
+      ChaseSpeed: 10

@@ -29,8 +29,6 @@ namespace Managers
 
         private PlayerData _data;
 
-        
-
         #endregion
 
         #endregion
@@ -49,8 +47,6 @@ namespace Managers
         private void SubscribeEvents()
         {
             InputSignals.Instance.onInputDragged += OnGetInputValues;
-
-            Debug.Log("dd");
         }
         private void UnsubscribeEvents()
         {

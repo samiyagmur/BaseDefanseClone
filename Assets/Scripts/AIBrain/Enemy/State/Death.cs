@@ -1,4 +1,5 @@
 ﻿using Abstraction;
+using Assets.Scripts.Abstraction;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,33 +8,43 @@ namespace AIBrain.Enemy.State
 {
     public class Death : IState
     {
-        private readonly NavMeshAgent _navMeshAgent;
-        private readonly Animator _animator;
-        public bool IsDeath;
+        private Animator _animator;
+
+        private NavMeshAgent _navMeshAgent;
+
+        private EnemyBrain _enemyBrain;
+
+        private Transform _spawnPoint;
+
+        private float _movementSpeed;
+
+        private Transform _turretTransform;
+
+        private Transform _playerTransform;
+
+        private float _atackRange;
+
+        private float _damage;
+
+        private float _healt;
+
+        private float _playerDamage;
 
 
 
-        public Death(NavMeshAgent navMeshAgent, Animator animator)
+        public  void Enter()
         {
-            _navMeshAgent = navMeshAgent;
-            _animator = animator;
-        }
-
-        
-
-        public void Enter()
-        {
-            throw new System.NotImplementedException();
+            _navMeshAgent.enabled = false;
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
+          
         }
 
         public void Tick()
         {
-            throw new System.NotImplementedException();
+          
         }
     }
 }
