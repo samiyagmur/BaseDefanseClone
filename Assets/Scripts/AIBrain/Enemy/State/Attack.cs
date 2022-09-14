@@ -26,28 +26,27 @@ namespace AIBrain.Enemy.State
 
         public bool _inAttack;
 
-        public Attack(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, float movementSpeed, float atackRange)
-        {
+        public Attack(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, Transform playerTransform, float atackRange)
+        {   
+
+
+            
             _animator = animator;
             _navMeshAgent = navMeshAgent;
             _enemyBrain = enemyBrain;
-            _movementSpeed = movementSpeed;
-
+            _playerTransform = playerTransform;
             _atackRange = atackRange;
         }
 
         public  void Tick()
-        {   
+        {
+            Debug.Log(_playerTransform.gameObject.name);
+            Debug.Log(_navMeshAgent.remainingDistance);
 
-            
+
             if (_playerTransform)
-            {
                 _navMeshAgent.destination = _playerTransform.position;
-            }
-            else
-            {
-                _inAttack = false;
-            }
+
             CheckAttackDistance();
         }
 
@@ -55,8 +54,10 @@ namespace AIBrain.Enemy.State
         {   
             _playerTransform = _enemyBrain.PlayerTarget;
             _inAttack = true;
-            Debug.Log("ss");
-            _navMeshAgent.SetDestination(_playerTransform.position);
+            Debug.Log("attackenter");
+
+
+            _animator.SetTrigger("Attack");
         }
 
 
@@ -71,7 +72,7 @@ namespace AIBrain.Enemy.State
 
         public void Exit()
         {
-            
+           
         }
     }
 }

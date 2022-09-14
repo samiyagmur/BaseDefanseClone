@@ -6,35 +6,32 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.Abstraction
 {
-    public abstract class Brain: IState
+    public  class Brain: IState
     {
-        private Animator _animator;
+        private Animator _animator { get; set; }
 
-        private NavMeshAgent _navMeshAgent;
+        private NavMeshAgent _navMeshAgent { get; set; }
 
-        private EnemyBrain _enemyBrain;
+        private EnemyBrain _enemyBrain { get; set; }
 
-        private Transform _spawnPoint;
+        private Transform _spawnPoint { get; set; }
 
-        private float _movementSpeed;
+        private float _movementSpeed { get; set; }
 
-        private Transform _turretTransform;
+        private Transform _turretTransform { get; set; }
 
-        private Transform _playerTransform;
+        private Transform _playerTransform { get; set; }
 
-        private float _atackRange;
+        private float _atackRange { get; set; }
 
-        private float _damage;
+        private float _damage { get; set; }
 
-        private float _healt;
+        private float _healt { get; set; }
 
-        private float _playerDamage;
+        private float _playerDamage { get; set; }
 
-        
-       
-      
-
-        public abstract void Enter();
+           
+        public virtual void Enter() { }
 
         public virtual void Tick() { }
 

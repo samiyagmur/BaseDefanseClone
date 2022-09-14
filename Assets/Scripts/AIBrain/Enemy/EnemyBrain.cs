@@ -80,20 +80,19 @@ namespace AIBrain
             Search _search = new Search(_animator, _navMeshAgent, this, _spawnPosition);
             Move _move = new Move(_animator, _navMeshAgent, this, MoveSpeed, _turretTarget);
             Chase _chase = new Chase(_animator,_navMeshAgent,this,MoveSpeed,_attackRange);///physic controllerdan player gelcek
-            Attack _atack = new Attack(_animator, _navMeshAgent, this,MoveSpeed, _damage);
+            Attack _atack = new Attack(_animator, _navMeshAgent, this,_playerTarget, _attackRange);
             Death _death = new Death();//Listeli bir yapý düsün
 
             TransitionofState(_search, _move, _chase, _atack, _death);
+
         }
 
         private void TransitionofState(Search search, Move move, Chase chase, Attack attack, Death death)
         {
-            
-
             At(search, move, HasTurretTarget()); // player chase range
             At(move, chase, HasTarget()); // player chase range
             At(chase, attack, IsAtackPlayer()); // remaining distance < 1f
-            At(attack, chase, () => attack.InPlayerAttackRange()); // remaining distance > 1f
+            At(attack, chase, AttackOffRange()); // remaining distance > 1f
             At(chase, move, HasTargetNull());
 
             _stateMachine.SetState(search);
@@ -107,8 +106,7 @@ namespace AIBrain
             Func<bool> HasTarget() => () => PlayerTarget != null;
             Func<bool> HasTargetNull() => () => PlayerTarget is null;
             Func<bool> IsAtackPlayer() => () => PlayerTarget != null && chase.GetPlayerInRange();
-            Func<bool> AttackOffRange() => () => attack.InPlayerAttackRange();
-
+            Func<bool> AttackOffRange() => () => !attack.InPlayerAttackRange();
         }
 
         private void Update()
@@ -117,14 +115,12 @@ namespace AIBrain
         
         } 
 
-
-
-        public void SetPlayerTarget(Transform target)
-        {
-            PlayerTarget = target;
+        //public void SetPlayerTarget(Transform target)
+        //{
+        //    PlayerTarget = target;
             
 
-        } 
+        //} 
        
     }
 }

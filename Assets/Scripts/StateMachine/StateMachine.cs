@@ -41,6 +41,8 @@ namespace StateBehavior
 
         public void AddTransition(IState from, IState to, Func<bool> predicate)
         {
+
+            
             if (_transitions.TryGetValue(from.GetType(), out var transitions) == false)
             {
                 transitions = new List<Transition>();

@@ -40,7 +40,7 @@ namespace AIBrain.Enemy.State
             
             _navMeshAgent.enabled = true;
             _navMeshAgent.speed = _movementSpeed;
-            //_animator.SetBool("Walk", _navMeshAgent.velocity.magnitude > 0.01f);
+            _animator.SetBool("Walk", _navMeshAgent.velocity.magnitude > 0.01f);
             _navMeshAgent.SetDestination(_turretTransform.position);
             //_animator.SetFloat(Speed, 1f);
         }

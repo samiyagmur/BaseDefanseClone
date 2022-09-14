@@ -34,7 +34,7 @@ MonoBehaviour:
       SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
       Healt: 1
       Damage: 1
-      AttackRange: 1.2
+      AttackRange: 1.5
       AttackSpeed: 1
       MoveSpeed: 10
       ChaseSpeed: 10

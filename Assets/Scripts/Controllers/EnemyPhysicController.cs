@@ -10,32 +10,8 @@ namespace Contollers
     {
         [SerializeField]
         private EnemyBrain brain;
-        private Transform _detectedPlayer;
-        
 
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                _detectedPlayer=other.transform;
-
-                brain.SetPlayerTarget(_detectedPlayer);
-            }
-        }
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                //_detectedPlayer = null;
-
-                this.gameObject.GetComponentInParent<EnemyBrain>().SetPlayerTarget(null);
-               // brain.SetPlayerTarget(_detectedPlayer);
-
-                
-            }
-
-        }
-
+        private void OnTriggerEnter(Collider other) { if (other.CompareTag("Player")) brain.PlayerTarget = other.transform; }
+        private void OnTriggerExit(Collider other) { if (other.CompareTag("Player")) brain.PlayerTarget = null; }
     } 
 }

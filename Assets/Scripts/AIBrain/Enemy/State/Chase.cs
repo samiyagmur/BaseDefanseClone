@@ -45,7 +45,7 @@ namespace AIBrain.Enemy.State
             if (_playerTransform != null)
             _navMeshAgent.SetDestination(_playerTransform.position);
 
-
+            _animator.SetTrigger("Run");
 
             Debug.Log("chase");
 
@@ -56,10 +56,10 @@ namespace AIBrain.Enemy.State
         {
            _navMeshAgent.destination = _playerTransform.position;
 
-           if (_enemyBrain.PlayerTarget != null)
+           if (_enemyBrain.PlayerTarget != null) { }
                 _navMeshAgent.destination = _enemyBrain.PlayerTarget.transform.position;
 
-
+            
             checkDestance();
         }
 
@@ -73,6 +73,7 @@ namespace AIBrain.Enemy.State
 
         public void Exit()
         {
+           
             Debug.Log("exit");
             _enemyBrain.MoveSpeed = 10;
         }
