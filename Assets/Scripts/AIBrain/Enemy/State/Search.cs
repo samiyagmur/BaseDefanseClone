@@ -1,11 +1,11 @@
 using Abstraction;
-using Assets.Scripts.Abstraction;
+using AIBrain;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AIBrain.Enemy.State
+namespace State
 {
     public class Search :IState
     {
@@ -16,9 +16,6 @@ namespace AIBrain.Enemy.State
         protected  EnemyBrain _enemyBrain;
 
         private Transform _spawnPoint;
-
-        private bool _HasTarget=false;
-
         public Search(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, Transform spawnPoint)
         {
             _animator = animator;
@@ -29,14 +26,15 @@ namespace AIBrain.Enemy.State
 
         public  void Enter()
         {
+            
+          
             _enemyBrain.enabled = true;
             GetRandomPointBakedSurface();
             
         }
-
-
         private void GetRandomPointBakedSurface()
         {
+            
             bool RandomPoint(Vector3 center, float range, out Vector3 result)
             {
                 for (int i = 0; i < 60; i++)
@@ -46,6 +44,7 @@ namespace AIBrain.Enemy.State
                     NavMeshHit hit;
                     if (NavMesh.SamplePosition(randomPosition, out hit, 1.0f, 1))
                     {
+                        
                         result = hit.position;
                         return true;
                     }
@@ -54,11 +53,10 @@ namespace AIBrain.Enemy.State
                 return false;
             }
             Vector3 point;
+
             if (!RandomPoint(_spawnPoint.position, 20, out point)) return;
             _navMeshAgent.Warp(point);
         }
-
-
         public void Exit() { }
 
         public void Tick() { }

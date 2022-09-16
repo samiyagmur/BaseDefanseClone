@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8612fd0e93a60e64ea2dfba10b5d1662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyPhysicsController: {fileID: 1902793930348405255}
   _navMeshAgent: {fileID: 1902793931624525010}
   _animator: {fileID: 5405024711051857897}
 --- !u!1001 &1902793930357142136

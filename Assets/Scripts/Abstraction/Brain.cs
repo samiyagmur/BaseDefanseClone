@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Scripts.Abstraction
+namespace Abstraction
 {
     public  class Brain: IState
     {

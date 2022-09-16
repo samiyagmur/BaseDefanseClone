@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - MineExplosion
+  - LandMine
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -16,8 +19,8 @@ TagManager:
   - 
   - Base
   - BattleField
-  - 
-  - 
+  - EnemyAI
+  - LandMine
   - 
   - 
   - 

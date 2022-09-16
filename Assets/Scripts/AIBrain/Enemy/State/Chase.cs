@@ -1,11 +1,11 @@
 ﻿using Abstraction;
-using Assets.Scripts.Abstraction;
+using AIBrain;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AIBrain.Enemy.State
+namespace State
 {
     public class Chase :IState
     {
@@ -35,6 +35,7 @@ namespace AIBrain.Enemy.State
 
         public  void Enter()
         {
+            
             _attackOnPlayer = false;
 
 
@@ -47,18 +48,18 @@ namespace AIBrain.Enemy.State
 
             _animator.SetTrigger("Run");
 
-            Debug.Log("chase");
+
 
             
         }
 
         public  void Tick()
         {
-           _navMeshAgent.destination = _playerTransform.position;
+           _navMeshAgent.destination = _enemyBrain.PlayerTarget.position;
 
-           if (_enemyBrain.PlayerTarget != null) { }
+           if (_enemyBrain.PlayerTarget != null) 
                 _navMeshAgent.destination = _enemyBrain.PlayerTarget.transform.position;
-
+            
             
             checkDestance();
         }
@@ -66,15 +67,19 @@ namespace AIBrain.Enemy.State
         private void checkDestance()
         {
             if (_navMeshAgent.remainingDistance <= _atackRange)
+            {
                 _attackOnPlayer = true;
+            }
+                       
         }
 
         public bool GetPlayerInRange() => _attackOnPlayer;
 
         public void Exit()
         {
-           
-            Debug.Log("exit");
+            
+
+
             _enemyBrain.MoveSpeed = 10;
         }
     }

@@ -32,33 +32,48 @@ MonoBehaviour:
       - {fileID: 6444823847421043389, guid: f3595e55ce6b03c4e9eddeb5f40f22fd, type: 3}
       - {fileID: 6444736164568737574, guid: b6f5e5bfddc620d4c897e6e844922ae5, type: 3}
       SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
+      EnemyType: 1
+      scaleSize: {x: 1, y: 1, z: 1}
+      color: {r: 1, g: 0, b: 0.14562225, a: 0}
+      NavMeshRadius: 1
+      NavMeshHeigh: 1
       Healt: 1
       Damage: 1
       AttackRange: 1.5
       AttackSpeed: 1
-      MoveSpeed: 10
-      ChaseSpeed: 10
+      MoveSpeed: 5
+      ChaseSpeed: 8
     - TurretList:
       - {fileID: 6035725896159405286, guid: b2d15c0a398600c4793abf3d2b4ae446, type: 3}
       - {fileID: 87952902983369043, guid: a76932c511b41424da77e559f7abb6ba, type: 3}
       - {fileID: 6444823847421043389, guid: f3595e55ce6b03c4e9eddeb5f40f22fd, type: 3}
       - {fileID: 6444736164568737574, guid: b6f5e5bfddc620d4c897e6e844922ae5, type: 3}
       SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
+      EnemyType: 0
+      scaleSize: {x: 1, y: 1, z: 1}
+      color: {r: 1, g: 0.44863504, b: 0, a: 0}
+      NavMeshRadius: 1
+      NavMeshHeigh: 1
       Healt: 1
       Damage: 1
-      AttackRange: 1.2
+      AttackRange: 1.5
       AttackSpeed: 1
-      MoveSpeed: 10
-      ChaseSpeed: 10
+      MoveSpeed: 5
+      ChaseSpeed: 8
     - TurretList:
       - {fileID: 6035725896159405286, guid: b2d15c0a398600c4793abf3d2b4ae446, type: 3}
       - {fileID: 87952902983369043, guid: a76932c511b41424da77e559f7abb6ba, type: 3}
       - {fileID: 6444823847421043389, guid: f3595e55ce6b03c4e9eddeb5f40f22fd, type: 3}
       - {fileID: 6444736164568737574, guid: b6f5e5bfddc620d4c897e6e844922ae5, type: 3}
       SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
+      EnemyType: 2
+      scaleSize: {x: 1, y: 1, z: 1}
+      color: {r: 0.97020423, g: 1, b: 0, a: 0}
+      NavMeshRadius: 1
+      NavMeshHeigh: 1
       Healt: 1
       Damage: 1
-      AttackRange: 1.2
+      AttackRange: 1.5
       AttackSpeed: 1
-      MoveSpeed: 10
-      ChaseSpeed: 10
+      MoveSpeed: 5
+      ChaseSpeed: 8

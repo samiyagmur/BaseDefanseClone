@@ -1,11 +1,11 @@
 ﻿using Abstraction;
-using Assets.Scripts.Abstraction;
+using AIBrain;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AIBrain.Enemy.State
+namespace State
 {
     public class Attack : IState
     {
@@ -27,36 +27,35 @@ namespace AIBrain.Enemy.State
         public bool _inAttack;
 
         public Attack(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, Transform playerTransform, float atackRange)
-        {   
+        {
 
-
-            
             _animator = animator;
             _navMeshAgent = navMeshAgent;
             _enemyBrain = enemyBrain;
             _playerTransform = playerTransform;
             _atackRange = atackRange;
+             
         }
 
         public  void Tick()
-        {
-            Debug.Log(_playerTransform.gameObject.name);
-            Debug.Log(_navMeshAgent.remainingDistance);
-
-
-            if (_playerTransform)
-                _navMeshAgent.destination = _playerTransform.position;
+        {   
+            if (_enemyBrain.PlayerTarget)
+            {
+                _navMeshAgent.destination = _enemyBrain.PlayerTarget.position;
+            }
+            else
+            {
+                Debug.Log("_inatack");
+                _inAttack = false;
+            }
 
             CheckAttackDistance();
         }
 
         public  void Enter()
-        {   
-            _playerTransform = _enemyBrain.PlayerTarget;
+        {
+            _navMeshAgent.SetDestination(_enemyBrain.PlayerTarget.position);
             _inAttack = true;
-            Debug.Log("attackenter");
-
-
             _animator.SetTrigger("Attack");
         }
 
@@ -65,6 +64,7 @@ namespace AIBrain.Enemy.State
         {
             if (_navMeshAgent.remainingDistance > _atackRange)
             {
+                
                 _inAttack = false;
             }
         }
@@ -72,7 +72,7 @@ namespace AIBrain.Enemy.State
 
         public void Exit()
         {
-           
+        
         }
     }
 }

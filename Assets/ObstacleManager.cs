@@ -5,15 +5,21 @@ using UnityEngine;
 
 using Controllers;
 using Enums;
+using Abstraction;
 
 namespace Managers
 {
     public class ObstacleManager : MonoBehaviour
     {
+        private ObstacleAbstraction obstacleMovementController;
 
-        [SerializeField]
-        ObstacleMovementController obstacleMovementController;
+        private void Awake()
+        {
+            obstacleMovementController = new ObstacleMovementController();
+        }
+
         public void IsHitEnterPlayer() => obstacleMovementController.ChangeGateState(GateState.open);
+
         public void IsHitExitPlayer() => obstacleMovementController.ChangeGateState(GateState.close);
 
     }

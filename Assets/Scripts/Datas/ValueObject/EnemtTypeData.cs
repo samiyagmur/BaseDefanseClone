@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Enums;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,11 @@ namespace Datas.UnityObject
 
         public Transform SpawnPosition;
 
+        public EnemyType EnemyType;
+        public Vector3 scaleSize;
+        public Color color;
+        public float NavMeshRadius;
+        public float NavMeshHeigh;
         public int Healt;
         public int Damage;
         public float AttackRange;

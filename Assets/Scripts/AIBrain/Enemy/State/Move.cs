@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using AIBrain;
-using Assets.Scripts.Abstraction;
 
-namespace AIBrain.Enemy.State
+
+namespace State
 {
 
 
@@ -37,7 +37,7 @@ namespace AIBrain.Enemy.State
 
         public  void Enter()
         {
-            
+
             _navMeshAgent.enabled = true;
             _navMeshAgent.speed = _movementSpeed;
             _animator.SetBool("Walk", _navMeshAgent.velocity.magnitude > 0.01f);

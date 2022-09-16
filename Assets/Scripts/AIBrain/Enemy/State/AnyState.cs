@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace AIBrain.Enemy.State
+namespace State
 {
     public class AnyState : MonoBehaviour
     {
