@@ -1,5 +1,6 @@
 ﻿using Abstraction;
 using AIBrain;
+using Enums;
 using Managers;
 using System.Collections;
 using UnityEngine;
@@ -24,10 +25,8 @@ namespace State
 
         public  void Enter()
         {
-            Debug.Log("dd");
-            _enemyBrain.Buuumm();
 
-           // ObjectPoolManager.Instance.ReturnObject(_enemyBrain.gameObject);
+            ObjectPoolManager.Instance.ReturnObject(_enemyBrain.gameObject,_enemyBrain.EnemyType.ToString());
         }
 
         public void Exit()

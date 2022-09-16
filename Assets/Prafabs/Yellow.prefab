@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1902793930348405254}
   - component: {fileID: 1902793930348405255}
   - component: {fileID: 1902793930348405252}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PhysicController
   m_TagString: Untagged
   m_Icon: {fileID: 0}

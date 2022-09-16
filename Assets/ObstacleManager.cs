@@ -6,22 +6,33 @@ using UnityEngine;
 using Controllers;
 using Enums;
 using Abstraction;
+using Signals;
 
 namespace Managers
 {
     public class ObstacleManager : MonoBehaviour
     {
-        private ObstacleAbstraction obstacleMovementController;
+        private IStateChangeble obstacleMovementController;
 
         private void Awake()
         {
-            obstacleMovementController = new ObstacleMovementController();
+            obstacleMovementController = GetComponent<IStateChangeble>();
         }
 
-        public void IsHitEnterPlayer() => obstacleMovementController.ChangeGateState(GateState.open);
+        public void IsHitEnterPlayer()
+        {
+            PlayerSignal.Instance.onChangePlayerLayer?.Invoke();
+            obstacleMovementController.ChangeGateState(GateState.open);
+        }
+            
 
-        public void IsHitExitPlayer() => obstacleMovementController.ChangeGateState(GateState.close);
 
+        public void IsHitExitPlayer() 
+        {
+            obstacleMovementController.ChangeGateState(GateState.close);
+            
+            
+        }
     }
-
+    
 }

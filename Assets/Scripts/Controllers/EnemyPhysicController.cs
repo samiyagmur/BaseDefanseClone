@@ -27,8 +27,9 @@ namespace Contollers
 
             if (other.CompareTag("LandMine"))
             {
-                brain.MineTarget = other.transform;
-                _detectedMine = brain.MineTarget;
+                _detectedMine = other.transform;
+                brain.MineTarget = _detectedMine;
+                
 
             }
             if(other.CompareTag("Bullet"))
@@ -52,6 +53,7 @@ namespace Contollers
                 if (brain.Healt <= 0)
                 {
                     _amIDead = true;
+                    
                 }
             }
            
@@ -69,8 +71,14 @@ namespace Contollers
 
             }
 
-        
-        
+            if (other.CompareTag("MineExplosion"))
+            {
+                _detectPlayer = null;
+                brain.MineTarget = _detectedMine;
+                brain.MineTarget = null;
+            }
+
+
         }
 
     

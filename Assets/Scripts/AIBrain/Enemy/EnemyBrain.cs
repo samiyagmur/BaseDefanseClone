@@ -25,12 +25,6 @@ namespace AIBrain
         private StateMachine _stateMachine;
         private float _attackRange;
         private float _moveSpeed;
-
-        internal void Buuumm()
-        {
-            Destroy(gameObject);
-        }
-
         private EnemyTypeData _enemyData;
         private EnemyType _enemyType;
         private Transform _playerTarget;
@@ -61,6 +55,7 @@ namespace AIBrain
         public Transform PlayerTarget { get => _playerTarget; set => _playerTarget = value; }
         public Transform MineTarget { get => _mineTarget; set => _mineTarget = value; }
         public int Healt { get => _healt; set => _healt = value; }
+        public EnemyType EnemyType { get => _enemyType; set => _enemyType = value; }
         #endregion
 
         #region Get&SetData
@@ -74,7 +69,7 @@ namespace AIBrain
 
         }
 
-        private EnemyTypeData GetData() => Resources.Load<CD_AIData>("Data/CD_AIData").enemy.EnemyList[(int)_enemyType];
+        private EnemyTypeData GetData() => Resources.Load<CD_AIData>("Data/CD_AIData").enemy.EnemyList[(int)EnemyType];
 
         private void SetEnemyData()
         {
@@ -86,7 +81,7 @@ namespace AIBrain
             _spawnPosition = _enemyData.SpawnPosition;
             _navMeshRadius = _enemyData.NavMeshRadius;
             _navMeshHeigh = _enemyData.NavMeshHeigh;
-            _enemyType = _enemyData.EnemyType;
+            EnemyType = _enemyData.EnemyType;
             _bodyColor = _enemyData.color;
             _chaseSpeed = _enemyData.ChaseSpeed;
             _scaleSize = _enemyData.scaleSize;

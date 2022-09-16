@@ -53,6 +53,9 @@ namespace Managers
 
         public void LureColliderState(bool _state)
         {
+            if (_state == true)
+                _payedGemAmount = 0;
+
             minePhysicsController.LureColliderState(_state);
         }
 
@@ -64,6 +67,10 @@ namespace Managers
         public void PayGemToMine()
         {
             GemAmount--;
+            if (GemAmount<=0)
+            {
+                GemAmount = 0;
+            }
             _payedGemAmount++;
 
         }

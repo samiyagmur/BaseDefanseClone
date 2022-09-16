@@ -1,11 +1,9 @@
-using Assets.Scripts;
 using Controllers;
 using Datas.UnityObject;
 using Datas.ValueObject;
+using Enums;
 using Keys;
 using Signals;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Managers
@@ -24,10 +22,11 @@ namespace Managers
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private PlayerMovementController _movementController;
         #endregion
-
+        int _line ;
         #region Private Variables
 
         private PlayerData _data;
+
 
         #endregion
 
@@ -47,16 +46,25 @@ namespace Managers
         private void SubscribeEvents()
         {
             InputSignals.Instance.onInputDragged += OnGetInputValues;
+            PlayerSignal.Instance.onChangePlayerLayer += OnChangePlayerLayer;
         }
+
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
+            PlayerSignal.Instance.onChangePlayerLayer -= OnChangePlayerLayer;
         }
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
         #endregion
+
+        private void OnChangePlayerLayer()
+        {
+            meshController.ChangeLayerMask();
+        }
+
         private void Init()
         {
             _movementController = GetComponent<PlayerMovementController>();
@@ -66,8 +74,6 @@ namespace Managers
         {
             _movementController.SetMovementData(_data.playerMovementData);
         }
-     
-
         private void OnGetInputValues(HorizontalInputParams inputParams)
         {
             _movementController.UpdateInputValues(inputParams);

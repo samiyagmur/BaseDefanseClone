@@ -5,15 +5,17 @@ using DG.Tweening;
 using Enums;
 using Abstraction;
 
-namespace Abstraction
+namespace Controllers
 {
-    public class ObstacleMovementController : ObstacleAbstraction
+    public class ObstacleMovementController : MonoBehaviour, IStateChangeble
     {
-        //public override void ChangeGateState(GateState state) => MoveRoate((float)state);
+        public void ChangeGateState(GateState state) => MoveRoate((float)state);
 
-      //  public override void MoveRoate(float rotate) => transform.GetChild(0).transform.DORotate(new Vector3(rotate, 90, 0), 1.5f);
+        public  void MoveRoate(float rotate) => transform.GetChild(0).transform.DORotate(new Vector3(rotate, 90, 0), 1f);
 
     }
+
+    
 
 }
 
