@@ -3,10 +3,9 @@ using UnityEngine;
 
 namespace Enums
 {
-    public enum TurretStatus 
+    public enum TaretUserType
     {
-        Pasive,
-        Active
-        
+        Player,
+        Bot
     }
 }

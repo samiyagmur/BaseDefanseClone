@@ -131,12 +131,7 @@ namespace AIBrain
             Func<bool> AttackOffRange() => () =>!attack.InPlayerAttackRange();
         }
 
-        private void Update()
-        {
-            Debug.Log(enemyPhysicsController.AmIDead);
-
-            _stateMachine.Tick();
-        
-        }        
+        private void Update() => _stateMachine.Tick();
+      
     }
 }

@@ -36,13 +36,21 @@ namespace Controllers
 
         public void ChangeLayerMask()
         {
-            if (Math.Abs(transform.rotation.eulerAngles.y) < 90)
+            if (Math.Abs( transform.rotation.eulerAngles.y) < 90)
                 _playerLayersType = PlayerLayersType.BattleField;   
             else
                 _playerLayersType = PlayerLayersType.Base;
 
-           
+     
             gameObject.transform.parent.transform.gameObject.layer = LayerMask.NameToLayer(_playerLayersType.ToString());
+        }
+
+        enum Direction
+        {
+            Forward=0,
+            Rigth=90,
+            Left=-90,
+            Backward= 180
         }
     }
 }

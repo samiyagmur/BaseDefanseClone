@@ -19,7 +19,7 @@ namespace Managers
             obstacleMovementController = GetComponent<IStateChangeble>();
         }
 
-        public void IsHitEnterPlayer()
+        public void IsHitEnterGate()
         {
             PlayerSignal.Instance.onChangePlayerLayer?.Invoke();
             obstacleMovementController.ChangeGateState(GateState.open);
@@ -27,12 +27,13 @@ namespace Managers
             
 
 
-        public void IsHitExitPlayer() 
+        public void IsHitExitGate() 
         {
+            PlayerSignal.Instance.onChangePlayerLayer?.Invoke();
             obstacleMovementController.ChangeGateState(GateState.close);
-            
-            
         }
+
+      
     }
     
 }

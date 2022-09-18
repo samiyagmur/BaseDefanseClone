@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Enums;
+using Enums;
 
 namespace Datas.UnityObject
 {

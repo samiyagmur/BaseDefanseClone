@@ -13,12 +13,12 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player")) obstacleManager.IsHitEnterPlayer();
+            if (other.CompareTag("Player")) obstacleManager.IsHitEnterGate();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player")) obstacleManager.IsHitExitPlayer();
+            if (other.CompareTag("Player")) obstacleManager.IsHitExitGate();
         }
     }
 }
