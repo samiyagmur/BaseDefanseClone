@@ -7,6 +7,7 @@ TagManager:
   - MineExplosion
   - LandMine
   - Bullet
+  - Turret
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Base
   - EnemyAI
   - LandMine
-  - 
-  - 
+  - rocket
+  - Button
   - 
   - 
   - 

@@ -1,24 +1,47 @@
 ﻿using Interfaces;
+using Managers;
 using System.Collections;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class TurretPhysicsController : MonoBehaviour,IPlayerHitAble
+    public class TurretPhysicsController : MonoBehaviour,IGeterGameObject
     {
+        
+        [SerializeField]
+        private TurretManager _turretManager;
 
-        private bool IsHitPlayer;
+      
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Base"))
+            
+
+            if (other.TryGetComponent(typeof(IGeterGameObject), out Component getterGameObject))
             {
-                IsHitPlayer = true;
+                _turretManager.IsEnterUser();
+                
+                Debug.Log("sideButton");
+            }
+            
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(typeof(IGeterGameObject), out Component getterGameObject))
+            {
+                _turretManager.IsExitUser();
             }
         }
-        public bool HitPlayer()
+
+        private void OnTriggerStay(Collider other)
         {
-            return IsHitPlayer;
+            if (other.TryGetComponent(typeof(EnemyManager), out Component enemy))
+            {
+                _turretManager.IsHitEnemy(other.gameObject);
+            }
         }
+
+
 
     }
 }

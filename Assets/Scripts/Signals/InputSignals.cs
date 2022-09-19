@@ -3,6 +3,7 @@ using UnityEngine;
 using Extentions;
 using UnityEngine.Events;
 using Keys;
+using Enums;
 
 namespace Signals
 {

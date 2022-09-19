@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Enums
 {
-    public enum TaretUserType
+    public enum RotateStatus
     {
-        Player,
-        Bot
+        Active,
+        Pasive
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Datas.ValueObject;
+using Enums;
 using Keys;
 using Managers;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -20,7 +22,6 @@ namespace Controllers
         [SerializeField] private PlayerManager playerManager;
 
         [SerializeField] private new Rigidbody rigidbody;
-
         #endregion
 
         #region Private Variables
@@ -30,38 +31,98 @@ namespace Controllers
         private Vector2 _inputVector;
 
         private bool _isReadyToMove;
+        private GameObject _currentParent;
+
+        private TurretStatus _turretStatus;
+        private float _exitClampLeftSide = -0.3f;
+        private float _exitClampRightSide = +0.3f;
+        private float _exitClampBackSide = -0.6f;
 
         #endregion
 
         #endregion
+        private void Awake()
+        {
+            
+            _turretStatus =new TurretStatus();
+            SetCurrentParrent();
+        }
+
         public void SetMovementData(PlayerMovementData movementData)
         {
-            _data = movementData;
+             _data = movementData;
         }
         public void UpdateInputValues(HorizontalInputParams inputParams)
-        {
+        {   
             _inputVector = inputParams.MovementVector;
             EnableMovement(_inputVector.sqrMagnitude > 0);
+            PlayerMove();
         }
         private void EnableMovement(bool movementStatus)
         {
-            _isReadyToMove = movementStatus;
+             _isReadyToMove = movementStatus;
         }
-        private void FixedUpdate()
-        {
-            PlayerMove();
-        }
+
         private void PlayerMove()
         {
+
             if (_isReadyToMove)
             {
-                var velocity = rigidbody.velocity;
-                velocity = new Vector3(_inputVector.x, velocity.y, _inputVector.y) * _data.Speed;
-                rigidbody.velocity = velocity;
+                if (_turretStatus == TurretStatus.Inplace) 
+                {
+                    rigidbody.velocity = Vector3.zero; 
+                    transform.rotation = new Quaternion(0, 0, 0, 0); 
+                    return; 
+                }
+
+                Move();
+                Rotate();
+
             }
             else if (rigidbody.velocity != Vector3.zero)
             {
                 rigidbody.velocity = Vector3.zero;
+            }
+
+
+        }
+        private void Move()
+        {
+            var velocity = rigidbody.velocity;
+            velocity = new Vector3(_inputVector.x, velocity.y, _inputVector.y) * _data.Speed;
+            rigidbody.velocity = velocity;
+        }
+        private void Rotate()
+        {
+            Vector3 movementDirection = new Vector3(_inputVector.x, 0, _inputVector.y);
+            if (movementDirection == Vector3.zero) return;
+            Quaternion _toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, _toRotation, 30);
+
+        }
+
+        private void SetCurrentParrent()
+        {
+            _currentParent = transform.parent.gameObject;
+        }
+        public void EnterToTurret(GameObject turretObj)
+        {
+            Vector3 turretPos = turretObj.transform.position;
+
+            transform.position = new Vector3(turretPos.x, transform.position.y, turretPos.z - 2f);
+
+            transform.parent = turretObj.transform;
+
+            _turretStatus = TurretStatus.Inplace;
+        }
+
+        public void ExitToTurret()//We exit as joystick İnput
+        {
+            if ((_exitClampLeftSide < _inputVector.x && _exitClampBackSide > _inputVector.y) && (_exitClampRightSide > _inputVector.x && _exitClampBackSide > _inputVector.y))
+            {
+                transform.parent = _currentParent.transform;
+
+                _turretStatus = TurretStatus.OutPlace;
             }
         }
     }

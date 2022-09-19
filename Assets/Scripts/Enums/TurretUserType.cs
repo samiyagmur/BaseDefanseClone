@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Enums
 {
-    public enum TurretStatus 
+    public enum TurretUserType
     {
-        OutPlace,
-        Inplace
+        Player,
+        Bot
     }
 }

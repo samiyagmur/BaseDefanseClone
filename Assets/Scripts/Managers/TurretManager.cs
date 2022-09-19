@@ -1,4 +1,5 @@
 ﻿using Controllers;
+using Enums;
 using Interfaces;
 using Keys;
 using Signals;
@@ -15,38 +16,70 @@ namespace Managers
         #region SerializeField Variables
 
 
-        private IUsuable movementController;
+        [SerializeField]
+        private TurretMovementController _movementController;
 
-        private IPlayerHitAble playerHitAble;
         #endregion
+
+        #region Private Variables
+
+
+        #endregion
+
         #endregion
         private void Awake()
         {
-            movementController = new TurretMovementController();
-
+           
+            //get data
         }
+
+        
 
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
         {
             InputSignals.Instance.onInputDragged += OnGetInputValues;
-
+            TurretSignals.Instance.onPressTurretButton += OnPressTurretButton;
         }
+
+        internal void IsHitEnemy(GameObject enemy)
+        {
+            _movementController.AddDeathList(enemy);
+        }
+
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
+            TurretSignals.Instance.onPressTurretButton -= OnPressTurretButton;
 
         }
         private void OnDisable() => UnsubscribeEvents();
-
-        private void OnGetInputValues(HorizontalInputParams value)
+        public void OnPressTurretButton()
         {
-            movementController.SetInputParams(value);
+            transform.GetChild(0).gameObject.SetActive(true);
+            GetComponent<Collider>().enabled = false;
+
+
+            _movementController.ActiveTurretWithBot();
+
         }
-
-
-        
-
+        private void OnGetInputValues(HorizontalInputParams value)
+        {   
+            _movementController.SetInputParams(value);
+        }
+        public GameObject GetGameObject()
+        {
+            return gameObject;
+        }
+        public void IsEnterUser()
+        {
+            _movementController.ActiveTurretWithPlayer();
+            
+        }
+        public void IsExitUser()
+        {
+            _movementController.DeactiveTurretWithPlayer();
+        }
     }
 }

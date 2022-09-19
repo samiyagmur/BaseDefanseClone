@@ -1,8 +1,9 @@
 ﻿using Datas.UnityObject;
 using Datas.ValueObject;
+using Enums;
 using Keys;
 using Signals;
-
+using System;
 using UnityEngine;
 
 
@@ -29,23 +30,19 @@ namespace Managers
         private float _inputPrecision;
         private bool _hasTouched;
 
+      
         #endregion
 
         #endregion
         private void Awake()
         {
             _data = GetInputData();
-            Init();
         }
         private InputData GetInputData() => Resources.Load<CD_InputData>("Data/InputData").inputData;
 
-        private void Init()
-        {
-           //_inputPrecision = _data.InputPrecision;
-        }
-
         private void Update()
         {
+            
             JoystickInputUpdate();
         }
 
@@ -56,7 +53,7 @@ namespace Managers
                 _hasTouched = true;
             }
             if (!_hasTouched) return;
-            {
+            {   
                 if ((joystickInput.Direction - _inputValuesVector).sqrMagnitude == 0) return;
                 _inputValuesVector = new Vector2(joystickInput.Horizontal, joystickInput.Vertical);
                 InputSignals.Instance.onInputDragged?.Invoke(new HorizontalInputParams()
@@ -69,5 +66,7 @@ namespace Managers
             }
 
         }
+
+
     }
 }

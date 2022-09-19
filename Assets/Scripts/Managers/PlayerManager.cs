@@ -4,6 +4,7 @@ using Datas.ValueObject;
 using Enums;
 using Keys;
 using Signals;
+using System;
 using UnityEngine;
 
 namespace Managers
@@ -22,8 +23,10 @@ namespace Managers
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private PlayerMovementController _movementController;
 
+
         #endregion
-        int _line ;
+ 
+
         #region Private Variables
 
         private PlayerData _data;
@@ -52,24 +55,46 @@ namespace Managers
         {
             InputSignals.Instance.onInputDragged += OnGetInputValues;
             PlayerSignal.Instance.onChangePlayerLayer += OnChangePlayerLayer;
+
         }
 
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
             PlayerSignal.Instance.onChangePlayerLayer -= OnChangePlayerLayer;
+
         }
+
         private void OnDisable() => UnsubscribeEvents();
 
         #endregion
 
+        #region Subscription methods
         private void OnChangePlayerLayer() => meshController.ChangeLayerMask();
 
         private void OnGetInputValues(HorizontalInputParams inputParams)
         {
+            IsExitTurret();
             _movementController.UpdateInputValues(inputParams);
-            meshController.LookRotation(inputParams);
             animationController.PlayAnimation(inputParams);
         }
-    } 
+
+
+        #endregion
+
+        #region PhysicsMethods
+        public void IsEnterTurret(GameObject turretObj)
+        {
+            _movementController.EnterToTurret(turretObj);
+        }
+        public void IsExitTurret()
+        {
+            _movementController.ExitToTurret();
+
+        }
+
+        #endregion
+
+
+    }
 }
