@@ -2,23 +2,27 @@
 using System.Collections;
 using UnityEngine;
 
-namespace AIBrain.AmmoWorkers.States
+namespace States
 {
     public class TakeAmmo : IState
-    {
+    {   
+
+
+
+
         public void Enter()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Tick()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

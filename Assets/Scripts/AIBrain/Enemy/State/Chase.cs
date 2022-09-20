@@ -18,17 +18,19 @@ namespace State
 
         private Transform _playerTransform;
 
-        public bool _attackOnPlayer;
-
-        private float _movementSpeed;
-
+        private float _chaseSpeed;
+       
         private float _atackRange;
 
-        public Chase(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, float movementSpeed, float atackRange)
+        private bool _attackOnPlayer;
+
+        public bool AttackOnPlayer { get => _attackOnPlayer; set => _attackOnPlayer = value; }
+
+        public Chase(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, float chaseSpeed, float atackRange)
         {
             _animator = animator;
             _navMeshAgent = navMeshAgent;
-            _movementSpeed = movementSpeed;
+            _chaseSpeed = chaseSpeed;
             _atackRange = atackRange;
             _enemyBrain = enemyBrain;
         }
@@ -36,12 +38,12 @@ namespace State
         public  void Enter()
         {
             
-            _attackOnPlayer = false;
+            AttackOnPlayer = false;
 
 
             _playerTransform = _enemyBrain.PlayerTarget;
 
-            _navMeshAgent.speed= _movementSpeed/2;
+            _navMeshAgent.speed= _chaseSpeed/2;
             
             if (_playerTransform != null)
             _navMeshAgent.SetDestination(_playerTransform.position);
@@ -68,19 +70,19 @@ namespace State
         {
             if (_navMeshAgent.remainingDistance <= _atackRange)
             {
-                _attackOnPlayer = true;
+                AttackOnPlayer = true;
             }
                        
         }
 
-        public bool GetPlayerInRange() => _attackOnPlayer;
+        public bool GetPlayerInRange() => AttackOnPlayer;
 
         public void Exit()
         {
             
 
 
-            _enemyBrain.MoveSpeed = 10;
+            
         }
     }
 }

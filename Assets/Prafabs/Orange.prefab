@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 861760913835965298}
   - component: {fileID: 861760913835965292}
   - component: {fileID: 861760913835965299}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Orange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,6 +82,8 @@ GameObject:
   - component: {fileID: 861760914440992184}
   - component: {fileID: 861760914440992185}
   - component: {fileID: 861760914440992186}
+  - component: {fileID: 8593171789687612884}
+  - component: {fileID: 8197012794975616441}
   m_Layer: 11
   m_Name: PhysicController
   m_TagString: Untagged
@@ -129,6 +131,34 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &8593171789687612884
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861760914440992191}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &8197012794975616441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861760914440992191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c66dc67c1a975942a70df0b2239bfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &861760914432026054
 PrefabInstance:
   m_ObjectHideFlags: 0

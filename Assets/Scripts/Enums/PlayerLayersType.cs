@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enums
 {
-    public enum PlayerLayersType
+    public enum LayersType
     {
         BattleField,
         Base

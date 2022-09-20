@@ -3,12 +3,10 @@ using System.Collections;
 using UnityEngine;
 
 namespace Datas.UnityObject
-{   
-    [CreateAssetMenu(fileName = "CD_Player", menuName = "Data/PlayerData", order = 0)]
+{
+    [CreateAssetMenu(fileName = "CD_PlayerData", menuName = "Data/PlayerData")]
     public class CD_PlayerData : ScriptableObject
     {
-
-        public PlayerData PlayerDatas;
-        
+       public PlayerData playerData;
     }
 }

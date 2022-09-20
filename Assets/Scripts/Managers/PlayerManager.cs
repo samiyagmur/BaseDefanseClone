@@ -21,7 +21,8 @@ namespace Managers
 
         [SerializeField] private PlayerMeshController meshController;
         [SerializeField] private PlayerAnimationController animationController;
-        [SerializeField] private PlayerMovementController _movementController;
+        [SerializeField] private PlayerMovementController movementController;
+        [SerializeField] private PlayerPhysicsController physicsController;
 
 
         #endregion
@@ -42,10 +43,19 @@ namespace Managers
             _data = GetPlayerData();
             Init();
         }
-        private PlayerData GetPlayerData() => Resources.Load<CD_PlayerData>("Data/CD_Player").PlayerDatas;
-        private void Init() => SetDataToControllers();
+        private PlayerData GetPlayerData() => Resources.Load<CD_PlayerData>("Data/CD_PlayerData").playerData;
+        private void Init()
+        {
+            SetMovementDatas();
+            SetPhysicsDatas();
+            SetAnimationnDatas();
+        }
 
-        private void SetDataToControllers() => _movementController.SetMovementData(_data.playerMovementData); 
+        private void SetMovementDatas() => movementController.SetMovementData(_data.MovementDatas);
+
+        private void SetPhysicsDatas() => physicsController.SetPhysicsData(_data.PhysicsDatas);
+
+        private void SetAnimationnDatas() => animationController.SetAnimationnData(_data.PhysicsDatas);
         #endregion
 
         #region Event Subscription
@@ -70,12 +80,12 @@ namespace Managers
         #endregion
 
         #region Subscription methods
-        private void OnChangePlayerLayer() => meshController.ChangeLayerMask();
+        private void OnChangePlayerLayer() => physicsController.ChangeLayerMask();
 
         private void OnGetInputValues(HorizontalInputParams inputParams)
         {
             IsExitTurret();
-            _movementController.UpdateInputValues(inputParams);
+            movementController.UpdateInputValues(inputParams);
             animationController.PlayAnimation(inputParams);
         }
 
@@ -83,15 +93,10 @@ namespace Managers
         #endregion
 
         #region PhysicsMethods
-        public void IsEnterTurret(GameObject turretObj)
-        {
-            _movementController.EnterToTurret(turretObj);
-        }
-        public void IsExitTurret()
-        {
-            _movementController.ExitToTurret();
 
-        }
+        public void IsEnterAmmoCreater(Transform transform) => AISignals.Instance.onPlayerEnterAmmoWorkerCreaterArea(transform);
+        public void IsEnterTurret(GameObject turretObj) => movementController.EnterToTurret(turretObj);
+        public void IsExitTurret() => movementController.ExitToTurret();
 
         #endregion
 

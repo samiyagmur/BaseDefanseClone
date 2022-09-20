@@ -8,6 +8,7 @@ TagManager:
   - LandMine
   - Bullet
   - Turret
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -22,13 +23,13 @@ TagManager:
   - Base
   - EnemyAI
   - LandMine
-  - rocket
+  - Rocket
   - Button
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Turret
+  - AmmoWorker
+  - AmmoStore
+  - AmmoKontayner
+  - AmmoCreater
   - 
   - 
   - 

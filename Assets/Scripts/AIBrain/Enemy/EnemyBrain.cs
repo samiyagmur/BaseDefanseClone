@@ -9,10 +9,12 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 using Managers;
+using Data.ValueObject;
+using Data.UnityObject;
 
 namespace AIBrain
 {
-    public class EnemyBrain :MonoBehaviour
+    public class EnemyBrain : StateUsers
     {
         #region SelfVariables
 
@@ -25,19 +27,26 @@ namespace AIBrain
         private StateMachine _stateMachine;
         private float _attackRange;
         private float _moveSpeed;
-        private EnemyTypeData _enemyData;
+        private EnemyAIData _enemyData;
         private EnemyType _enemyType;
         private Transform _playerTarget;
         private float _navMeshRadius;
-        private float _playerDamage;//not ready
+        private float _playerDamage;
         private float _navMeshHeigh;
         private Color _bodyColor;
         private float _chaseSpeed;
         private Vector3 _scaleSize;
         private Transform _mineTarget;
+        private Search _search;
+        private Move _move;
+        private Chase _chase;
+        private Attack _atack;
+        private Death _death;
+        private BoombManager _moveToBomb;
         #endregion
 
         #region SerializeField Variables
+
         [SerializeField]
         EnemyPhysicController enemyPhysicsController;
         [SerializeField]
@@ -51,7 +60,7 @@ namespace AIBrain
         #endregion
 
         #region Proporties
-        public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
+     
         public Transform PlayerTarget { get => _playerTarget; set => _playerTarget = value; }
         public Transform MineTarget { get => _mineTarget; set => _mineTarget = value; }
         public int Healt { get => _healt; set => _healt = value; }
@@ -60,78 +69,73 @@ namespace AIBrain
 
         #region Get&SetData
 
-        private void Awake()
+        internal override  void Awake()
         {
-            _enemyData = GetData();
-            SetEnemyData();
+            GetData();
+            SetAIData();
             GetStatesReferences();
-
-
         }
 
-        private EnemyTypeData GetData() => Resources.Load<CD_AIData>("Data/CD_AIData").enemy.EnemyList[(int)EnemyType];
+        internal override void GetData() => _enemyData= Resources.Load<CD_AIData>("Data/CD_AIData").EnemyAIDataList[(int)EnemyType];
 
-        private void SetEnemyData()
+        internal override void SetAIData()
         {
             _healt = _enemyData.Healt;
             _damage = _enemyData.Damage;
             _attackRange = _enemyData.AttackRange;
             _moveSpeed = _enemyData.MoveSpeed;
-            _turretTarget = _enemyData.TurretList[Random.Range(0, _enemyData.TurretList.Count)];
+            _turretTarget = _enemyData.TurretTargetList[Random.Range(0, _enemyData.TurretTargetList.Count)];
             _spawnPosition = _enemyData.SpawnPosition;
             _navMeshRadius = _enemyData.NavMeshRadius;
-            _navMeshHeigh = _enemyData.NavMeshHeigh;
             EnemyType = _enemyData.EnemyType;
-            _bodyColor = _enemyData.color;
+            _bodyColor = _enemyData.Color;
             _chaseSpeed = _enemyData.ChaseSpeed;
-            _scaleSize = _enemyData.scaleSize;
-
-            
+            _scaleSize = _enemyData.ScaleSize;
         }
 
 
         #endregion
-        private void GetStatesReferences()
+
+
+        internal override void GetStatesReferences()
         {
             _stateMachine = new StateMachine();
             
-            Search _search = new Search(_animator, _navMeshAgent, this, _spawnPosition);
-            Move _move = new Move(_animator, _navMeshAgent, this, MoveSpeed, _turretTarget);
-            Chase _chase = new Chase(_animator,_navMeshAgent,this,MoveSpeed,_attackRange);///physic controllerdan player gelcek
-            Attack _atack = new Attack(_animator, _navMeshAgent, this, PlayerTarget, _attackRange);
-            Death _death = new Death(_animator,_navMeshAgent,this);//Listeli bir yapý düsün
+             _search = new Search(_animator, _navMeshAgent, this, _spawnPosition);
+             _move = new Move(_animator, _navMeshAgent, this, _moveSpeed, _turretTarget);
+             _chase = new Chase(_animator,_navMeshAgent,this, _chaseSpeed, _attackRange);
+             _atack = new Attack(_animator, _navMeshAgent, this, PlayerTarget, _attackRange);
+             _death = new Death(_animator,_navMeshAgent,this);
 
-           BoombManager moveToBomb = new BoombManager(_navMeshAgent, _animator, this, _attackRange, _chaseSpeed);
+            _moveToBomb = new BoombManager(_navMeshAgent, _animator, this, _attackRange, _chaseSpeed);
 
-            TransitionofState(_search, _move, _chase, _atack, _death, moveToBomb);
+            TransitionofState();
         }
 
-        private void TransitionofState(Search search, Move move, Chase chase, Attack attack, Death death, BoombManager moveToBomb)
+        internal override void TransitionofState()
         {
-           
-                
-            At(search, move, HasTurretTarget()); // player chase range
-            At(move, chase, HasTarget()); // player chase range
-            At(chase, attack, IsAtackPlayer()); // remaining distance < 1f
-            At(attack, chase, AttackOffRange()); // remaining distance > 1f
-            At(chase, move, HasTargetNull());
+            At(_search, _move, HasTurretTarget()); // player chase range
+            At(_move, _chase, HasTarget()); // player chase range
+            At(_chase, _atack, IsAtackPlayer()); // remaining distance < 1f
+            At(_atack, _chase, AttackOffRange()); // remaining distance > 1f
+            At(_chase, _move, HasTargetNull());
 
 
-            _stateMachine.AddAnyTransition(death, () => enemyPhysicsController.AmIDead);
-             _stateMachine.AddAnyTransition(moveToBomb, () => enemyPhysicsController.IsBombInRange());
+            _stateMachine.AddAnyTransition(_death, () => enemyPhysicsController.AmIDead);
+             _stateMachine.AddAnyTransition(_moveToBomb, () => enemyPhysicsController.IsBombInRange());
 
-            _stateMachine.SetState(search);
+            _stateMachine.SetState(_search);
 
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
             Func<bool> HasTurretTarget() => () => _turretTarget != null;
             Func<bool> HasTarget() => () => PlayerTarget != null;
             Func<bool> HasTargetNull() => () => PlayerTarget is null;
-            Func<bool> IsAtackPlayer() => () => PlayerTarget != null && chase.GetPlayerInRange();
-            Func<bool> AttackOffRange() => () =>!attack.InPlayerAttackRange();
+            Func<bool> IsAtackPlayer() => () => PlayerTarget != null && _chase.GetPlayerInRange();
+            Func<bool> AttackOffRange() => () =>!_atack.InPlayerAttackRange();
         }
 
-        private void Update() => _stateMachine.Tick();
+        internal override void Update() => _stateMachine.Tick();
       
     }
 }

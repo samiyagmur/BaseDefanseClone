@@ -1,4 +1,6 @@
 ﻿using Controllers;
+using Datas.UnityObject;
+using Datas.ValueObject;
 using Enums;
 using Interfaces;
 using Keys;
@@ -14,72 +16,98 @@ namespace Managers
 
         #region Self Variables
         #region SerializeField Variables
-
-
         [SerializeField]
         private TurretMovementController _movementController;
-
+        [SerializeField]
+        private TurretOtoAtackController _otoAtackController;
+        [SerializeField]
+        private GattalingRotateCommand _gattalingRotateCommand;
         #endregion
 
         #region Private Variables
-
-
+        private TurretData turretData;
         #endregion
 
         #endregion
-        private void Awake()
+
+        #region Get&SetData
+        private void Awake() => Init();
+
+        private void Init()
         {
-           
-            //get data
+            turretData = GetTurretData();
+            SetMovementData();
+            OtoAtackData();
+            GattalingRotateData();
         }
 
-        
+        private TurretData GetTurretData() => Resources.Load<CD_TurretData>("Data/CD_TurretData").turretDatas;
 
+        private void SetMovementData() => _movementController.SetMovementDatas(turretData.MovementDatas);
+
+        private void OtoAtackData() => _otoAtackController.SetOtoAtackDatas(turretData.TurretOtoAtackDatas);
+
+        private void GattalingRotateData() => _gattalingRotateCommand.SetGattalingRotateDatas(turretData.gattalingRotateDatas);
+
+        public GameObject GetGameObject() => gameObject;
+        #endregion
+
+        #region Event Subscription
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
         {
             InputSignals.Instance.onInputDragged += OnGetInputValues;
             TurretSignals.Instance.onPressTurretButton += OnPressTurretButton;
-        }
-
-        internal void IsHitEnemy(GameObject enemy)
-        {
-            _movementController.AddDeathList(enemy);
+            TurretSignals.Instance.onDeadEnemy += OnDeadEnemy;//İnterfacele gelcek
         }
 
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
             TurretSignals.Instance.onPressTurretButton -= OnPressTurretButton;
+            TurretSignals.Instance.onDeadEnemy -= OnDeadEnemy;
 
         }
+
         private void OnDisable() => UnsubscribeEvents();
+
+        #endregion
+
+        #region SubsciribeMethods
         public void OnPressTurretButton()
         {
             transform.GetChild(0).gameObject.SetActive(true);
             GetComponent<Collider>().enabled = false;
+        }
 
+        private void OnDeadEnemy() => IsEnemyExitTurretRange();
 
-            _movementController.ActiveTurretWithBot();
+        #endregion
 
-        }
-        private void OnGetInputValues(HorizontalInputParams value)
-        {   
-            _movementController.SetInputParams(value);
-        }
-        public GameObject GetGameObject()
+        #region BotController
+        public void IsFollowEnemyInTurretRange()
         {
-            return gameObject;
+            _gattalingRotateCommand.ActiveGattaling();
+            _otoAtackController.FollowToEnemy();
         }
-        public void IsEnterUser()
+
+        public void IsEnemyEnterTurretRange(GameObject enemy) => _otoAtackController.AddDeathList(enemy);
+        public void IsEnemyExitTurretRange()
         {
-            _movementController.ActiveTurretWithPlayer();
-            
-        }
-        public void IsExitUser()
-        {
-            _movementController.DeactiveTurretWithPlayer();
-        }
+            _otoAtackController.RemoveDeathList();
+            _gattalingRotateCommand.DeactiveGattaling();
+        } 
+        #endregion
+
+        #region PlayerController
+        private void OnGetInputValues(HorizontalInputParams value) => _movementController.SetInputParams(value);
+
+        public void IsEnterUser() => _movementController.ActiveTurretWithPlayer();
+
+        public void IsExitUser() => _movementController.DeactiveTurretWithPlayer();     
+        #endregion
+       
+
     }
 }

@@ -15,8 +15,6 @@ namespace State
 
         private EnemyBrain _enemyBrain;
 
-        private float _movementSpeed;
-
         private Transform _playerTransform;
 
         private float _atackRange;

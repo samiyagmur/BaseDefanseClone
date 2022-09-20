@@ -1,5 +1,7 @@
-﻿using Enums;
+﻿using Datas.ValueObject;
+using Enums;
 using Keys;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -42,6 +44,11 @@ namespace Controllers
             if (animationStates == currentAnimationState) return;
            // animator.Play(animationStates.ToString());
             currentAnimationState = animationStates;
+        }
+
+        internal void SetAnimationnData(PlayerPhysicsData physicsDatas)
+        {
+           
         }
     }
 }

@@ -27,7 +27,6 @@ namespace Managers
 
         private InputData _data;
         private Vector2 _inputValuesVector = Vector2.zero;
-        private float _inputPrecision;
         private bool _hasTouched;
 
       
@@ -38,7 +37,7 @@ namespace Managers
         {
             _data = GetInputData();
         }
-        private InputData GetInputData() => Resources.Load<CD_InputData>("Data/InputData").inputData;
+        private InputData GetInputData() => Resources.Load<CD_InputData>("Data/CD_InputData").InputDatas;
 
         private void Update()
         {

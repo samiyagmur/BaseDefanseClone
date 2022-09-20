@@ -22,10 +22,6 @@ namespace State
 
         private Transform _turretTransform;
 
-        private static readonly int Speed = Animator.StringToHash("Speed");
-
-        private Vector3 _lastPosition = Vector3.zero;
-
         public Move(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, float movementSpeed, Transform turretTransform)
         {
             _animator = animator;

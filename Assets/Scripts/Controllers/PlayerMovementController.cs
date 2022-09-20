@@ -13,10 +13,6 @@ namespace Controllers
 
         #region Self Variables
 
-        #region Public Variables
-
-        #endregion
-
         #region Serialized Variables,
 
         [SerializeField] private PlayerManager playerManager;
@@ -28,15 +24,13 @@ namespace Controllers
 
         private PlayerMovementData _data;
 
-        private Vector2 _inputVector;
-
-        private bool _isReadyToMove;
         private GameObject _currentParent;
 
+        private bool _isReadyToMove;
+
+        private Vector2 _inputVector;
+
         private TurretStatus _turretStatus;
-        private float _exitClampLeftSide = -0.3f;
-        private float _exitClampRightSide = +0.3f;
-        private float _exitClampBackSide = -0.6f;
 
         #endregion
 
@@ -45,6 +39,7 @@ namespace Controllers
         {
             
             _turretStatus =new TurretStatus();
+
             SetCurrentParrent();
         }
 
@@ -55,7 +50,9 @@ namespace Controllers
         public void UpdateInputValues(HorizontalInputParams inputParams)
         {   
             _inputVector = inputParams.MovementVector;
+
             EnableMovement(_inputVector.sqrMagnitude > 0);
+
             PlayerMove();
         }
         private void EnableMovement(bool movementStatus)
@@ -71,7 +68,9 @@ namespace Controllers
                 if (_turretStatus == TurretStatus.Inplace) 
                 {
                     rigidbody.velocity = Vector3.zero; 
+
                     transform.rotation = new Quaternion(0, 0, 0, 0); 
+
                     return; 
                 }
 
@@ -89,14 +88,19 @@ namespace Controllers
         private void Move()
         {
             var velocity = rigidbody.velocity;
+
             velocity = new Vector3(_inputVector.x, velocity.y, _inputVector.y) * _data.Speed;
+
             rigidbody.velocity = velocity;
         }
         private void Rotate()
         {
             Vector3 movementDirection = new Vector3(_inputVector.x, 0, _inputVector.y);
+
             if (movementDirection == Vector3.zero) return;
+
             Quaternion _toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+
             transform.rotation = Quaternion.RotateTowards(transform.rotation, _toRotation, 30);
 
         }
@@ -118,7 +122,7 @@ namespace Controllers
 
         public void ExitToTurret()//We exit as joystick İnput
         {
-            if ((_exitClampLeftSide < _inputVector.x && _exitClampBackSide > _inputVector.y) && (_exitClampRightSide > _inputVector.x && _exitClampBackSide > _inputVector.y))
+            if ((_data.ExitClampLeftSide < _inputVector.x && _data.ExitClampBackSide > _inputVector.y) && (_data.ExitClampRightSide > _inputVector.x && _data.ExitClampBackSide > _inputVector.y))
             {
                 transform.parent = _currentParent.transform;
 

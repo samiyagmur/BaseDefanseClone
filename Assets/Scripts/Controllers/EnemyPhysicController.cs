@@ -37,24 +37,25 @@ namespace Contollers
 
                 int damageAmount = other.GetComponent<IDamager>().GetDamage();
 
-                brain.Healt -= damageAmount;
+                //brain.Healt -= damageAmount;
 
-                if (brain.Healt<=0)
-                {
-                    _amIDead = true;
-                }
+                //if (brain.Healt<=0)
+                //{
+                //    _amIDead = true;
+                //}
+
             }
             if (other.CompareTag("MineExplosion"))
             {
                 Debug.Log("MineExplosion");
                 int damageAmount = other.transform.parent.parent.GetComponent<IDamager>().GetDamage();
                 Debug.Log(damageAmount);
-                brain.Healt -= damageAmount;
-                if (brain.Healt <= 0)
-                {
-                    _amIDead = true;
+               // brain.Healt -= damageAmount;
+                //if (brain.Healt <= 0)
+                //{
+                //    _amIDead = true;
                     
-                }
+                //}
             }
            
         }

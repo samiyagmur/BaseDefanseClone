@@ -5,6 +5,6 @@ namespace Interfaces
 {
     public interface IRotatable
     {
-        void Rotate(Transform transform);
+        void Rotate(Vector3 _movementDirection);
     }
 }

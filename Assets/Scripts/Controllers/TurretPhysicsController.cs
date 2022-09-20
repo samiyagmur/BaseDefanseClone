@@ -19,10 +19,14 @@ namespace Controllers
             if (other.TryGetComponent(typeof(IGeterGameObject), out Component getterGameObject))
             {
                 _turretManager.IsEnterUser();
-                
-                Debug.Log("sideButton");
             }
-            
+
+            if (other.TryGetComponent(typeof(EnemyManager), out Component enemy))
+            {
+    
+                _turretManager.IsEnemyEnterTurretRange(other.gameObject);
+
+            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -31,13 +35,17 @@ namespace Controllers
             {
                 _turretManager.IsExitUser();
             }
+            if (other.TryGetComponent(typeof(EnemyManager), out Component enemy))
+            {
+                _turretManager.IsEnemyExitTurretRange();
+            }
         }
 
         private void OnTriggerStay(Collider other)
         {
             if (other.TryGetComponent(typeof(EnemyManager), out Component enemy))
             {
-                _turretManager.IsHitEnemy(other.gameObject);
+                _turretManager.IsFollowEnemyInTurretRange();
             }
         }
 

@@ -1,17 +1,14 @@
-﻿using Datas.ValueObject;
-using System.Collections;
+using Data.ValueObject;
+using Datas.ValueObject;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Datas.UnityObject
+namespace Data.UnityObject
 {
-    [CreateAssetMenu(fileName = "CD_Level/AIData", menuName = "Data/AIData", order = 0)]
-    public class CD_AIData: ScriptableObject
+    [CreateAssetMenu(fileName ="CD_AIData",menuName = "Data/AIData")]
+    public class CD_AIData : ScriptableObject
     {
-        public AmmoWorker ammoWorker;
-        public MoneyWorker moneyWorker;
-        public MineWorker mineWorkeri;
-        public Soldier soldier;
-        public Enemy enemy;
-       
-    }
+        public List<EnemyAIData> EnemyAIDataList=new List<EnemyAIData>();
+        public AmmoWorkerAIData AmmoWorkerAIDatas;
+    } 
 }
