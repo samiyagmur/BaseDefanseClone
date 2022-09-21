@@ -8,7 +8,7 @@ namespace Signals
 {   
     public class PlayerSignal : MonoSingleton<PlayerSignal>
     {   
-        public UnityAction onChangePlayerLayer = delegate { };
+
 
     }
 }

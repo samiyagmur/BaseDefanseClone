@@ -25,17 +25,17 @@ public class BoombManager : IState
     }
     public void Tick()
     {
-        if (_enemyAIBrain.MineTarget != null)
-        {
-            _navMeshAgent.destination = _enemyAIBrain.MineTarget.transform.position;
-        }
+        //if (_enemyAIBrain.Mine != null)
+        //{
+        //    _navMeshAgent.destination = _enemyAIBrain.MineTarget.transform.position;
+        //}
     }
     public void Enter()
     {
-        _animator.SetTrigger("Walk");
-        _attackOnPlayer = false;
-        _navMeshAgent.speed = _chaseSpeed;
-        _navMeshAgent.SetDestination(_enemyAIBrain.MineTarget.transform.position);
+        //_animator.SetTrigger("Walk");
+        //_attackOnPlayer = false;
+        //_navMeshAgent.speed = _chaseSpeed;
+        //_navMeshAgent.SetDestination(_enemyAIBrain.MineTarget.transform.position);
     }
 
     public void Exit()

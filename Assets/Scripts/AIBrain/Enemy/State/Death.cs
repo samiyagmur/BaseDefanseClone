@@ -26,7 +26,7 @@ namespace State
         public  void Enter()
         {
 
-            ObjectPoolManager.Instance.ReturnObject(_enemyBrain.gameObject,_enemyBrain.EnemyType.ToString());
+            ObjectPoolManager.Instance.ReturnObject(_enemyBrain.gameObject,_enemyBrain.EnemyTypes.ToString());
         }
 
         public void Exit()

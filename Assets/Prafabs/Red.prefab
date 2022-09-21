@@ -72,7 +72,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -85,9 +85,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5081612434888144165}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c66dc67c1a975942a70df0b2239bfed, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c4806a165d6aec4696951109b5010be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brain: {fileID: 5081612436430601193}
 --- !u!1 &5081612436430601195
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,9 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8612fd0e93a60e64ea2dfba10b5d1662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPhysicsController: {fileID: 5081612434888144163}
-  _navMeshAgent: {fileID: 5081612436430601206}
-  _animator: {fileID: 1724621646321211597}
+  _navMeshAgents: {fileID: 5081612436430601206}
+  _animators: {fileID: 1724621646321211597}
+  _enemyPhysicsController: {fileID: 5081612434888144163}
 --- !u!1001 &5081612434879047004
 PrefabInstance:
   m_ObjectHideFlags: 0

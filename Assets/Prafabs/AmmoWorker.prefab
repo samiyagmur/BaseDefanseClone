@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 1902793931624525004}
   - component: {fileID: 1902793931624525010}
   - component: {fileID: 436317786402045404}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: AmmoWorker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,9 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef601233e77f0b44ac6872d2aa178ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AmmoWorkerPhysicsController: {fileID: 4874545791648697012}
-  navMeshAgent: {fileID: 1902793931624525010}
-  animator: {fileID: 5405024711051857897}
 --- !u!1001 &1902793930357142136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -225,10 +222,5 @@ PrefabInstance:
 --- !u!4 &2153474349804918163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 035dd4fa8168f92428ecc4ff1dc2a03b, type: 3}
-  m_PrefabInstance: {fileID: 1902793930357142136}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &5405024711051857897 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 035dd4fa8168f92428ecc4ff1dc2a03b, type: 3}
   m_PrefabInstance: {fileID: 1902793930357142136}
   m_PrefabAsset: {fileID: 0}

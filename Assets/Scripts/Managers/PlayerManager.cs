@@ -24,15 +24,12 @@ namespace Managers
         [SerializeField] private PlayerMovementController movementController;
         [SerializeField] private PlayerPhysicsController physicsController;
 
-
         #endregion
  
 
         #region Private Variables
 
         private PlayerData _data;
-
-
         #endregion
 
         #endregion
@@ -50,7 +47,6 @@ namespace Managers
             SetPhysicsDatas();
             SetAnimationnDatas();
         }
-
         private void SetMovementDatas() => movementController.SetMovementData(_data.MovementDatas);
 
         private void SetPhysicsDatas() => physicsController.SetPhysicsData(_data.PhysicsDatas);
@@ -64,15 +60,11 @@ namespace Managers
         private void SubscribeEvents()
         {
             InputSignals.Instance.onInputDragged += OnGetInputValues;
-            PlayerSignal.Instance.onChangePlayerLayer += OnChangePlayerLayer;
-
         }
 
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
-            PlayerSignal.Instance.onChangePlayerLayer -= OnChangePlayerLayer;
-
         }
 
         private void OnDisable() => UnsubscribeEvents();
@@ -80,16 +72,12 @@ namespace Managers
         #endregion
 
         #region Subscription methods
-        private void OnChangePlayerLayer() => physicsController.ChangeLayerMask();
-
         private void OnGetInputValues(HorizontalInputParams inputParams)
         {
             IsExitTurret();
             movementController.UpdateInputValues(inputParams);
             animationController.PlayAnimation(inputParams);
         }
-
-
         #endregion
 
         #region PhysicsMethods

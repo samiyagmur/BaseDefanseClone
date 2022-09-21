@@ -1,8 +1,8 @@
 using Enums;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 namespace Data.ValueObject
 {
@@ -19,10 +19,12 @@ namespace Data.ValueObject
         public float MoveSpeed;
         public EnemyType EnemyType;
         public float NavMeshRadius;
-        public float _enemyDamage;
+        public float EnemyDamage;
         public Color Color;
         public float ChaseSpeed;
         public Vector3 ScaleSize;
 
+
+        
     }
 }

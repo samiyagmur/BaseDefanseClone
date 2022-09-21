@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Enums;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Datas.ValueObject
 {
@@ -12,8 +14,11 @@ namespace Datas.ValueObject
         public float StackHeigh;
         public float Stackwidth;
         public float MovementSpeed;
-        public Transform CreatPoint;
+        public Transform SpawnPoint;
         public Transform AmmoStore;
         public List<Transform> AmmoContainer;
+
+        
+
     }
 }

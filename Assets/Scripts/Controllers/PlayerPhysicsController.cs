@@ -44,8 +44,6 @@ namespace Controllers
             gameObject.transform.parent.transform.gameObject.layer = LayerMask.NameToLayer(_physicsData._playerLayersType.ToString());
         }
 
-
-
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(typeof(IGeterGameObject),out Component getterTurretObject))
@@ -58,14 +56,19 @@ namespace Controllers
             {
                 playerManager.IsEnterAmmoCreater(other.gameObject.transform);
             }
-
+            if (other.TryGetComponent(typeof(ObstaclePhysicsController), out Component obstaclePhysicsObject))
+            {
+                ChangeLayerMask();
+            }
 
         }
 
-
         private void OnTriggerExit(Collider other)
         {
-           
+            if (other.TryGetComponent(typeof(ObstaclePhysicsController), out Component obstaclePhysicsObject))
+            {
+                ChangeLayerMask();
+            }
 
         }
 

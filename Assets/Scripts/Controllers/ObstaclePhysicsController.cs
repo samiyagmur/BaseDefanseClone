@@ -13,12 +13,13 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player")) obstacleManager.IsHitEnterGate();
+            if (other.TryGetComponent(typeof(PlayerPhysicsController), out Component getterTurretObject)) obstacleManager.IsHitEnterGate();
+            
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player")) obstacleManager.IsHitExitGate();
+            if (other.TryGetComponent(typeof(PlayerPhysicsController), out Component getterTurretObject)) obstacleManager.IsHitExitGate();
         }
     }
 }

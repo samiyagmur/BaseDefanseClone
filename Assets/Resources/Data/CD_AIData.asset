@@ -14,45 +14,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyAIDataList:
   - TurretTargetList:
-    - {fileID: 2123813329606278108, guid: c640b19ceb945194aaaa0d8e259ee0cb, type: 3}
-    - {fileID: 8097530443510055679, guid: 2168e23fdc2f38c42a056fb8c80c1c1f, type: 3}
+    - {fileID: 1819301689450492115, guid: 016caeae5724e7d4da15834354e05a40, type: 3}
+    - {fileID: 1526363715248423799, guid: 4b3542e25163809428c6ebb2e635a359, type: 3}
     SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
     Healt: 1
     Damage: 1
-    AttackRange: 10
-    MoveSpeed: 20
+    AttackRange: 1.3
+    MoveSpeed: 6
     EnemyType: 0
-    NavMeshRadius: 0.5
-    _enemyDamage: 5
-    Color: {r: 1, g: 0.55825305, b: 0, a: 0}
+    NavMeshRadius: 1
+    EnemyDamage: 1
+    Color: {r: 1, g: 0.47343755, b: 0, a: 0}
     ChaseSpeed: 10
     ScaleSize: {x: 0, y: 0, z: 0}
   - TurretTargetList:
-    - {fileID: 2123813329606278108, guid: c640b19ceb945194aaaa0d8e259ee0cb, type: 3}
-    - {fileID: 8097530443510055679, guid: 2168e23fdc2f38c42a056fb8c80c1c1f, type: 3}
+    - {fileID: 1819301689450492115, guid: 016caeae5724e7d4da15834354e05a40, type: 3}
+    - {fileID: 1526363715248423799, guid: 4b3542e25163809428c6ebb2e635a359, type: 3}
     SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
     Healt: 1
     Damage: 1
-    AttackRange: 10
-    MoveSpeed: 20
+    AttackRange: 1.3
+    MoveSpeed: 6
     EnemyType: 1
-    NavMeshRadius: 0.5
-    _enemyDamage: 5
-    Color: {r: 0.8352941, g: 0, b: 0, a: 0}
+    NavMeshRadius: 1
+    EnemyDamage: 1
+    Color: {r: 1, g: 0, b: 0.28982067, a: 0}
     ChaseSpeed: 10
     ScaleSize: {x: 0, y: 0, z: 0}
   - TurretTargetList:
-    - {fileID: 2123813329606278108, guid: c640b19ceb945194aaaa0d8e259ee0cb, type: 3}
-    - {fileID: 8097530443510055679, guid: 2168e23fdc2f38c42a056fb8c80c1c1f, type: 3}
+    - {fileID: 1819301689450492115, guid: 016caeae5724e7d4da15834354e05a40, type: 3}
+    - {fileID: 1526363715248423799, guid: 4b3542e25163809428c6ebb2e635a359, type: 3}
     SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
     Healt: 1
     Damage: 1
-    AttackRange: 10
-    MoveSpeed: 20
+    AttackRange: 1.3
+    MoveSpeed: 6
     EnemyType: 2
-    NavMeshRadius: 0.5
-    _enemyDamage: 5
-    Color: {r: 1, g: 1, b: 0, a: 0}
+    NavMeshRadius: 1
+    EnemyDamage: 1
+    Color: {r: 1, g: 0.9856311, b: 0, a: 0}
     ChaseSpeed: 10
     ScaleSize: {x: 0, y: 0, z: 0}
   AmmoWorkerAIDatas:
@@ -60,8 +60,10 @@ MonoBehaviour:
     StackHeigh: 10
     Stackwidth: 2
     MovementSpeed: 5
-    CreatPoint: {fileID: 0}
+    SpawnPoint: {fileID: 0}
     AmmoStore: {fileID: 0}
     AmmoContainer:
     - {fileID: 1819301689450492115, guid: 016caeae5724e7d4da15834354e05a40, type: 3}
     - {fileID: 1526363715248423799, guid: 4b3542e25163809428c6ebb2e635a359, type: 3}
+    _navMeshAgent: {fileID: 0}
+    _animator: {fileID: 0}

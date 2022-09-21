@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace AIBrain.AmmoWorkers.States
+namespace States
 {
     public class DecideAvaliableTurret : IState
     {

@@ -1,12 +1,17 @@
 ﻿using Abstraction;
 using AIBrain;
+using Data.UnityObject;
+using Data.ValueObject;
 using Datas.ValueObject;
 using Enums;
 using Signals;
+using Sirenix.OdinInspector;
+using StateBehavior;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -14,51 +19,44 @@ namespace Managers
     {
 
         #region MyRegion
-        // List<StateUsers> stateList;
-        StateUsers ammoUsers;
-        StateUsers enemyUsers;
-        private List<StateUsers> _stateList;
+        private StateUsers _ammoUsers;
+        private StateUsers _enemyUsers;
+        private EnemyAIData _enemyAIData;
+        public Dictionary<BrainType, StateUsers> _stateDict;
         private AmmoWorkerAIData _ammoWorkerAIData;
+        private StateMachine _stateMachine;//Ayrı olabilir ayri ise dataya at
+        private BrainType brainType;
+        private EnemyType _enemyType;
         #endregion
+        internal void GetAmmoWorkerData() => _ammoWorkerAIData = Resources.Load<CD_AIData>("Data/CD_AIData").AmmoWorkerAIDatas;
 
-
-
-
-        internal void GetData() => _ammoWorkerAIData = Resources.Load<CD_AIData>("Data/CD_AIData").AmmoWorkerAIDatas;
-
+        internal void GetEnemyTypeData() => _enemyType = _enemyAIData.EnemyType;
+        internal void GetEnemyData() => _enemyAIData = Resources.Load<CD_AIData>("Data/CD_AIData").EnemyAIDataList[(int)_enemyType];
         private void Awake()
         {
-            GetData();
+            GetEnemyTypeData();
+            GetAmmoWorkerData();
+            GetEnemyData();
 
-            SetAIBrainsData();
-            
         }
 
-        private void SetAIBrainsData()
-        {
-            _stateList = new List<StateUsers>();
+        //private void OnEnable() => SubscribeEvents();
+        //private void SubscribeEvents()
+        //{
+        //    AISignals.Instance.onPlayerEnterAmmoWorkerCreaterArea+= OnPlayerEnterAmmoWorkerCreaterArea;
+        //}
 
-            enemyUsers = GetComponent<EnemyBrain>();
-            _stateList.Add(enemyUsers);
-            ammoUsers = GetComponent<AmmoWorkerBrain>();
-            _stateList.Add(ammoUsers);
-        }
-        private void OnEnable() => SubscribeEvents();
-        private void SubscribeEvents()
-        {
-            AISignals.Instance.onPlayerEnterAmmoWorkerCreaterArea+= OnPlayerEnterAmmoWorkerCreaterArea;
-        }
-
-        private void UnsubscribeEvents()
-        {
-            AISignals.Instance.onPlayerEnterAmmoWorkerCreaterArea-= OnPlayerEnterAmmoWorkerCreaterArea;
-        }
+        //private void UnsubscribeEvents()
+        //{
+        //    AISignals.Instance.onPlayerEnterAmmoWorkerCreaterArea-= OnPlayerEnterAmmoWorkerCreaterArea;
+        //}
+        //private void OnDisable() => UnsubscribeEvents();
 
         private void OnPlayerEnterAmmoWorkerCreaterArea(Transform ammoWorkerCreater)
         {
-            ammoUsers.CreatPoint = ammoWorkerCreater;
+            //_stateDict[brainType].CreatPoint = ammoWorkerCreater;
         }
 
-        private void OnDisable() => UnsubscribeEvents();
+
     }
 }

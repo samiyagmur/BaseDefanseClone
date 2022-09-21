@@ -85,9 +85,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1902793930348405249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c66dc67c1a975942a70df0b2239bfed, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c4806a165d6aec4696951109b5010be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brain: {fileID: 1902793931624525005}
 --- !u!1 &1902793931624525007
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,9 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8612fd0e93a60e64ea2dfba10b5d1662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPhysicsController: {fileID: 1902793930348405255}
-  _navMeshAgent: {fileID: 1902793931624525010}
-  _animator: {fileID: 5405024711051857897}
+  _navMeshAgents: {fileID: 1902793931624525010}
+  _animators: {fileID: 5405024711051857897}
+  _enemyPhysicsController: {fileID: 1902793930348405255}
 --- !u!1001 &1902793930357142136
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Managers;
 using AIBrain;
 using Abstraction;
 
-namespace Contollers
+
+namespace Controllers
 {   
     public class EnemyPhysicController : MonoBehaviour
     {
@@ -21,9 +20,10 @@ namespace Contollers
         public bool AmIDead { get => _amIDead; set => _amIDead = value; }
 
         private void OnTriggerEnter(Collider other) 
-        { 
-            
-            if (other.CompareTag("Player")) brain.PlayerTarget = other.transform;
+        {
+
+            if (other.TryGetComponent(typeof(PlayerManager), out Component getterTurretObject)) brain.PlayerTarget = other.transform;
+
 
             if (other.CompareTag("LandMine"))
             {
@@ -61,15 +61,14 @@ namespace Contollers
         }
         private void OnTriggerExit(Collider other) 
         {
-            if (other.CompareTag("Player")) brain.PlayerTarget = null;
+            if (other.TryGetComponent(typeof(PlayerManager), out Component getterTurretObject)) brain.PlayerTarget = null;
 
 
             if (other.CompareTag("LandMine"))
             {
                 _detectPlayer = null;
-                brain.MineTarget = _detectedMine;
-                brain.MineTarget = null;
-
+               brain.MineTarget = _detectedMine;
+               brain.MineTarget = null;
             }
 
             if (other.CompareTag("MineExplosion"))

@@ -6,10 +6,6 @@ namespace States
 {
     public class TakeAmmo : IState
     {   
-
-
-
-
         public void Enter()
         {
             

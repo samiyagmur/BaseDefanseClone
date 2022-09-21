@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 914012337315173831}
   - component: {fileID: 914012337315173824}
   - component: {fileID: 914012337315173825}
-  m_Layer: 0
+  - component: {fileID: 2255459788128212957}
+  m_Layer: 10
   m_Name: Physics
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -62,6 +63,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &2255459788128212957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914012337315173830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9121fd0ad59ab64dba713df80819112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 914012337458153069}
 --- !u!1 &914012337458153059
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshController: {fileID: 914012338108613790}
   animationController: {fileID: 914012336163001735}
-  _movementController: {fileID: 914012337458153071}
+  movementController: {fileID: 914012337458153071}
+  physicsController: {fileID: 2255459788128212957}
 --- !u!114 &914012337458153071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +167,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914012337458153059}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.3322351, y: 3.7534964, z: 1.0616493}
@@ -269,7 +284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 877e4a8cc10eb0f42b2869ff85a31c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 914012337458153068}
 --- !u!114 &914012336163001735
 MonoBehaviour:
   m_ObjectHideFlags: 0

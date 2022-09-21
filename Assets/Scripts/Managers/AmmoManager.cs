@@ -3,8 +3,10 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class EnemyManager : MonoBehaviour
+    public class AmmoManager : MonoBehaviour
     {
+
+
 
     }
 }
