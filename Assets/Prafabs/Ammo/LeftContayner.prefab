@@ -141,9 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 248a6f22e4aa1ba4895ef28d5d603074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instObj: {fileID: 0}
-  offSet: {x: 4, y: 4, z: 4}
-  amount: {x: 2, y: 2, z: 2}
 --- !u!114 &29155680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackController: {fileID: 29155679}
+  newContayner: {fileID: 11400000, guid: 0c57bf308ab44ca4781a7f81edaa9dc4, type: 2}
 --- !u!114 &29155679
 MonoBehaviour:
   m_ObjectHideFlags: 0

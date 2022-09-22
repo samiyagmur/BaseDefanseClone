@@ -2538,11 +2538,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 40
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &443812966 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3747617536310819898, guid: 20c579b514ffc064ca8451920f6efe58, type: 3}
-  m_PrefabInstance: {fileID: 3747617536743616604}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &445407488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10489,10 +10484,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 542325389839085467, guid: df0a5575f1d1ac1408cbeb10f788f1ca, type: 3}
-      propertyPath: instObj
-      value: 
-      objectReference: {fileID: 443812966}
     - target: {fileID: 542325389839085476, guid: df0a5575f1d1ac1408cbeb10f788f1ca, type: 3}
       propertyPath: m_Name
       value: RightContayner
@@ -14875,10 +14866,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeftContayner
       objectReference: {fileID: 0}
-    - target: {fileID: 5372112826973481819, guid: 2675f3b051fc71443b76d49dab719c39, type: 3}
-      propertyPath: instObj
-      value: 
-      objectReference: {fileID: 443812966}
     - target: {fileID: 5372112826973481828, guid: 2675f3b051fc71443b76d49dab719c39, type: 3}
       propertyPath: m_RootOrder
       value: 9

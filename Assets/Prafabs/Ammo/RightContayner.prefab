@@ -46,9 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 248a6f22e4aa1ba4895ef28d5d603074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instObj: {fileID: 0}
-  offSet: {x: 4, y: 4, z: 4}
-  amount: {x: 2, y: 2, z: 2}
 --- !u!114 &330818016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackController: {fileID: 330818017}
+  newContayner: {fileID: 11400000, guid: 1d15ee7d86aae5c4e8c8d8ee29ec336f, type: 2}
 --- !u!114 &330818017
 MonoBehaviour:
   m_ObjectHideFlags: 0

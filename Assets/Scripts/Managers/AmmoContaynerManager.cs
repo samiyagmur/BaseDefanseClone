@@ -21,12 +21,12 @@ namespace Managers
 
         private IGridCretable _gridCretable;
 
+        public CD_AmmoContayner newContayner;
         #endregion
 
         private void Awake()
         {
             _gridCretable = GetComponent<GridSystem>();
-            _ammoContaynerData = GetData();
             SetStackDatas();
 
         }
@@ -34,13 +34,13 @@ namespace Managers
         {
             SendToContaynerTransformPositionInfo();
         }
-        private AmmoContaynerData GetData() => Resources.Load<CD_AmmoContayner>("Data/CD_AmmoContayner").ammoContaynerData;
+
 
         private void SetStackDatas() => stackController.SetStackData(_ammoContaynerData);
 
         private void SendToContaynerTransformPositionInfo()
         {
-            List<Vector3> gridSystemTransforms = _gridCretable.CreateGrid(_ammoContaynerData.gredObj,_ammoContaynerData.offSet,_ammoContaynerData.amount);
+            List<Vector3> gridSystemTransforms = _gridCretable.CreateGrid(newContayner.ammoContaynerData.gredObj, newContayner.ammoContaynerData.offSet, newContayner.ammoContaynerData.amount);
             float maxGridAmunt = _gridCretable.MaxCount();
             AmmoShopSignals.Instance.onGetAmmoContaynerGridPosList?.Invoke(gridSystemTransforms,gameObject);
             AmmoShopSignals.Instance.onGetMaxGridAmunt?.Invoke(maxGridAmunt, gameObject);

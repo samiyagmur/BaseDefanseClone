@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52b0b4c6564324e4b8123ac48678d619, type: 3}
-  m_Name: CD_AmmoContayner
+  m_Name: CD_RightAmmoContayner
   m_EditorClassIdentifier: 
   ammoContaynerData:
     gredObj: {fileID: 3747617536310819898, guid: 20c579b514ffc064ca8451920f6efe58, type: 3}
     offSet: {x: 1, y: 1, z: 1}
-    amount: {x: 2, y: 2, z: 2}
+    amount: {x: 4, y: 4, z: 4}

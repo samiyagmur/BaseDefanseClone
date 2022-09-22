@@ -31,19 +31,19 @@ namespace Managers
 
         private void OnGetInputValues(float maxConteynerAmount, GameObject whichContayner)
         {
-            Debug.Log(maxConteynerAmount);
+            if (whichContayner.name == "LeftContayner")
+            {
+                Debug.Log(maxConteynerAmount);
+            }
+            if (whichContayner.name == "RightContayner")
+            {
+                Debug.Log(maxConteynerAmount);
+            }
         }
 
         private void onGetAmmoContaynerGridPosList(List<Vector3> contaynerList, GameObject whichContayner)
         {
-            if (whichContayner.name== "LeftContayner")
-            {
-                Debug.Log(whichContayner.name);
-            }
-            if (whichContayner.name == "RightContayner")
-            {
-                Debug.Log(whichContayner.name);
-            }
+           
         }
 
 
