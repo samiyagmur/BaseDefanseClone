@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class AmmoManager : MonoBehaviour
+    public class AmmoWorkerManager : MonoBehaviour
     {
 
 

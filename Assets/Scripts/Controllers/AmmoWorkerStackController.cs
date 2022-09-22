@@ -23,26 +23,10 @@ namespace Controllers
             
             _counter++;
 
+        }
 
-           
-
-
-
-
-           
-            
-
-
-
-
-
-
-
-
-
-
-
-
+        public void RemoveToStack()
+        {
 
         }
 

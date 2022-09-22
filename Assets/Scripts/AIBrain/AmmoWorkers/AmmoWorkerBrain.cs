@@ -74,19 +74,19 @@ namespace AIBrain
         {
             _statemachine.SetState(_moveToAmmo);
 
-            At(_moveToAmmo, _takeAmmo, HasAmmoStore());
-            At(_takeAmmo,_decideAvaliableTurret, HasTarget())
+            //At(_moveToAmmo, _takeAmmo, HasAmmoStore());
+            //At(_takeAmmo,_decideAvaliableTurret, HasTarget())
 
 
 
-            Func<bool> HasAmmoStore() => () => _ammoStore != null;
-            Func<bool> HasTarget() => () => 
-            Func<bool> HasTargetNull() => () => 
-            Func<bool> IsAtackPlayer() => () => 
-            Func<bool> AttackOffRange() => () => 
+            //Func<bool> HasAmmoStore() => () => _ammoStore != null;
+            //Func<bool> HasTarget() => () => 
+            //Func<bool> HasTargetNull() => () => 
+            //Func<bool> IsAtackPlayer() => () => 
+            //Func<bool> AttackOffRange() => () => 
 
 
-            void At(IState to, IState from, Func<bool> condition) => _statemachine.AddTransition(to, from, condition);
+            //void At(IState to, IState from, Func<bool> condition) => _statemachine.AddTransition(to, from, condition);
         }
 
 

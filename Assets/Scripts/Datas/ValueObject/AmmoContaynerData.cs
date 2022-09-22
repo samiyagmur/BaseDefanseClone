@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Datas.ValueObject
@@ -7,9 +8,13 @@ namespace Datas.ValueObject
     [Serializable]
     public class AmmoContaynerData
     {
-        public int MaxAmount;
-        public int VerticalWidthAmount;
-        public int HorizontaWidthAmount;
-        public int HeightAmount;
+        
+        public GameObject gredObj;
+
+        public Vector3 offSet;
+
+        public Vector3 amount;
+
+    
     }
 }

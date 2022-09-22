@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Managers;
+using System.Collections;
 using UnityEngine;
 
 namespace Controllers
@@ -9,7 +10,10 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            
+            if (other.TryGetComponent(typeof(AmmoShopManager),out Component ammoShopManager))
+            {
+                
+            }
         }
 
 
