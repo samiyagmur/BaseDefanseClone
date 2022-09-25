@@ -1,33 +1,38 @@
-﻿using Datas.ValueObject;
-using System;
+﻿using Abstraction;
+using Enums;
+using Interfaces;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class AmmoWorkerStackController : MonoBehaviour
+    public class AmmoWorkerStackController: IStackable
     {
 
-        private int _counter=0;
-
-        private List<Transform> AmmoContayner;
-
-        private AmmoContaynerData _ammoContaynerData;
-
-        internal void SetStackData(AmmoContaynerData ammoContaynerData) => _ammoContaynerData = ammoContaynerData;
-
-
-        public void AddToStack()
+        private StackStatus _stackStatus;
+    
+        public void AddStack(Vector3 stackPositon, GameObject stackObject,Transform startPoint)
         {
-            
-            _counter++;
-
+            if (_stackStatus == StackStatus.Start)
+            {
+                //dolacak
+                //Instantiate(stackObject, stackPositon, Quaternion.identity);
+            }
         }
 
-        public void RemoveToStack()
+        public void RemoveStack()
         {
+            throw new System.NotImplementedException();
+        }
 
+        public void StartStack(StackStatus stackStatus)
+        {
+            _stackStatus = stackStatus;
+        }
+
+        public void StopStack(StackStatus stackStatus)
+        {
+            _stackStatus = stackStatus;
         }
 
         

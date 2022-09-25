@@ -11,7 +11,7 @@ namespace State
         private MineBrain _mineBrain;
         private float _timer;
 
-        private bool isExplosionHappened = false;
+        private bool isExplosionHappened;
         public bool IsExplosionHappened => _timer >= 0.3f;
         public ExplosionState(MineBrain mineBrain)
         {

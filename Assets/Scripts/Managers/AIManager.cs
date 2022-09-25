@@ -19,10 +19,10 @@ namespace Managers
     {
 
         #region MyRegion
-        private StateUsers _ammoUsers;
-        private StateUsers _enemyUsers;
+        private AmmoManagerPropertyDepository _ammoUsers;
+        private AmmoManagerPropertyDepository _enemyUsers;
         private EnemyAIData _enemyAIData;
-        public Dictionary<BrainType, StateUsers> _stateDict;
+        public Dictionary<BrainType, AmmoManagerPropertyDepository> _stateDict;
         private AmmoWorkerAIData _ammoWorkerAIData;
         private StateMachine _stateMachine;//Ayrı olabilir ayri ise dataya at
         private BrainType brainType;

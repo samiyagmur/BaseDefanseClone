@@ -13,7 +13,7 @@ namespace Controllers
         private AmmoContaynerManager _ammoContaynerManager;
         private void OnTriggerStay(Collider other)
         {
-            if (other.TryGetComponent(typeof(Managers.AmmoWorkerManager), out Component ammoWorkerObject))
+            if (other.TryGetComponent(typeof(AmmoWorkerManager), out Component ammoWorkerObject))
             {   
                 if (timer < 0.1f)
                 {
@@ -21,7 +21,7 @@ namespace Controllers
                 }
                 else
                 {
-                    _ammoContaynerManager.IsHitAmmoWorker();
+                    _ammoContaynerManager.IsHitAmmoWorker(); //ListesiGelcek
 
                     timer = 0;
                 }

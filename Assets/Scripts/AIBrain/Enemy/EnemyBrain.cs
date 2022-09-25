@@ -13,7 +13,7 @@ using Data.UnityObject;
 
 namespace AIBrain
 {
-    public class EnemyBrain : StateUsers
+    public class EnemyBrain : MonoBehaviour
     {
 
         #region SelfVariables
@@ -61,16 +61,16 @@ namespace AIBrain
         public Transform MineTarget { get => _mineTarget; set => _mineTarget = value; }
         #endregion
 
-        internal override void Awake()
+        internal  void Awake()
         {
             GetData();
             SetEnemyAIData();
             GetStatesReferences();
 
         }
-        internal override void GetData() => _enemyAIData = Resources.Load<CD_AIData>("Data/CD_AIData").EnemyAIDataList[(int)EnemyTypes];
+        internal  void GetData() => _enemyAIData = Resources.Load<CD_AIData>("Data/CD_AIData").EnemyAIDataList[(int)EnemyTypes];
 
-        internal override void SetEnemyAIData()
+        internal  void SetEnemyAIData()
         {
             int turretCount = Random.Range(0, _enemyAIData.TurretTargetList.Count);
             _turretTarget = _enemyAIData.TurretTargetList[Random.Range(0, turretCount)];
@@ -88,7 +88,7 @@ namespace AIBrain
 
         }
 
-        internal override void GetStatesReferences()
+        internal  void GetStatesReferences()
         {
              _stateMachines = new StateMachine();
 
@@ -103,7 +103,7 @@ namespace AIBrain
             TransitionofState();
         }
 
-        internal override void TransitionofState()
+        internal  void TransitionofState()
         {
             At(_search, _move, HasTurretTarget()); // player chase range
             At(_move, _chase, HasTarget()); // player chase range
@@ -125,7 +125,7 @@ namespace AIBrain
             Func<bool> IsAtackPlayer() => () => PlayerTarget != null && _chase.GetPlayerInRange();
             Func<bool> AttackOffRange() => () =>!_atack.InPlayerAttackRange();
         }
-        internal override void Update() => _stateMachines.Tick();
+        internal  void Update() => _stateMachines.Tick();
 
         
     }

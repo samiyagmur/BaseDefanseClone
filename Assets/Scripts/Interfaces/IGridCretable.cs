@@ -6,8 +6,6 @@ namespace Interfaces
 {
     public interface IGridCretable
     {
-         List<Vector3> CreateGrid(GameObject instObj, Vector3 offSet, Vector3 amount);
-
-         float MaxCount();
+        void SetGrid(float maxGrid, float xGridSize, float yGridSize);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Abstraction;
 using AIBrain;
 using Enums;
+using Interfaces;
 using Managers;
 using System.Collections;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.AI;
 
 namespace State
 {
-    public class Death : IState
+    public class Death : IState, IReleasePoolObject
     {
         private Animator _animator;
 
@@ -26,7 +27,8 @@ namespace State
         public  void Enter()
         {
 
-            ObjectPoolManager.Instance.ReturnObject(_enemyBrain.gameObject,_enemyBrain.EnemyTypes.ToString());
+            ReleaseObject(_enemyBrain.gameObject, _enemyBrain.EnemyTypes.ToString());
+            
         }
 
         public void Exit()
@@ -38,5 +40,13 @@ namespace State
         {
           
         }
+
+
+        public void ReleaseObject(GameObject obj, string poolName)
+        {
+            ObjectPoolManager.Instance.ReturnObject(obj, poolName);
+        }
+
+
     }
 }

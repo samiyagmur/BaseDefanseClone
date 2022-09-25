@@ -60,10 +60,8 @@ MonoBehaviour:
     StackHeigh: 10
     Stackwidth: 2
     MovementSpeed: 5
-    SpawnPoint: {fileID: 0}
-    AmmoStore: {fileID: 0}
-    AmmoContainer:
-    - {fileID: 1819301689450492115, guid: 016caeae5724e7d4da15834354e05a40, type: 3}
-    - {fileID: 1526363715248423799, guid: 4b3542e25163809428c6ebb2e635a359, type: 3}
-    _navMeshAgent: {fileID: 0}
-    _animator: {fileID: 0}
+    AmmoWareHouse: {fileID: 9025668639380344570, guid: 4561cd12bc07cda408c1f3bf60a85bdf, type: 3}
+    AmmoWorker: {fileID: 1902793931624525007, guid: 324601c81182dfa40b70906e47c79d4e, type: 3}
+    Ammo: {fileID: 5495938375531215040, guid: 45775c9401a6a2244aa8711639ad2dd9, type: 3}
+    currentTransportAmmoStatus: 0
+    AmmoStack: []

@@ -21,7 +21,7 @@ namespace Managers
         [SerializeField]
         private TurretOtoAtackController _otoAtackController;
         [SerializeField]
-        private GattalingRotateCommand _gattalingRotateCommand;
+        private ShootController ShootController;
         #endregion
 
         #region Private Variables
@@ -47,7 +47,7 @@ namespace Managers
 
         private void OtoAtackData() => _otoAtackController.SetOtoAtackDatas(turretData.TurretOtoAtackDatas);
 
-        private void GattalingRotateData() => _gattalingRotateCommand.SetGattalingRotateDatas(turretData.gattalingRotateDatas);
+        private void GattalingRotateData() => ShootController.SetGattalingRotateDatas(turretData.gattalingRotateDatas);
 
         public GameObject GetGameObject() => gameObject;
         #endregion
@@ -88,7 +88,8 @@ namespace Managers
         #region BotController
         public void IsFollowEnemyInTurretRange()
         {
-            _gattalingRotateCommand.ActiveGattaling();
+            ShootController.ActiveGattaling();
+            //transform.GetComponentInChildren<AmmoContaynerManager>().IsTurretAttack();
             _otoAtackController.FollowToEnemy();
         }
 
@@ -96,7 +97,7 @@ namespace Managers
         public void IsEnemyExitTurretRange()
         {
             _otoAtackController.RemoveDeathList();
-            _gattalingRotateCommand.DeactiveGattaling();
+            ShootController.DeactiveGattaling();
         } 
         #endregion
 

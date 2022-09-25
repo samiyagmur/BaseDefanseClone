@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CD_LeftContayner
   m_EditorClassIdentifier: 
   ammoContaynerData:
-    gredObj: {fileID: 3747617536310819898, guid: 20c579b514ffc064ca8451920f6efe58, type: 3}
-    offSet: {x: 0.5, y: 0.5, z: 0.5}
-    amount: {x: 1, y: 1, z: 1}
+    XGridSize: 2
+    YGridSize: 2
+    MaxContaynerAmount: 30
+    Offset: 1

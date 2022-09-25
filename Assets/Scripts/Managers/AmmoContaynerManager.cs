@@ -14,41 +14,84 @@ namespace Managers
     {
 
         #region SelfVariables
-        
-        private AmmoContaynerData _ammoContaynerData;
-        [SerializeField]
-        private AmmoWorkerStackController stackController;
 
-        private IGridCretable _gridCretable;
-
-        public CD_AmmoContayner newContayner;
+        #region Private Variables
+        private GridData _gridData; 
         #endregion
+
+        #region Serilizefield Variebles
+        [SerializeField] private IGridAble gridController;
+
+        [SerializeField] private CD_GridData newGrid;
+
+        [SerializeField] private AmmoContaynerStackController ammoContaynerStackController;
+
+        #endregion
+
+        #endregion
+
+        #region Get&SetData
 
         private void Awake()
         {
-            _gridCretable = GetComponent<GridSystem>();
-            SetStackDatas();
-
+            Init();
+            SetGridData();
         }
         private void Start()
         {
-            SendToContaynerTransformPositionInfo();
+            //onSetConteyerList();
         }
+        private void Init() => _gridData = newGrid.ammoContaynerData;
+        private void SetGridData() =>
+            gridController = new AmmoContaynerGridController(
+            _gridData.XGridSize,
+            _gridData.YGridSize,
+            _gridData.MaxContaynerAmount,
+            _gridData.Offset); 
+        #endregion
 
+        #region Event Subscription
+        private void OnEnable() => SubscribeEvents();
 
-        private void SetStackDatas() => stackController.SetStackData(_ammoContaynerData);
+        private void SubscribeEvents() => AmmoManagerSignals.Instance.onGetCurrentContaynerInfo += OnGetCurrentContaynerInfo;
 
-        private void SendToContaynerTransformPositionInfo()
-        {
-            List<Vector3> gridSystemTransforms = _gridCretable.CreateGrid(newContayner.ammoContaynerData.gredObj, newContayner.ammoContaynerData.offSet, newContayner.ammoContaynerData.amount);
-            float maxGridAmunt = _gridCretable.MaxCount();
-            AmmoShopSignals.Instance.onGetAmmoContaynerGridPosList?.Invoke(gridSystemTransforms,gameObject);
-            AmmoShopSignals.Instance.onGetMaxGridAmunt?.Invoke(maxGridAmunt, gameObject);
-        }
-        
+        private void UnsubscribeEvents() => AmmoManagerSignals.Instance.onGetCurrentContaynerInfo -= OnGetCurrentContaynerInfo;
+
+        private void OnDisable() => UnsubscribeEvents();
+
+        #endregion
+
+        #region SentMomentİnfo
+
+        private void onSetConteyerList() => AmmoManagerSignals.Instance.onSetConteynerList(gameObject);
+
+        private void onFullConteyner() => AmmoManagerSignals.Instance.onContaynerStackFull(_gridData.MaxContaynerAmount);
+
+        private void onCurrentStackCount() => AmmoManagerSignals.Instance.onCurrentContaynerAmount(ammoContaynerStackController.CurrentAmunt());
+
+        #endregion
+
+        #region PhysicsMethods
         public void IsHitAmmoWorker()
         {
-            stackController.AddToStack();
+            gridController.ganarateGrid();
+
+            Vector3 gridLastPoint = gridController.LastPosition();
+
+            ammoContaynerStackController.AddStack(gridLastPoint, gameObject/*change*/, _gridData.MaxContaynerAmount);
+
         }
+
+        #endregion
+
+        #region Event Methods
+        private void OnGetCurrentContaynerInfo()
+        {
+            onFullConteyner();
+            onCurrentStackCount();
+            onSetConteyerList();
+        } 
+        #endregion
+
     }
 }

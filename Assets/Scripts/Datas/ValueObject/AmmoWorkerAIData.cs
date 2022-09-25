@@ -14,11 +14,12 @@ namespace Datas.ValueObject
         public float StackHeigh;
         public float Stackwidth;
         public float MovementSpeed;
-        public Transform SpawnPoint;
-        public Transform AmmoStore;
-        public List<Transform> AmmoContainer;
+        public Transform AmmoWareHouse;
+        public GameObject AmmoWorker;
+        public GameObject Ammo;
+        public CurrentTransportAmmoStatus currentTransportAmmoStatus;
+        public List<Transform> AmmoStack;
 
-        
 
     }
 }

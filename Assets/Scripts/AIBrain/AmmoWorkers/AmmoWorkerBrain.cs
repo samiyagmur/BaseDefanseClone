@@ -1,99 +1,115 @@
 using Abstraction;
-using Controllers;
-using Data.UnityObject;
-using Datas.ValueObject;
 using StateBehavior;
 using States;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace AIBrain
 {
-    public class AmmoWorkerBrain : StateUsers
+    public class AmmoWorkerBrain : AmmoManagerPropertyDepository
     {
-
         #region Self Variables
+
         #region SerilizeField Variables
 
         #endregion
 
-        #region private Variables 
-        private AmmoWorkerAIData _ammoWorkerAIData;
-        private MoveToAmmo _moveToAmmo;
+        #region Private Variables 
+
+        #region State Field
+
+        private MoveToWareHouse _moveToWareHouse;
         private TakeAmmo _takeAmmo;
-        private DecideAvaliableTurret _decideAvaliableTurret;
-        private MoveToAvaliableTurret _moveToAvaliableTurret;
-        private LoadTurret _loadTurret;
-        private float _offset;
-        private float _stackHeigh;
-        private float _stackwidth;
-        private float _movementSpeed;
-        private Transform _spawnPoint;
-        private Transform _ammoStore;
-        private List<Transform> _ammoContainer;
+        private DecideAvaliableTurret _decisionAvaliableConteyner;
+        private MoveToAvaliableContayner _moveToAvaliableConteyner;
+        private LoadContayner _loadTurret;
+        private FullAmmo _fullAmmo;
+        private Creat _creat;
+
+        #endregion
+
         private StateMachine _statemachine;
-        #endregion
 
         #endregion
-        [SerializeField]
-        private NavMeshAgent _navMeshAgent;
-        [SerializeField]
-        private Animator _animator;
 
-        internal override void Awake()
-        {
-            GetStatesReferences();
-        }
-        internal override void GetData() => _ammoWorkerAIData=Resources.Load<CD_AIData>("Data/CD_AIData").AmmoWorkerAIDatas;
+        #endregion              
+
+        #region GetReferans
+        internal override void Awake() => GetStatesReferences();
+
+
         internal override void GetStatesReferences()
         {
             _statemachine = new StateMachine();
-            _moveToAmmo = new MoveToAmmo();
-            _takeAmmo = new TakeAmmo();
-            _decideAvaliableTurret = new DecideAvaliableTurret();
-            _moveToAvaliableTurret = new MoveToAvaliableTurret();
-            _loadTurret = new LoadTurret();
 
+            _creat = new Creat();
+
+            _moveToWareHouse = new MoveToWareHouse(Agent,Animator,MovementSpeed,AmmoWareHouse);
+
+            _takeAmmo = new TakeAmmo(Agent,Animator);
+
+            _decisionAvaliableConteyner = new DecideAvaliableTurret(Agent,Animator,MovementSpeed,AmmoContaynerList,IsAmmoContaynerMaxAmount,AmmoContaynerCurrentCount);
+
+            _moveToAvaliableConteyner = new MoveToAvaliableContayner(Agent,Animator,MovementSpeed,DecidedContayner);
+
+            _loadTurret = new LoadContayner();
+
+            _fullAmmo = new FullAmmo(Agent,Animator,MovementSpeed);
+
+            TransitionofState();
         }
 
-        internal override void SetEnemyAIData()
-        {
-            float _offset= _ammoWorkerAIData.Offset;
-            float _stackHeigh= _ammoWorkerAIData.StackHeigh;
-            float _stackwidth= _ammoWorkerAIData.Stackwidth;
-            float _movementSpeed= _ammoWorkerAIData.MovementSpeed;
-            Transform _spawnPoint= _ammoWorkerAIData.SpawnPoint;
-            Transform _ammoStore= _ammoWorkerAIData.AmmoStore;
-            List<Transform> _ammoContainer= _ammoWorkerAIData.AmmoContainer;
-        }
+        #endregion
+
+        #region StateEngine
 
         internal override void TransitionofState()
         {
-            _statemachine.SetState(_moveToAmmo);
+            Debug.Log("TransitionofState");
+            _statemachine.SetState(_creat);
 
-            //At(_moveToAmmo, _takeAmmo, HasAmmoStore());
-            //At(_takeAmmo,_decideAvaliableTurret, HasTarget())
+            #region Transtion
 
+            At(_creat, _moveToWareHouse, IsAmmoWorkerBorn());
 
+            At(_moveToWareHouse, _takeAmmo, WhenAmmoWorkerInAmmoWareHouse());
 
-            //Func<bool> HasAmmoStore() => () => _ammoStore != null;
-            //Func<bool> HasTarget() => () => 
-            //Func<bool> HasTargetNull() => () => 
-            //Func<bool> IsAtackPlayer() => () => 
-            //Func<bool> AttackOffRange() => () => 
+            At(_takeAmmo, _decisionAvaliableConteyner, WhenAmmoWorkerInAmmoWareHouse());
 
+            At(_decisionAvaliableConteyner, _moveToAvaliableConteyner, WhenTransportationActive());
 
-            //void At(IState to, IState from, Func<bool> condition) => _statemachine.AddTransition(to, from, condition);
+            At(_moveToAvaliableConteyner, _loadTurret, IsAmmoWorkerInContayner());
+
+            At(_loadTurret, _moveToWareHouse, WhenAmmoDichargeStack());
+
+            _statemachine.AddAnyTransition(_fullAmmo, WhenAmmoIsFull());
+
+            #endregion
+
+            #region Condition
+
+            Func<bool> IsAmmoWorkerBorn() => () => AmmoWorker.GetComponent<AmmoWorkerBrain>().enabled==true;
+
+            Func<bool> WhenAmmoWorkerInAmmoWareHouse() => () => AmmoWareHouse.transform.position == AmmoWorkerGameObj.transform.position
+                                                   && AmmoWareHouse.transform != null;
+            Func<bool> WhenTransportationActive() => () => _decisionAvaliableConteyner.SetDecidedContayner() != null;
+
+            Func<bool> IsAmmoWorkerInContayner() => () => _decisionAvaliableConteyner.SetDecidedContayner() != null &&
+                                                          (_decisionAvaliableConteyner.SetDecidedContayner().transform.position == AmmoWorkerGameObj.transform.position);
+
+            Func<bool> WhenAmmoDichargeStack() => () => AmmoWareHouse.transform != null && _decisionAvaliableConteyner.SetDecidedContayner() == null;
+
+            Func<bool> WhenAmmoIsFull() => () => DecideIndexList != null; 
+
+            #endregion
+
+            void At(IState to, IState from, Func<bool> condition) => _statemachine.AddTransition(to, from, condition);
         }
 
-
-
-
-
         internal override void Update() => _statemachine.Tick();
+
+
+        #endregion
 
 
     }
