@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CD_AmmoWorkerGrid
   m_EditorClassIdentifier: 
   ammoContaynerData:
-    XGridSize: 2
+    XGridSize: 1
     YGridSize: 2
-    MaxContaynerAmount: 40
+    MaxContaynerAmount: 20
     Offset: 1

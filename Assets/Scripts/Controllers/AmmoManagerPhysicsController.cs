@@ -12,9 +12,8 @@ namespace Controllers
        
         private void OnTriggerStay(Collider other)
         {
-            if (other.TryGetComponent(typeof(AmmoWorkerManager), out Component ammoWorkerManager))
+            if (other.TryGetComponent(typeof(AmmoWorkerPhysicController), out Component ammoWorkerManager))
             {
-                Debug.Log("ss");
                 ammoManager.IsAmmoWorkerHit();
                 ammoManager.Invoke("IsNewList", 0.01f);
             }

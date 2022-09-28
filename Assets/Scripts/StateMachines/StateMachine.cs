@@ -35,13 +35,11 @@ namespace StateBehavior
             _transitions.TryGetValue(_currentState.GetType(), out _currentTransitions);
             if (_currentTransitions == null)
                 _currentTransitions = EmptyTransitions;
-
             _currentState.Enter();
         }
 
         public void AddTransition(IState from, IState to, Func<bool> predicate)
         {
-
             
             if (_transitions.TryGetValue(from.GetType(), out var transitions) == false)
             {

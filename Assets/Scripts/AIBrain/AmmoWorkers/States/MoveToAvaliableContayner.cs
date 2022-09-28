@@ -14,12 +14,16 @@ namespace States
         private float _movementSpeed;
         private GameObject _decidedContayner;
 
-        public MoveToAvaliableContayner(NavMeshAgent agent, Animator animator, float movementSpeed, GameObject decidedContayner)
+        public void SetData(GameObject decidedContayner)
+        {
+            _decidedContayner = decidedContayner;
+        }
+
+        public MoveToAvaliableContayner(NavMeshAgent agent, Animator animator, float movementSpeed)
         {
             _agent = agent;
             _animator = animator;
             _movementSpeed = movementSpeed;
-            _decidedContayner = decidedContayner;
         }
 
         #endregion

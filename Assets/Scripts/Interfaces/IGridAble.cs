@@ -1,12 +1,13 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Interfaces
 {
     public interface IGridAble
     {
-        void ganarateGrid();
+        void GanarateGrid();
 
-        Vector3 LastPosition();
+        List<Vector3> LastPosition();
     }
 }

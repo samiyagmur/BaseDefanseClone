@@ -15,6 +15,7 @@ namespace Controllers
         private int _maxContaynerAmount;
         private bool _contaynerFull;
         private Vector3 _lastPosition;
+        private List<Vector3> _contaynerStackGridPositions= new List<Vector3>();
 
         public AmmoContaynerGridController( int xGridSize, int yGridSize, int maxContaynerAmount, float offset)
         {
@@ -25,10 +26,12 @@ namespace Controllers
             _offset = offset;
         }
 
-        public void ganarateGrid()
+        public void GanarateGrid()
         {
 
-            if (!_contaynerFull) return ;
+            for (int i = 0; i < _maxContaynerAmount; i++)
+            {
+                if (!_contaynerFull) return;
 
 
                 var modx = _orderOfContayner % _xGridSize;
@@ -41,22 +44,23 @@ namespace Controllers
 
                 _lastPosition = new Vector3(modx * _offset, divideXY * _offset, mody * _offset);//List place
 
-                
+                _contaynerStackGridPositions.Add(_lastPosition);
 
-            if (_orderOfContayner == _maxContaynerAmount - 1)
-            {
-                _contaynerFull = true;
-            }
-            else
-            {
-                _contaynerFull = false;
-                _orderOfContayner += 1;
+                if (_orderOfContayner == _maxContaynerAmount - 1)
+                {
+                    _contaynerFull = true;
+                }
+                else
+                {
+                    _contaynerFull = false;
+                    _orderOfContayner += 1;
+                } 
             }
         }
 
-        public Vector3 LastPosition()
+        public List<Vector3> LastPosition()
         {
-            return _lastPosition;
+            return _contaynerStackGridPositions;
         }
 
 

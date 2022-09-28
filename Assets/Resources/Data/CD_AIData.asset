@@ -60,8 +60,8 @@ MonoBehaviour:
     StackHeigh: 10
     Stackwidth: 2
     MovementSpeed: 5
-    AmmoWareHouse: {fileID: 9025668639380344570, guid: 4561cd12bc07cda408c1f3bf60a85bdf, type: 3}
+    AmmoWareHouse: {fileID: 0}
     AmmoWorker: {fileID: 1902793931624525007, guid: 324601c81182dfa40b70906e47c79d4e, type: 3}
-    Ammo: {fileID: 5495938375531215040, guid: 45775c9401a6a2244aa8711639ad2dd9, type: 3}
+    Ammo: {fileID: 5927829348047070920, guid: ef19fbe1c6286404896062f6894aa2ce, type: 3}
     currentTransportAmmoStatus: 0
     AmmoStack: []

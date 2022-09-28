@@ -36,6 +36,7 @@ namespace Managers
         {
             Init();
             SetGridData();
+            IsHitAmmoWorker();
         }
         private void Start()
         {
@@ -74,11 +75,14 @@ namespace Managers
         #region PhysicsMethods
         public void IsHitAmmoWorker()
         {
-            gridController.ganarateGrid();
+            //gridController.GanarateGrid();
 
-            Vector3 gridLastPoint = gridController.LastPosition();
-
-            ammoContaynerStackController.AddStack(gridLastPoint, gameObject/*change*/, _gridData.MaxContaynerAmount);
+            //List<Vector3> gridLastPoint = gridController.LastPosition();
+            //foreach (var item in gridLastPoint)
+            //{
+            //    Debug.Log(item);
+            //}
+            //ammoContaynerStackController.AddStack(gridLastPoint, gameObject/*change*/, _gridData.MaxContaynerAmount);
 
         }
 

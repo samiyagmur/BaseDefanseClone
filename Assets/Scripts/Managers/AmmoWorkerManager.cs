@@ -9,6 +9,7 @@ using Signals;
 using States;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,14 +21,9 @@ namespace Managers
         #region Private Variables
 
         private AmmoWorkerAIData _ammoWorkerAIData;
-        private AmmoManagerPropertyDepository _AmmoManagerPropertyDepository;
+        private AmmoManagerPropertyDepository _ammoManagerPropertyDepository;
         private GridData _gridData;
 
-
-        private IGridAble gridAble;
-        private List<GameObject> _ammoContaynerList;
-        private int _isAmmoContaynerMaxAmount;
-        private List<float> _ammoContaynerCurrentCount;
         #endregion
         #region SerializeField Variables
         [SerializeField]
@@ -42,63 +38,56 @@ namespace Managers
         #endregion
 
         private void Awake()
-        {
+        {   
             Init();
         }
 
         private void Init()
         {
-            _AmmoManagerPropertyDepository = GetComponent<AmmoWorkerBrain>();
+            
+            _ammoManagerPropertyDepository = GetComponent<AmmoWorkerBrain>();
             _ammoWorkerAIData = cD_AIData.AmmoWorkerAIDatas;
             _gridData = newGrid.ammoContaynerData;
             SetBrainData();
-            SetGridData();
-            _AmmoManagerPropertyDepository.Awake();
         }
 
         private void SetBrainData()
         {
-            
-            _AmmoManagerPropertyDepository.MovementSpeed = _ammoWorkerAIData.MovementSpeed;
-            _AmmoManagerPropertyDepository.AmmoWareHouse = _ammoWorkerAIData.AmmoWareHouse;
-            _AmmoManagerPropertyDepository.AmmoWorkerStack = _ammoWorkerAIData.AmmoStack;
-            _AmmoManagerPropertyDepository.Animator = animator;
-            _AmmoManagerPropertyDepository.Agent = agent;
-            _AmmoManagerPropertyDepository.Ammo = _ammoWorkerAIData.Ammo;
-            _AmmoManagerPropertyDepository.AmmoTransform = transform;
-            _AmmoManagerPropertyDepository.CurrentAmmoTransportStatus = _ammoWorkerAIData.currentTransportAmmoStatus;
-            _AmmoManagerPropertyDepository.AmmoWorkerGameObj = gameObject;
-            _AmmoManagerPropertyDepository.AmmoWorker = _ammoWorkerAIData.AmmoWorker;
-
+            _ammoManagerPropertyDepository.MovementSpeed = _ammoWorkerAIData.MovementSpeed;
+            _ammoManagerPropertyDepository.AmmoWareHouse = _ammoWorkerAIData.AmmoWareHouse;
+            _ammoManagerPropertyDepository.AmmoWorkerStack = _ammoWorkerAIData.AmmoStack;
+            _ammoManagerPropertyDepository.Animator = animator;
+            _ammoManagerPropertyDepository.Agent = agent;
+            _ammoManagerPropertyDepository.Ammo = _ammoWorkerAIData.Ammo;
+            _ammoManagerPropertyDepository.AmmoTransform = transform;
+            _ammoManagerPropertyDepository.CurrentAmmoTransportStatus = _ammoWorkerAIData.currentTransportAmmoStatus;
+            _ammoManagerPropertyDepository.AmmoWorkerGameObj = gameObject;
+            _ammoManagerPropertyDepository.AmmoWorker = _ammoWorkerAIData.AmmoWorker;
         }
 
-        private void SetGridData() =>
-             gridAble = new AmmoWorkerGridController(
-            _gridData.XGridSize,
-            _gridData.YGridSize,
-            _gridData.MaxContaynerAmount,
-            _gridData.Offset);
 
-        public void IsSetConteynerLists(List<GameObject> getterConteynerList, int ammoContaynerMaxValue, List<float> getterConteynerCurrentAmunt)
+        public void IsSetConteynerLists(List<GameObject> getterConteynerList, int ammoContaynerMaxValue, List<float> ammoContaynerCurrentCount)
         {
-            _ammoContaynerList = getterConteynerList;
-            _isAmmoContaynerMaxAmount = ammoContaynerMaxValue;
-            _ammoContaynerCurrentCount = getterConteynerCurrentAmunt;
+            _ammoManagerPropertyDepository.IsAmmoContaynerMaxAmount = ammoContaynerMaxValue;
+            _ammoManagerPropertyDepository.SendContanerInfos(getterConteynerList, ammoContaynerMaxValue, ammoContaynerCurrentCount);
         }
-        public void IsHitAmmoWareHouse(Transform ammmoShop)
+        public async void IsEnterAmmoWareHouse()
         {
-            //_stateUsers.AmmoContaynerList = AmmoWorkerSignals.Instance.onGetAllConteyner?.Invoke()[Random.Range(0, _ammoContaynerList.Count)].transform;
-            //_stateUsers.ShopTransform = ammmoShop;
+            _ammoManagerPropertyDepository.InplaceWorker = true;
+           
         }
-       
-
+        internal void IsExitAmmoWareHouse()
+        {
+            _ammoManagerPropertyDepository.InplaceWorker=false;
+        }
         public void IsStayWareHouse()
         {
-            gridAble.ganarateGrid();
-            _AmmoManagerPropertyDepository.SendGridInfoToStack(gridAble.LastPosition(), _ammoWorkerAIData.Ammo, _AmmoManagerPropertyDepository.AmmoWareHouse);
+
+            _ammoManagerPropertyDepository.SendStackInfos( _ammoManagerPropertyDepository.AmmoWareHouse, _ammoManagerPropertyDepository.IsAmmoContaynerMaxAmount, transform);
+
         }
 
-        
+
 
 
     }

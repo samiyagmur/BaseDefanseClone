@@ -16,6 +16,7 @@ namespace States
 
         private List<int> _decideIndexList;
         private GameObject _decidedContaner;
+        
         #endregion
 
         #region Constractors
@@ -27,11 +28,17 @@ namespace States
         private int _isAmmoContaynerMaxAmount;
         private List<float> _ammoContaynerCurrentCount;
 
-        public DecideAvaliableTurret(NavMeshAgent agent, Animator animator, float movementSpeed, List<GameObject> ammoContaynerList, int isAmmoContaynerMaxAmount, List<float> ammoContaynerCurrentCount)
+        public DecideAvaliableTurret(NavMeshAgent agent, Animator animator, float movementSpeed)
         {
             _agent = agent;
             _animator = animator;
             _movementSpeed = movementSpeed;
+
+
+        }
+
+        public void SetData(List<GameObject> ammoContaynerList, int isAmmoContaynerMaxAmount, List<float> ammoContaynerCurrentCount)
+        {
             _ammoContaynerList = ammoContaynerList;
             _isAmmoContaynerMaxAmount = isAmmoContaynerMaxAmount;
             _ammoContaynerCurrentCount = ammoContaynerCurrentCount;
@@ -45,22 +52,18 @@ namespace States
 
             _decideIndexList = new List<int>();
 
-            Debug.Log("DecideAvaliableTurret");
-
             for (int i = 0; i < _ammoContaynerList.Count; i++)
             {
-                if (_isAmmoContaynerMaxAmount != _ammoContaynerCurrentCount[i])
+                if ( _ammoContaynerCurrentCount[i] <= _isAmmoContaynerMaxAmount)
                 {
-                    _decideIndexList.Add(i);
+                    _decideIndexList.Add((int)_ammoContaynerCurrentCount[i]);
                 }
             }
 
-            int decideMinIndex = _decideIndexList.Min();
-            _decidedContaner = _ammoContaynerList[decideMinIndex];
-
-
-
-
+            var minIndex = _decideIndexList.IndexOf(_decideIndexList.Min());
+  
+            _decidedContaner = _ammoContaynerList[minIndex];
+   
         }
 
         public void Exit()

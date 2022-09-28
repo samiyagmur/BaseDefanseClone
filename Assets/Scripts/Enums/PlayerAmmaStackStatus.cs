@@ -3,9 +3,11 @@ using UnityEngine;
 
 namespace Enums
 {
-    public enum StackStatus
+    public enum PlayerAmmaStackStatus
     {
-        Stop,
-        Start
+        NotFull,
+        Full
+        
     }
+
 }

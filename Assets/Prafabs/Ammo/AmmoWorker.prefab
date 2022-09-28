@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed95a866ffe792479b0643eb2bced04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoWorkerManager: {fileID: 2505461415673643822}
 --- !u!1 &1902793931624525007
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +128,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 4
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

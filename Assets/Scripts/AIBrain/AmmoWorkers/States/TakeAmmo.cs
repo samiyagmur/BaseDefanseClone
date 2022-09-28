@@ -2,6 +2,8 @@
 using Controllers;
 using Enums;
 using Interfaces;
+using Managers;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,54 +14,82 @@ namespace States
 
         #region Constructor
 
-        private IStackable stackable;
+        private AmmoWorkerStackController _stackable;
         private NavMeshAgent _agent;
-        private Animator _animator; 
+        private Animator _animator;
 
-       
-
-        public TakeAmmo( NavMeshAgent agent, Animator animator)
+        private Transform _ammoWareHouse;
+        private int _isAmmoContaynerMaxAmount;
+        private float _timer = 0.2f;
+        private int counter;
+        private Transform _ammoWorker;
+        private PlayerAmmaStackStatus _playerAmmaStackStatus;
+        
+        public TakeAmmo(NavMeshAgent agent, Animator animator)
         {
             _agent = agent;
             _animator = animator;
         }
 
+        public  void SetData(Transform ammoWareHouse, int isAmmoContaynerMaxAmount,Transform ammoWorker)
+        {
+
+            _ammoWareHouse = ammoWareHouse;
+            _isAmmoContaynerMaxAmount = isAmmoContaynerMaxAmount;
+            _ammoWorker = ammoWorker;
+        }
+
+
         #endregion
 
         #region State
-        public void Enter()
-        {
-            stackable = new AmmoWorkerStackController();
+        public  void Enter()
+        {   
+            _stackable = new AmmoWorkerStackController();
 
-            Debug.Log("TakeAmmo");
-
+            Debug.Log(_ammoWareHouse + "  " + _isAmmoContaynerMaxAmount + "  " + _ammoWorker);
             _agent.speed = 0;
-
-            stackable.StartStack(StackStatus.Start);
-            //_animator.SetTrigger("Idle");
         }
 
         public void Exit()
         {
-
-            stackable.StartStack(StackStatus.Stop);
-
-
+            Debug.Log("TakeAmmoExit");
+      
         }
         public void Tick()
         {
+            _timer -= Time.deltaTime;
 
-            //Arrange Load Time;You can get physics to here.
+            if (_timer < 0 )
+            {
+                if (counter < _isAmmoContaynerMaxAmount)
+                {
+                    _stackable.AddStack(_ammoWareHouse, _ammoWorker, GetObject(PoolType.Ammo.ToString()));
+                    _timer = 0.1f;
+                    counter++;
+                   
+                }
+                else
+                {
+                    _playerAmmaStackStatus = PlayerAmmaStackStatus.Full;
+                }
+
+            }
+        }
+
+        public GameObject GetObject(string poolName)
+        {
+            return ObjectPoolManager.Instance.GetObject<GameObject>(poolName);
+        }
+        public PlayerAmmaStackStatus IsStackFull()
+        {
+            return _playerAmmaStackStatus;
+        }
 
 
-        } 
+
         #endregion
 
-        //internal override void SendGridInfoToStack(Vector3 orderOfLasGrid, GameObject stackObject,Transform ammoWareHouse)
-        //{
-        //    stackable.AddStack(orderOfLasGrid, stackObject, ammoWareHouse);
 
-        //    base.SendGridInfoToStack(orderOfLasGrid, stackObject,ammoWareHouse);
-        //}
     }
 }
