@@ -1,5 +1,6 @@
 ﻿using Enums;
 using Interfaces;
+using Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,37 +9,41 @@ namespace Controllers
 {
     public class AmmoContaynerStackController : MonoBehaviour
     {
-
+        [SerializeField]
+        private AmmoContaynerManager ammoContaynerManager;
         private List<GameObject> _contaynerStackList;
-        public float testNumber;
+        public int testNumber;
         public bool _IsFull;
-
-       
-
-        public void AddStack(Vector3 stackPositon, GameObject stackObject, float maxAmount)
+        private void Awake()
+        {
+          
+            AddStack();
+        }
+        private void Start()
+        {
+            ammoContaynerManager.InvokeRepeating("SendToTargetInfo", 1f, 5f);
+        }
+        public void AddStack()
         {
 
-            if (_contaynerStackList.Count == maxAmount) _IsFull = true;
-            else _IsFull = false;
+            if (testNumber <= 50)
+            {
+                ammoContaynerManager.StackCount(testNumber, gameObject.transform.parent.gameObject);
+            }
 
 
-            //dolcak
-            _contaynerStackList.Add(stackObject);
+           // _contaynerStackList.Add(stackObject);
 
+            
 
         }
-
+        
         public void RemoveStack()
         {
-           //dolcak
+
         }
 
 
-        public float CurrentAmunt()
-        {
-
-            return testNumber;//_contaynerStackList.Count;
-        }
 
    
        

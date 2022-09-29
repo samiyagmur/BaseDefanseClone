@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1902793930348405254}
   - component: {fileID: 5003555120411992747}
   - component: {fileID: 3583246432616396122}
-  - component: {fileID: 4874545791648697012}
+  - component: {fileID: 2038628128722989787}
   m_Layer: 16
   m_Name: PhysicController
   m_TagString: Untagged
@@ -62,7 +62,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2882539, y: 3.7556002, z: 1.0527906}
   m_Center: {x: 0.043923557, y: 1.8667387, z: -0.02639532}
---- !u!114 &4874545791648697012
+--- !u!114 &2038628128722989787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,10 +71,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1902793930348405249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed95a866ffe792479b0643eb2bced04, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d0cfd5d6f1bd8b418d28db91617bbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoWorkerManager: {fileID: 2505461415673643822}
 --- !u!1 &1902793931624525007
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +84,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1902793931624525004}
   - component: {fileID: 1902793931624525010}
-  - component: {fileID: 2505461415673643822}
   - component: {fileID: 6357671700082295552}
   m_Layer: 0
   m_Name: AmmoWorker
@@ -132,22 +130,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2505461415673643822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1902793931624525007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01d3971f98795c24593af74dff09df57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cD_AIData: {fileID: 11400000, guid: 40163b82f71911f45a943dc79b6991a5, type: 2}
-  newGrid: {fileID: 11400000, guid: 7363013a37cae3146a6a37b1d6bbff50, type: 2}
-  agent: {fileID: 1902793931624525010}
-  animator: {fileID: 5405024711051857897}
 --- !u!114 &6357671700082295552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef601233e77f0b44ac6872d2aa178ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cD_AIData: {fileID: 11400000, guid: 40163b82f71911f45a943dc79b6991a5, type: 2}
+  _agent: {fileID: 1902793931624525010}
+  _animator: {fileID: 5405024711051857897}
+  ammoManager: {fileID: 7555061958545134384, guid: 4561cd12bc07cda408c1f3bf60a85bdf, type: 3}
+  _inplaceWorker: 0
 --- !u!1001 &1902793930357142136
 PrefabInstance:
   m_ObjectHideFlags: 0

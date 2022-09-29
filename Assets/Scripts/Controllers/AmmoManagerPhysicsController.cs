@@ -1,5 +1,7 @@
-﻿using Managers;
+﻿using AIBrain;
+using Managers;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Controllers
@@ -9,16 +11,26 @@ namespace Controllers
         [SerializeField]
         private AmmoManager ammoManager;
 
-       
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(typeof(AmmoWorkerPhysicController), out Component ammoWorkerManager))
+  
+            if (other.TryGetComponent(typeof(AmmoWorkerPhysicsController), out Component ammoManagment))//it must change
             {
-                ammoManager.IsAmmoWorkerHit();
-                ammoManager.Invoke("IsNewList", 0.01f);
+                Debug.Log(other.gameObject.name);
+              ammoManager.IsAmmoEnterAmmoWareHouse();
             }
-
+            
         }
+
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(typeof(AmmoWorkerPhysicsController), out Component ammoManagment))//it must change
+            {
+                ammoManager.IsAmmoExitAmmoWareHouse();
+            }
+        }
+
 
 
     }

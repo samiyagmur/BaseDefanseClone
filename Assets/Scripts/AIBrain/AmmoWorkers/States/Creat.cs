@@ -8,7 +8,7 @@ namespace States
     {
         public void Enter()
         {
-            Debug.Log("Creat");
+            //Debug.Log("Creat");
         }
 
         public void Exit()

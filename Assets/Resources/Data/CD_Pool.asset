@@ -18,7 +18,7 @@ MonoBehaviour:
     - ObjectType: {fileID: 0}
       initalAmount: 0
       isDynamic: 0
-    - ObjectType: {fileID: 5927829348047070920, guid: ef19fbe1c6286404896062f6894aa2ce, type: 3}
+    - ObjectType: {fileID: 9004025123679645240, guid: 0742269e27659a647932f8f57fbb39f2, type: 3}
       initalAmount: 85
       isDynamic: 0
     - ObjectType: {fileID: 0}

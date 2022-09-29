@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
 using System;
+using AIBrain;
 
 namespace States
 {
@@ -17,44 +18,30 @@ namespace States
         private float _movementSpeed;
         private Transform _ammoWareHouse;
         private GameObject _ammoWorker;
+        private AmmoWorkerBrain ammoWorkerBrain;
 
-        public MoveToWareHouse(NavMeshAgent agent, Animator animator, float movementSpeed, Transform ammoWareHouse, GameObject ammoWorker)
+        public MoveToWareHouse( NavMeshAgent agent, Animator animator, float movementSpeed, Transform ammoWareHouse, GameObject ammoWorker, AmmoWorkerBrain ammoWorkerBrain)
         {
             _agent = agent;
             _animator = animator;
             _movementSpeed = movementSpeed;
             _ammoWareHouse = ammoWareHouse;
+            _ammoWorker = ammoWorker;
+            this.ammoWorkerBrain = ammoWorkerBrain;
         }
+
+
 
         #endregion
 
         #region State
         public void Enter()
         {
-            Debug.Log("MoveToWareHouse");
+             Debug.Log("MoveToWareHouse");
             _agent.speed = _movementSpeed;
             _agent.SetDestination(_ammoWareHouse.position);
+
             //_animator.SetTrigger("Walk");
-
-
-
-            CalculateAmmoWareHouseArea();
-
-
-
-
-        }
-
-        private void CalculateAmmoWareHouseArea()
-        {
-
-
-
-           
-
-
-
-            //return 
         }
 
         public void Exit()
@@ -64,7 +51,7 @@ namespace States
 
         public void Tick()
         {
-
+            
         } 
         #endregion
 

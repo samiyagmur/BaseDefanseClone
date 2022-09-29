@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: CD_AIData
   m_EditorClassIdentifier: 
   EnemyAIDataList:
-  - TurretTargetList:
-    - {fileID: 1819301689450492115, guid: 016caeae5724e7d4da15834354e05a40, type: 3}
-    - {fileID: 1526363715248423799, guid: 4b3542e25163809428c6ebb2e635a359, type: 3}
+  - TurretTargetList: []
     SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
     Healt: 1
     Damage: 1
@@ -27,9 +25,7 @@ MonoBehaviour:
     Color: {r: 1, g: 0.47343755, b: 0, a: 0}
     ChaseSpeed: 10
     ScaleSize: {x: 0, y: 0, z: 0}
-  - TurretTargetList:
-    - {fileID: 1819301689450492115, guid: 016caeae5724e7d4da15834354e05a40, type: 3}
-    - {fileID: 1526363715248423799, guid: 4b3542e25163809428c6ebb2e635a359, type: 3}
+  - TurretTargetList: []
     SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
     Healt: 1
     Damage: 1
@@ -41,9 +37,7 @@ MonoBehaviour:
     Color: {r: 1, g: 0, b: 0.28982067, a: 0}
     ChaseSpeed: 10
     ScaleSize: {x: 0, y: 0, z: 0}
-  - TurretTargetList:
-    - {fileID: 1819301689450492115, guid: 016caeae5724e7d4da15834354e05a40, type: 3}
-    - {fileID: 1526363715248423799, guid: 4b3542e25163809428c6ebb2e635a359, type: 3}
+  - TurretTargetList: []
     SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
     Healt: 1
     Damage: 1
@@ -56,12 +50,8 @@ MonoBehaviour:
     ChaseSpeed: 10
     ScaleSize: {x: 0, y: 0, z: 0}
   AmmoWorkerAIDatas:
-    Offset: 1
-    StackHeigh: 10
-    Stackwidth: 2
-    MovementSpeed: 5
+    MovementSpeed: 10
     AmmoWareHouse: {fileID: 0}
     AmmoWorker: {fileID: 1902793931624525007, guid: 324601c81182dfa40b70906e47c79d4e, type: 3}
-    Ammo: {fileID: 5927829348047070920, guid: ef19fbe1c6286404896062f6894aa2ce, type: 3}
-    currentTransportAmmoStatus: 0
-    AmmoStack: []
+    Ammo: {fileID: 0}
+    MaxStackCount: 40

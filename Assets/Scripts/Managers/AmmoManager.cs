@@ -1,4 +1,7 @@
-﻿using Interfaces;
+﻿using Abstraction;
+using AIBrain;
+using Enums;
+using Interfaces;
 using Signals;
 using System;
 using System.Collections;
@@ -9,65 +12,88 @@ namespace Managers
 {
 
 
-    public class AmmoManager : MonoBehaviour, GetterConteynerInfo
+    public class AmmoManager : MonoBehaviour
     {
         #region Self-Private Variabels
+        [SerializeField]
+        private Transform ammoCreater;
+        [SerializeField]
+        private List<GameObject> _ammoWorkerList=new List<GameObject>();
 
-        private List<GameObject> _allConteynerList = new List<GameObject>();
-        private int _ısContaynerMaxValue;
-        private List<float> _listContaynerCurrentAmount = new List<float>();
-
+        AmmoWorkerBrain ammoWorkerBrain;
         #endregion
 
+        private void Start()
+        {
+
+        }
         #region Event Subscription
+
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
         {
-
-            AmmoManagerSignals.Instance.onContaynerStackFull += OnContaynerFull;
             AmmoManagerSignals.Instance.onSetConteynerList += OnSetConteynerList;
-            AmmoManagerSignals.Instance.onCurrentContaynerAmount += OnCurrentContaynerAmount;
-
+            AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea += OnPlayerEnterAmmoWorkerCreaterArea;
         }
 
         private void UnsubscribeEvents()
         {
-            AmmoManagerSignals.Instance.onContaynerStackFull -= OnContaynerFull;
             AmmoManagerSignals.Instance.onSetConteynerList -= OnSetConteynerList;
-            AmmoManagerSignals.Instance.onCurrentContaynerAmount -= OnCurrentContaynerAmount;
-
+            AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea -= OnPlayerEnterAmmoWorkerCreaterArea;
         }
 
         private void OnDisable() => UnsubscribeEvents();
 
         #endregion
+        internal void IsAmmoEnterAmmoWareHouse()
+        {
+            Debug.Log(_ammoWorkerList.Count);
+
+            
+
+            ammoWorkerBrain.SetTriggerInfo(true);
+        }
+
+        internal void IsAmmoExitAmmoWareHouse() => ammoWorkerBrain.SetTriggerInfo(false);
+
+        private void OnSetConteynerList(GameObject targetContayner)
+        {
+            if (_ammoWorkerList.Count != 0)
+                ammoWorkerBrain.SetTargetTurretContayner(targetContayner);
+
+        }
+
+        private void OnPlayerEnterAmmoWorkerCreaterArea(Transform workerCreater)
+        {
+            AddAmmaWorker(workerCreater);
+            ammoWorkerBrain = _ammoWorkerList[_ammoWorkerList.Count - 1].GetComponent<AmmoWorkerBrain>();
+        }
+
+        public void AddAmmaWorker(Transform workerCreater)
+        {
+            GameObject ammoWorker = GetObject(PoolType.AmmoWorkerAI.ToString());
+            ammoWorker.transform.position = workerCreater.position;
+            _ammoWorkerList.Add(ammoWorker);
+        }
+        public GameObject GetObject(string poolName)
+        {
+            return ObjectPoolManager.Instance.GetObject<GameObject>(poolName);
+
+        }
 
         #region Subscirabe Event methods
-        private void OnSetConteynerList(GameObject conteyner) => _allConteynerList.Add(conteyner);
 
-        private void OnContaynerFull(int IsConteynerMax) => _ısContaynerMaxValue = IsConteynerMax;
-
-        private void OnCurrentContaynerAmount(float currentContaynerAmount) => _listContaynerCurrentAmount.Add(currentContaynerAmount);
         #endregion
 
         #region Physics Methods
-        internal void IsAmmoWorkerHit() => AmmoManagerSignals.Instance.onGetCurrentContaynerInfo();
+
         #endregion
 
         #region SendInfo
-        internal void IsNewList()//this's so importent :)
-        {
-            _allConteynerList = new List<GameObject>();
-            _listContaynerCurrentAmount = new List<float>();
-        }
-
-        public List<GameObject> GetterConteynerList() => _allConteynerList;
-
-        public int GetterConteynerMaxAmunt() => _ısContaynerMaxValue;
-
-        public List<float> GetterConteynerCurrentAmunt() => _listContaynerCurrentAmount; 
 
         #endregion
+
+
     }
 }

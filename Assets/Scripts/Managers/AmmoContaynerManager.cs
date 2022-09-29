@@ -5,6 +5,7 @@ using Interfaces;
 using Signals;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utilityies;
 
@@ -17,15 +18,12 @@ namespace Managers
 
         #region Private Variables
         private GridData _gridData; 
+
+        private Dictionary<int, GameObject> _turrets = new Dictionary<int, GameObject>();
         #endregion
 
         #region Serilizefield Variebles
         [SerializeField] private IGridAble gridController;
-
-        [SerializeField] private CD_GridData newGrid;
-
-        [SerializeField] private AmmoContaynerStackController ammoContaynerStackController;
-
         #endregion
 
         #endregion
@@ -34,67 +32,62 @@ namespace Managers
 
         private void Awake()
         {
-            Init();
-            SetGridData();
-            IsHitAmmoWorker();
+           // IsHitAmmoWorker();
         }
-        private void Start()
+
+    
+
+
+        #endregion
+
+
+
+        private void Update()
         {
-            //onSetConteyerList();
+           
         }
-        private void Init() => _gridData = newGrid.ammoContaynerData;
-        private void SetGridData() =>
-            gridController = new AmmoContaynerGridController(
-            _gridData.XGridSize,
-            _gridData.YGridSize,
-            _gridData.MaxContaynerAmount,
-            _gridData.Offset); 
-        #endregion
 
-        #region Event Subscription
-        private void OnEnable() => SubscribeEvents();
-
-        private void SubscribeEvents() => AmmoManagerSignals.Instance.onGetCurrentContaynerInfo += OnGetCurrentContaynerInfo;
-
-        private void UnsubscribeEvents() => AmmoManagerSignals.Instance.onGetCurrentContaynerInfo -= OnGetCurrentContaynerInfo;
-
-        private void OnDisable() => UnsubscribeEvents();
-
-        #endregion
 
         #region SentMomentİnfo
 
-        private void onSetConteyerList() => AmmoManagerSignals.Instance.onSetConteynerList(gameObject);
+        internal void StackCount(int count, GameObject gameObject)
+        {
 
-        private void onFullConteyner() => AmmoManagerSignals.Instance.onContaynerStackFull(_gridData.MaxContaynerAmount);
+            _turrets.Add(count, gameObject);
+            
+            _turrets = _turrets.OrderBy(obj => obj.Key).ToDictionary(obj => obj.Key, obj => obj.Value);
 
-        private void onCurrentStackCount() => AmmoManagerSignals.Instance.onCurrentContaynerAmount(ammoContaynerStackController.CurrentAmunt());
+        }
+    
+        internal void SendToTargetInfo()
+        {
+            if (_turrets.Count != 0)
+            {
+                
+                AmmoManagerSignals.Instance.onSetConteynerList?.Invoke(_turrets.ElementAt(0).Value);
+
+            }
+
+            else 
+            {
+                //Debug.Log("!!!_turrets Dictionary caunt=0 ");
+                AmmoManagerSignals.Instance.onSetConteynerList?.Invoke(null);
+            } 
+        }
 
         #endregion
 
         #region PhysicsMethods
         public void IsHitAmmoWorker()
         {
-            //gridController.GanarateGrid();
 
-            //List<Vector3> gridLastPoint = gridController.LastPosition();
-            //foreach (var item in gridLastPoint)
-            //{
-            //    Debug.Log(item);
-            //}
-            //ammoContaynerStackController.AddStack(gridLastPoint, gameObject/*change*/, _gridData.MaxContaynerAmount);
 
         }
 
         #endregion
 
         #region Event Methods
-        private void OnGetCurrentContaynerInfo()
-        {
-            onFullConteyner();
-            onCurrentStackCount();
-            onSetConteyerList();
-        } 
+
         #endregion
 
     }

@@ -1,4 +1,5 @@
 ﻿using Abstraction;
+using AIBrain;
 using Controllers;
 using Enums;
 using Interfaces;
@@ -15,29 +16,29 @@ namespace States
         #region Constructor
 
         private AmmoWorkerStackController _stackable;
+        private AmmoWorkerBrain _ammoWorkerBrain;
         private NavMeshAgent _agent;
         private Animator _animator;
-
         private Transform _ammoWareHouse;
-        private int _isAmmoContaynerMaxAmount;
+        private int _ammoWorkerStackMaxAmount;
+        private Transform _ammoWorker;
+
+
         private float _timer = 0.2f;
         private int counter;
-        private Transform _ammoWorker;
+    
         private PlayerAmmaStackStatus _playerAmmaStackStatus;
-        
-        public TakeAmmo(NavMeshAgent agent, Animator animator)
+
+        public TakeAmmo(NavMeshAgent agent, Animator animator, Transform ammoWareHouse, int ammoWorkerStackMaxAmount, Transform ammoWorker, AmmoWorkerBrain ammoWorkerBrain)
         {
             _agent = agent;
             _animator = animator;
-        }
-
-        public  void SetData(Transform ammoWareHouse, int isAmmoContaynerMaxAmount,Transform ammoWorker)
-        {
-
             _ammoWareHouse = ammoWareHouse;
-            _isAmmoContaynerMaxAmount = isAmmoContaynerMaxAmount;
+            _ammoWorkerStackMaxAmount = ammoWorkerStackMaxAmount;
             _ammoWorker = ammoWorker;
+            _ammoWorkerBrain= ammoWorkerBrain;
         }
+
 
 
         #endregion
@@ -46,14 +47,14 @@ namespace States
         public  void Enter()
         {   
             _stackable = new AmmoWorkerStackController();
-
-            Debug.Log(_ammoWareHouse + "  " + _isAmmoContaynerMaxAmount + "  " + _ammoWorker);
+            Debug.Log("TakeAmmoEnter");
             _agent.speed = 0;
+            
         }
 
         public void Exit()
         {
-            Debug.Log("TakeAmmoExit");
+            
       
         }
         public void Tick()
@@ -62,9 +63,9 @@ namespace States
 
             if (_timer < 0 )
             {
-                if (counter < _isAmmoContaynerMaxAmount)
+                if (counter < _ammoWorkerStackMaxAmount)
                 {
-                    _stackable.AddStack(_ammoWareHouse, _ammoWorker, GetObject(PoolType.Ammo.ToString()));
+                    _stackable.AddStack(_ammoWareHouse, _ammoWorkerBrain.gameObject.transform, GetObject(PoolType.Ammo.ToString()));
                     _timer = 0.1f;
                     counter++;
                    

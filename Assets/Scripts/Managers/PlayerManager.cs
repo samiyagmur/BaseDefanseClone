@@ -82,7 +82,7 @@ namespace Managers
 
         #region PhysicsMethods
 
-        public void IsEnterAmmoCreater(Transform transform) => AISignals.Instance.onPlayerEnterAmmoWorkerCreaterArea(transform);
+        public void IsEnterAmmoCreater(Transform transform) => AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea(transform);
         public void IsEnterTurret(GameObject turretObj) => movementController.EnterToTurret(turretObj);
         public void IsExitTurret() => movementController.ExitToTurret();
 

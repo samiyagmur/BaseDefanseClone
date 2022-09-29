@@ -47,19 +47,25 @@ namespace Controllers
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(typeof(IGeterGameObject),out Component getterTurretObject))
-            {
+            {   
+
                 playerManager.IsEnterTurret(getterTurretObject.gameObject);
                 
+                
             }
-
-            if (other.gameObject.layer==LayerMask.NameToLayer("AmmoCreater"))
+            
+            if (other.TryGetComponent(typeof(CreatWorkerPhysics), out Component ammoCreater))
             {
+               
                 playerManager.IsEnterAmmoCreater(other.gameObject.transform);
+
+               
             }
             if (other.TryGetComponent(typeof(ObstaclePhysicsController), out Component obstaclePhysicsObject))
             {
                 ChangeLayerMask();
             }
+        
 
         }
 

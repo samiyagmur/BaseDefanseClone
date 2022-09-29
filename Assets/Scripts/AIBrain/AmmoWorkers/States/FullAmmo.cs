@@ -19,6 +19,8 @@ namespace States
             _animator = animator;
             _movementSpeed = movementSpeed;
         }
+
+
         #endregion
 
         #region States
@@ -37,6 +39,10 @@ namespace States
 
         public void Tick()
         {
+
+
+
+
 
         }
 

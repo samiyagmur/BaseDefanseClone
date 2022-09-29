@@ -19,7 +19,7 @@ MonoBehaviour:
       ExitClampRightSide: 0.3
       ExitClampBackSide: -0.6
     AnimationDatas:
-      speed: 0
+      speed: 2
     PhysicsDatas:
       _playerLayersType: 1
       _disitionAngle: 90

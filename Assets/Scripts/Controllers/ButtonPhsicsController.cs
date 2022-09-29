@@ -20,7 +20,7 @@ namespace Controllers
         {
             if (other.TryGetComponent(typeof(IGeterGameObject), out Component getterGameObject))
             {
-                button.IsActiveByPlayer();
+               // button.IsActiveByPlayer();
             }
         }
     }

@@ -17,8 +17,8 @@ namespace Controllers
         private int amount;
         private float zPos;
         private Sequence ammoSeq = DOTween.Sequence();
-        private float rtote;
         private List<GameObject> ammoStackObjectList = new List<GameObject>();
+
         public  void AddStack(Transform startPoint,Transform ammoWorker,GameObject bullets)
         {
             
@@ -42,6 +42,7 @@ namespace Controllers
                 ammoSeq.Join(bullets.transform.DOLocalRotate(new Vector3(Random.Range(-179, 179),Random.Range(-179, 179), Random.Range(-90, 90)), 0.3f).
 
                     OnComplete(()=> bullets.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.4f)));
+
 
             ammoSeq.Play();
             amount++;
