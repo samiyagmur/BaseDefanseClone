@@ -15,5 +15,5 @@ MonoBehaviour:
   ammoContaynerData:
     XGridSize: 1
     YGridSize: 2
-    MaxContaynerAmount: 20
+    MaxContaynerAmount: 10
     Offset: 1

@@ -30,8 +30,8 @@ namespace States
 
         #region State
         public void Enter()
-        {
-            Debug.Log("MoveToAvaliableContayner");
+        {   
+            Debug.Log(_decidedContayner.name);
             _agent.speed = _movementSpeed;
            // _animator.SetTrigger("Walk");
             _agent.SetDestination(_decidedContayner.transform.position);
@@ -39,7 +39,7 @@ namespace States
 
         public void Exit()
         {
-
+                
         }
 
         public void Tick()

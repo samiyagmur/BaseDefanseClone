@@ -1,4 +1,5 @@
 ﻿using Abstraction;
+using Controllers;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,7 +12,7 @@ namespace States
         private Animator animator;
         private float movementSpeed;
         private Transform ammoWareHouse;
-
+        private AmmoWorkerStackController ammoWorkerStackController;
         public LoadContayner(NavMeshAgent agent, Animator animator, float movementSpeed, Transform ammoWareHouse)
         {
             this.agent = agent;
@@ -22,8 +23,9 @@ namespace States
 
         public void Enter()
         {
+            ammoWorkerStackController=new AmmoWorkerStackController();
             Debug.Log("LoadContayner");
-            agent.SetDestination(ammoWareHouse.position);
+            agent.speed = 0;
         }
 
         public void Exit()
@@ -34,6 +36,11 @@ namespace States
         public void Tick()
         {
             
+        }
+
+        public void SendAmmoStack()
+        {
+
         }
     }
 }

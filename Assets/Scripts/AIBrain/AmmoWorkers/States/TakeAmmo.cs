@@ -49,7 +49,9 @@ namespace States
             _stackable = new AmmoWorkerStackController();
             Debug.Log("TakeAmmoEnter");
             _agent.speed = 0;
-            
+
+            _playerAmmaStackStatus = PlayerAmmaStackStatus.NotFull;
+
         }
 
         public void Exit()
@@ -66,9 +68,8 @@ namespace States
                 if (counter < _ammoWorkerStackMaxAmount)
                 {
                     _stackable.AddStack(_ammoWareHouse, _ammoWorkerBrain.gameObject.transform, GetObject(PoolType.Ammo.ToString()));
-                    _timer = 0.1f;
+                    _timer = 0.4f;
                     counter++;
-                   
                 }
                 else
                 {

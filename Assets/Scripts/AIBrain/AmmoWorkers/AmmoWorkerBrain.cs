@@ -31,8 +31,8 @@ namespace AIBrain
 
         int counter;
         [SerializeField]
-        private bool  _inplaceWorker=false;
-
+        private bool  _inplaceWorker;
+        private bool _isLoadTurretContayner;
         private GameObject _targetTurretContayner;
 
  
@@ -44,6 +44,12 @@ namespace AIBrain
         private TakeAmmo _takeAmmo;
 
         private MoveToAvaliableContayner _moveToAvaliableConteyner;
+
+        internal void IsLoadTurret(bool isLoadTurretContayner)
+        {
+            _isLoadTurretContayner=isLoadTurretContayner;
+        }
+
         private LoadContayner _loadTurret;
         private FullAmmo _fullAmmo;
         private Creat _creat;
@@ -139,7 +145,7 @@ namespace AIBrain
 
             Func<bool> WhenAmmoWorkerStackFull() => () => _targetTurretContayner != null && _takeAmmo.IsStackFull() == Enums.PlayerAmmaStackStatus.Full;
 
-            Func<bool> IsAmmoWorkerInContayner() => () => _targetTurretContayner != null;
+            Func<bool> IsAmmoWorkerInContayner() => () => _targetTurretContayner != null && _isLoadTurretContayner==true;
 
             Func<bool> WhenAmmoDichargeStack() => () => _ammoWorkerAIData.AmmoWareHouse.transform != null;
 
@@ -150,7 +156,7 @@ namespace AIBrain
 
         public void Update()
         {
-            Debug.Log(_inplaceWorker);
+            Debug.Log(_takeAmmo.IsStackFull());
             _statemachine.Tick();
         }
         #endregion

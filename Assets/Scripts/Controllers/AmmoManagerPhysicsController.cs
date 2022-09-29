@@ -16,10 +16,13 @@ namespace Controllers
   
             if (other.TryGetComponent(typeof(AmmoWorkerPhysicsController), out Component ammoManagment))//it must change
             {
-                Debug.Log(other.gameObject.name);
               ammoManager.IsAmmoEnterAmmoWareHouse();
             }
-            
+            if (other.TryGetComponent(typeof(AmmoContaynerPhysicsControl), out Component ammoContayenr))//it must change
+            {
+                ammoManager.IsEnterTurretContayner();
+            }
+
         }
 
 
@@ -28,6 +31,10 @@ namespace Controllers
             if (other.TryGetComponent(typeof(AmmoWorkerPhysicsController), out Component ammoManagment))//it must change
             {
                 ammoManager.IsAmmoExitAmmoWareHouse();
+            }
+            if (other.TryGetComponent(typeof(AmmoContaynerPhysicsControl), out Component ammoContayenr))//it must change
+            {
+                ammoManager.IsExitTurretContayner();
             }
         }
 

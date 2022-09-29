@@ -37,6 +37,16 @@ namespace Managers
             AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea += OnPlayerEnterAmmoWorkerCreaterArea;
         }
 
+        internal void IsEnterTurretContayner()
+        {
+            ammoWorkerBrain.IsLoadTurret(true);
+        }
+
+        internal void IsExitTurretContayner()
+        {
+            ammoWorkerBrain.IsLoadTurret(false);
+        }
+
         private void UnsubscribeEvents()
         {
             AmmoManagerSignals.Instance.onSetConteynerList -= OnSetConteynerList;
@@ -46,12 +56,11 @@ namespace Managers
         private void OnDisable() => UnsubscribeEvents();
 
         #endregion
+
+        
+
         internal void IsAmmoEnterAmmoWareHouse()
         {
-            Debug.Log(_ammoWorkerList.Count);
-
-            
-
             ammoWorkerBrain.SetTriggerInfo(true);
         }
 
@@ -61,7 +70,6 @@ namespace Managers
         {
             if (_ammoWorkerList.Count != 0)
                 ammoWorkerBrain.SetTargetTurretContayner(targetContayner);
-
         }
 
         private void OnPlayerEnterAmmoWorkerCreaterArea(Transform workerCreater)

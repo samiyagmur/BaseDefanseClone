@@ -13,8 +13,7 @@ namespace Controllers
     {
         private PlayerAmmaStackStatus _playerAmmaStackStatus;
 
-        private float yPos=-2f;//passed false
-        private int amount;
+        private float yPos=-0.5f;//passed false
         private float zPos;
         private Sequence ammoSeq = DOTween.Sequence();
         private List<GameObject> ammoStackObjectList = new List<GameObject>();
@@ -26,9 +25,6 @@ namespace Controllers
             bullets.transform.SetParent(ammoWorker);
 
 
-            Debug.Log(ammoWorker.localPosition.y);
-
-                Debug.Log("if");
                 ammoSeq.Append(bullets.transform.DOScale(new Vector3(1, 1, 1), 0.8f));
 
 
@@ -44,18 +40,21 @@ namespace Controllers
                     OnComplete(()=> bullets.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.4f)));
 
 
+            //
+
+
+    
             ammoSeq.Play();
-            amount++;
+
             yPos += 0.5f;
 
-            if (yPos > 5)
+            if (yPos >= 5)
             { 
-                Debug.Log("else");
+           
                 zPos += 0.5f;
-                amount = 0;
                 yPos = 0;
             }
-
+         
             ammoStackObjectList.Add(bullets);
 
         }
@@ -70,5 +69,9 @@ namespace Controllers
             return _playerAmmaStackStatus;
         }
 
+        public List<GameObject> SendAmmoStack()
+        {
+            return ammoStackObjectList;
+        }
     }
 }

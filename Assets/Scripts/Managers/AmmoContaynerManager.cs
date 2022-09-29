@@ -34,14 +34,7 @@ namespace Managers
         {
            // IsHitAmmoWorker();
         }
-
-    
-
-
         #endregion
-
-
-
         private void Update()
         {
            
