@@ -1,11 +1,13 @@
 ﻿using Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class AmmoContaynerGridController :IGridAble
+
+    public class AmmoContaynerGridController 
     {
 
         private int _orderOfContayner ;
@@ -19,7 +21,6 @@ namespace Controllers
 
         public AmmoContaynerGridController( int xGridSize, int yGridSize, int maxContaynerAmount, float offset)
         {
-            
             _xGridSize = xGridSize;
             _yGridSize = yGridSize;
             _maxContaynerAmount = maxContaynerAmount;
@@ -29,9 +30,10 @@ namespace Controllers
         public void GanarateGrid()
         {
 
+
             for (int i = 0; i < _maxContaynerAmount; i++)
             {
-                if (!_contaynerFull) return;
+                if (_contaynerFull) return;
 
 
                 var modx = _orderOfContayner % _xGridSize;
@@ -56,6 +58,10 @@ namespace Controllers
                     _orderOfContayner += 1;
                 } 
             }
+            //foreach (var item in _contaynerStackGridPositions)
+            //{
+            //    Debug.Log(item);
+            //}
         }
 
         public List<Vector3> LastPosition()

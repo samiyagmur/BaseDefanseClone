@@ -162,7 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7448448c98a9c05479e15128f64854d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoCreater: {fileID: 2139571393539566538, guid: 352b3095c0cef334e8b5daab1f3136de, type: 3}
+  cD_AIData: {fileID: 11400000, guid: 40163b82f71911f45a943dc79b6991a5, type: 2}
+  _ammoWorkerStackController: {fileID: 3729603988605016481, guid: 324601c81182dfa40b70906e47c79d4e, type: 3}
   _ammoWorkerList: []
 --- !u!114 &7555061958545134387
 MonoBehaviour:

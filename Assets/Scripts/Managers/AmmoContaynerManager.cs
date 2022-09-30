@@ -17,69 +17,134 @@ namespace Managers
         #region SelfVariables
 
         #region Private Variables
-        private GridData _gridData; 
+      
+        private GridData _gridData;
 
-        private Dictionary<int, GameObject> _turrets = new Dictionary<int, GameObject>();
+        private AmmoContaynerGridController _gridController;
+
+        private Dictionary<int, GameObject> _turrets = new Dictionary< int, GameObject >();
+        private GameObject _selectedTarget;
+
+
+        private AmmoContaynerStackController _selectedTargetStack;
+        
+        
+            
+
         #endregion
 
         #region Serilizefield Variebles
-        [SerializeField] private IGridAble gridController;
+
+
         #endregion
 
         #endregion
 
         #region Get&SetData
 
-        private void Awake()
+        private void Awake() => Init();
+
+        private void Init()
         {
-           // IsHitAmmoWorker();
+            _gridData = GetGridData();
+
+            _gridController = NewGrid();
+
+            GenerateGrid();
+
+
+
         }
+
+        private GridData GetGridData() => Resources.Load<CD_GridData>("Data/AmmoContayner/CD_ContaynerData").ammoContaynerData;
+        private AmmoContaynerGridController NewGrid() 
+            => new AmmoContaynerGridController(_gridData.XGridSize, _gridData.YGridSize, _gridData.MaxContaynerAmount, _gridData.Offset);
+        private void GenerateGrid() => _gridController.GanarateGrid();
+
         #endregion
-        private void Update()
+
+        #region Event Subscription
+        private void OnEnable() => SubscribeEvents();
+
+        private void SubscribeEvents()
+        {
+            
+        }
+
+        private void UnsubscribeEvents()
         {
            
         }
 
+        private void OnDisable() => UnsubscribeEvents();
+
+
+        #endregion
 
         #region SentMomentİnfo
 
-        internal void StackCount(int count, GameObject gameObject)
-        {
-
-            _turrets.Add(count, gameObject);
+        internal void StackInfos(int count, Transform targetStack)
+        {   
+            foreach (var item in _turrets)
+                if (item.Value == targetStack.parent.gameObject) return;
             
-            _turrets = _turrets.OrderBy(obj => obj.Key).ToDictionary(obj => obj.Key, obj => obj.Value);
 
+            _turrets.Add(count, targetStack.parent.gameObject);
+
+             _turrets = _turrets.OrderBy(obj => obj.Key).ToDictionary(obj => obj.Key, obj => obj.Value);
+
+            _selectedTarget = _turrets.ElementAt(0).Value;
+
+            Debug.Log(_turrets.ElementAt(0).Key + " " + _turrets.ElementAt(0).Value);
+
+            _selectedTargetStack = _selectedTarget.GetComponentInChildren<AmmoContaynerStackController>();
         }
     
-        internal void SendToTargetInfo()
+        internal void SendToTargetInfo(List<GameObject> emtyAmmoStack)
         {
             if (_turrets.Count != 0)
             {
-                
-                AmmoManagerSignals.Instance.onSetConteynerList?.Invoke(_turrets.ElementAt(0).Value);
-
+               AmmoManagerSignals.Instance.onSetConteynerList?.Invoke(_selectedTarget, emtyAmmoStack);
             }
 
             else 
             {
-                //Debug.Log("!!!_turrets Dictionary caunt=0 ");
-                AmmoManagerSignals.Instance.onSetConteynerList?.Invoke(null);
+                Debug.Log("!!!_turrets Dictionary caunt=0 ");
+
+                AmmoManagerSignals.Instance.onSetConteynerList?.Invoke(null,null);
             } 
         }
-
         #endregion
 
         #region PhysicsMethods
         public void IsHitAmmoWorker()
         {
+            Debug.Log(_gridController.LastPosition().Count);
 
 
+            _selectedTargetStack.GetComponentInChildren<AmmoContaynerStackController>().AddStack(_gridController.LastPosition());
         }
-
         #endregion
 
         #region Event Methods
+
+
+        internal void EnterTurretContayner(Transform ammoManager)
+        {
+           List<GameObject> ammoWorkerStackList = ammoManager.GetComponent<AmmoWorkerStackController>().SendAmmoStack();
+
+            foreach (var item in ammoWorkerStackList)
+                Debug.Log(item.name);
+
+            _selectedTargetStack.GetComponentInChildren<AmmoContaynerStackController>().SetAmmoWorkerList(ammoWorkerStackList);
+           
+        }
+
+        //internal void SendCompanent(AmmoContaynerStackController ammoContaynerStackController)
+        //{
+        //   // Debug.Log(ammoContaynerStackController.gameObject.transform.parent.gameObject.name);
+        //    _stackController.Add(ammoContaynerStackController);
+        //}
 
         #endregion
 

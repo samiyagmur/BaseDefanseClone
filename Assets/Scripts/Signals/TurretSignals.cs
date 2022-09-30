@@ -1,6 +1,6 @@
 ﻿using Extentions;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +10,8 @@ namespace Signals
     {
 
       public UnityAction onPressTurretButton =delegate { };
+
       public UnityAction onDeadEnemy = delegate { };
+      
     }
 }

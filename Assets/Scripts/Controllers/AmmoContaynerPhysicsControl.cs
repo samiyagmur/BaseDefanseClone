@@ -2,31 +2,43 @@
 using Managers;
 using System.Collections;
 using UnityEngine;
+using Interfaces;
 
 namespace Controllers
 {
     public class AmmoContaynerPhysicsControl : MonoBehaviour
     {
-        private float timer;
-
-        private float timeScale;
+        private float _timer= 0.4f;
         [SerializeField]
         private AmmoContaynerManager _ammoContaynerManager;
+        private void OnTriggerEnter(Collider other)
+        {
+           
+
+            if (other.TryGetComponent(typeof(AmmoWorkerPhysicsController), out Component ammoManagment))//it must change
+            {   
+                _ammoContaynerManager.EnterTurretContayner(other.gameObject.transform.parent);
+
+            }
+
+        }
         private void OnTriggerStay(Collider other)
         {
-            if (other.TryGetComponent(typeof(AmmoWorkerPhysicsController), out Component ammoWorkerObject))
-            {   
-                if (timer < 0.1f)
-                {
-                    timer = Time.deltaTime;
-                }
-                else
-                {
-                    _ammoContaynerManager.IsHitAmmoWorker(); //ListesiGelcek
+          
+            if (other.TryGetComponent(typeof(AmmoWorkerPhysicsController), out Component ammoManagment))//it must change
+            {
+                
+                _timer -= Time.deltaTime;
 
-                    timer = 0;
+                if (_timer < 0)
+                {
+                    _timer = 0.4f;
+                    Debug.Log("AmmoContaynerPhysicsControl");
+                    _ammoContaynerManager.IsHitAmmoWorker();
+
                 }
             }
+            
         }
     }
 }

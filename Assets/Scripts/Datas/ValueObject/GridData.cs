@@ -9,6 +9,7 @@ namespace Datas.ValueObject
     public class GridData
     {
 
+        public int _currentCount;
         public int XGridSize;
         public int YGridSize;
         public int MaxContaynerAmount;

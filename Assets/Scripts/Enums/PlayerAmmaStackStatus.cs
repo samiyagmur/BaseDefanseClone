@@ -5,7 +5,7 @@ namespace Enums
 {
     public enum PlayerAmmaStackStatus
     {
-        NotFull,
+        Empty,
         Full
         
     }

@@ -8,7 +8,7 @@ namespace Signals
 {
     public class AmmoManagerSignals : MonoSingleton<AmmoManagerSignals>
     {
-        public UnityAction <GameObject> onSetConteynerList = delegate { };
+        public UnityAction <GameObject,List<GameObject>> onSetConteynerList = delegate { };
         public UnityAction <Transform> onPlayerEnterAmmoWorkerCreaterArea = delegate { };
     }
 }

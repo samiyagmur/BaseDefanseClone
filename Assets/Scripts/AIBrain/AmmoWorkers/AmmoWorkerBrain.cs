@@ -1,6 +1,7 @@
 using Abstraction;
 using Data.UnityObject;
 using Datas.ValueObject;
+using Enums;
 using Managers;
 using StateBehavior;
 using States;
@@ -17,8 +18,7 @@ namespace AIBrain
         #region Self Variables
 
         #region SerilizeField Variables
-        [SerializeField]
-        private CD_AIData cD_AIData;
+
         [SerializeField]
         private NavMeshAgent _agent;
         [SerializeField]
@@ -45,6 +45,8 @@ namespace AIBrain
 
         private MoveToAvaliableContayner _moveToAvaliableConteyner;
 
+        private PlayerAmmaStackStatus _playerAmmaStackStatus;
+
         internal void IsLoadTurret(bool isLoadTurretContayner)
         {
             _isLoadTurretContayner=isLoadTurretContayner;
@@ -64,28 +66,29 @@ namespace AIBrain
         #endregion
 
         #region GetReferans
-        internal  void Awake()
+        private void Awake()
         {
-           
-            Init();
-  
+            InitBrain();
         }
-
-        private void Init()
+        public void InitBrain()
         {
-            _ammoWorkerAIData = cD_AIData.AmmoWorkerAIDatas;
+            _ammoWorkerAIData = Resources.Load<CD_AIData>("Data/CD_AIData").AmmoWorkerAIDatas;
             GetStatesReferences();
+            TransitionofState();
         }
+        public void IsStackFul(PlayerAmmaStackStatus status) => _playerAmmaStackStatus = status;
 
         public void SetTriggerInfo(bool IsInPlaceWareHouse) => _inplaceWorker = IsInPlaceWareHouse;
 
         public void SetTargetTurretContayner(GameObject targetTurretContayner)
         {
+            if (targetTurretContayner == null) return;
 
             _moveToAvaliableConteyner.SetData(targetTurretContayner);
 
             _targetTurretContayner = targetTurretContayner;
         }
+
         internal  void GetStatesReferences()
         {
             _statemachine = new StateMachine();
@@ -94,7 +97,7 @@ namespace AIBrain
 
             _moveToWareHouse = new MoveToWareHouse(_agent, _animator, _ammoWorkerAIData.MovementSpeed, _ammoWorkerAIData.AmmoWareHouse, _ammoWorkerAIData.AmmoWorker,this);
 
-            _takeAmmo = new TakeAmmo(_agent, _animator, _ammoWorkerAIData.AmmoWareHouse, _ammoWorkerAIData.MaxStackCount,_ammoWorkerAIData.AmmoWorker.transform,this);
+            _takeAmmo = new TakeAmmo(_agent,_animator);
 
             _moveToAvaliableConteyner = new MoveToAvaliableContayner(_agent, _animator, _ammoWorkerAIData.MovementSpeed);
 
@@ -102,9 +105,9 @@ namespace AIBrain
 
             _fullAmmo = new FullAmmo(_agent, _animator, _ammoWorkerAIData.MovementSpeed);
 
-            TransitionofState();
         }
 
+    
 
         #endregion
 
@@ -126,7 +129,7 @@ namespace AIBrain
 
             At(_loadTurret, _moveToWareHouse, WhenAmmoDichargeStack());
 
-            if (_takeAmmo.IsStackFull() == Enums.PlayerAmmaStackStatus.Full)
+            if (_playerAmmaStackStatus == PlayerAmmaStackStatus.Full)
             {
                 _statemachine.AddAnyTransition(_fullAmmo, HasNoEmtyTarget());//bak buna 
             }
@@ -143,11 +146,11 @@ namespace AIBrain
 
             Func<bool> WhenAmmoWorkerInAmmoWareHouse() => () => _inplaceWorker == true && _ammoWorkerAIData.AmmoWareHouse.transform != null;
 
-            Func<bool> WhenAmmoWorkerStackFull() => () => _targetTurretContayner != null && _takeAmmo.IsStackFull() == Enums.PlayerAmmaStackStatus.Full;
+            Func<bool> WhenAmmoWorkerStackFull() => () => _targetTurretContayner != null && _playerAmmaStackStatus == PlayerAmmaStackStatus.Full;
 
             Func<bool> IsAmmoWorkerInContayner() => () => _targetTurretContayner != null && _isLoadTurretContayner==true;
 
-            Func<bool> WhenAmmoDichargeStack() => () => _ammoWorkerAIData.AmmoWareHouse.transform != null;
+            Func<bool> WhenAmmoDichargeStack() => () =>  _playerAmmaStackStatus == PlayerAmmaStackStatus.Empty;
 
             Func<bool> HasNoEmtyTarget() => () => _targetTurretContayner == null;
 
@@ -156,7 +159,7 @@ namespace AIBrain
 
         public void Update()
         {
-            Debug.Log(_takeAmmo.IsStackFull());
+
             _statemachine.Tick();
         }
         #endregion

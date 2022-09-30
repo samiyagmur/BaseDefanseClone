@@ -31,7 +31,7 @@ namespace States
         #region State
         public void Enter()
         {   
-            Debug.Log(_decidedContayner.name);
+
             _agent.speed = _movementSpeed;
            // _animator.SetTrigger("Walk");
             _agent.SetDestination(_decidedContayner.transform.position);

@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 1902793931624525004}
   - component: {fileID: 1902793931624525010}
   - component: {fileID: 6357671700082295552}
+  - component: {fileID: 3729603988605016481}
   m_Layer: 0
   m_Name: AmmoWorker
   m_TagString: Untagged
@@ -142,11 +143,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef601233e77f0b44ac6872d2aa178ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cD_AIData: {fileID: 11400000, guid: 40163b82f71911f45a943dc79b6991a5, type: 2}
   _agent: {fileID: 1902793931624525010}
   _animator: {fileID: 5405024711051857897}
   ammoManager: {fileID: 7555061958545134384, guid: 4561cd12bc07cda408c1f3bf60a85bdf, type: 3}
   _inplaceWorker: 0
+--- !u!114 &3729603988605016481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902793931624525007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee917211225fd294fb7b9539c4b1b0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1902793930357142136
 PrefabInstance:
   m_ObjectHideFlags: 0

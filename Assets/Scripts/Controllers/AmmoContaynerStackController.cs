@@ -1,41 +1,62 @@
-﻿using Enums;
-using Interfaces;
-using Managers;
-using System.Collections;
+﻿using Managers;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class AmmoContaynerStackController : MonoBehaviour
+    public class AmmoContaynerStackController :MonoBehaviour
     {
         [SerializeField]
-        private AmmoContaynerManager ammoContaynerManager;
-        private List<GameObject> _contaynerStackList;
-        public int testNumber;
-        public bool _IsFull;
-        private void Awake()
+        private AmmoContaynerManager _ammoContaynerManager;
+        public int _currentCount;
+
+
+        private List<GameObject> _ammoWorkerStackList=new List<GameObject>();
+
+        private int Count;
+        private float timer=0.1f;
+
+        private async void Start()
         {
-          
-            AddStack();
+            _ammoContaynerManager.StackInfos(_currentCount, transform);
+
+            await Task.Delay(10);
+
+            _ammoContaynerManager.SendToTargetInfo(_ammoWorkerStackList);
+
         }
-        private void Start()
-        {
-            ammoContaynerManager.InvokeRepeating("SendToTargetInfo", 1f, 5f);
-        }
-        public void AddStack()
+ 
+
+        public async void AddStack(List<Vector3> gridPosList)
         {
 
-            if (testNumber <= 50)
+            if (Count < _ammoWorkerStackList.Count)
             {
-                ammoContaynerManager.StackCount(testNumber, gameObject.transform.parent.gameObject);
+                _ammoWorkerStackList[Count].transform.SetParent(transform);
+
+                Debug.Log(Count + " " + gridPosList.Count + " " + _ammoWorkerStackList.Count);
+
+                _ammoWorkerStackList[Count].transform.position = transform.position+gridPosList[Count];
+
+                _ammoWorkerStackList[Count].transform.rotation = transform.rotation;
+
+                Count++;
+
+
+               
             }
+            else
+            {
+                _ammoWorkerStackList.Clear();
+                
+                _ammoWorkerStackList.TrimExcess();
+                //  _currentCount = _ammoWorkerStackList.Count;
 
-
-           // _contaynerStackList.Add(stackObject);
-
-            
-
+                _ammoContaynerManager.StackInfos(_currentCount, transform);
+                await Task.Delay(10);
+                _ammoContaynerManager.SendToTargetInfo(_ammoWorkerStackList);
+            }
         }
         
         public void RemoveStack()
@@ -43,9 +64,12 @@ namespace Controllers
 
         }
 
+        public void SetAmmoWorkerList(List<GameObject> ammoWorkerStackList)
+        {
+            Debug.Log("SetAmmoWorkerList");
+            _ammoWorkerStackList = ammoWorkerStackList;
+        }
 
 
-   
-       
     }
 }

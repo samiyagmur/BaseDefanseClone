@@ -9,18 +9,19 @@ using System.Collections.Generic;
 namespace Controllers
 {
  
-    public class AmmoWorkerStackController
+    public class AmmoWorkerStackController:MonoBehaviour
     {
         private PlayerAmmaStackStatus _playerAmmaStackStatus;
 
         private float yPos=-0.5f;//passed false
         private float zPos;
-        private Sequence ammoSeq = DOTween.Sequence();
-        private List<GameObject> ammoStackObjectList = new List<GameObject>();
+        private Sequence ammoSeq;
+        private List<GameObject> ammoStackObjectList;
 
         public  void AddStack(Transform startPoint,Transform ammoWorker,GameObject bullets)
         {
-            
+            ammoSeq =  DOTween.Sequence();
+
             bullets.transform.position = startPoint.position;
             bullets.transform.SetParent(ammoWorker);
 
@@ -40,9 +41,6 @@ namespace Controllers
                     OnComplete(()=> bullets.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.4f)));
 
 
-            //
-
-
     
             ammoSeq.Play();
 
@@ -58,12 +56,6 @@ namespace Controllers
             ammoStackObjectList.Add(bullets);
 
         }
-        public void RemoveStack()
-        {   
-            
-        }
-
-      
         public PlayerAmmaStackStatus GetStackStatus()
         {   
             return _playerAmmaStackStatus;
@@ -72,6 +64,11 @@ namespace Controllers
         public List<GameObject> SendAmmoStack()
         {
             return ammoStackObjectList;
+        }
+        public void SetEmtyWorkerStackList(List<GameObject> _ammoStackObjectList)
+        {
+            Debug.Log("SetEmtyWorkerStackList");
+            ammoStackObjectList = _ammoStackObjectList;
         }
     }
 }
