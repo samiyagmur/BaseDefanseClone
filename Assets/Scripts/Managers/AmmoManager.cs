@@ -116,7 +116,7 @@ namespace Managers
                 return;
             }
 
-            Debug.Log(WhenCallFirstTime);
+          
             if (_emtyAmmoWorkerStack.Count == 0 || _emtyAmmoWorkerStack == null)
             {
                 ammoWorkerBrain.IsStackFul(PlayerAmmaStackStatus.Empty);

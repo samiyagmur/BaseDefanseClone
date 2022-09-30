@@ -33,7 +33,7 @@ namespace Controllers
                 if (_timer < 0)
                 {
                     _timer = 0.4f;
-                    Debug.Log("AmmoContaynerPhysicsControl");
+ 
                     _ammoContaynerManager.IsHitAmmoWorker();
 
                 }

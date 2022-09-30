@@ -35,7 +35,7 @@ namespace Controllers
             {
                 _ammoWorkerStackList[Count].transform.SetParent(transform);
 
-                Debug.Log(Count + " " + gridPosList.Count + " " + _ammoWorkerStackList.Count);
+             
 
                 _ammoWorkerStackList[Count].transform.position = transform.position+gridPosList[Count];
 

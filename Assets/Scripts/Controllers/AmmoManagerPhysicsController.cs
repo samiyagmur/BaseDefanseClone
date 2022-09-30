@@ -21,6 +21,7 @@ namespace Controllers
             }
             if (other.TryGetComponent(typeof(AmmoContaynerPhysicsControl), out Component ammoContayenr))//it must change
             {
+                Debug.Log("IsEnterTurretContayner");
                 ammoManager.IsEnterTurretContayner();
             }
 

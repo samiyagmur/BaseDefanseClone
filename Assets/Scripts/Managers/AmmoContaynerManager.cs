@@ -95,7 +95,7 @@ namespace Managers
 
             _selectedTarget = _turrets.ElementAt(0).Value;
 
-            Debug.Log(_turrets.ElementAt(0).Key + " " + _turrets.ElementAt(0).Value);
+          
 
             _selectedTargetStack = _selectedTarget.GetComponentInChildren<AmmoContaynerStackController>();
         }
@@ -134,17 +134,12 @@ namespace Managers
            List<GameObject> ammoWorkerStackList = ammoManager.GetComponent<AmmoWorkerStackController>().SendAmmoStack();
 
             foreach (var item in ammoWorkerStackList)
-                Debug.Log(item.name);
+                
 
             _selectedTargetStack.GetComponentInChildren<AmmoContaynerStackController>().SetAmmoWorkerList(ammoWorkerStackList);
            
         }
 
-        //internal void SendCompanent(AmmoContaynerStackController ammoContaynerStackController)
-        //{
-        //   // Debug.Log(ammoContaynerStackController.gameObject.transform.parent.gameObject.name);
-        //    _stackController.Add(ammoContaynerStackController);
-        //}
 
         #endregion
 
