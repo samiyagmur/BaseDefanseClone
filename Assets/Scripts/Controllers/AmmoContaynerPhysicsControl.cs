@@ -16,7 +16,8 @@ namespace Controllers
            
 
             if (other.TryGetComponent(typeof(AmmoWorkerPhysicsController), out Component ammoManagment))//it must change
-            {   
+            {
+              
                 _ammoContaynerManager.EnterTurretContayner(other.gameObject.transform.parent);
 
             }
@@ -27,7 +28,7 @@ namespace Controllers
           
             if (other.TryGetComponent(typeof(AmmoWorkerPhysicsController), out Component ammoManagment))//it must change
             {
-                
+  
                 _timer -= Time.deltaTime;
 
                 if (_timer < 0)

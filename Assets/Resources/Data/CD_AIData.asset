@@ -50,7 +50,7 @@ MonoBehaviour:
     ChaseSpeed: 10
     ScaleSize: {x: 0, y: 0, z: 0}
   AmmoWorkerAIDatas:
-    MovementSpeed: 10
+    MovementSpeed: 5
     AmmoWareHouse: {fileID: 9004025123679645247, guid: 0742269e27659a647932f8f57fbb39f2, type: 3}
     AmmoWorker: {fileID: 1902793931624525007, guid: 324601c81182dfa40b70906e47c79d4e, type: 3}
     Ammo: {fileID: 9004025123679645240, guid: 0742269e27659a647932f8f57fbb39f2, type: 3}

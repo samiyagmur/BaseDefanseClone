@@ -160,7 +160,7 @@ namespace AIBrain
 
         public void Update()
         {
-            Debug.Log(_playerAmmaStackStatus);
+
             _statemachine.Tick();
         }
         #endregion

@@ -98,7 +98,6 @@ namespace Managers
 
         private void OnSetConteynerList(GameObject targetContayner, List<GameObject> emtyAmmoWorkerStack)
         {
-           
 
             _targetContayner = targetContayner;
             _emtyAmmoWorkerStack = emtyAmmoWorkerStack;
@@ -119,9 +118,13 @@ namespace Managers
           
             if (_emtyAmmoWorkerStack.Count == 0 || _emtyAmmoWorkerStack == null)
             {
-                ammoWorkerBrain.IsStackFul(PlayerAmmaStackStatus.Empty);
-                
                 _ammoWorkerStackController.SetEmtyWorkerStackList(_emtyAmmoWorkerStack);
+
+                ammoWorkerBrain.IsStackFul(PlayerAmmaStackStatus.Empty);
+
+                //_emtyAmmoWorkerStack.Clear();
+                //_emtyAmmoWorkerStack.TrimExcess();
+
             }
                     
 
@@ -133,7 +136,7 @@ namespace Managers
 
         private void OnPlayerEnterAmmoWorkerCreaterArea(Transform workerCreater)
         {
-            Debug.Log("OnPlayerEnterAmmoWorkerCreaterArea");
+
             AddAmmaWorker(workerCreater);
             ammoWorkerBrain = _ammoWorkerList[_ammoWorkerList.Count - 1].GetComponent<AmmoWorkerBrain>();
             _ammoWorkerStackController = ammoWorkerBrain.GetComponent<AmmoWorkerStackController>();

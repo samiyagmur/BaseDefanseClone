@@ -37,7 +37,7 @@ namespace States
         #region State
         public void Enter()
         {
-             Debug.Log("MoveToWareHouse");
+
             _agent.speed = _movementSpeed;
             _agent.SetDestination(_ammoWareHouse.position);
 

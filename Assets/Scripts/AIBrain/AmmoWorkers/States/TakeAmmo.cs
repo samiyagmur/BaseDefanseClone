@@ -35,7 +35,6 @@ namespace States
         public  void Enter()
         {
 
-            Debug.Log("TakeAmmoEnter");
             _agent.speed = 0;
 
 

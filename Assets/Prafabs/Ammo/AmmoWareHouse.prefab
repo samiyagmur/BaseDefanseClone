@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7555061958545134380}
   - component: {fileID: 7555061958545134384}
-  - component: {fileID: 7555061958545134387}
+  - component: {fileID: 2860738786684111600}
   - component: {fileID: 7555061958545134385}
   - component: {fileID: 7555061958545134386}
   - component: {fileID: 8293016117044169536}
@@ -163,9 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cD_AIData: {fileID: 11400000, guid: 40163b82f71911f45a943dc79b6991a5, type: 2}
-  _ammoWorkerStackController: {fileID: 3729603988605016481, guid: 324601c81182dfa40b70906e47c79d4e, type: 3}
   _ammoWorkerList: []
---- !u!114 &7555061958545134387
+--- !u!114 &2860738786684111600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,10 +173,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7555061958545134381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ba9741d4c672d24bbdac21eb5bbcbe3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d0cfd5d6f1bd8b418d28db91617bbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoManager: {fileID: 7555061958545134384}
 --- !u!54 &7555061958545134385
 Rigidbody:
   m_ObjectHideFlags: 0

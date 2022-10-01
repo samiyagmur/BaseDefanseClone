@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1902793930348405254}
   - component: {fileID: 5003555120411992747}
   - component: {fileID: 3583246432616396122}
-  - component: {fileID: 2038628128722989787}
   - component: {fileID: 7953103923633613297}
   m_Layer: 16
   m_Name: PhysicController
@@ -63,18 +62,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2882539, y: 3.7556002, z: 1.0527906}
   m_Center: {x: 0.043923557, y: 1.8667387, z: -0.02639532}
---- !u!114 &2038628128722989787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1902793930348405249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d0cfd5d6f1bd8b418d28db91617bbcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7953103923633613297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ba9741d4c672d24bbdac21eb5bbcbe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoManager: {fileID: 7555061958545134384, guid: 4561cd12bc07cda408c1f3bf60a85bdf, type: 3}
+  ammoManager: {fileID: 0}
 --- !u!1 &1902793931624525007
 GameObject:
   m_ObjectHideFlags: 0

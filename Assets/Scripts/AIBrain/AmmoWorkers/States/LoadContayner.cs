@@ -24,7 +24,7 @@ namespace States
         public void Enter()
         {
             
-            Debug.Log("LoadContayner");
+
             agent.speed = 0;
         }
 

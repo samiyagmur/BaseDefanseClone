@@ -11,7 +11,7 @@ namespace Controllers
  
     public class AmmoWorkerStackController:MonoBehaviour
     {
-        private PlayerAmmaStackStatus _playerAmmaStackStatus;
+
 
         private float yPos=-0.5f;//passed false
         private float zPos;
@@ -56,18 +56,14 @@ namespace Controllers
             ammoStackObjectList.Add(bullets);
 
         }
-        public PlayerAmmaStackStatus GetStackStatus()
-        {   
-            return _playerAmmaStackStatus;
-        }
+
 
         public List<GameObject> SendAmmoStack()
-        {
+        {   
             return ammoStackObjectList;
         }
         public void SetEmtyWorkerStackList(List<GameObject> _ammoStackObjectList)
         {
-            Debug.Log("SetEmtyWorkerStackList");
             ammoStackObjectList = _ammoStackObjectList;
         }
     }
