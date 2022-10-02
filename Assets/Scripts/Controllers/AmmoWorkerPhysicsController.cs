@@ -21,12 +21,14 @@ namespace Controllers
             {
                 _ammoManager = other.gameObject.GetComponent<AmmoManager>();
 
-                _ammoManager.IsAmmoEnterAmmoWareHouse();
+                _ammoManager.IsAmmoEnterAmmoWareHouse(transform.parent.GetComponent<AmmoWorkerBrain>());
+
             }
-            if (other.TryGetComponent(typeof(AmmoContaynerPhysicsControl), out Component ammoContayenr))//it must change
+            if (other.TryGetComponent(typeof(TurretStackPhysicsControl), out Component ammoContayenr))//it must change
             {
                
-               _ammoManager.IsEnterTurretContayner();
+               _ammoManager.IsEnterTurretContayner(transform.parent.GetComponent<AmmoWorkerBrain>());
+
             }
         }
 
@@ -37,14 +39,18 @@ namespace Controllers
             if (other.TryGetComponent(typeof(AmmoManagerPhysicsController), out Component ammoManagment))//it must change
             {
                 _ammoManager = other.gameObject.GetComponent<AmmoManager>();
-                _ammoManager.IsAmmoExitAmmoWareHouse();
+                _ammoManager.IsAmmoExitAmmoWareHouse(transform.parent.GetComponent<AmmoWorkerBrain>());
+
 
                 _ammoManager.ResetItems();
             }
 
-            if (other.TryGetComponent(typeof(AmmoContaynerPhysicsControl), out Component ammoContayenr))//it must change
+            if (other.TryGetComponent(typeof(TurretStackPhysicsControl), out Component ammoContayenr))//it must change
             {
-                _ammoManager.IsExitTurretContayner();
+                _ammoManager.IsExitTurretContayner(transform.parent.GetComponent<AmmoWorkerBrain>());
+                _ammoManager.IsExitOnTurretContayner(transform.parent.GetComponent<AmmoWorkerStackController>());
+          
+
             }
         }
 
@@ -59,13 +65,17 @@ namespace Controllers
 
                 if (_timer < 0)
                 {
-                    _timer = 0.8f;
+                    _timer = 0.1f;
 
-                    _ammoManager.IsAmmoWorkerStayOnAmmoWareHouse();
+                    _ammoManager.IsStayOnAmmoWareHouse(transform.parent.GetComponent<AmmoWorkerBrain>(),
+                                                        transform.parent.GetComponent<AmmoWorkerStackController>());
+
     
                 }
             }
-           
+
+
+
         }
 
 

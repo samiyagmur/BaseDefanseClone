@@ -1,4 +1,6 @@
-﻿using Managers;
+﻿using Data.UnityObject;
+using DG.Tweening;
+using Managers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -9,55 +11,78 @@ namespace Controllers
     {
         [SerializeField]
         private AmmoContaynerManager _ammoContaynerManager;
-
-        private List<GameObject> _ammoWorkerStackList=new List<GameObject>();
-       
+        [SerializeField]
+        private List<GameObject> _ammoWorkerStackList;
+        [SerializeField]
+        private List<GameObject> _turretContayner=new List<GameObject>();
         public int _currentCount;
+        private int _count =0;
+
+
+        private Sequence _ammoStackingMovement;
+
 
         private async void Start()
         {
             
-            _ammoContaynerManager.StackInfos(_currentCount, transform);
+            _ammoContaynerManager.StackInfos();
 
             await Task.Delay(50);
 
-           _ammoContaynerManager.SendToTargetInfo(_ammoWorkerStackList);
+           _ammoContaynerManager.SendToTargetInfo();
           
         }
  
 
         public async void AddStack(List<Vector3> gridPosList)
         {
-
-            
+            _ammoStackingMovement = DOTween.Sequence();
 
             if (_currentCount < gridPosList.Count)
             {
-                if (_currentCount < _ammoWorkerStackList.Count)
+                if (_count < _ammoWorkerStackList.Count)
                 {
+                   
 
-                    _ammoWorkerStackList[_currentCount].transform.SetParent(transform);
+                    _ammoWorkerStackList[_count].transform.SetParent(transform);
 
-                    _ammoWorkerStackList[_currentCount].transform.position = transform.position + gridPosList[_currentCount];
 
-                    _ammoWorkerStackList[_currentCount].transform.rotation = transform.rotation;
+                    GameObject bullets = _ammoWorkerStackList[_count];
 
+
+                    Vector3 endPosOnTurretStack = transform.localPosition + gridPosList[_currentCount];
+
+
+                    _ammoStackingMovement.Append(bullets.transform.
+                    DOLocalMove(new Vector3(Random.Range(-2, 2), endPosOnTurretStack.y +
+                    Random.Range(4, 6), bullets.transform.localPosition.z+3f ), 0.4f).
+                    OnComplete(() =>{bullets.transform.
+                    DOMove(new Vector3(endPosOnTurretStack.x, endPosOnTurretStack.y+0.25f , endPosOnTurretStack.z ), 0.4f);}));
+
+
+                    _ammoStackingMovement.Join(bullets.transform.DOLocalRotate(new Vector3(Random.Range(-179, 179), Random.Range(-179, 179), Random.Range(-179, 179)), 0.6f).
+                    OnComplete(() => bullets.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.2f)));
+              
+
+                    _ammoStackingMovement.Play();
+
+                    _turretContayner.Add(_ammoWorkerStackList[_count]);
+
+                    
                     _currentCount++;
+                    _count++;
                 }
                 else
                 {
-                    
+                    _count = 0;
                     _ammoWorkerStackList.Clear();
-
                     _ammoWorkerStackList.TrimExcess();
+                    _ammoContaynerManager.StackInfos();
 
-                    _ammoContaynerManager.StackInfos(_currentCount, transform);
-
-                    Debug.Log(_currentCount + " " + transform);
 
                     await Task.Delay(10);
 
-                    _ammoContaynerManager.SendToTargetInfo(_ammoWorkerStackList);
+                    _ammoContaynerManager.SendToTargetInfo();
                 }
             }
             
@@ -67,13 +92,15 @@ namespace Controllers
         {
 
         }
-
         public void SetAmmoWorkerList(List<GameObject> ammoWorkerStackList)
         {
-            Debug.Log(ammoWorkerStackList.Count);
+            ammoWorkerStackList.Reverse();
             _ammoWorkerStackList = ammoWorkerStackList;
         }
 
-
+        public int GetCurrentCount()
+        {
+            return _currentCount;
+        }
     }
 }

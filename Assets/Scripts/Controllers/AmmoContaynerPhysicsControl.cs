@@ -6,19 +6,18 @@ using Interfaces;
 
 namespace Controllers
 {
-    public class AmmoContaynerPhysicsControl : MonoBehaviour
+    public class TurretStackPhysicsControl : MonoBehaviour
     {
         private float _timer= 0.4f;
         [SerializeField]
         private AmmoContaynerManager _ammoContaynerManager;
         private void OnTriggerEnter(Collider other)
         {
-           
-
             if (other.TryGetComponent(typeof(AmmoWorkerPhysicsController), out Component ammoManagment))//it must change
             {
               
-                _ammoContaynerManager.EnterTurretContayner(other.gameObject.transform.parent);
+                _ammoContaynerManager.EnterTurretContayner(other.gameObject.transform.
+                    parent.GetComponent<AmmoWorkerStackController>().SendAmmoStack());
 
             }
 
@@ -33,7 +32,7 @@ namespace Controllers
 
                 if (_timer < 0)
                 {
-                    _timer = 0.4f;
+                    _timer = 0.08f;
  
                     _ammoContaynerManager.IsHitAmmoWorker();
 

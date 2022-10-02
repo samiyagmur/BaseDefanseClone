@@ -9,6 +9,6 @@ namespace Datas.ValueObject
     {
         public TurretMovementData MovementDatas;
         public TurretOtoAtackData TurretOtoAtackDatas;
-        public GattalingRotateData gattalingRotateDatas; 
+        public TurretShootData gattalingRotateDatas; 
     }
 }

@@ -23,19 +23,28 @@ namespace Managers
         private CD_AIData cD_AIData;
 
 
-        AmmoWorkerStackController _ammoWorkerStackController;
-
         [SerializeField]
         private List<GameObject> _ammoWorkerList=new List<GameObject>();
        
       
         private int counter;
 
+        internal void SendThisEnterAmmoManager(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
         private int WhenCallFirstTime=0;
         private AmmoWorkerBrain ammoWorkerBrain;
 
         private AmmoWorkerAIData _ammoWorkerAIData;
-        private GameObject _targetContayner;
+
+        internal void SendThisEnterTurretStack(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        private GameObject _targetStack;
         private List<GameObject> _emtyAmmoWorkerStack;
         #endregion
         internal void Awake() => Init();
@@ -50,10 +59,20 @@ namespace Managers
         #region Event Subscription
         private void OnEnable() => SubscribeEvents();
 
+        internal void SendThisExitAmmoManager(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
         private void SubscribeEvents()
         {
-            AmmoManagerSignals.Instance.onSetConteynerList += OnSetConteynerList;
+            AmmoManagerSignals.Instance.onSetConteynerList += OnSetConteynerList;   
             AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea += OnPlayerEnterAmmoWorkerCreaterArea;
+        }
+
+        internal void SendThisExitTurretStack(GameObject gameObject)
+        {
+            throw new NotImplementedException();
         }
 
         private void UnsubscribeEvents()
@@ -64,27 +83,27 @@ namespace Managers
 
         private void OnDisable() => UnsubscribeEvents();
 
-        
+
         #endregion
 
+        public void IsExitOnTurretContayner(AmmoWorkerStackController ammoWorkerStackController) => ammoWorkerStackController.SetClearWorkerStackList();
+        internal void IsEnterTurretContayner(AmmoWorkerBrain ammoWorkerBrain) => ammoWorkerBrain.IsLoadTurret(true);
 
-        internal void IsEnterTurretContayner() => ammoWorkerBrain.IsLoadTurret(true);
+        internal void IsExitTurretContayner(AmmoWorkerBrain ammoWorkerBrain) => ammoWorkerBrain.IsLoadTurret(false);
 
-        internal void IsExitTurretContayner() => ammoWorkerBrain.IsLoadTurret(false);
+        internal void IsAmmoEnterAmmoWareHouse(AmmoWorkerBrain ammoWorkerBrain) => ammoWorkerBrain.SetTriggerInfo(true);
 
-        internal void IsAmmoEnterAmmoWareHouse() => ammoWorkerBrain.SetTriggerInfo(true);
+        internal void IsAmmoExitAmmoWareHouse(AmmoWorkerBrain ammoWorkerBrain) => ammoWorkerBrain.SetTriggerInfo(false);
 
-        internal void IsAmmoExitAmmoWareHouse() => ammoWorkerBrain.SetTriggerInfo(false);
-
-        internal void IsAmmoWorkerStayOnAmmoWareHouse()
-        {
+        internal void IsStayOnAmmoWareHouse(AmmoWorkerBrain ammoWorkerBrain,AmmoWorkerStackController ammoWorkerStackController)
+        {           
             
             if (counter < _ammoWorkerAIData.MaxStackCount)
             {
             
                 ammoWorkerBrain.IsStackFul(PlayerAmmaStackStatus.Empty);
 
-                _ammoWorkerStackController.AddStack(_ammoWorkerAIData.AmmoWareHouse, ammoWorkerBrain.gameObject.transform, GetObject(PoolType.Ammo.ToString()));
+                ammoWorkerStackController.AddStack(_ammoWorkerAIData.AmmoWareHouse, ammoWorkerBrain.gameObject.transform, GetObject(PoolType.Ammo.ToString()));
 
                 counter++;
             }
@@ -94,42 +113,31 @@ namespace Managers
             }
 
         }
-    
 
-        private void OnSetConteynerList(GameObject targetContayner, List<GameObject> emtyAmmoWorkerStack)
+        
+
+        private void OnSetConteynerList(GameObject targetStack)
         {
 
-            _targetContayner = targetContayner;
-            _emtyAmmoWorkerStack = emtyAmmoWorkerStack;
+            _targetStack = targetStack;
             SendTurretContayner();
 
             
         }
 
-        private void SendTurretContayner()
+        private void SendTurretContayner()//delete??
         {
             
             if (WhenCallFirstTime == 0)
             {
+                Debug.Log("WhenCallFirstTime");
                 WhenCallFirstTime++;
                 return;
             }
-
-          
-            if (_emtyAmmoWorkerStack.Count == 0 || _emtyAmmoWorkerStack == null)
-            {
-                _ammoWorkerStackController.SetEmtyWorkerStackList(_emtyAmmoWorkerStack);
-
                 ammoWorkerBrain.IsStackFul(PlayerAmmaStackStatus.Empty);
 
-                //_emtyAmmoWorkerStack.Clear();
-                //_emtyAmmoWorkerStack.TrimExcess();
-
-            }
                     
-
-            if (_ammoWorkerList.Count != 0)//????delete
-                    ammoWorkerBrain.SetTargetTurretContayner(_targetContayner);
+                ammoWorkerBrain.SetTargetTurretContayner(_targetStack);
 
            
         }
@@ -138,9 +146,8 @@ namespace Managers
         {
 
             AddAmmaWorker(workerCreater);
-            ammoWorkerBrain = _ammoWorkerList[_ammoWorkerList.Count - 1].GetComponent<AmmoWorkerBrain>();
-            _ammoWorkerStackController = ammoWorkerBrain.GetComponent<AmmoWorkerStackController>();
 
+            ammoWorkerBrain = _ammoWorkerList[_ammoWorkerList.Count - 1].GetComponent<AmmoWorkerBrain>();
 
             SendTurretContayner();
 
@@ -155,7 +162,6 @@ namespace Managers
         public GameObject GetObject(string poolName)
         {
             return ObjectPoolManager.Instance.GetObject<GameObject>(poolName);
-
         }
 
         public void ResetItems()

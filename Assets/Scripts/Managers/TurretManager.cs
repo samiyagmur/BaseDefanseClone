@@ -21,7 +21,7 @@ namespace Managers
         [SerializeField]
         private TurretOtoAtackController _otoAtackController;
         [SerializeField]
-        private ShootController ShootController;
+        private TurretShootController ShootController;
         #endregion
 
         #region Private Variables

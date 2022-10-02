@@ -1,4 +1,5 @@
 ﻿using Controllers;
+using Data.UnityObject;
 using Datas.UnityObject;
 using Datas.ValueObject;
 using Interfaces;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Utilityies;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -22,17 +24,13 @@ namespace Managers
 
         private AmmoContaynerGridController _gridController;
 
-        public Dictionary<GameObject, int> _turrets = new Dictionary<GameObject, int>();
+        public Dictionary<GameObject, int> _turretsContayner = new Dictionary<GameObject, int>();
 
         private GameObject _selectedTarget;
 
-
-        private AmmoContaynerStackController _selectedTargetStack;
-
         [SerializeField]
-        private List<GameObject> gameObjectsss = new List<GameObject>();
-        [SerializeField]
-        private List<int> stackcounts = new List<int>();
+        private List<AmmoContaynerStackController> _selectableTargetStacks = new List<AmmoContaynerStackController>();
+
 
         #endregion
 
@@ -85,71 +83,51 @@ namespace Managers
 
         #region SentMomentİnfo
 
-        internal void StackInfos(int count, Transform targetStack)
+        internal void StackInfos()
         {
+            _selectableTargetStacks = transform.GetComponentsInChildren<AmmoContaynerStackController>().ToList();
 
-            Debug.Log(targetStack.parent.gameObject.name);
-            _turrets.Add(targetStack.parent.gameObject,count );
-            gameObjectsss.Add(targetStack.parent.gameObject);
-            stackcounts.Add(count);
-             _turrets = _turrets.OrderBy(obj => obj.Value).ToDictionary(obj => obj.Key, obj => obj.Value);
+            _selectableTargetStacks= _selectableTargetStacks.OrderBy(x => x.GetCurrentCount()).ToList();
 
-            _selectedTarget = _turrets.ElementAt(0).Key;
-
- 
-            _selectedTargetStack = _selectedTarget.GetComponentInChildren<AmmoContaynerStackController>();
-
-
-            Debug.Log(_turrets.Count);
-
+            _selectedTarget = _selectableTargetStacks[0].gameObject;
         }
-    
-        internal void SendToTargetInfo(List<GameObject> emtyAmmoStack)
-        {
-            if (_turrets.Count != 0)
-            {
-               AmmoManagerSignals.Instance.onSetConteynerList?.Invoke(_selectedTarget, emtyAmmoStack);
 
-                 
+        internal void SendToTargetInfo()
+        {
+            if (_selectableTargetStacks.Count != 0)
+            {
+               AmmoManagerSignals.Instance.onSetConteynerList?.Invoke(_selectedTarget);
             }
 
-            else 
+            else
             {
                 Debug.Log("!!!_turrets Dictionary caunt=0 ");
 
-                AmmoManagerSignals.Instance.onSetConteynerList?.Invoke(null,null);
-    
-            } 
+               AmmoManagerSignals.Instance.onSetConteynerList?.Invoke(null);
+            }
         }
         #endregion
 
         #region PhysicsMethods
         public void IsHitAmmoWorker()
-        {   
-            _turrets.Clear();
-            gameObjectsss.Clear();
-            gameObjectsss.TrimExcess();
-            stackcounts.Clear();
-            gameObjectsss.TrimExcess();
-
-
-            _selectedTargetStack.GetComponentInChildren<AmmoContaynerStackController>().AddStack(_gridController.LastPosition());
+        {
+            _selectableTargetStacks.First().AddStack(_gridController.LastPosition());
         }
         #endregion
 
         #region Event Methods
 
 
-        internal void EnterTurretContayner(Transform ammoManager)
+        internal void EnterTurretContayner(List<GameObject> ammoWorkerStackList)
         {
-           List<GameObject> ammoWorkerStackList = ammoManager.GetComponent<AmmoWorkerStackController>().SendAmmoStack();
-
-
-
-            _selectedTargetStack.GetComponentInChildren<AmmoContaynerStackController>().SetAmmoWorkerList(ammoWorkerStackList);
+            _selectableTargetStacks.First().SetAmmoWorkerList(ammoWorkerStackList);
            
         }
 
+        public GameObject GetTargetStack()
+        {
+            return _selectedTarget;
+        }
 
         #endregion
 

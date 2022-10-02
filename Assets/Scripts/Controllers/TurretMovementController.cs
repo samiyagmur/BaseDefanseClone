@@ -34,7 +34,6 @@ namespace Controllers
                 if ((-0.9f < _horizontalInput && _verticalInput > 0.3f) && (+0.9f > _horizontalInput && _verticalInput > 0.3f))
                 {
                    Rotate();//
-
                 }
             }
             else

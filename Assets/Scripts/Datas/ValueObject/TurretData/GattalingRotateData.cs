@@ -5,9 +5,8 @@ using UnityEngine;
 namespace Datas.ValueObject
 {
     [Serializable]
-    public class GattalingRotateData 
+    public class TurretShootData 
     {
-
         public float RotateSpeed;
     }
 }

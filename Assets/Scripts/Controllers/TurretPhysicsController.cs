@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class TurretPhysicsController : MonoBehaviour,IGeterGameObject
+    public class TurretPhysicsController : MonoBehaviour
     {
         
         [SerializeField]

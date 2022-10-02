@@ -8,7 +8,7 @@ using System;
 
 namespace Controllers
 {
-    public class PlayerPhysicsController : MonoBehaviour, IGeterGameObject
+    public class PlayerPhysicsController : MonoBehaviour
     {
 
         #region Self Variables
@@ -46,7 +46,7 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(typeof(IGeterGameObject),out Component getterTurretObject))
+            if (other.TryGetComponent(typeof(TurretPhysicsController),out Component getterTurretObject))
             {   
 
                 playerManager.IsEnterTurret(getterTurretObject.gameObject);

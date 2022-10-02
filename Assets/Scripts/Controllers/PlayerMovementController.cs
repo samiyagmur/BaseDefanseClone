@@ -82,8 +82,6 @@ namespace Controllers
             {
                 rigidbody.velocity = Vector3.zero;
             }
-
-
         }
         private void Move()
         {

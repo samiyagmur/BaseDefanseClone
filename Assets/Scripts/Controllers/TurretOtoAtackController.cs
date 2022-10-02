@@ -17,7 +17,7 @@ namespace Controllers
         #endregion
         #endregion
         public void SetOtoAtackDatas(TurretOtoAtackData turretOtoAtackDatas) => _turretOtoAtackDatas = turretOtoAtackDatas;
-        public void AddDeathList(GameObject enemy)//It can be abstract
+        public void AddDeathList(GameObject enemy)
         {
             _deadList.Enqueue(enemy);
             botTarget = _deadList.Peek();

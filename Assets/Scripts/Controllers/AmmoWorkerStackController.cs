@@ -14,26 +14,32 @@ namespace Controllers
 
 
         private float yPos=-0.5f;//passed false
-        private float zPos;
+        private float zPos=-0.25f;
         private Sequence ammoSeq;
-        private List<GameObject> ammoStackObjectList;
+        
+        [SerializeField]
+        private List<GameObject> ammoStackObjectList=new List<GameObject>();
 
-        public  void AddStack(Transform startPoint,Transform ammoWorker,GameObject bullets)
+        public void AddStack(Transform startPoint, Transform ammoWorker, GameObject bullets)
         {
-            ammoSeq =  DOTween.Sequence();
-
+            ammoSeq = DOTween.Sequence();
             bullets.transform.position = startPoint.position;
             bullets.transform.SetParent(ammoWorker);
 
+            ammoSeq.Append(bullets.transform.DOScale(new Vector3(1, 1, 1), 0.8f));
 
-                ammoSeq.Append(bullets.transform.DOScale(new Vector3(1, 1, 1), 0.8f));
 
+            ammoSeq.Join(bullets.transform.DOLocalMove(new Vector3(Random.Range(0, 2), bullets.transform.localPosition.y +
 
-                ammoSeq.Join(bullets.transform.DOLocalMove(new Vector3(Random.Range(0, 2), bullets.transform.localPosition.y +
+                   Random.Range(4, 5), bullets.transform.localPosition.z - Random.Range(3, 4)), 0.4f).
+                   OnComplete(()
+                   => {
+                            Debug.Log(yPos);
+                            
+                            bullets.transform.DOLocalMove(new Vector3(0, ammoWorker.localPosition.y + yPos + 1.5f, -ammoWorker.localScale.z - zPos), 0.4f);
 
-                       Random.Range(2, 3), bullets.transform.localPosition.z- Random.Range(3,4)), 0.4f).OnComplete(()
-
-                       => bullets.transform.DOLocalMove(new Vector3(0, ammoWorker.localPosition.y+yPos+1.5f, -ammoWorker.localScale.z - zPos), 0.4f)));
+                            yPos += 0.5f;
+                      }));
 
 
                 ammoSeq.Join(bullets.transform.DOLocalRotate(new Vector3(Random.Range(-179, 179),Random.Range(-179, 179), Random.Range(-90, 90)), 0.3f).
@@ -41,10 +47,12 @@ namespace Controllers
                     OnComplete(()=> bullets.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.4f)));
 
 
-    
+
+            //Debug.Log(zPos);
+
             ammoSeq.Play();
 
-            yPos += 0.5f;
+            
 
             if (yPos >= 5)
             { 
@@ -56,15 +64,16 @@ namespace Controllers
             ammoStackObjectList.Add(bullets);
 
         }
-
-
         public List<GameObject> SendAmmoStack()
         {   
             return ammoStackObjectList;
         }
-        public void SetEmtyWorkerStackList(List<GameObject> _ammoStackObjectList)
+        public void SetClearWorkerStackList()
         {
-            ammoStackObjectList = _ammoStackObjectList;
+            zPos = -0.25f;
+
+            ammoStackObjectList.Clear();
+            ammoStackObjectList.TrimExcess();
         }
     }
 }
