@@ -27,7 +27,7 @@ namespace State
         public  void Enter()
         {
             
-          
+            
             _enemyBrain.enabled = true;
             GetRandomPointBakedSurface();
             

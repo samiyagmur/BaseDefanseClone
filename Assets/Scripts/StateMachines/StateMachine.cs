@@ -14,7 +14,7 @@ namespace StateBehavior
         private List<Transition> _anyTransitions = new List<Transition>();
         private static List<Transition> EmptyTransitions = new List<Transition>(0);
 
-        public void Tick()
+        public void UpdateIState()
         {
             var transition = GetTransition();
 

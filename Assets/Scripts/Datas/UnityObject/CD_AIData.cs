@@ -4,6 +4,7 @@ using Data.ValueObject;
 using Datas.ValueObject;
 using System.Collections.Generic;
 using UnityEngine;
+using ValueObject.AIData;
 
 namespace Data.UnityObject
 {   
@@ -13,6 +14,7 @@ namespace Data.UnityObject
  
         public List<EnemyAIData> EnemyAIDataList=new List<EnemyAIData>();
         public AmmoWorkerAIData AmmoWorkerAIDatas;
+        public SoldierAIData SoldierAIDatas;
 
     } 
 }

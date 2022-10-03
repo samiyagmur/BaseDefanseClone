@@ -34,7 +34,7 @@ namespace Controllers
                    Random.Range(4, 5), bullets.transform.localPosition.z - Random.Range(3, 4)), 0.4f).
                    OnComplete(()
                    => {
-                            Debug.Log(yPos);
+                            
                             
                             bullets.transform.DOLocalMove(new Vector3(0, ammoWorker.localPosition.y + yPos + 1.5f, -ammoWorker.localScale.z - zPos), 0.4f);
 

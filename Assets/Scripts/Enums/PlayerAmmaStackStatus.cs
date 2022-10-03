@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enums
 {
-    public enum PlayerAmmaStackStatus
+    public enum PlayerAmmoStackStatus
     {
         Empty,
         Full

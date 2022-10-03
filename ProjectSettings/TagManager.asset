@@ -32,11 +32,11 @@ TagManager:
   - AmmoStore
   - AmmoKontayner
   - AmmoCreater
-  - 
-  - 
-  - 
-  - 
-  - 
+  - SoldierBody
+  - SoldierDetection
+  - EnemyBody
+  - EnemyDetection
+  - Bullets
   - 
   - 
   - 

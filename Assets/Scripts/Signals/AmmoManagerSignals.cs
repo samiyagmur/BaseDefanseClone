@@ -1,4 +1,5 @@
-﻿using Extentions;
+﻿using Enums;
+using Extentions;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

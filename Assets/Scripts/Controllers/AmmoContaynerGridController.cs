@@ -58,10 +58,8 @@ namespace Controllers
                     _orderOfContayner += 1;
                 } 
             }
-            //foreach (var item in _contaynerStackGridPositions)
-            //{
-            //    Debug.Log(item);
-            //}
+
+          
         }
 
         public List<Vector3> LastPosition()

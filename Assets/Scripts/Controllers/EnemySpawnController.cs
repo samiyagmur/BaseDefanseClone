@@ -1,12 +1,9 @@
-﻿using AIBrain;
-using Enums;
+﻿using Enums;
 using Interfaces;
-using Managers;
-using System;
+using Signals;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+
 
 namespace Controllers
 {
@@ -58,6 +55,7 @@ namespace Controllers
         {
             int randomType;
             int randomPercentage = UnityEngine.Random.Range(0, 101);
+
             if (randomPercentage<=15)
             {
                 randomType = (int)PoolType.OrangeEnemy;
@@ -72,12 +70,12 @@ namespace Controllers
 
             }
 
-           var obj= GetObject(((PoolType)randomType).ToString());
+           var obj= GetObject(((PoolType)randomType));
         }
 
-        public GameObject GetObject(string poolName)
+        public GameObject GetObject(PoolType poolName)
         {
-           return  ObjectPoolManager.Instance.GetObject<GameObject>(poolName);
+            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
         }
     }
 }

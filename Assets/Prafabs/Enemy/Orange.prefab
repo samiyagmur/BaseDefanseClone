@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 861760913835965298}
   - component: {fileID: 861760913835965292}
   - component: {fileID: 861760913835965299}
-  m_Layer: 11
+  - component: {fileID: 2455897647564175693}
+  - component: {fileID: 108144340000867493}
+  m_Layer: 22
   m_Name: Orange
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,9 +70,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8612fd0e93a60e64ea2dfba10b5d1662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _health: 0
   _navMeshAgents: {fileID: 861760913835965292}
   _animators: {fileID: 6529941650897754199}
-  _enemyPhysicsController: {fileID: 861760914440992185}
+  _enemyPhysicsController: {fileID: 0}
+--- !u!136 &2455897647564175693
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861760913835965297}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 3.79288
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.8817468, z: 0}
+--- !u!114 &108144340000867493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861760913835965297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c4806a165d6aec4696951109b5010be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brain: {fileID: 861760913835965299}
 --- !u!1 &861760914440992191
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,13 +110,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 861760914440992184}
-  - component: {fileID: 861760914440992185}
   - component: {fileID: 861760914440992186}
   - component: {fileID: 8593171789687612884}
-  - component: {fileID: 8197012794975616441}
-  m_Layer: 11
+  - component: {fileID: 5938921098836380074}
+  m_Layer: 23
   m_Name: PhysicController
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,19 +134,6 @@ Transform:
   m_Father: {fileID: 861760913835965298}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &861760914440992185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861760914440992191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c4806a165d6aec4696951109b5010be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  brain: {fileID: 861760913835965299}
 --- !u!135 &861760914440992186
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -147,7 +163,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8197012794975616441
+--- !u!114 &5938921098836380074
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,10 +172,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 861760914440992191}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c4806a165d6aec4696951109b5010be, type: 3}
+  m_Script: {fileID: 11500000, guid: 1914e07a47c6530479578f4e96bbd2e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 861760913835965299}
+  enemyAIBrain: {fileID: 861760913835965299}
 --- !u!1001 &861760914432026054
 PrefabInstance:
   m_ObjectHideFlags: 0

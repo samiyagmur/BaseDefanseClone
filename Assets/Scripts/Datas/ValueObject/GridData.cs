@@ -1,7 +1,7 @@
-﻿using Sirenix.OdinInspector;
+﻿using Enums;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Datas.ValueObject
@@ -9,12 +9,22 @@ namespace Datas.ValueObject
     [Serializable]
     public class GridData
     {
+        public bool isDynamic;
 
-        public int XGridSize;
-        public int YGridSize;
-        public int MaxContaynerAmount;
-        public float Offset;
-     
+        [ShowIf("isDynamic")]
+        public StackerType StackerType;
 
+        [HideIf("isDynamic")]
+        public StackAreaType StackAreaType;
+
+        [Tooltip("Row, Column and Depth Settings")]
+        [MinValue(1)]
+        public Vector3Int GridSize;
+
+        [Tooltip("Distance between two objects")]
+        public Vector3 Offset;
+
+        [Tooltip("Choose which mesh will be drawned in the Editor Scene")]
+        public Mesh DrawnedMesh;
     }
 }

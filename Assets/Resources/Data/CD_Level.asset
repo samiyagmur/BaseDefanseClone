@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 462bfdf052ef4647a59f01c938dca516, type: 3}
+  m_Name: CD_Level
+  m_EditorClassIdentifier: 
+  LevelData:
+  - BaseData:
+      BaseRoomData:
+        Rooms: []
+      MineBaseData:
+        MaxWorkerAmount: 0
+        CurrentWorkerAmount: 0
+        DiamondCapacity: 0
+        CurrentDiamondAmount: 0
+        MineCartCapacity: 0
+      MilitaryBaseData:
+        SlotsGrid: {x: 0, y: 0}
+        SlotOffSet: {x: 0, y: 0}
+        SlotPrefab: {fileID: 7124534803065138285, guid: b8c9d49d95bd5774288f96fbab779440, type: 3}
+        BaseCapacity: 0
+        TotalAmount: 0
+        TentCapacity: 5
+        CurrentSoldierAmount: 0
+        SoldierUpgradeTime: 0
+        SoldierSlotCost: 0
+        SlotAmount: 0
+        SlotTransform: {fileID: 0}
+        AttackTime: 0
+        frontYardSoldierPosition: {fileID: 2380263435863449586, guid: 70baf6bf643c52340b7770bf22d39038, type: 3}
+      BuyablesData:
+        MoneyWorkerCost: 0
+        MoneyWorkerPayedAmount: 0
+        AmmoWorkerCost: 0
+        AmmoWorkerPayedAmount: 0
+        BoughtMoneyWorkerAmount: 0
+        BoughtAmmoWorkerAmount: 0
+        UpgradeButtonLocked: 0
+        MoneyWorkerLevel: 0
+        AmmoWorkerLevel: 0
+    FrontYardData:
+      StageDataList: []
+      FrontYardItemsDataList: []

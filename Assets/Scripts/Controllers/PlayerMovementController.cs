@@ -73,10 +73,8 @@ namespace Controllers
 
                     return; 
                 }
-
                 Move();
                 Rotate();
-
             }
             else if (rigidbody.velocity != Vector3.zero)
             {

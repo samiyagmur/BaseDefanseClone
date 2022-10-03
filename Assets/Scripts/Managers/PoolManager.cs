@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Data.UnityObject;
 using Data.ValueObject;
 using Enums;
+using Signals;
 using UnityEngine.Rendering;
 using Sirenix.OdinInspector;
 
@@ -20,8 +19,6 @@ namespace Managers
 
         #endregion
 
-        #region Serialized Variables
-
         #endregion
 
         #region Private Variables
@@ -30,15 +27,47 @@ namespace Managers
         private int _listCountCache;
         #endregion
 
-
-        #endregion
-
         private void Awake()
         {
             _data = GetData();
             InitializePools();
         }
 
+        #region EventSubscription
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            PoolSignals.Instance.onGetObjectFromPool += OnGetObjectFromPoolType;
+            PoolSignals.Instance.onReleaseObjectFromPool += OnReleaseObjectFromPool;
+
+        }
+        private void UnsubscribeEvents()
+        {
+            PoolSignals.Instance.onGetObjectFromPool -= OnGetObjectFromPoolType;
+            PoolSignals.Instance.onReleaseObjectFromPool -= OnReleaseObjectFromPool;
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
+
+        #endregion
+        private GameObject OnGetObjectFromPoolType(PoolType poolType)
+        {
+            _listCountCache = (int)poolType;
+            return ObjectPoolManager.Instance.GetObject<GameObject>(poolType.ToString());
+        }
+
+        private void OnReleaseObjectFromPool(PoolType poolType, GameObject obj)
+        {
+            _listCountCache = (int)poolType;
+            ObjectPoolManager.Instance.ReturnObject<GameObject>(obj, poolType.ToString());
+        }
         private SerializedDictionary<PoolType, PoolData> GetData()
         {
             return Resources.Load<CD_Pool>("Data/CD_Pool").PoolDataDic;
@@ -53,7 +82,7 @@ namespace Managers
             }
 
         }
-      
+
         public void InitPool(PoolType poolType, int initalAmount, bool isDynamic)
         {
             ObjectPoolManager.Instance.AddObjectPool<GameObject>(FactoryMethod, TurnOnObject, TurnOffObject, poolType.ToString(), initalAmount, isDynamic);
@@ -74,9 +103,8 @@ namespace Managers
 
         public GameObject FactoryMethod()
         {
-            var go = Instantiate(_data[((PoolType)_listCountCache)].ObjectType,this.transform);
+            var go = Instantiate(_data[((PoolType)_listCountCache)].ObjectType, transform);
             return go;
         }
     }
-
 }

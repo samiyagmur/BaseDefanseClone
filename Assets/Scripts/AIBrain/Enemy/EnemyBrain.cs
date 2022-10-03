@@ -30,7 +30,7 @@ namespace AIBrain
         private Transform _turretTargetList;
         private Transform _spawnPosition;
         private EnemyType _enemyTypes;
-        private int _healt;
+        public int _health;
         private int _damage;
         private float _attackRange;
         private float _moveSpeed;
@@ -51,7 +51,7 @@ namespace AIBrain
         [SerializeField]
         private Animator _animators;
         [SerializeField]
-        private EnemyPhysicController _enemyPhysicsController;
+        private EnemyDetectController _enemyPhysicsController;
         #endregion
         #endregion
 
@@ -76,7 +76,7 @@ namespace AIBrain
             _turretTarget = _enemyAIData.TurretTargetList[Random.Range(0, turretCount)];
             _spawnPosition = _enemyAIData.SpawnPosition;
              EnemyTypes = _enemyAIData.EnemyType;
-            _healt = _enemyAIData.Healt;
+            _health = _enemyAIData.Healt;
             _damage = _enemyAIData.Damage;
             _attackRange = _enemyAIData.AttackRange;
             _moveSpeed = _enemyAIData.MoveSpeed;
@@ -96,9 +96,8 @@ namespace AIBrain
              _move = new Move(_animators, _navMeshAgents, this, _moveSpeed, _turretTarget);
              _chase = new Chase(_animators, _navMeshAgents, this, _chaseSpeed, _attackRange);
              _atack = new Attack(_animators, _navMeshAgents, this, PlayerTarget, _attackRange);
-             _death = new Death(_animators, _navMeshAgents, this);
-
-            _moveToBomb = new BoombManager(_navMeshAgents, _animators, this, _attackRange, _chaseSpeed);
+             _death = new Death(_animators, _navMeshAgents, this, _enemyTypes);
+          //  _moveToBomb = new BoombManager(_navMeshAgents, _animators, this, _attackRange, _chaseSpeed);
 
             TransitionofState();
         }
@@ -112,8 +111,8 @@ namespace AIBrain
             At(_chase, _move, HasTargetNull());
 
 
-            _stateMachines.AddAnyTransition(_death, () => _enemyPhysicsController.AmIDead);
-            _stateMachines.AddAnyTransition(_moveToBomb, () => _enemyPhysicsController.IsBombInRange());
+            _stateMachines.AddAnyTransition(_death,AmIDead());
+            //_stateMachines.AddAnyTransition(_moveToBomb, () => _enemyPhysicsController.IsBombInRange());
 
             _stateMachines.SetState(_search);
 
@@ -124,8 +123,9 @@ namespace AIBrain
             Func<bool> HasTargetNull() => () => PlayerTarget is null;
             Func<bool> IsAtackPlayer() => () => PlayerTarget != null && _chase.GetPlayerInRange();
             Func<bool> AttackOffRange() => () =>!_atack.InPlayerAttackRange();
+            Func<bool> AmIDead() => () => _health <= 0;
         }
-        internal  void Update() => _stateMachines.Tick();
+        internal  void Update() => _stateMachines.UpdateIState();
 
         
     }

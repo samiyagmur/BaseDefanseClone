@@ -21,29 +21,15 @@ namespace Controllers
 
         private Sequence _ammoStackingMovement;
 
-
-        private async void Start()
-        {
-            
-            _ammoContaynerManager.StackInfos();
-
-            await Task.Delay(50);
-
-           _ammoContaynerManager.SendToTargetInfo();
-          
-        }
- 
-
         public async void AddStack(List<Vector3> gridPosList)
         {
             _ammoStackingMovement = DOTween.Sequence();
-
+           
             if (_currentCount < gridPosList.Count)
             {
                 if (_count < _ammoWorkerStackList.Count)
-                {
-                   
-
+                {   
+                  
                     _ammoWorkerStackList[_count].transform.SetParent(transform);
 
 
@@ -77,7 +63,7 @@ namespace Controllers
                     _count = 0;
                     _ammoWorkerStackList.Clear();
                     _ammoWorkerStackList.TrimExcess();
-                    _ammoContaynerManager.StackInfos();
+                    _ammoContaynerManager.SelectTarget();
 
 
                     await Task.Delay(10);
@@ -91,9 +77,11 @@ namespace Controllers
         public void RemoveStack()
         {
 
+
         }
         public void SetAmmoWorkerList(List<GameObject> ammoWorkerStackList)
         {
+            
             ammoWorkerStackList.Reverse();
             _ammoWorkerStackList = ammoWorkerStackList;
         }

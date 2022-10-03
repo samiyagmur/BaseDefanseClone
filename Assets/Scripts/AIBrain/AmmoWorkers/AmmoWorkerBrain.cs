@@ -45,7 +45,7 @@ namespace AIBrain
 
         private MoveToAvaliableContayner _moveToAvaliableConteyner;
 
-        private PlayerAmmaStackStatus _playerAmmaStackStatus;
+        private PlayerAmmoStackStatus _playerAmmaStackStatus;
 
         private LoadContayner _loadTurret;
         private FullAmmo _fullAmmo;
@@ -71,7 +71,7 @@ namespace AIBrain
             GetStatesReferences();
             TransitionofState();
         }
-        public void IsStackFul(PlayerAmmaStackStatus status) => _playerAmmaStackStatus = status;
+        public void IsStackFul(PlayerAmmoStackStatus status) => _playerAmmaStackStatus = status;
 
         public void SetTriggerInfo(bool IsInPlaceWareHouse) => _inplaceWorker = IsInPlaceWareHouse;
 
@@ -83,10 +83,10 @@ namespace AIBrain
 
         public void SetTargetTurretContayner(GameObject targetTurretContayner)
         {
-            if (targetTurretContayner == null) return;
+
+            if (targetTurretContayner == null) Debug.LogError("Turret Stack Target Is Null In AmmoWorkerBrain");
 
             _moveToAvaliableConteyner.SetData(targetTurretContayner);
-
             _targetTurretContayner = targetTurretContayner;
         }
 
@@ -96,7 +96,8 @@ namespace AIBrain
 
             _creat = new Creat();
 
-            _moveToWareHouse = new MoveToWareHouse(_agent, _animator, _ammoWorkerAIData.MovementSpeed, _ammoWorkerAIData.AmmoWareHouse, _ammoWorkerAIData.AmmoWorker,this);
+            _moveToWareHouse = new MoveToWareHouse(_agent, _animator, _ammoWorkerAIData.MovementSpeed, 
+                                                    _ammoWorkerAIData.AmmoWareHouse, _ammoWorkerAIData.AmmoWorker,this);
 
             _takeAmmo = new TakeAmmo(_agent,_animator);
 
@@ -147,11 +148,11 @@ namespace AIBrain
 
             Func<bool> WhenAmmoWorkerInAmmoWareHouse() => () => _inplaceWorker == true && _ammoWorkerAIData.AmmoWareHouse.transform != null;
 
-            Func<bool> WhenAmmoWorkerStackFull() => () => _targetTurretContayner != null && _playerAmmaStackStatus == PlayerAmmaStackStatus.Full;
+            Func<bool> WhenAmmoWorkerStackFull() => () => _targetTurretContayner != null && _playerAmmaStackStatus == PlayerAmmoStackStatus.Full;
 
             Func<bool> IsAmmoWorkerInContayner() => () => _targetTurretContayner != null && _isLoadTurretContayner==true;
 
-            Func<bool> WhenAmmoDichargeStack() => () =>  _playerAmmaStackStatus == PlayerAmmaStackStatus.Empty;
+            Func<bool> WhenAmmoDichargeStack() => () =>  _playerAmmaStackStatus == PlayerAmmoStackStatus.Empty;
 
             //Func<bool> HasNoEmtyTarget() => () => _targetTurretContayner == null;
 
@@ -161,7 +162,7 @@ namespace AIBrain
         public void Update()
         {
 
-            _statemachine.Tick();
+            _statemachine.UpdateIState();
         }
         #endregion
 

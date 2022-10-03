@@ -24,6 +24,9 @@ MonoBehaviour:
     - ObjectType: {fileID: 0}
       initalAmount: 0
       isDynamic: 0
+    - ObjectType: {fileID: 7673831996231402173, guid: bd7c82f0b41d07f4787f3138278fc963, type: 3}
+      initalAmount: 200
+      isDynamic: 1
     - ObjectType: {fileID: 0}
       initalAmount: 0
       isDynamic: 0
@@ -36,8 +39,8 @@ MonoBehaviour:
     - ObjectType: {fileID: 0}
       initalAmount: 0
       isDynamic: 0
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
+    - ObjectType: {fileID: 6684208820631058611, guid: c09b7aa7dd92c6b499a7c79cc9d9c7a8, type: 3}
+      initalAmount: 5
       isDynamic: 0
     - ObjectType: {fileID: 0}
       initalAmount: 0
@@ -45,18 +48,15 @@ MonoBehaviour:
     - ObjectType: {fileID: 0}
       initalAmount: 0
       isDynamic: 0
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
+    - ObjectType: {fileID: 5081612436430601195, guid: a0868f73fe7faf547b7ba411a4252ed9, type: 3}
+      initalAmount: 20
       isDynamic: 0
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
-      isDynamic: 0
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
+    - ObjectType: {fileID: 861760913835965297, guid: 5bae7cd1382a60a48a47eeaf90b569eb, type: 3}
+      initalAmount: 20
       isDynamic: 0
     - ObjectType: {fileID: 1902793931624525007, guid: 324601c81182dfa40b70906e47c79d4e, type: 3}
       initalAmount: 6
       isDynamic: 0
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
+    - ObjectType: {fileID: 1902793931624525007, guid: e506b02dc90c83d41884a63f81ee451a, type: 3}
+      initalAmount: 20
       isDynamic: 0
