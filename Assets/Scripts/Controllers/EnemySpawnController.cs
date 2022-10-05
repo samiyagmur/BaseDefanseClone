@@ -58,15 +58,15 @@ namespace Controllers
 
             if (randomPercentage<=15)
             {
-                randomType = (int)PoolType.OrangeEnemy;
+                randomType = (int)PoolType.Orange;
             }
             else if (15< randomPercentage && randomPercentage <=50)
             {
-                randomType = (int)PoolType.RedEnemy;
+                randomType = (int)PoolType.Red;
             }
             else
             {
-                randomType = (int)PoolType.LargeEnemy;
+                randomType = (int)PoolType.Yellow;
 
             }
 

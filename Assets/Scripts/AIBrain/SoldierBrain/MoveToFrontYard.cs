@@ -26,7 +26,7 @@ namespace AIBrains.SoldierBrain
         {
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
             if ((_navMeshAgent.transform.position - _frontYardSoldierPosition.position).sqrMagnitude < _stoppingDistance)
-            {
+            {  
                 _soldierAIBrain.HasReachedFrontYard = true;
             }
         } 

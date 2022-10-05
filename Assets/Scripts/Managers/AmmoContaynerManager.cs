@@ -19,6 +19,7 @@ namespace Managers
         #region Private Variables
      
         private GameObject _selectedTarget;
+        private int count;
         #endregion
 
         #region Serilizefield Variebles
@@ -28,6 +29,8 @@ namespace Managers
         private List<AmmoContaynerStackController> _selectableTargetStacks = new List<AmmoContaynerStackController>();
         private GridDatas _gridData;
         private AmmoContaynerGridController _gridController;
+
+        public bool IsTargetChange { get; private set; }
 
         #endregion
 
@@ -55,7 +58,7 @@ namespace Managers
 
             await Task.Delay(50);
 
-            SendToTargetInfo();
+
         } 
 
         #endregion
@@ -72,27 +75,37 @@ namespace Managers
 
         #region SendMomentInfo
 
-        internal void SelectTarget()
+        #region Event Subscription
+        private void OnEnable() => SubscribeEvents();
+        private void SubscribeEvents()
         {
+            AmmoManagerSignals.Instance.onSetConteynerList += OnSetConteynerList;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            AmmoManagerSignals.Instance.onSetConteynerList -= OnSetConteynerList;
+        }
+        private void OnDisable() => UnsubscribeEvents();
+
+        #endregion
+        internal void SelectTarget()
+        {   
 
             _selectableTargetStacks = transform.GetComponentsInChildren<AmmoContaynerStackController>().ToList();
 
             _selectableTargetStacks = _selectableTargetStacks.OrderBy(x => x.GetCurrentCount()).ToList();
 
-            _selectedTarget = _selectableTargetStacks[0].gameObject;
+            _selectedTarget= _selectableTargetStacks[count].gameObject;
 
- 
+            AmmoManagerSignals.Instance.onAmmoStackStatus?.Invoke(AmmoStackStatus.Empty);
         }
 
-        internal void SendToTargetInfo() => AmmoManagerSignals.Instance.onSetConteynerList?.Invoke(_selectedTarget);
 
         #endregion
 
         #region PhysicsMethods
-        public void IsHitAmmoWorker() => _selectableTargetStacks.First().AddStack(_gridController.LastPosition());
-
-
-
+       public void IsHitAmmoWorker() => _selectableTargetStacks.First().AddStack(_gridController.LastPosition());
 
         #endregion
 
@@ -102,8 +115,11 @@ namespace Managers
 
         #endregion
 
+        private GameObject OnSetConteynerList()
+        {
 
-
+            return _selectedTarget;
+        }
 
     }
 }

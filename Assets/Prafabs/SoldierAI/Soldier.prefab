@@ -377,7 +377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2659986559400308267}
   m_Layer: 0
-  m_Name: BulletPool
+  m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1517,7 +1517,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6684208820576957512}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 4.323393
@@ -1535,7 +1535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08aae2ba8c20faa46a27fd4d5a6e59ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbodySoldier: {fileID: 0}
+  rigidbodySoldier: {fileID: 6684208821080204795}
 --- !u!1 &6684208820631058611
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,14 +1585,14 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!114 &6684208820631058254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1613,6 +1613,7 @@ MonoBehaviour:
   EnemyTarget: {fileID: 0}
   physicsController: {fileID: 6684208820576957511}
   animator: {fileID: 4576850996904923437}
+  weaponHolder: {fileID: 2659986559400308267}
 --- !u!1 &6684208820846049032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,6 +1656,7 @@ GameObject:
   - component: {fileID: 6684208821080204794}
   - component: {fileID: 6684208821080204792}
   - component: {fileID: 6684208821080204795}
+  - component: {fileID: 7321239870694804959}
   m_Layer: 21
   m_Name: DetectionController
   m_TagString: Untagged
@@ -1684,7 +1686,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6684208821080204797}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 20
   m_Height: 40
@@ -1701,11 +1703,24 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &7321239870694804959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6684208821080204797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74371bf0b3671e438b6ddc80c516874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soldierAIBrain: {fileID: 6684208820631058254}
 --- !u!1 &6685448499442556597
 GameObject:
   m_ObjectHideFlags: 0

@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 7673831996231402144}
   - component: {fileID: 7673831996231402175}
   - component: {fileID: 7673831996231402174}
+  - component: {fileID: 1655207841739062195}
   m_Layer: 24
   m_Name: GunBullet
   m_TagString: Untagged
@@ -106,14 +107,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7673831996231402173}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 230841725855505558}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!54 &7673831996231402175
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -143,3 +144,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.061409563, y: 0.2795865, z: 0.058045037}
   m_Center: {x: 0.0010010712, y: 0.12478775, z: -0.0010909894}
+--- !u!114 &1655207841739062195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7673831996231402173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b3ad764d308c974fa98f635070a0ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soldierAIBrain: {fileID: 0}
+  Rigidbody: {fileID: 7673831996231402175}

@@ -54,8 +54,10 @@ namespace State
             EnemyDoDead(poolType);
             for (int i = 0; i < 3; i++)
             {
+                
                 var creatableObj = GetObject(PoolType.Money);
-                creatableObj.transform.position = _enemyBrain.transform.position;
+                Debug.Log(creatableObj.name);
+                creatableObj.transform.position = _enemyBrain.transform.position+new Vector3(0,5,0);   
             }
 
         }

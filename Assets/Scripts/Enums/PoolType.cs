@@ -14,9 +14,9 @@ namespace Enums
         AmmoWorkerAI,
         SoldierAI,
         Hostage,
-        LargeEnemy,
-        RedEnemy,
-        OrangeEnemy,
+        Yellow,
+        Orange,
+        Red,
         BossEnemy,
     } 
 }

@@ -36,7 +36,7 @@ namespace AIBrains.SoldierBrain
 
         [SerializeField] private SoldierPhysicsController physicsController;
         [SerializeField] private Animator animator;
-       // [SerializeField] private Transform weaponHolder;
+        [SerializeField] private Transform weaponHolder;
         #endregion
 
         #region Private Variables
@@ -84,7 +84,7 @@ namespace AIBrains.SoldierBrain
         public GameObject GetObject(PoolType poolName)
         {
             var bulletPrefab = PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
-            //bulletPrefab.transform.position = weaponHolder.position;
+            bulletPrefab.transform.position = weaponHolder.position;
             bulletPrefab.GetComponent<BulletPhysicsController>().soldierAIBrain = this;
             FireBullet(bulletPrefab);
             return bulletPrefab;
@@ -154,8 +154,10 @@ namespace AIBrains.SoldierBrain
         }
         public void SetEnemyTargetTransform()
         {
+
             EnemyTarget = enemyList[0].GetTransform(); 
             HasEnemyTarget = true;
+
         }
 
         public void EnemyTargetStatus()

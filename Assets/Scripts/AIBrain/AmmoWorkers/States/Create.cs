@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace States
 {
-    public class Creat : IState
+    public class Create : IState
     {
         public void Enter()
         {

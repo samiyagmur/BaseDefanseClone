@@ -17,16 +17,20 @@ namespace Controllers
         {
 
             if (other.TryGetComponent(typeof(AmmoManagerPhysicsController), out Component ammoManagment))//it must change
-            {
+            {   
+
                 _ammoManager = other.gameObject.GetComponent<AmmoManager>();
 
                 _ammoManager.IsAmmoEnterAmmoWareHouse(transform.parent.GetComponent<AmmoWorkerBrain>());
-             
-                _ammoManager.IsSetTargetTurretContayner(transform.parent.GetComponent<AmmoWorkerBrain>());
+                
+            
+
+                _ammoManager.SetTargetCurrentTurretStack(transform.parent.GetComponent<AmmoWorkerBrain>());
             }
+           
             if (other.TryGetComponent(typeof(TurretStackPhysicsControl), out Component ammoContayenr))//it must change
-            {
-               _ammoManager.IsEnterTurretStack(transform.parent.GetComponent<AmmoWorkerBrain>());
+            {   
+                _ammoManager.IsEnterTurretStack(transform.parent.GetComponent<AmmoWorkerBrain>());
             }
         }
 
@@ -43,10 +47,12 @@ namespace Controllers
                 _ammoManager.ResetItems();
             }
             if (other.TryGetComponent(typeof(TurretStackPhysicsControl), out Component ammoContayenr))//it must change
-            {
+            {   
                 _ammoManager.IsExitTurretStack(transform.parent.GetComponent<AmmoWorkerBrain>());
 
                 _ammoManager.IsExitOnTurretStack(transform.parent.GetComponent<AmmoWorkerStackController>());
+
+               // _ammoManager.IsAmmoWorkerStackEmpty(transform.parent.GetComponent<AmmoWorkerBrain>());
             }
         }
 
@@ -72,6 +78,7 @@ namespace Controllers
             {
                 _ammoManager.IsAmmoWorkerStackEmpty(transform.parent.GetComponent<AmmoWorkerBrain>());
             }
+
 
         }
 

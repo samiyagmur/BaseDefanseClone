@@ -9,7 +9,10 @@ namespace Signals
 {
     public class AmmoManagerSignals : MonoSingleton<AmmoManagerSignals>
     {
-        public UnityAction <GameObject> onSetConteynerList = delegate { };
         public UnityAction <Transform> onPlayerEnterAmmoWorkerCreaterArea = delegate { };
+
+        public Func<GameObject> onSetConteynerList = delegate {return null;};
+
+        public UnityAction<AmmoStackStatus> onAmmoStackStatus=delegate { };
     }
 }

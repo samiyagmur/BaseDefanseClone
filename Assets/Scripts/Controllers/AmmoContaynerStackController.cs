@@ -20,58 +20,67 @@ namespace Controllers
 
 
         private Sequence _ammoStackingMovement;
+        private float _timer;
 
         public async void AddStack(List<Vector3> gridPosList)
         {
             _ammoStackingMovement = DOTween.Sequence();
-           
+
             if (_currentCount < gridPosList.Count)
             {
                 if (_count < _ammoWorkerStackList.Count)
-                {   
-                  
-                    _ammoWorkerStackList[_count].transform.SetParent(transform);
+                {
+                    Debug.Log(_count);
 
+                    _timer -= Time.deltaTime;
 
-                    GameObject bullets = _ammoWorkerStackList[_count];
+                    if (_timer < 0)
+                    {
+                        _timer = 1f;
 
+                        _ammoWorkerStackList[_count].transform.SetParent(transform);
 
-                    Vector3 endPosOnTurretStack = transform.localPosition + gridPosList[_currentCount];
+                        GameObject bullets = _ammoWorkerStackList[_count];
 
+                        Vector3 endPosOnTurretStack = transform.localPosition + gridPosList[_currentCount];
 
-                    _ammoStackingMovement.Append(bullets.transform.
-                    DOLocalMove(new Vector3(Random.Range(-2, 2), endPosOnTurretStack.y +
-                    Random.Range(4, 6), bullets.transform.localPosition.z+3f ), 0.4f).
-                    OnComplete(() =>{bullets.transform.
-                    DOMove(new Vector3(endPosOnTurretStack.x, endPosOnTurretStack.y+0.25f , endPosOnTurretStack.z ), 0.4f);}));
+                        _ammoStackingMovement.Append(bullets.transform.
+                        DOLocalMove(new Vector3(Random.Range(-2, 2), endPosOnTurretStack.y +
+                        Random.Range(4, 6), bullets.transform.localPosition.z + 3f), 0.4f).
+                        OnComplete(() =>
+                        {
+                            bullets.transform.
+                        DOMove(new Vector3(endPosOnTurretStack.x, endPosOnTurretStack.y + 0.25f, endPosOnTurretStack.z), 0.4f);
+                        }));
 
+                        _ammoStackingMovement.Join(bullets.transform.DOLocalRotate(new Vector3(Random.Range(-179, 179), Random.Range(-179, 179), Random.Range(-179, 179)), 0.6f).
 
-                    _ammoStackingMovement.Join(bullets.transform.DOLocalRotate(new Vector3(Random.Range(-179, 179), Random.Range(-179, 179), Random.Range(-179, 179)), 0.6f).
-                    OnComplete(() => bullets.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.2f)));
-              
+                        OnComplete(() => bullets.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.2f)));
 
-                    _ammoStackingMovement.Play();
+                        _ammoStackingMovement.Play();
 
-                    _turretContayner.Add(_ammoWorkerStackList[_count]);
+                        _turretContayner.Add(_ammoWorkerStackList[_count]);
 
-                    
-                    _currentCount++;
-                    _count++;
+                        _currentCount++;
+
+                        _count++;
+                    }
+                   
+                    AddStack(gridPosList);
                 }
                 else
                 {
                     _count = 0;
+
                     _ammoWorkerStackList.Clear();
+
                     _ammoWorkerStackList.TrimExcess();
+
                     _ammoContaynerManager.SelectTarget();
 
-
-                    await Task.Delay(10);
-
-                    _ammoContaynerManager.SendToTargetInfo();
+                    return;
                 }
-            }
-            
+            } 
         }
         
         public void RemoveStack()

@@ -14,7 +14,7 @@ namespace Controllers
         public bool IsDead { get; set; }
 
         public Transform GetTransform()
-        {
+        {   
             return this.transform;
         }
 
@@ -27,6 +27,7 @@ namespace Controllers
                 {
                     return enemyAIBrain._health;
                 }
+                return enemyAIBrain._health;
             }
             return 0;
         }

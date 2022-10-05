@@ -1,15 +1,10 @@
-﻿using Abstraction;
-using AIBrain;
+﻿using AIBrain;
 using Controllers;
 using Data.UnityObject;
 using Datas.ValueObject;
 using Enums;
-using Interfaces;
 using Signals;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Managers
@@ -28,34 +23,37 @@ namespace Managers
 
         private GameObject _targetStack;
 
-        private PlayerAmmoStackStatus _playerAmmoStackStatus;
+      // private PlayerAmmoStackStatus _playerAmmoStackStatus;
+
+        private AmmoWorkerBrain _ammoWorkerBrain;
         #endregion
         internal void Awake() => Init();
 
         private void Init() => _ammoWorkerAIData = cD_AIData.AmmoWorkerAIDatas;
 
+ 
+
         #region Event Subscription
         private void OnEnable() => SubscribeEvents();
         private void SubscribeEvents()
         {
-            AmmoManagerSignals.Instance.onSetConteynerList += OnSetConteynerList;   
             AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea += OnPlayerEnterAmmoWorkerCreaterArea;
-            
+            AmmoManagerSignals.Instance.onAmmoStackStatus += OnAmmoStackStatus;
+
         }
         private void UnsubscribeEvents()
         {
-            AmmoManagerSignals.Instance.onSetConteynerList -= OnSetConteynerList;
             AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea -= OnPlayerEnterAmmoWorkerCreaterArea;
+            AmmoManagerSignals.Instance.onAmmoStackStatus += OnAmmoStackStatus;
         }
+
         private void OnDisable() => UnsubscribeEvents();
 
         #endregion
 
         public void IsExitOnTurretStack(AmmoWorkerStackController ammoWorkerStackController) => ammoWorkerStackController.SetClearWorkerStackList();
 
-        internal void IsAmmoWorkerStackEmpty(AmmoWorkerBrain ammoWorkerBrain) => ammoWorkerBrain.IsStackFul(_playerAmmoStackStatus);
-
-        internal void IsSetTargetTurretContayner(AmmoWorkerBrain ammoWorkerBrain) => ammoWorkerBrain.SetTargetTurretContayner(_targetStack);
+        internal void IsAmmoWorkerStackEmpty(AmmoWorkerBrain ammoWorkerBrain) => _ammoWorkerBrain= ammoWorkerBrain;
 
         internal void IsEnterTurretStack(AmmoWorkerBrain ammoWorkerBrain) => ammoWorkerBrain.IsLoadTurret(true);
 
@@ -65,32 +63,31 @@ namespace Managers
 
         internal void IsAmmoExitAmmoWareHouse(AmmoWorkerBrain ammoWorkerBrain) => ammoWorkerBrain.SetTriggerInfo(false);
 
+        internal void SetTargetCurrentTurretStack(AmmoWorkerBrain ammoWorkerBrain) =>
+            ammoWorkerBrain.SetTargetTurretStack(AmmoManagerSignals.Instance.onSetConteynerList.Invoke());
+
+
         internal void IsStayOnAmmoWareHouse(AmmoWorkerBrain ammoWorkerBrain,AmmoWorkerStackController ammoWorkerStackController)
         {           
             
             if (counter < _ammoWorkerAIData.MaxStackCount)
             {
-               
-                ammoWorkerBrain.IsStackFul(PlayerAmmoStackStatus.Empty);
-
                 ammoWorkerStackController.AddStack(_ammoWorkerAIData.AmmoWareHouse, ammoWorkerBrain.gameObject.transform, GetObject(PoolType.Ammo.ToString()));
-
                 counter++;
             }
+
             else
             {
-                ammoWorkerBrain.IsStackFul(PlayerAmmoStackStatus.Full);
+                ammoWorkerBrain.IsStackFul(AmmoStackStatus.Full);
             }
-
-        }
-        private void OnSetConteynerList(GameObject targetStack)
-        {   
-            _targetStack = targetStack;
-            _playerAmmoStackStatus = PlayerAmmoStackStatus.Empty;
 
         }
 
         private void OnPlayerEnterAmmoWorkerCreaterArea(Transform workerCreater) => AddAmmaWorker(workerCreater);
+
+
+        private void OnAmmoStackStatus(AmmoStackStatus status) => _ammoWorkerBrain.IsStackFul(status);
+
 
         public GameObject GetObject(string poolName) => ObjectPoolManager.Instance.GetObject<GameObject>(poolName);
 
@@ -99,7 +96,6 @@ namespace Managers
             GameObject ammoWorker = GetObject(PoolType.AmmoWorkerAI.ToString());
 
             ammoWorker.transform.position = workerCreater.position;
-           
         }
       
         public void ResetItems() => counter = 0;
