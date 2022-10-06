@@ -1,4 +1,5 @@
 ﻿using Enums;
+using Enums.GameStates;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace Datas.ValueObject
     public class PlayerPhysicsData 
     {
 
-        public LayersType _playerLayersType;
+        public AreaType _playerLayersType;
         public int _disitionAngle = 90;
 
     }

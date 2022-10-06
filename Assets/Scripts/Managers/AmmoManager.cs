@@ -23,7 +23,7 @@ namespace Managers
 
         private GameObject _targetStack;
 
-      // private PlayerAmmoStackStatus _playerAmmoStackStatus;
+        //private PlayerAmmoStackStatus _playerAmmoStackStatus;
 
         private AmmoWorkerBrain _ammoWorkerBrain;
         #endregion
@@ -38,13 +38,13 @@ namespace Managers
         private void SubscribeEvents()
         {
             AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea += OnPlayerEnterAmmoWorkerCreaterArea;
-            AmmoManagerSignals.Instance.onAmmoStackStatus += OnAmmoStackStatus;
-
+           // AmmoManagerSignals.Instance.onAmmoStackStatus += OnAmmoStackStatus;
+           
         }
         private void UnsubscribeEvents()
         {
             AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea -= OnPlayerEnterAmmoWorkerCreaterArea;
-            AmmoManagerSignals.Instance.onAmmoStackStatus += OnAmmoStackStatus;
+          //  AmmoManagerSignals.Instance.onAmmoStackStatus -= OnAmmoStackStatus;
         }
 
         private void OnDisable() => UnsubscribeEvents();
@@ -53,7 +53,7 @@ namespace Managers
 
         public void IsExitOnTurretStack(AmmoWorkerStackController ammoWorkerStackController) => ammoWorkerStackController.SetClearWorkerStackList();
 
-        internal void IsAmmoWorkerStackEmpty(AmmoWorkerBrain ammoWorkerBrain) => _ammoWorkerBrain= ammoWorkerBrain;
+        internal void IsAmmoWorkerStackEmpty(AmmoWorkerBrain ammoWorkerBrain) => ammoWorkerBrain.IsStackFul(AmmoStackStatus.Empty);
 
         internal void IsEnterTurretStack(AmmoWorkerBrain ammoWorkerBrain) => ammoWorkerBrain.IsLoadTurret(true);
 
@@ -69,10 +69,10 @@ namespace Managers
 
         internal void IsStayOnAmmoWareHouse(AmmoWorkerBrain ammoWorkerBrain,AmmoWorkerStackController ammoWorkerStackController)
         {           
-            
             if (counter < _ammoWorkerAIData.MaxStackCount)
             {
-                ammoWorkerStackController.AddStack(_ammoWorkerAIData.AmmoWareHouse, ammoWorkerBrain.gameObject.transform, GetObject(PoolType.Ammo.ToString()));
+                ammoWorkerStackController.AddStack(_ammoWorkerAIData.AmmoWareHouse, ammoWorkerBrain.gameObject.transform, 
+                                          GetObject(PoolType.Ammo.ToString()));
                 counter++;
             }
 
@@ -80,16 +80,15 @@ namespace Managers
             {
                 ammoWorkerBrain.IsStackFul(AmmoStackStatus.Full);
             }
-
         }
 
-        private void OnPlayerEnterAmmoWorkerCreaterArea(Transform workerCreater) => AddAmmaWorker(workerCreater);
 
-
-        private void OnAmmoStackStatus(AmmoStackStatus status) => _ammoWorkerBrain.IsStackFul(status);
+       // private void OnAmmoStackStatus(AmmoStackStatus status) => 
 
 
         public GameObject GetObject(string poolName) => ObjectPoolManager.Instance.GetObject<GameObject>(poolName);
+
+        private void OnPlayerEnterAmmoWorkerCreaterArea(Transform workerCreater) => AddAmmaWorker(workerCreater);
 
         public void AddAmmaWorker(Transform workerCreater)
         {
@@ -101,19 +100,6 @@ namespace Managers
         public void ResetItems() => counter = 0;
 
 
-
-
-        #region Subscirabe Event methods
-
-        #endregion
-
-        #region Physics Methods
-
-        #endregion
-
-        #region SendInfo
-
-        #endregion
 
 
     }

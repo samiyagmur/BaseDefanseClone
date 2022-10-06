@@ -72,9 +72,10 @@ namespace State
         {
           
         }
-        
 
-
-
+        public int GetDamage()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

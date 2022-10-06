@@ -33,11 +33,7 @@ namespace Managers
         #endregion
 
         #endregion
-        private void Awake()
-        {
-            _data = GetInputData();
-        }
-        private InputData GetInputData() => Resources.Load<CD_InputData>("Data/CD_InputData").InputDatas;
+
 
         private void Update()
         {
@@ -55,6 +51,7 @@ namespace Managers
             {   
                 if ((joystickInput.Direction - _inputValuesVector).sqrMagnitude == 0) return;
                 _inputValuesVector = new Vector2(joystickInput.Horizontal, joystickInput.Vertical);
+
                 InputSignals.Instance.onInputDragged?.Invoke(new HorizontalInputParams()
                 {
                     MovementVector = _inputValuesVector

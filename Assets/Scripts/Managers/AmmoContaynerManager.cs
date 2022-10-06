@@ -50,17 +50,6 @@ namespace Managers
             GenerateGrid();
         }
 
-        private void Start() => SendToTargetFirstTimes();
-
-        private async void SendToTargetFirstTimes()
-        {
-            SelectTarget();
-
-            await Task.Delay(50);
-
-
-        } 
-
         #endregion
 
         #region Get&SetData
@@ -91,13 +80,13 @@ namespace Managers
         #endregion
         internal void SelectTarget()
         {   
-
+               
             _selectableTargetStacks = transform.GetComponentsInChildren<AmmoContaynerStackController>().ToList();
 
             _selectableTargetStacks = _selectableTargetStacks.OrderBy(x => x.GetCurrentCount()).ToList();
 
             _selectedTarget= _selectableTargetStacks[count].gameObject;
-
+            Debug.Log("sda");
             AmmoManagerSignals.Instance.onAmmoStackStatus?.Invoke(AmmoStackStatus.Empty);
         }
 
@@ -105,7 +94,7 @@ namespace Managers
         #endregion
 
         #region PhysicsMethods
-       public void IsHitAmmoWorker() => _selectableTargetStacks.First().AddStack(_gridController.LastPosition());
+        public void IsHitAmmoWorker() => _selectableTargetStacks.First().AddStack(_gridController.LastPosition());
 
         #endregion
 
@@ -117,6 +106,8 @@ namespace Managers
 
         private GameObject OnSetConteynerList()
         {
+            SelectTarget();
+
 
             return _selectedTarget;
         }

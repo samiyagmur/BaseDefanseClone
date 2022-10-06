@@ -11,7 +11,7 @@ namespace Signals
 
       public UnityAction onPressTurretButton =delegate { };
 
-      public UnityAction onDeadEnemy = delegate { };
+      public UnityAction onDieEnemy = delegate { };
       
     }
 }

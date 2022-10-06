@@ -67,7 +67,7 @@ namespace Managers
         }
         #endregion
         private MilitaryBaseData GetBaseData() =>
-            Resources.Load<CD_Level>("Data/CD_Level").LevelData[0].BaseData.MilitaryBaseData;
+            Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0].BaseData.MilitaryBaseData;
         private SoldierAIData GetSoldierAIData() => Resources.Load<CD_AIData>("Data/CD_AIData").SoldierAIDatas;
         private void OnSoldierActivation()
         {

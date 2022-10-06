@@ -11,9 +11,6 @@ namespace Interfaces
 
         void RemoveStack();
 
-        void StartStack(StackStatus stackStatus);
-
-        void StopStack(StackStatus stackStatus);
 
 
     }

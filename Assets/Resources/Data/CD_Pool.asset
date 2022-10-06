@@ -16,7 +16,7 @@ MonoBehaviour:
     m_Keys: 0000000001000000020000000300000004000000050000000600000007000000090000000a0000000b000000080000000c0000000d000000
     m_Values:
     - ObjectType: {fileID: 1965118812301319539, guid: 12537a22a575d784bbf5596f3327ac43, type: 3}
-      initalAmount: 200
+      initalAmount: 100
       isDynamic: 0
     - ObjectType: {fileID: 9004025123679645240, guid: 0742269e27659a647932f8f57fbb39f2, type: 3}
       initalAmount: 85
@@ -33,8 +33,8 @@ MonoBehaviour:
     - ObjectType: {fileID: 0}
       initalAmount: 0
       isDynamic: 0
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
+    - ObjectType: {fileID: 529204781235755429, guid: 19cc21268f9a0bc4b9cf49b0ac5c7b9b, type: 3}
+      initalAmount: 150
       isDynamic: 0
     - ObjectType: {fileID: 0}
       initalAmount: 0

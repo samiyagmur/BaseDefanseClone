@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 462bfdf052ef4647a59f01c938dca516, type: 3}
   m_Name: CD_Level
   m_EditorClassIdentifier: 
-  LevelData:
+  LevelDatas:
   - BaseData:
       BaseRoomData:
         Rooms: []
@@ -28,7 +28,7 @@ MonoBehaviour:
         SlotPrefab: {fileID: 7124534803065138285, guid: b8c9d49d95bd5774288f96fbab779440, type: 3}
         BaseCapacity: 0
         TotalAmount: 0
-        TentCapacity: 5
+        TentCapacity: 0
         CurrentSoldierAmount: 0
         SoldierUpgradeTime: 0
         SoldierSlotCost: 0
@@ -49,3 +49,5 @@ MonoBehaviour:
     FrontYardData:
       StageDataList: []
       FrontYardItemsDataList: []
+  LevelId: 0
+  Key: LevelData

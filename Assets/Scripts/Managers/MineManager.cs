@@ -1,7 +1,6 @@
 ﻿using System;
-using Abstraction;
+using Interfaces;
 using Controllers;
-
 using UnityEngine;
 
 namespace Managers
@@ -15,6 +14,9 @@ namespace Managers
         #region Public Variables
 
         public bool IsPayedTotalAmount => (_payedGemAmount >= requiredGemAmount);
+
+        public int _damage { get; set ; }
+
         public int GemAmount; //Sinyalle Cekilecek Score Manager Uzerinden
         public int LureTime = 5;
         public int MineCountDownTime = 60;
@@ -78,5 +80,6 @@ namespace Managers
         {
             return explosionDamage;
         }
+
     }
 }
