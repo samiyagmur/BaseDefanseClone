@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AIBrains.SoldierBrain;
 using Data.UnityObject;
 using Data.ValueObject.LevelData;
@@ -12,7 +13,7 @@ using ValueObject.AIData;
 
 namespace Managers
 {
-    public class MilitaryBaseManager : MonoBehaviour, IGetPoolObject, IReleasePoolObject
+    public class MilitaryBaseManager : MonoBehaviour,IGetPoolObject,IReleasePoolObject
     {
         #region Self Variables
 
@@ -44,7 +45,6 @@ namespace Managers
 
         private void Awake()
         {
-            _data = GetBaseData();
             _soldierAIData = GetSoldierAIData();
         }
 
@@ -56,16 +56,27 @@ namespace Managers
         private void SubscribeEvents()
         {
             AISignals.Instance.onSoldierActivation += OnSoldierActivation;
+            InitializeDataSignals.Instance.onLoadMilitaryBaseData += OnLoadMilitaryBaseData;
         }
         private void UnsubscribeEvents()
         {
             AISignals.Instance.onSoldierActivation -= OnSoldierActivation;
+            InitializeDataSignals.Instance.onLoadMilitaryBaseData -= OnLoadMilitaryBaseData;
         }
+
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
+
         #endregion
+
+
+        private void OnLoadMilitaryBaseData(MilitaryBaseData data)
+        {
+            _data = data;
+        }
+
         private MilitaryBaseData GetBaseData() =>
             Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0].BaseData.MilitaryBaseData;
         private SoldierAIData GetSoldierAIData() => Resources.Load<CD_AIData>("Data/CD_AIData").SoldierAIDatas;

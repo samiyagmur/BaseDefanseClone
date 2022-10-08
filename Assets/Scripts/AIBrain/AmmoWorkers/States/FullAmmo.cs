@@ -24,14 +24,14 @@ namespace States
         #endregion
 
         #region States
-        public void Enter()
+        public void OnEnter()
         {
             Debug.Log("FullAmmo");
             _agent.speed = 0;
            // _animator.SetTrigger("Idle");
         }
 
-        public void Exit()
+        public void OnExit()
         {
             _agent.speed = _movementSpeed;
            // _animator.SetTrigger("Walk");

@@ -124,7 +124,7 @@ namespace AIBrains.SoldierBrain
             Func<bool> hasEnemyTarget() => () => HasEnemyTarget;
             Func<bool> hasNoEnemyTarget() => () => !HasEnemyTarget;
         }
-        private void Update() =>  _stateMachine.UpdateIState();
+        private void Update() =>  _stateMachine.Tick();
 
         #region Event Subscription
         private void OnEnable()

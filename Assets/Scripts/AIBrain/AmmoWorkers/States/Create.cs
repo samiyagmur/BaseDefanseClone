@@ -6,12 +6,12 @@ namespace States
 {
     public class Create : IState
     {
-        public void Enter()
+        public void OnEnter()
         {
             //Debug.Log("Creat");
         }
 
-        public void Exit()
+        public void OnExit()
         {
             
         }

@@ -42,13 +42,13 @@ namespace AIBrains.SoldierBrain
             _navMeshAgent.Warp(point);
         }
 
-        public void Enter()
+        public void OnEnter()
         {
             GetTentSpawnPosition();
             _navMeshAgent.enabled = true;
         }
 
-        public void Exit()
+        public void OnExit()
         {
             
         }

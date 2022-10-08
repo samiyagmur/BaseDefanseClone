@@ -12,16 +12,12 @@ namespace Data.UnityObject
 
         public int LevelId;
 
-        public CD_Level()
-        {
-
-        }
+        public string Key = "LevelData";
         public CD_Level(int levelId, List<LevelData> levelDatas)
         {
             LevelId = levelId;
             LevelDatas = new List<LevelData>(levelDatas);
         }
-        public string Key = "LevelData";
         public string GetKey()
         {
             return Key;

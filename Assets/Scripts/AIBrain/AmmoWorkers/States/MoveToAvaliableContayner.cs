@@ -30,7 +30,7 @@ namespace States
         #endregion
 
         #region State
-        public void Enter()
+        public void OnEnter()
         {   
 
             _agent.speed = _movementSpeed;
@@ -38,7 +38,7 @@ namespace States
             _agent.SetDestination(_decidedContayner.transform.position);
         }
 
-        public void Exit()
+        public void OnExit()
         {
                 
         }

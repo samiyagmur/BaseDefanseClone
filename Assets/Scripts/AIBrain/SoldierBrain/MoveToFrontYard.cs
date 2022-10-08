@@ -30,7 +30,7 @@ namespace AIBrains.SoldierBrain
                 _soldierAIBrain.HasReachedFrontYard = true;
             }
         } 
-        public void Enter()
+        public void OnEnter()
         {
             _animator.SetTrigger(Attacked);
             _navMeshAgent.speed = 1.5f;
@@ -40,7 +40,7 @@ namespace AIBrains.SoldierBrain
             _navMeshAgent.speed = 5.273528f;
         }
 
-        public void Exit()
+        public void OnExit()
         {
             _animator.ResetTrigger(Attacked);
         }

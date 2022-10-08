@@ -17,11 +17,18 @@ MonoBehaviour:
       BaseRoomData:
         Rooms: []
       MineBaseData:
-        MaxWorkerAmount: 0
-        CurrentWorkerAmount: 0
-        DiamondCapacity: 0
-        CurrentDiamondAmount: 0
-        MineCartCapacity: 0
+        MaxWorkerAmount: 15
+        CurrentWorkerAmount: 5
+        GemCollectionOffset: 5
+        InstantiationPosition: {fileID: 4753888179443770833, guid: 487fb56ca59f018458177db90296e751, type: 3}
+        GemHolderPosition: {fileID: 6063175748818032038, guid: 022c8c7eea34a6f41946d7f135f51078, type: 3}
+        MinePlaces:
+        - {fileID: 3701382805672542712, guid: ae3401298cda044479ae7ca96d6c1ef6, type: 3}
+        - {fileID: 29161162646048064, guid: 07be6b1e7cbc7864d81be0bd88e9821e, type: 3}
+        - {fileID: 9124970232288323556, guid: f7cd782124f26da489a5c16e83b7a00d, type: 3}
+        - {fileID: 5794965802787714742, guid: 73cd68e9f39fd034faadb6fb1fd19d8c, type: 3}
+        CartPlaces:
+        - {fileID: 2001691899360365547, guid: 3aa53e23d2b5c6b419ed87f6bb1f75e1, type: 3}
       MilitaryBaseData:
         SlotsGrid: {x: 0, y: 0}
         SlotOffSet: {x: 0, y: 0}
@@ -49,5 +56,7 @@ MonoBehaviour:
     FrontYardData:
       StageDataList: []
       FrontYardItemsDataList: []
+      HostageData:
+        HostagePlaces: []
   LevelId: 0
   Key: LevelData

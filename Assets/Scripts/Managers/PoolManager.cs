@@ -43,7 +43,6 @@ namespace Managers
         {
             PoolSignals.Instance.onGetObjectFromPool += OnGetObjectFromPoolType;
             PoolSignals.Instance.onReleaseObjectFromPool += OnReleaseObjectFromPool;
-
         }
         private void UnsubscribeEvents()
         {

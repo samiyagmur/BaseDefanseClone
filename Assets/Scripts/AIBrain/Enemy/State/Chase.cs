@@ -35,7 +35,7 @@ namespace State
             _enemyBrain = enemyBrain;
         }
 
-        public  void Enter()
+        public  void OnEnter()
         {
             
             AttackOnPlayer = false;
@@ -77,7 +77,7 @@ namespace State
 
         public bool GetPlayerInRange() => AttackOnPlayer;
 
-        public void Exit()
+        public void OnExit()
         {
             
 

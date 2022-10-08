@@ -23,14 +23,14 @@ namespace State
             _timer += Time.deltaTime;
         }
 
-        public void Enter()
+        public void OnEnter()
         {
             _mineBrain.mineManager.ExplosionColliderState(true);
             //isExplosionHappened=true;
             ResetTimer();
         }
 
-        public void Exit()
+        public void OnExit()
         {
             _mineBrain.mineManager.ExplosionColliderState(false);
             isExplosionHappened = false;

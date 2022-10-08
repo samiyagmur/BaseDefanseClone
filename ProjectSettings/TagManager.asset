@@ -4,13 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - MineExplosion
-  - LandMine
-  - Bullet
-  - Turret
-  - Enemy
   - zz
-  - creater
+  - LandMine
+  - MineExplosion
+  - MineEntrance
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -23,7 +21,7 @@ TagManager:
   - 
   - BattleOn
   - BaseDefense
-  - EnemyAI
+  - 
   - LandMine
   - Gattaling
   - Button

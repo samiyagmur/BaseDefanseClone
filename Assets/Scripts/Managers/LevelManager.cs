@@ -13,8 +13,6 @@ namespace Managers
 
         #region Public Variables
 
-        [Header("Data")] public LevelData Data;
-
         #endregion
 
         #region Private Variables
@@ -77,7 +75,6 @@ namespace Managers
 
         private void OnLoadLevelID(int levelID)
         {
-            Debug.Log(levelID);
             _levelID = levelID;
         }
         private void OnInitializeLevel()

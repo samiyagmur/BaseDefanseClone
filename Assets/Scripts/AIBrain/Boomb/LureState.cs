@@ -19,14 +19,14 @@ namespace Boomb
             timer += Time.deltaTime;
         }
 
-        public void Enter()
+        public void OnEnter()
         {
             Debug.Log("LureState");
             ResetTimer();
             _mineBrain.mineManager.LureColliderState(true);
         }
 
-        public void Exit()
+        public void OnExit()
         {
             ResetTimer();
             _mineBrain.mineManager.LureColliderState(false);

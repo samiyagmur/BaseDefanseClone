@@ -32,7 +32,7 @@ namespace Boomb
             timer += Time.deltaTime;
         }
 
-        public void Enter()
+        public void OnEnter()
         {
             Debug.Log("LureState");
             ResetTimer();
@@ -43,7 +43,7 @@ namespace Boomb
             timer = 0;
         }
 
-        public void Exit()
+        public void OnExit()
         {
             ResetTimer();
         }

@@ -15,20 +15,17 @@ namespace Controllers
         private float _horizontalInput;
         private float _verticalInput;
         private TurretStatus _status;
-        private TurretMovementData _movementDatas;
+        private float _moveSpeed=30f;
 
         [SerializeField]
         private TurretManager _turretManager;
 
 
 
-        public void SetMovementDatas(TurretMovementData movementDatas) => _movementDatas = movementDatas;
-
         public void SetInputParams(HorizontalInputParams input)//it can be turn on interface
         {
             if (_status == TurretStatus.OutPlace) return;
 
-            //_turretManager.IsAttackToEnemy();
             _horizontalInput = input.MovementVector.x;
             _verticalInput = input.MovementVector.y;
             EnterToTaret();
@@ -51,7 +48,7 @@ namespace Controllers
             Vector3 _movementDirection = new Vector3(_horizontalInput, 0, _verticalInput);
             if (_movementDirection == Vector3.zero) return;
             Quaternion _toRotation = Quaternion.LookRotation(_movementDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, _toRotation, _movementDatas.TurretTurnSpeed);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, _toRotation, _moveSpeed);
             //Debug.DrawRay(transform.position, transform.forward*15f, Color.red, 0.1f);
         }
        

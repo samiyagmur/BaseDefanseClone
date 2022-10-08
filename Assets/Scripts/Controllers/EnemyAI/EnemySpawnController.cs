@@ -31,9 +31,7 @@ namespace Controllers
 
         private void Awake()
         {
-           
             StartCoroutine(SpawnEnemies());
-
         }
        
         private IEnumerator SpawnEnemies()
@@ -47,6 +45,7 @@ namespace Controllers
                 DoSpawnEnemy();
 
                 spawnedEnemies++;
+
                 yield return wait;
             }
         }
@@ -54,7 +53,8 @@ namespace Controllers
         private void DoSpawnEnemy()
         {
             int randomType;
-            int randomPercentage = UnityEngine.Random.Range(0, 101);
+
+            int randomPercentage = Random.Range(0, 101);
 
             if (randomPercentage<=15)
             {

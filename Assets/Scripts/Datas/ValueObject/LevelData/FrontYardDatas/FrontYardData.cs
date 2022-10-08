@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.ValueObjects.LevelData;
+using System;
 using System.Collections.Generic;
 
 namespace Data.ValueObject.LevelData
@@ -8,5 +9,6 @@ namespace Data.ValueObject.LevelData
     {
         public List<StageData> StageDataList;
         public List<FrontYardItemsData> FrontYardItemsDataList;
+        public HostageData HostageData;
     }
 }

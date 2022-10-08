@@ -50,7 +50,7 @@ namespace State
             CheckAttackDistance();
         }
 
-        public  void Enter()
+        public  void OnEnter()
         {
             _navMeshAgent.SetDestination(_enemyBrain.PlayerTarget.position);
             _inAttack = true;
@@ -68,7 +68,7 @@ namespace State
         }
         public bool InPlayerAttackRange() => _inAttack;
 
-        public void Exit()
+        public void OnExit()
         {
         
         }

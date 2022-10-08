@@ -7,12 +7,12 @@ namespace AIBrain.MoneyWorkers.State
 {
     public class MoveToGate : IState
     {
-        public void Enter()
+        public void OnEnter()
         {
             throw new System.NotImplementedException();
         }
 
-        public void Exit()
+        public void OnExit()
         {
             throw new System.NotImplementedException();
         }

@@ -30,7 +30,7 @@ public class BoombManager : IState
         //    _navMeshAgent.destination = _enemyAIBrain.MineTarget.transform.position;
         //}
     }
-    public void Enter()
+    public void OnEnter()
     {
         //_animator.SetTrigger("Walk");
         //_attackOnPlayer = false;
@@ -38,7 +38,7 @@ public class BoombManager : IState
         //_navMeshAgent.SetDestination(_enemyAIBrain.MineTarget.transform.position);
     }
 
-    public void Exit()
+    public void OnExit()
     {
 
     }

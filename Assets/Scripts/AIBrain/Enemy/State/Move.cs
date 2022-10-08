@@ -31,7 +31,7 @@ namespace State
             _turretTransform = turretTransform;
         }
 
-        public  void Enter()
+        public  void OnEnter()
         {
 
             _navMeshAgent.enabled = true;
@@ -41,7 +41,7 @@ namespace State
             //_animator.SetFloat(Speed, 1f);
         }
 
-        public  void Exit()
+        public  void OnExit()
         {
              //_navMeshAgent.enabled = false;
              //_animator.SetFloat(Speed, 0f);

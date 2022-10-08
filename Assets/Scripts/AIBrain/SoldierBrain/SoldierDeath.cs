@@ -10,12 +10,12 @@ namespace AIBrains.SoldierBrain
            
         }
 
-        public void Enter()
+        public void OnEnter()
         {
             
         }
 
-        public void Exit()
+        public void OnExit()
         {
             
         }

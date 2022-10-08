@@ -1,3 +1,4 @@
+using System;
 
 namespace Enums
 {
@@ -12,11 +13,13 @@ namespace Enums
         TurretRocket,
         MoneyWorkerAI,
         AmmoWorkerAI,
+        MinerWorkerAI,
         SoldierAI,
         Hostage,
         Yellow,
         Orange,
         Red,
         BossEnemy,
+        
     } 
 }

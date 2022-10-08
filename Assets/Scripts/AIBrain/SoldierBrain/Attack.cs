@@ -49,13 +49,13 @@ namespace AIBrains.SoldierBrain
             _soldierAIBrain.transform.rotation = slerpRotation;
             
         }
-        public void Enter()
+        public void OnEnter()
         {
             _navMeshAgent.speed = 1.801268E-05f;
             _animator.SetBool(HasTarget, true);
         }
 
-        public void Exit()
+        public void OnExit()
         {
             _animator.SetBool(HasTarget, false);
         }

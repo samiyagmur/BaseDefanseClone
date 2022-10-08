@@ -84,8 +84,8 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            InitializeDataSignals.Instance.onSaveLevelID += OnSyncLevelID;
             CoreGameSignals.Instance.onLevelInitialize += OnSyncLevel;
+            InitializeDataSignals.Instance.onSaveLevelID += OnSyncLevelID;
             InitializeDataSignals.Instance.onSaveBaseRoomData += SyncBaseRoomDatas;
             InitializeDataSignals.Instance.onSaveMineBaseData += SyncMineBaseDatas;
             InitializeDataSignals.Instance.onSaveMilitaryBaseData += SyncMilitaryBaseData;
@@ -94,8 +94,8 @@ namespace Managers
 
         private void UnsubscribeEvents()
         {
-            InitializeDataSignals.Instance.onSaveLevelID -= OnSyncLevelID;
             CoreGameSignals.Instance.onLevelInitialize -= OnSyncLevel;
+            InitializeDataSignals.Instance.onSaveLevelID -= OnSyncLevelID;
             InitializeDataSignals.Instance.onSaveBaseRoomData -= SyncBaseRoomDatas;
             InitializeDataSignals.Instance.onSaveMineBaseData -= SyncMineBaseDatas;
             InitializeDataSignals.Instance.onSaveMilitaryBaseData -= SyncMilitaryBaseData;
@@ -108,13 +108,14 @@ namespace Managers
 
         #endregion
 
-        private void SendDataManagers()
+        private void SendDataToManagers()
         {
             InitializeDataSignals.Instance.onLoadLevelID?.Invoke(_levelID);
             InitializeDataSignals.Instance.onLoadBaseRoomData?.Invoke(_baseRoomData);
             InitializeDataSignals.Instance.onLoadMineBaseData?.Invoke(_mineBaseData);
             InitializeDataSignals.Instance.onLoadMilitaryBaseData?.Invoke(_militaryBaseData);
             InitializeDataSignals.Instance.onLoadBuyablesData?.Invoke(_buyablesData);
+          //InitializeDataSignals.Instance.onLoadAmmoWorkerData?.Invoke(_)
         }
         #region Level Save - Load 
 
@@ -140,7 +141,7 @@ namespace Managers
 
         private void OnSyncLevel()
         {
-            SendDataManagers();
+            SendDataToManagers();
         }
 
         #region Data Sync

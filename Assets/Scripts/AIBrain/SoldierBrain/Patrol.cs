@@ -46,12 +46,12 @@ namespace AIBrains.SoldierBrain
             }
             lastPosition = _soldierAIBrain.transform.position;
         } 
-        public void Enter()
+        public void OnEnter()
         {
             _navMeshAgent.speed = 1.80f;
             _timeStack = 0;
         } 
-        public void Exit()
+        public void OnExit()
         {
             
         }

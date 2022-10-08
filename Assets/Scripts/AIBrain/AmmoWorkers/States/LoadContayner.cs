@@ -21,13 +21,13 @@ namespace States
             this.ammoWareHouse = ammoWareHouse;
         }
 
-        public void Enter()
+        public void OnEnter()
         {
             Debug.Log("LoadContayner");
             agent.speed = 0;
         }
 
-        public void Exit()
+        public void OnExit()
         {
             
         }

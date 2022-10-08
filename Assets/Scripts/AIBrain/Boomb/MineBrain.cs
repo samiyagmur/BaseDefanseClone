@@ -42,6 +42,6 @@ namespace StateMachines
             _stateMachine.SetState(_readyState);
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
         }
-        private void Update() => _stateMachine.UpdateIState();
+        private void Update() => _stateMachine.Tick();
     }
 }

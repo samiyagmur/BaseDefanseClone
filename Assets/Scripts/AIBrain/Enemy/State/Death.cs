@@ -3,12 +3,10 @@ using AIBrain;
 using DG.Tweening;
 using Enums;
 using Interfaces;
-using Managers;
 using Signals;
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+
 
 namespace State
 {
@@ -45,10 +43,10 @@ namespace State
         {
             PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolName, obj);
         }
-        public  void Enter()
+        public  void OnEnter()
         {
 
-            var poolType = (PoolType)Enum.Parse(typeof(PoolType), _enemyType.ToString());
+            var poolType = (PoolType)System.Enum.Parse(typeof(PoolType), _enemyType.ToString());
             _navMeshAgent.enabled = false;
             _animator.SetTrigger("Die");
             EnemyDoDead(poolType);
@@ -62,20 +60,15 @@ namespace State
 
         }
 
-        public void Exit()
-        {
-          
-        }
-
   
         public void Tick()
         {
           
         }
 
-        public int GetDamage()
+        public void OnExit()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

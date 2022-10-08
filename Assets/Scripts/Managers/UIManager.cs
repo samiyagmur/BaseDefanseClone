@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Signals;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace Managers
@@ -6,16 +8,55 @@ namespace Managers
     public class UIManager : MonoBehaviour
     {
 
-        // Use this for initialization
-        void Start()
+        private int totalGemValue;
+        private int totalMoneyValue;
+        [SerializeField]
+        private TextMeshProUGUI gemText;
+        [SerializeField]
+        private TextMeshProUGUI moneyText;
+
+       
+        #region EventSubscription
+        private void OnEnable()
         {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            CoreGameSignals.Instance.onUpdateMoneyScore += OnUpdateMoneyScore;
+            CoreGameSignals.Instance.onUpdateGemScore += OnUpdateGemScore;
+
+        }
+        private void UnsubscribeEvents()
+        {
+            CoreGameSignals.Instance.onUpdateMoneyScore -= OnUpdateMoneyScore;
+            CoreGameSignals.Instance.onUpdateGemScore -= OnUpdateGemScore;
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
+
+        private void OnUpdateGemScore(int gemValue)
+        {
+            totalGemValue += gemValue;
+            gemText.text = totalGemValue.ToString();
 
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnUpdateMoneyScore(int moneyValue)
         {
-
+            totalMoneyValue += moneyValue;
+            moneyText.text = totalMoneyValue.ToString();
         }
+
+
+        #endregion
+
+
+
+
     }
 }

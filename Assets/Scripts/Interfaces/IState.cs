@@ -7,9 +7,9 @@ namespace Abstraction
 {
     public interface IState
     {
-        void  Enter();
+        void  OnEnter();
         void Tick();
-        void  Exit();
+        void  OnExit();
         
     }
 }

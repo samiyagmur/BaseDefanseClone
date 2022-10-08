@@ -8,7 +8,7 @@ namespace Command
     {
         public void InsitializeLevel(int _levelID, Transform levelHolder)
         {
-            Instantiate(Resources.Load<GameObject>($"Prefabs/LevelPrefabs/level {_levelID}"), levelHolder);
+            Instantiate(Resources.Load<GameObject>($"Prefabs/level{_levelID}"), levelHolder);
         }
     }
 }

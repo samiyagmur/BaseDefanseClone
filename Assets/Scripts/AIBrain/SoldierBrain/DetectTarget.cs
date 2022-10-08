@@ -5,12 +5,12 @@ namespace AIBrains.SoldierBrain
     public class DetectTarget : IState
     {
 
-        public void Enter()
+        public void OnEnter()
         {
             throw new System.NotImplementedException();
         }
 
-        public void Exit()
+        public void OnExit()
         {
             throw new System.NotImplementedException();
         }

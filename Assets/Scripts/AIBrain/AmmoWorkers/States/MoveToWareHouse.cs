@@ -35,7 +35,7 @@ namespace States
         #endregion
 
         #region State
-        public void Enter()
+        public void OnEnter()
         {
 
             _agent.speed = _movementSpeed;
@@ -44,7 +44,7 @@ namespace States
             //_animator.SetTrigger("Walk");
         }
 
-        public void Exit()
+        public void OnExit()
         {
 
         }

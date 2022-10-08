@@ -14,7 +14,7 @@ namespace StateBehavior
         private List<Transition> _anyTransitions = new List<Transition>();
         private static List<Transition> EmptyTransitions = new List<Transition>(0);
 
-        public void UpdateIState()
+        public void Tick()
         {
             var transition = GetTransition();
 
@@ -29,13 +29,13 @@ namespace StateBehavior
             if (state == _currentState)
                 return;
 
-            _currentState?.Exit();
+            _currentState?.OnExit();
             _currentState = state;
 
             _transitions.TryGetValue(_currentState.GetType(), out _currentTransitions);
             if (_currentTransitions == null)
                 _currentTransitions = EmptyTransitions;
-            _currentState.Enter();
+            _currentState.OnEnter();
         }
 
         public void AddTransition(IState from, IState to, Func<bool> predicate)

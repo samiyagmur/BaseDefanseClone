@@ -162,7 +162,7 @@ namespace AIBrain
         public void Update()
         {
 
-            _statemachine.UpdateIState();
+            _statemachine.Tick();
         }
         #endregion
 

@@ -24,7 +24,7 @@ namespace State
             _spawnPoint = spawnPoint;
         }
 
-        public  void Enter()
+        public  void OnEnter()
         {
             
             
@@ -57,7 +57,7 @@ namespace State
             if (!RandomPoint(_spawnPoint.position, 20, out point)) return;
             _navMeshAgent.Warp(point);
         }
-        public void Exit() { }
+        public void OnExit() { }
 
         public void Tick() { }
 

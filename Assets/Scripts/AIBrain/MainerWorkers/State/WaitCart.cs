@@ -6,12 +6,12 @@ namespace AIBrain.MainerWorkers.State
 {
     public class WaitCart : IState
     {
-        public void Enter()
+        public void OnEnter()
         {
             throw new System.NotImplementedException();
         }
 
-        public void Exit()
+        public void OnExit()
         {
             throw new System.NotImplementedException();
         }

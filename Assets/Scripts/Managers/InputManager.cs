@@ -60,7 +60,7 @@ namespace Managers
                 _inputValuesVector = Vector2.zero;
                 _hasTouched = false;
             }
-
+            InputSignals.Instance.onInputTakenActive?.Invoke(_hasTouched);
         }
 
 

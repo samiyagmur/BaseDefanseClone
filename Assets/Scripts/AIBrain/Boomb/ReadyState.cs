@@ -6,12 +6,12 @@ namespace Boomb
 {
     public class ReadyState : IState
     {
-        public void Enter()
+        public void OnEnter()
         {
             Debug.Log("readyState");
         }
 
-        public void Exit()
+        public void OnExit()
         {
             
         }

@@ -34,13 +34,13 @@ namespace AIBrains.SoldierBrain
                 _soldierAIBrain.HasReachedSlotTarget = _hasReachToTarget;
             }
         } 
-        public void Enter()
+        public void OnEnter()
         {
             _navMeshAgent.SetDestination(_slotPosition);
             _navMeshAgent.speed = 1.80f;
         }
 
-        public void Exit()
+        public void OnExit()
         {
             _navMeshAgent.enabled = false;
         }

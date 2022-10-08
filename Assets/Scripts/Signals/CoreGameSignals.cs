@@ -12,5 +12,8 @@ namespace Signals
         public UnityAction onClearActiveLevel = delegate { };
         public UnityAction onNextLevel = delegate { };
         public UnityAction onReset = delegate { };
+        public UnityAction<int> onUpdateMoneyScore = delegate { };
+        public UnityAction<int> onUpdateGemScore = delegate { };
+        public UnityAction onAplicationPause= delegate { }; 
     } 
 }

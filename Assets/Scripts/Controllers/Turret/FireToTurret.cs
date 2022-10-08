@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using System.Threading.Tasks;
 
 namespace Controllers
 {
@@ -14,21 +15,23 @@ namespace Controllers
         private float _rockedSpeed;
         private GameObject _rocked;
 
-        internal   void FireToRocked()
-        {   
-            Debug.Log("FireToRocked");
-
+        internal  void FireToRocked()
+        {
             _rocked = GetObject(PoolType.TurretRocket);//RockedHolder
+
+            Rigidbody _rigidbody = _rocked.GetComponent<Rigidbody>();
 
             _rocked.transform.position = transform.position;
             _rocked.transform.rotation = transform.rotation;
 
-            _rocked.transform.Translate(new Vector3(0,0,_rockedSpeed*Time.deltaTime),Space.World);
+            _rigidbody.AddForce(transform.forward * 20, ForceMode.VelocityChange);
+            //poola gidecek
+
+            //ammoStackten cekecek
         }
 
         public GameObject GetObject(PoolType poolName)
         {
-
             return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
 
         }

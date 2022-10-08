@@ -125,7 +125,7 @@ namespace AIBrain
             Func<bool> AttackOffRange() => () =>!_atack.InPlayerAttackRange();
             Func<bool> AmIDead() => () => _health <= 0;
         }
-        internal  void Update() => _stateMachines.UpdateIState();
+        internal  void Update() => _stateMachines.Tick();
 
         
     }
