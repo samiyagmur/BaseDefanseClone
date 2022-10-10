@@ -1,39 +1,24 @@
-//using Interfaces;
-//using Managers;
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+using Interfaces;
+using Managers;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class Test : MonoBehaviour
-//{
-//    float timer = 0;
-//    int i = 0;
+public class Test : MonoBehaviour
+{
+    float timer = 0;
+    int i = 0;
+    Transform transformZZ;
+    private void Start()
+    {
+        Vector3[,] grid= new Vector3[3,3];
 
-//    private void OnTriggerEnter(Collider other)
-//    {
-
-
-
-//        //if (other.TryGetComponent(typeof(GetterConteynerInfo), out Component nammoManager))
-//        //{
-//        //    Debug.Log(other.GetComponent<AmmoManager>().GetterConteynerStatus().Count);
-
-//        //    foreach (var item in other.GetComponent<AmmoManager>().GetterConteynerStatus())
-//        //    {
-//        //        Debug.Log(item);
-//        //    }
-
-//        //    foreach (var item in other.GetComponent<AmmoManager>().GetterConteynerList())
-//        //    {
-//        //        Debug.Log(item);
-//        //    }
-//        //    foreach (var item in other.GetComponent<AmmoManager>().GetterConteynerCurrentAmunt())
-//        //    {
-//        //        Debug.Log(item);
-//        //    }
-
-//        //}
-
-
-//    }
-//}
+        for (int i = 0; i < grid.Length; i++)
+        {
+            for (int j= 0; j < grid.Length; j++)
+            {
+                grid[i, j] = transformZZ.position;
+            }
+        }
+    }
+}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Extentions;
 using UnityEngine.Events;
+using System;
 
 namespace Signals
 {
@@ -14,6 +15,10 @@ namespace Signals
         public UnityAction onReset = delegate { };
         public UnityAction<int> onUpdateMoneyScore = delegate { };
         public UnityAction<int> onUpdateGemScore = delegate { };
-        public UnityAction onAplicationPause= delegate { }; 
+        public UnityAction onAplicationPause= delegate { };
+        public Func<int> onGetCurrentMoney = delegate { return 0; };
+        public Func<int> onGetCurrentDiamond = delegate { return 0; };
+
+
     } 
 }

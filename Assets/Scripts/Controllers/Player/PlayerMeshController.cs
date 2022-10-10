@@ -1,7 +1,8 @@
-﻿using Data.ValueObject.WeaponData;
+﻿using Data.ValueObject;
 using Enums;
 using Enums.GameStates;
 using Keys;
+using System;
 using UnityEngine;
 
 namespace Controllers
@@ -49,5 +50,7 @@ namespace Controllers
                 sideMeshRenderer.enabled = _data.HasSideMesh;
             }
         }
+
+
     }
 }

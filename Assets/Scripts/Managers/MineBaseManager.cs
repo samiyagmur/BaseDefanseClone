@@ -90,7 +90,7 @@ namespace Managers
             _currentWorkerAmount++;
             _mineWorkers.Add(minerBrainAi, minerBrainAi.gameObject);
             UpdateMinerText();
-
+            //InitializeDataSignals.Instance.onSaveMineBaseData()
         }
 
         private Transform OnGetGemHolderPos()

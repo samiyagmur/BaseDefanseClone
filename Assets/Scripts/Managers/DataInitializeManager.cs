@@ -1,6 +1,8 @@
 ﻿using Data.UnityObject;
+using Data.ValueObject;
 using Data.ValueObject.LevelData;
 using Datas.UnityObject;
+using Datas.ValueObject;
 using Signals;
 using System.Collections;
 using System.Collections.Generic;
@@ -90,6 +92,7 @@ namespace Managers
             InitializeDataSignals.Instance.onSaveMineBaseData += SyncMineBaseDatas;
             InitializeDataSignals.Instance.onSaveMilitaryBaseData += SyncMilitaryBaseData;
             InitializeDataSignals.Instance.onSaveBuyablesData += SyncBuyablesData;
+           // InitializeDataSignals.Instance.onSaveWeaponData += SyncWeaponData;
         }
 
         private void UnsubscribeEvents()
@@ -100,6 +103,7 @@ namespace Managers
             InitializeDataSignals.Instance.onSaveMineBaseData -= SyncMineBaseDatas;
             InitializeDataSignals.Instance.onSaveMilitaryBaseData -= SyncMilitaryBaseData;
             InitializeDataSignals.Instance.onSaveBuyablesData -= SyncBuyablesData;
+          //  InitializeDataSignals.Instance.onSaveWeaponData -= SyncWeaponData;
         }
         private void OnDisable()
         {
@@ -134,7 +138,7 @@ namespace Managers
             _mineBaseData = cdLevel.LevelDatas[_levelID].BaseData.MineBaseData;
             _militaryBaseData = cdLevel.LevelDatas[_levelID].BaseData.MilitaryBaseData;
             _buyablesData = cdLevel.LevelDatas[_levelID].BaseData.BuyablesData;
-
+            
         }
 
         #endregion
@@ -169,6 +173,7 @@ namespace Managers
         {
             cdLevel.LevelDatas[_levelID].BaseData.BuyablesData = buyablesData;
         }
+
 
         #endregion
 

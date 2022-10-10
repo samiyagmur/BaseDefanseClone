@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Data.ValueObject.LevelData
 {
@@ -7,5 +8,6 @@ namespace Data.ValueObject.LevelData
     {
         public BaseData BaseData;
         public FrontYardData FrontYardData;
+       
     }
 }

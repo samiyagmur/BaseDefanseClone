@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Abstraction;
 using Controllers;
 using Data.UnityObject;
-using Data.ValueObject.WeaponData;
 using Enums;
 using Interfaces;
 using Signals;

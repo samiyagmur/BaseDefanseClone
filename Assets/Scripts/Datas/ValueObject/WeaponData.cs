@@ -3,7 +3,7 @@ using Enums;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Data.ValueObject.WeaponData
+namespace Data.ValueObject
 {
     [Serializable]
     public class WeaponData
@@ -17,5 +17,9 @@ namespace Data.ValueObject.WeaponData
         public float AttackRate;
         public int WeaponLevel = 1;
         public GameObject Bullet;
+
+        ///sami//enes
+        public int WeaponPrice;
+        public bool WeaponHasSold;
     }
 }

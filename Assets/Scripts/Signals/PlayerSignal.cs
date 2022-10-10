@@ -8,7 +8,6 @@ namespace Signals
 {   
     public class PlayerSignal : MonoSingleton<PlayerSignal>
     {   
-
-
+        
     }
 }

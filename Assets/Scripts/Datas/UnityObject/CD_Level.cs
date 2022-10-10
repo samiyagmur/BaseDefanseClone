@@ -10,6 +10,7 @@ namespace Data.UnityObject
     {
         public List<LevelData> LevelDatas = new List<LevelData>();
 
+
         public int LevelId;
 
         public string Key = "LevelData";

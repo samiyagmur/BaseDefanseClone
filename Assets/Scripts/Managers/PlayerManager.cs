@@ -1,6 +1,6 @@
 using Controllers;
 using Data.UnityObject;
-using Data.ValueObject.WeaponData;
+using Data.ValueObject;
 using Datas.UnityObject;
 using Datas.ValueObject;
 using Enums;
@@ -61,11 +61,24 @@ namespace Managers
         private WeaponData GetWeaponData() => Resources.Load<CD_Weapon>("Data/CD_Weapon").WeaponData[(int)WeaponType];
         private void Init()
         {
+
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
             SetDataToControllers();
+After:
+            SetDataToControllers(Get_weaponData());
+*/
+            SetDataToControllers(Get_weaponData());
             SetPhysicsDatas();
 
         }
-        private void SetDataToControllers()
+
+        private WeaponData Get_weaponData()
+        {
+            return _weaponData;
+        }
+
+        private void SetDataToControllers(WeaponData _weaponData)
         {
             movementController.SetMovementData(_data.MovementDatas);
             weaponController.SetWeaponData(_weaponData);

@@ -9,6 +9,6 @@ namespace Enums
         Pistol,
         Riffle,
         ShotGun,
-        MiniGun,
+        MiniGun
     }
 }
