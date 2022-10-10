@@ -3716,7 +3716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gemStackerController: {fileID: 3779137075818167180}
-  collider: {fileID: 0}
+  collider: {fileID: 6567740376434977339}
 --- !u!65 &6567740376434977339
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16742,9 +16742,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4041852347591337794}
   - {fileID: 4041852347735603817}
   - {fileID: 4041852348004514535}
-  - {fileID: 4041852347591337794}
   - {fileID: 4041852348213448344}
   m_Father: {fileID: 3644639192149111841}
   m_RootOrder: 2
@@ -16761,6 +16761,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02e417c1bf9812946a0ad98e2739cdcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponShopController: {fileID: 9179990335871900669}
+  workerShopController: {fileID: 334973521632883863}
+  playerShopController: {fileID: 511435748968991356}
+  soldierShopController: {fileID: 3487284064848000479}
 --- !u!1 &3644639191014988936
 GameObject:
   m_ObjectHideFlags: 0
@@ -27426,7 +27430,7 @@ Transform:
   - {fileID: 4041852347978630929}
   - {fileID: 669090530426635037}
   m_Father: {fileID: 3644639191004270605}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9179990335871900669
 MonoBehaviour:
@@ -27440,6 +27444,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d978e0c329b62714c997388d801f4f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopManager: {fileID: 785831593217411584}
+  _weaponShopSlot:
+    m_Keys: 00000000010000000200000003000000
+    m_Values:
+    - WeaponPrice: 0
+      WeaponHasSold: 1
+      WeaponLevel: 0
+    - WeaponPrice: 0
+      WeaponHasSold: 0
+      WeaponLevel: 0
+    - WeaponPrice: 0
+      WeaponHasSold: 0
+      WeaponLevel: 0
+    - WeaponPrice: 0
+      WeaponHasSold: 0
+      WeaponLevel: 0
 --- !u!114 &2585541378385100797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27599,7 +27619,7 @@ Transform:
   - {fileID: 4041852348544135295}
   - {fileID: 4041852347055093073}
   m_Father: {fileID: 3644639191004270605}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &334973521632883863
 MonoBehaviour:
@@ -27613,6 +27633,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44cdd8bf5500811489a32300d16dd2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopManager: {fileID: 785831593217411584}
+  _weaponShopSlot:
+    m_Keys: 0000000001000000
+    m_Values:
+    - UpgradePrice: 0
+      UpgradeLevel: 0
+    - UpgradePrice: 0
+      UpgradeLevel: 0
 --- !u!114 &965231542903454850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28224,7 +28252,7 @@ Transform:
   - {fileID: 4041852347278757293}
   - {fileID: 4041852348514539413}
   m_Father: {fileID: 3644639191004270605}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &511435748968991356
 MonoBehaviour:
@@ -28238,6 +28266,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c59cda391f19544a8a2754943b5ed42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopManager: {fileID: 785831593217411584}
+  _weaponShopSlot:
+    m_Keys: 000000000100000002000000
+    m_Values:
+    - UpgradePrice: 0
+      UpgradeLevel: 0
+    - UpgradePrice: 0
+      UpgradeLevel: 0
+    - UpgradePrice: 0
+      UpgradeLevel: 0
 --- !u!114 &1064985663564659418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28571,6 +28609,7 @@ GameObject:
   - component: {fileID: 4041852348086536150}
   - component: {fileID: 4041852348086536151}
   - component: {fileID: 8823131463079282129}
+  - component: {fileID: 6526549604204181424}
   m_Layer: 0
   m_Name: Physics
   m_TagString: Untagged
@@ -28621,6 +28660,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &6526549604204181424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4041852348086536149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d794b3e27020f43a7bc273f4416193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shopManager: {fileID: 785831593217411584}
 --- !u!1 &4041852348109284468
 GameObject:
   m_ObjectHideFlags: 0
@@ -29021,6 +29073,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca88774787a8534a8626a2703dfd17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopManager: {fileID: 785831593217411584}
+  _soldierUpgrade:
+    m_Keys: 00000000
+    m_Values:
+    - UpgradePrice: 0
+      UpgradeLevel: 0
 --- !u!114 &6950420249493626330
 MonoBehaviour:
   m_ObjectHideFlags: 0

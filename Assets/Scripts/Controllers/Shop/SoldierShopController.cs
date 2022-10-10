@@ -1,16 +1,42 @@
+using Datas.ValueObject;
 using Enums;
+using Managers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Controllers
 {
     public class SoldierShopController : MonoBehaviour
     {
-        internal void OnSetUpgradeFeature(SoldierUpgradeType value, int _currentMoney)
+        [SerializeField]
+        private ShopManager shopManager;
+
+        private List<SoldierShopData> _soldierShopData;
+
+        internal void SetShopData(List<SoldierShopData> soldierShopData) => _soldierShopData = soldierShopData;
+
+        internal SoldierShopData OnSetUpgradeFeature(SoldierUpgradeType value, int _currentMoney)
         {
-            throw new NotImplementedException();
+
+            if (_soldierShopData[(int)value].UpgradeLevel <= _currentMoney)
+            {
+                SendCurrentMoney(_soldierShopData[0].UpgradePrice);
+
+                _soldierShopData[(int)value].UpgradePrice += 100;
+
+                _soldierShopData[(int)value].UpgradeLevel++;
+
+                return _soldierShopData[(int)value];
+            }
+            return _soldierShopData[(int)value];
+        }
+
+        private void  SendCurrentMoney(int _currentMoney)
+        {
+            shopManager.SendScoreToWeaponShop(_currentMoney);
         }
     }
 }

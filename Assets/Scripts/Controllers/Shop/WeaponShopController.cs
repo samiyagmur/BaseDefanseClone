@@ -6,65 +6,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using System.Linq;
+using Managers;
+using Datas.ValueObject;
 
 namespace Controllers
 {
     public class WeaponShopController : MonoBehaviour
     {
-        WeaponData _curretWeaponData;
+        [SerializeField]
+        private ShopManager shopManager;
 
-        int _buyablePrice;
+        List<WeaponShopData> _curretWeaponData;
 
-        //saveden gelcek
-        
-        private SerializedDictionary<WeaponTypes, SerializedDictionary<int, WeaponData>> _weaponShopSlot = new SerializedDictionary<WeaponTypes, SerializedDictionary<int, WeaponData>>();
-        private int _currentScore;
+        internal void SetShopData(List<WeaponShopData> weaponShop)
+        {
+            _curretWeaponData = weaponShop;
+        }
 
         internal bool OnSetBuyWeapon(WeaponTypes type, int _currentMoney)
         {
             if (CheckCanBuy(type, _currentMoney))
             {
+                SendCurrentMoney(_curretWeaponData[(int)type].WeaponPrice);
+
                 return BuyWeapon(type);
             }
           return false;
   
         }
-        internal int OnSetUpgradeWeapon(WeaponTypes type, int _currentMoney)
-        {
 
+
+        internal WeaponShopData OnSetUpgradeWeapon(WeaponTypes type, int _currentMoney)
+        {
             if (CheckCanBuy(type, _currentMoney))
             {
-               // _currentScore -= _weaponShopSlot[type].WeaponPrice;
 
-                return _currentScore;
+                SendCurrentMoney(_curretWeaponData[(int)type].WeaponPrice);
+
+                _curretWeaponData[(int)type].WeaponPrice += 100;
+
+                _curretWeaponData[(int)type].WeaponLevel++;
+
+                return _curretWeaponData[(int)type];
             }
 
-            return _currentScore;
+            return _curretWeaponData[(int)type];
         }
+
 
         private bool CheckCanBuy(WeaponTypes type, int _currentScore)
         {
-            //if (_weaponShopSlot[type].WeaponPrice <= _currentScore)
-            //{
-            //    return true;
-            //}
-            //return false;
+            if (_curretWeaponData[(int)type].WeaponPrice <= _currentScore)
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool BuyWeapon(WeaponTypes type)
         {
-            _weaponShopSlot[type].WeaponHasSold = true;
+            _curretWeaponData[(int)type].WeaponHasSold = true;
 
-            return _weaponShopSlot[type].WeaponHasSold;
+            return _curretWeaponData[(int)type].WeaponHasSold;
         }
-
-        /// <summary>
-        /// scoredan gelecek
-        /// </summary>
-        /// <param name="currentScore"></param>
-        internal void SetCurrentMoneyScore(int currentScore)
+        private void SendCurrentMoney(int _currentMoney)
         {
-            _currentScore = currentScore;
+            shopManager.SendScoreToWeaponShop(_currentMoney);
         }
+
     } 
 }

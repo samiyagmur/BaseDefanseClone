@@ -8,16 +8,12 @@ namespace Controllers
 
     public class UIPanelController : MonoBehaviour
     {   
-
-
         [SerializeField]
-        List<GameObject> UIPanelsList = new List<GameObject>();
+        List<GameObject> UIPanelsList ;
         public void OpenPanel(ShopType panelParams)
         {
-            
             UIPanelsList[(int)panelParams].SetActive(true);
         }
-
         public void ClosePanel(ShopType panelParams)
         {
             UIPanelsList[(int)panelParams].SetActive(false);

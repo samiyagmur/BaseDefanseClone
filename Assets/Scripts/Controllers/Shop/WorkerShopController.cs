@@ -1,6 +1,8 @@
 using Datas.ValueObject;
 using Enums;
+using Managers;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -8,25 +10,33 @@ namespace Controllers
 {
     public class WorkerShopController : MonoBehaviour
     {
-        private SerializedDictionary<WorkerUpgradeType, WorkerShopData> _weaponShopSlot = new SerializedDictionary<WeaponTypes, WorkerShopData>();
+        [SerializeField]
+        private ShopManager shopManager;
+
+        private List<WorkerShopData> _workerShopData;
+        [SerializeField]
+  
+        internal void SetShopData(List<WorkerShopData> workerShop) => _workerShopData = workerShop;
 
 
-        internal int OnSetUpgradeFeature(WorkerUpgradeType value, int _currentMoney)
+        internal WorkerShopData OnSetUpgradeFeature(WorkerUpgradeType value, int _currentMoney)
         {
-
-      
-            if (_weaponShopSlot[value].UpgradePrice <= _currentMoney)
+            if (_workerShopData[(int)value].UpgradePrice <= _currentMoney)
             {
-                _currentMoney = _currentMoney - _weaponShopSlot[value].UpgradePrice;
+                SendCurrentMoney(_workerShopData[(int)value].UpgradePrice);
 
+                _workerShopData[(int)value].UpgradePrice+=100;
 
+                _workerShopData[(int)value].UpgradeLevel++;
+
+                return _workerShopData[(int)value];
             }
-
+            return _workerShopData[(int)value];
         }
 
-        
-
-        //data setlencek
-
+        private void SendCurrentMoney(int _currentMoney)
+        {
+            shopManager.SendScoreToWeaponShop(_currentMoney);
+        }
     }
 }

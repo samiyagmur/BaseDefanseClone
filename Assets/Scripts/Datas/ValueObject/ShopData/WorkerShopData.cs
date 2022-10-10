@@ -9,10 +9,9 @@ namespace Datas.ValueObject
     [Serializable]
     public class WorkerShopData
     {
-
-        public WorkerUpgradeType workerUpgradeType;
-
+        public WorkerUpgradeType WorkerUpgradeType;
         public int UpgradePrice;
+        public int UpgradeLevel;
 
 
     } 

@@ -12,5 +12,6 @@ namespace Signals
         public UnityAction<CD_Level, int> onSaveGameData = delegate { };
 
         public Func<string, int, CD_Level> onLoadGameData;
+
     }
 }

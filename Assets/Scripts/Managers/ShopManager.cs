@@ -1,4 +1,8 @@
 ﻿using Controllers;
+using Data.UnityObject;
+using Data.ValueObject;
+using Datas.UnityObject;
+using Datas.ValueObject;
 using Enums;
 using Signals;
 using System;
@@ -9,67 +13,83 @@ namespace Managers
 {
     public class ShopManager : MonoBehaviour
     {
-        //[SerializeField]
-        //private WeaponShopController weaponShopController;
-        //[SerializeField]
-        //private WorkerShopController workerShopController;
-        //[SerializeField]
-        //private PlayerShopController playerShopController;
-        //[SerializeField]
-        //private SoldierShopController soldierShopController;
-        //private int _currentMoney;
+        [SerializeField]
+        private WeaponShopController weaponShopController;
+        [SerializeField]
+        private WorkerShopController workerShopController;
+        [SerializeField]
+        private PlayerShopController playerShopController;
+        [SerializeField]
+        private SoldierShopController soldierShopController;
 
-        //private void OnEnable() => SubscribeEvents();
-        //private void SubscribeEvents()
-        //{
-        //    UISignals.Instance.onPressUpgradeButton += onPressUpgradeWeapon;
-        //    UISignals.Instance.onPressUnlockButton += onPressUnlockWeapon;
-        //    UISignals.Instance.onPressWorkersUpgradeButtons += OnPressWorkersUpgradeButtons;
-        //    UISignals.Instance.onPressPlayerUpgradeButtons += OnPressPlayerUpgradeButtons;
-        //    UISignals.Instance.onPressSoldierUpgradeButton += OnPressSoldierUpgradeButton;
+        private ShopData _shopdata;
+        private int _currentMoney;
+        public void SaveLevelID()
+        {
+            InitializeDataSignals.Instance.onSaveShopData?.Invoke(_shopdata);
+        }
+        private void OnLoadShopData(ShopData shopdata)
+        {
 
+            weaponShopController.SetShopData(shopdata._weaponShopSlot);
+            workerShopController.SetShopData(shopdata._workerShopSlot);
+            playerShopController.SetShopData(shopdata._playerShopSlot);
+            soldierShopController.SetShopData(shopdata.soldierShopData);
 
+        }
 
-        //}
-
-        //private void UnsubscribeEvents()
-        //{
-        //    UISignals.Instance.onPressUpgradeButton -= onPressUpgradeWeapon;
-        //    UISignals.Instance.onPressUnlockButton -= onPressUnlockWeapon;
-
-        //}
-        //private void OnDisable() => UnsubscribeEvents();
-
-        //internal void GetScore() => _currentMoney = CoreGameSignals.Instance.onGetCurrentMoney.Invoke();
+        private void OnEnable() => SubscribeEvents();
 
 
-        //internal void IsEnterShopsForType(ShopType shopType) => UISignals.Instance.onGetShopTypeOnEnter?.Invoke(shopType);
 
-        //internal void IsExitAnyShops(ShopType shopType) => UISignals.Instance.onGetShopTypeOnExit?.Invoke(shopType);
+        private void SubscribeEvents()
+        {
+            InitializeDataSignals.Instance.onLoadShopData += OnLoadShopData;
+            UISignals.Instance.onPressUpgradeButton += onPressUpgradeWeapon;
+            UISignals.Instance.onPressUnlockButton += onPressUnlockWeapon;
+            UISignals.Instance.onPressWorkersUpgradeButtons += OnPressWorkersUpgradeButtons;
+            UISignals.Instance.onPressPlayerUpgradeButtons += OnPressPlayerUpgradeButtons;
+            UISignals.Instance.onPressSoldierUpgradeButton += OnPressSoldierUpgradeButton;
+        }
+        private void UnsubscribeEvents()
+        {
+            InitializeDataSignals.Instance.onLoadShopData -= OnLoadShopData;
+            UISignals.Instance.onPressUpgradeButton -= onPressUpgradeWeapon;
+            UISignals.Instance.onPressUnlockButton -= onPressUnlockWeapon;
+            UISignals.Instance.onPressWorkersUpgradeButtons -= OnPressWorkersUpgradeButtons;
+            UISignals.Instance.onPressPlayerUpgradeButtons -= OnPressPlayerUpgradeButtons;
+            UISignals.Instance.onPressSoldierUpgradeButton -= OnPressSoldierUpgradeButton;
+        }
+        private void OnDisable() => UnsubscribeEvents();
 
+        internal void GetScore() => 
+            _currentMoney = CoreGameSignals.Instance.onGetCurrentMoney.Invoke();
 
-        //private int onPressUpgradeWeapon(WeaponTypes type) => weaponShopController.OnSetUpgradeWeapon(type,_currentMoney);
+        internal void SendScoreToWeaponShop(int _currentMoney) => 
+            CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(_currentMoney);
 
-        //private bool onPressUnlockWeapon(WeaponTypes type) => weaponShopController.OnSetBuyWeapon(type, _currentMoney);
+        internal void IsEnterShopsForType(ShopType shopType) =>
+            UISignals.Instance.onGetShopTypeOnEnter?.Invoke(shopType);
 
-        //private int OnPressWorkersUpgradeButtons(WorkerUpgradeType value)
-        //{
-        //    return workerShopController.OnSetUpgradeFeature(value, _currentMoney);
-        //}
+        internal void IsExitAnyShops(ShopType shopType) =>
+            UISignals.Instance.onGetShopTypeOnExit?.Invoke(shopType);
 
-        //private int OnPressPlayerUpgradeButtons(PlayerUpgradeType value)
-        //{
-        //    return playerShopController.OnSetUpgradeFeature(value, _currentMoney);
-        //}
+        private bool onPressUnlockWeapon(WeaponTypes type) =>
+            weaponShopController.OnSetBuyWeapon(type, _currentMoney);
 
-        //private int OnPressSoldierUpgradeButton(SoldierUpgradeType value)
-        //{
-        //    return soldierShopController.OnSetUpgradeFeature(value, _currentMoney);
-        //}
+        private WeaponShopData onPressUpgradeWeapon(WeaponTypes type) => 
+            weaponShopController.OnSetUpgradeWeapon(type, _currentMoney);
 
-       
+        private WorkerShopData OnPressWorkersUpgradeButtons(WorkerUpgradeType value) => 
+            workerShopController.OnSetUpgradeFeature(value, _currentMoney);
 
+        private PlayerShopData OnPressPlayerUpgradeButtons(PlayerUpgradeType value) => 
+            playerShopController.OnSetUpgradeFeature(value, _currentMoney);
 
+        private SoldierShopData OnPressSoldierUpgradeButton(SoldierUpgradeType value) => 
+            soldierShopController.OnSetUpgradeFeature(value, _currentMoney);
+
+     
 
 
 

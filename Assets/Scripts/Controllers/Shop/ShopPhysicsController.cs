@@ -11,7 +11,7 @@ public class ShopPhysicsController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(typeof(PlayerPhysicsController),out Component playerPhyiscs))
+        if (other.TryGetComponent(out PlayerPhysicsController playerPhyiscs))
         {
             _shopManager.IsEnterShopsForType(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
             _shopManager.GetScore();
@@ -20,9 +20,10 @@ public class ShopPhysicsController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent(typeof(PlayerPhysicsController), out Component playerPhyiscs))
+        if (other.TryGetComponent(out PlayerPhysicsController playerPhyiscs))
         {
             _shopManager.IsExitAnyShops(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
+            _shopManager.SaveLevelID();
         }
     }
 }

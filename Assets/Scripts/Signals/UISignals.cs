@@ -1,4 +1,6 @@
-﻿using Enums;
+﻿using Data.ValueObject;
+using Datas.ValueObject;
+using Enums;
 using Extentions;
 using System;
 using System.Collections;
@@ -23,15 +25,15 @@ namespace Signals
 
         public UnityAction<WeaponTypes> onChangeWeaponType = delegate { };
 
-        public Func<WeaponTypes, int> onPressUpgradeButton = delegate { return 0; };
+        public Func<WeaponTypes, WeaponShopData> onPressUpgradeButton = delegate { return null; };
 
         public Func<WeaponTypes, bool> onPressUnlockButton = delegate { return false; };
 
-        public Func<WorkerUpgradeType, int> onPressWorkersUpgradeButtons = delegate { return 0; };
+        public Func<WorkerUpgradeType, WorkerShopData> onPressWorkersUpgradeButtons = delegate { return null; };
 
-        public Func<PlayerUpgradeType, int> onPressPlayerUpgradeButtons = delegate { return 0; };
+        public Func<PlayerUpgradeType, PlayerShopData> onPressPlayerUpgradeButtons = delegate { return null; };
 
-        public Func<SoldierUpgradeType, int> onPressSoldierUpgradeButton = delegate { return 0; };
+        public Func<SoldierUpgradeType, SoldierShopData> onPressSoldierUpgradeButton = delegate { return null; };
 
 
 

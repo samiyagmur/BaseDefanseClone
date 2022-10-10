@@ -8,7 +8,7 @@ namespace Controllers
     {
         public void UpdateMineWorkerAmountText(TextMeshPro gemWorkerText, int currentWorkerAmount, int maxWorkerAmount)
         {
-            gemWorkerText.text = currentWorkerAmount + "/" + maxWorkerAmount + " \n Gem Mine";
+            ///gemWorkerText.text = currentWorkerAmount + "/" + maxWorkerAmount + " \n Gem Mine";
         }
 
     }

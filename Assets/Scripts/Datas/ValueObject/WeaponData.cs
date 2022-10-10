@@ -8,18 +8,18 @@ namespace Data.ValueObject
     [Serializable]
     public class WeaponData
     {
-        public WeaponTypes WeaponType;
+
         public Mesh WeaponMesh;
         public bool HasSideMesh;
         [ShowIf("HasSideMesh")]
         public Mesh SideMesh;
         public int Damage;
         public float AttackRate;
-        public int WeaponLevel = 1;
+        public int WeaponLevel;
         public GameObject Bullet;
 
         ///sami//enes
-        public int WeaponPrice;
-        public bool WeaponHasSold;
+     
+   
     }
 }

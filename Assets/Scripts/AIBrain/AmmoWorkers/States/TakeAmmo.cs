@@ -21,7 +21,6 @@ namespace States
 
         public TakeAmmo(NavMeshAgent agent, Animator animator)
         {
-            Debug.Log("TakeAmmo");
             _agent = agent;
             _animator = animator;
         }

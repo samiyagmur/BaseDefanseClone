@@ -1,4 +1,5 @@
-﻿using Signals;
+﻿using Datas.ValueObject;
+using Signals;
 using System;
 using System.Collections;
 using TMPro;
@@ -8,15 +9,16 @@ namespace Managers
 {
     public class ScoreManager : MonoBehaviour
     {
-
-        private int totalGemValue;
-        private int totalMoneyValue;
+        private ScoreData _scoreData;
 
         #region EventSubscription
+
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
         {
+            CoreGameSignals.Instance.onLevelInitialize += OnLevelInitialize;
+
             CoreGameSignals.Instance.onUpdateMoneyScore += OnUpdateMoneyScore;
 
             CoreGameSignals.Instance.onUpdateGemScore += OnUpdateGemScore;
@@ -25,40 +27,69 @@ namespace Managers
 
             CoreGameSignals.Instance.onGetCurrentDiamond += OnGetCurrentDiamond;
 
+
         }
 
         private void UnsubscribeEvents()
         {
+            CoreGameSignals.Instance.onLevelInitialize -= OnLevelInitialize;
+
             CoreGameSignals.Instance.onUpdateMoneyScore -= OnUpdateMoneyScore;
 
             CoreGameSignals.Instance.onUpdateGemScore -= OnUpdateGemScore;
 
             CoreGameSignals.Instance.onGetCurrentMoney -= OnGetCurrentMoney;
+
             CoreGameSignals.Instance.onGetCurrentDiamond -= OnGetCurrentDiamond;
+
         }
 
         private void OnDisable() => UnsubscribeEvents();
 
         #endregion
+
+        //private void OnApplicationPause(bool pause)
+        //{
+           
+        //    InitializeDataSignals.Instance.onSaveScoreData?.Invoke(_scoreData);
+        //}
+
+        private void OnLevelInitialize()
+        {
+            LoadScoreData();
+            SendScoreData();
+        }
+
+        private void LoadScoreData()
+        {
+            _scoreData = InitializeDataSignals.Instance.onLoadScoreData.Invoke();
+        }
+        private void SendScoreData()
+        {
+            Debug.Log(_scoreData.Money + " " + _scoreData.Diamond);
+            CoreGameSignals.Instance.onUpdateMoneyScore?.Invoke(_scoreData.Money);
+            CoreGameSignals.Instance.onUpdateGemScore?.Invoke(_scoreData.Diamond);
+        }
+
         private void OnUpdateGemScore(int gemValue)
         {
-            totalGemValue += gemValue;
+            _scoreData.Money += gemValue;
         }
 
         private void OnUpdateMoneyScore(int moneyValue)
         {
-            totalMoneyValue += moneyValue;
+            //_scoreData.Diamond += moneyValue;
         }
-
-        private int OnGetCurrentDiamond()
-        {
-            return totalGemValue;
-        }
-
         private int OnGetCurrentMoney()
         {
-            return totalMoneyValue;
+            return _scoreData.Money;
         }
+        private int OnGetCurrentDiamond()
+        {
+            return _scoreData.Diamond;
+        }
+
+
 
     }
 }

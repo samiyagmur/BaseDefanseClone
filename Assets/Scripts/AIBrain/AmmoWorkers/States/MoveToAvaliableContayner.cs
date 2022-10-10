@@ -21,7 +21,6 @@ namespace States
 
         public MoveToAvaliableContayner(NavMeshAgent agent, Animator animator, float movementSpeed)
         {
-            Debug.Log("MoveToAvaliableContayner");
             _agent = agent;
             _animator = animator;
             _movementSpeed = movementSpeed;

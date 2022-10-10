@@ -17,22 +17,29 @@ namespace Managers
         [SerializeField]
         private UIPanelController uIPanelController;
         [SerializeField]
-        private List<TextMeshPro> levelPanelText;
+        private List<TextMeshProUGUI> levelPanelText;
         [SerializeField]
-        private List<TextMeshPro> weaponPriceText;
+        private List<TextMeshProUGUI> weaponPriceText;
+        [SerializeField]
+        private List<TextMeshProUGUI> weaponLevelText;
         [SerializeField]
         private List<GameObject> buttonObject;
         [SerializeField]
-        private List<TextMeshPro> WorkerPriceTexts;
+        private List<TextMeshProUGUI> workerPriceTexts;
         [SerializeField]
-        private List<TextMeshPro> PlayerPriceTexts;
+        private List<TextMeshProUGUI> workerLevelTexts;
         [SerializeField]
-        private TextMeshPro SoldierText;
+        private List<TextMeshProUGUI> playerPriceTexts;
+        [SerializeField]
+        private List<TextMeshProUGUI> playerLevelTexts;
+        [SerializeField]
+        private TextMeshProUGUI soldierPriceText;
+        [SerializeField]
+        private TextMeshProUGUI soldierLevelText;
 
         #endregion
 
         #region Private Variables
-
 
         #endregion
 
@@ -46,45 +53,69 @@ namespace Managers
             UISignals.Instance.onGetShopTypeOnExit += OnCloseUIPanel;
             CoreGameSignals.Instance.onUpdateGemScore += OnUpdateGemScore;
             CoreGameSignals.Instance.onUpdateMoneyScore += OnUpdateMoneyScore;
+
         }
         private void UnsubscribeEvents()
         {
             UISignals.Instance.onGetShopTypeOnEnter -= OnOpenUIPanel;
             UISignals.Instance.onGetShopTypeOnExit -= OnCloseUIPanel;
+            CoreGameSignals.Instance.onUpdateMoneyScore -= OnUpdateMoneyScore;
             CoreGameSignals.Instance.onUpdateGemScore -= OnUpdateGemScore;
-            CoreGameSignals.Instance.onUpdateGemScore -= OnUpdateMoneyScore;
+           
      
         }
         private void OnDisable() => UnsubscribeEvents();
 
-        private void OnOpenUIPanel(ShopType panels) =>
+        #region Button
+        public void OnOpenUIPanel(ShopType panels) => 
             uIPanelController.OpenPanel(panels);
 
-        private void OnCloseUIPanel(ShopType panels) =>
+        public void OnCloseUIPanel(ShopType panels) =>
             uIPanelController.ClosePanel(panels);
 
-        private void OnUpdateMoneyScore(int value) =>
+        public void OnUpdateMoneyScore(int value)
+        {
+            
             levelPanelText[(int)LevelPanelTextType.money].text = value.ToString();
+        }
 
-        private void OnUpdateGemScore(int value) =>
-            levelPanelText[(int)LevelPanelTextType.diamond].text = value.ToString();
+        public void OnUpdateGemScore(int value) => levelPanelText[(int)LevelPanelTextType.diamond].text = value.ToString();
 
-        private void ChangeWeaponType(WeaponTypes weaponTypes) => 
-            UISignals.Instance.onChangeWeaponType?.Invoke(weaponTypes);
+        public void ChangeWeaponType(WeaponTypes weaponTypes) =>
+            UISignals.Instance.onChangeWeaponType?.Invoke(weaponTypes);//change weapon
 
-        private void UpgradeWeaponButton(WeaponTypes type) =>
-            weaponPriceText[(int)type].text = UISignals.Instance.onPressUpgradeButton.Invoke(type).ToString();
 
-        private void BuyWeaponButton(WeaponTypes type) => 
-            buttonObject[(int)type].SetActive(UISignals.Instance.onPressUnlockButton.Invoke(type));
+        public void BuyWeaponButton(int weaponline)
+        {
+            Debug.Log(UISignals.Instance.onPressUnlockButton.Invoke((WeaponTypes)weaponline));
 
-        private void UpgradeWorkerButton(WorkerUpgradeType type)=> 
-            WorkerPriceTexts[(int)type].text = UISignals.Instance.onPressWorkersUpgradeButtons.Invoke(type).ToString();
+            buttonObject[weaponline].SetActive(UISignals.Instance.onPressUnlockButton.Invoke((WeaponTypes)weaponline));//WeaponType will Activate; 
+        }
 
-        private void UpgradePlayerButton(PlayerUpgradeType type) =>
-            PlayerPriceTexts[(int)type].text = UISignals.Instance.onPressPlayerUpgradeButtons.Invoke(type).ToString();
-        private void UpgradeSoldierButton(SoldierUpgradeType type) =>
-            SoldierText.text = UISignals.Instance.onPressSoldierUpgradeButton.Invoke(type).ToString();
+        public void UpgradeWeaponButton(int weaponline)//weaponType will Upgarde
+        {
+            weaponPriceText[weaponline].text =UISignals.Instance.onPressUpgradeButton.Invoke((WeaponTypes)weaponline).WeaponPrice.ToString();
+            weaponLevelText[weaponline].text = "LEVEL " + UISignals.Instance.onPressUpgradeButton.Invoke((WeaponTypes)weaponline).WeaponLevel.ToString();
+        }
+
+        public void UpgradeWorkerButton(int workerButtonline)//workerType will Upgarde
+        {
+            workerPriceTexts[workerButtonline].text =UISignals.Instance.onPressWorkersUpgradeButtons.Invoke((WorkerUpgradeType)workerButtonline).UpgradePrice.ToString();
+            workerLevelTexts[workerButtonline].text = "LEVEL " + UISignals.Instance.onPressWorkersUpgradeButtons.Invoke((WorkerUpgradeType)workerButtonline).UpgradeLevel.ToString();
+        }
+
+        public void UpgradePlayerButton(int playerButtonline)//playerType will Upgarde
+        {
+            playerPriceTexts[playerButtonline].text = UISignals.Instance.onPressPlayerUpgradeButtons.Invoke((PlayerUpgradeType)playerButtonline).UpgradePrice.ToString();
+            playerLevelTexts[playerButtonline].text = "LEVEL " + UISignals.Instance.onPressPlayerUpgradeButtons.Invoke((PlayerUpgradeType)playerButtonline).UpgradeLevel.ToString();
+        }
+
+        public void UpgradeSoldierButton(int soldierButtonLine)//soldierType will Upgarde
+        {
+            soldierPriceText.text = UISignals.Instance.onPressSoldierUpgradeButton.Invoke((SoldierUpgradeType)soldierButtonLine).UpgradePrice.ToString();
+            soldierLevelText.text = "LEVEL " + UISignals.Instance.onPressSoldierUpgradeButton.Invoke((SoldierUpgradeType)soldierButtonLine).UpgradeLevel.ToString();
+        }
+        #endregion
 
         #endregion
 
