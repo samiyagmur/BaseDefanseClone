@@ -16,7 +16,8 @@ namespace Controllers
         int _buyablePrice;
 
         //saveden gelcek
-        private SerializedDictionary<WeaponTypes, WeaponData> _weaponShopSlot = new SerializedDictionary<WeaponTypes, WeaponData>();
+        
+        private SerializedDictionary<WeaponTypes, SerializedDictionary<int, WeaponData>> _weaponShopSlot = new SerializedDictionary<WeaponTypes, SerializedDictionary<int, WeaponData>>();
         private int _currentScore;
 
         internal bool OnSetBuyWeapon(WeaponTypes type, int _currentMoney)
@@ -33,7 +34,7 @@ namespace Controllers
 
             if (CheckCanBuy(type, _currentMoney))
             {
-                _currentScore -= _weaponShopSlot[type].WeaponPrice;
+               // _currentScore -= _weaponShopSlot[type].WeaponPrice;
 
                 return _currentScore;
             }
@@ -43,11 +44,11 @@ namespace Controllers
 
         private bool CheckCanBuy(WeaponTypes type, int _currentScore)
         {
-            if (_weaponShopSlot[type].WeaponPrice <= _currentScore)
-            {
-                return true;
-            }
-            return false;
+            //if (_weaponShopSlot[type].WeaponPrice <= _currentScore)
+            //{
+            //    return true;
+            //}
+            //return false;
         }
 
         private bool BuyWeapon(WeaponTypes type)

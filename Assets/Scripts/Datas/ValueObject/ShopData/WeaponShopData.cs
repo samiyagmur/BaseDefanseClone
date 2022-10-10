@@ -8,5 +8,6 @@ namespace Datas.ValueObject
     {
         public WeaponTypes WeaponTypes;
         public int UpgradePrice;
+        
     }
 }
