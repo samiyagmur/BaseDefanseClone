@@ -7,6 +7,7 @@ using Enums;
 using Signals;
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Managers
@@ -24,18 +25,18 @@ namespace Managers
 
         private ShopData _shopdata;
         private int _currentMoney;
+
+
         public void SaveLevelID()
         {
             InitializeDataSignals.Instance.onSaveShopData?.Invoke(_shopdata);
         }
-        private void OnLoadShopData(ShopData shopdata)
+        private void LoadShopData(ShopData shopdata)
         {
-
             weaponShopController.SetShopData(shopdata._weaponShopSlot);
             workerShopController.SetShopData(shopdata._workerShopSlot);
             playerShopController.SetShopData(shopdata._playerShopSlot);
             soldierShopController.SetShopData(shopdata.soldierShopData);
-
         }
 
         private void OnEnable() => SubscribeEvents();
@@ -44,16 +45,17 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            InitializeDataSignals.Instance.onLoadShopData += OnLoadShopData;
+            CoreGameSignals.Instance.onLevelInitialize += OnLevelInitialize;
             UISignals.Instance.onPressUpgradeButton += onPressUpgradeWeapon;
             UISignals.Instance.onPressUnlockButton += onPressUnlockWeapon;
             UISignals.Instance.onPressWorkersUpgradeButtons += OnPressWorkersUpgradeButtons;
             UISignals.Instance.onPressPlayerUpgradeButtons += OnPressPlayerUpgradeButtons;
             UISignals.Instance.onPressSoldierUpgradeButton += OnPressSoldierUpgradeButton;
         }
+
         private void UnsubscribeEvents()
         {
-            InitializeDataSignals.Instance.onLoadShopData -= OnLoadShopData;
+            CoreGameSignals.Instance.onLevelInitialize -= OnLevelInitialize;
             UISignals.Instance.onPressUpgradeButton -= onPressUpgradeWeapon;
             UISignals.Instance.onPressUnlockButton -= onPressUnlockWeapon;
             UISignals.Instance.onPressWorkersUpgradeButtons -= OnPressWorkersUpgradeButtons;
@@ -61,6 +63,13 @@ namespace Managers
             UISignals.Instance.onPressSoldierUpgradeButton -= OnPressSoldierUpgradeButton;
         }
         private void OnDisable() => UnsubscribeEvents();
+
+        private  void OnLevelInitialize()
+        {
+            _shopdata = InitializeDataSignals.Instance.onLoadShopData?.Invoke();
+
+            LoadShopData(_shopdata);
+        }
 
         internal void GetScore() => 
             _currentMoney = CoreGameSignals.Instance.onGetCurrentMoney.Invoke();

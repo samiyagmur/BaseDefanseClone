@@ -23,7 +23,7 @@ namespace Managers
         private List<LevelData> levelDatas = new List<LevelData>();
 
 
-        private CD_Level cdLevel;
+        private CD_Level _cdLevel;
 
         [SerializeField]
         private CD_Enemy cdEnemy;
@@ -49,11 +49,11 @@ namespace Managers
         private CD_Level GetLevelDatas() => Resources.Load<CD_Level>("Data/CD_Level");
         private void Awake()
         {
-            cdLevel = GetLevelDatas();
-            _levelID = cdLevel.LevelId;
-            levelDatas = cdLevel.LevelDatas;
-            _shopData = cdLevel.ShopData;
-            _scoreData= cdLevel.ScoreData;
+             _cdLevel = GetLevelDatas();
+            _levelID = _cdLevel.LevelId;
+             levelDatas = _cdLevel.LevelDatas;
+            _shopData = _cdLevel.ShopData;
+            _scoreData= _cdLevel.ScoreData;
         }
         private void Start()
         {
@@ -71,14 +71,13 @@ namespace Managers
             {
                 if (!ES3.KeyExists("_levelData"))
                 {
-                    cdLevel = GetLevelDatas();
-                    _levelID = cdLevel.LevelId;
-                    levelDatas = cdLevel.LevelDatas;
-                    _shopData = cdLevel.ShopData;
-                    _scoreData = cdLevel.ScoreData;
+                    _cdLevel = GetLevelDatas();
+                    _levelID = _cdLevel.LevelId;
+                    levelDatas = _cdLevel.LevelDatas;
+                    _shopData = _cdLevel.ShopData;
+                    _scoreData = _cdLevel.ScoreData;
 
                     Save(_uniqueID);
-                    Debug.Log("ss");
                 }
             }
 
@@ -86,9 +85,9 @@ namespace Managers
            
         }
         public void Load(int uniqueId)
-        {   
+        {
 
-             CD_Level cdLevel = SaveLoadSignals.Instance.onLoadGameData.Invoke(this.cdLevel.GetKey(), uniqueId);
+            CD_Level cdLevel = SaveLoadSignals.Instance.onLoadGameData.Invoke("_levelData", uniqueId);
 
             _levelID = cdLevel.LevelId;
             levelDatas = cdLevel.LevelDatas;
@@ -99,7 +98,7 @@ namespace Managers
             _shopData = cdLevel.ShopData;
             _scoreData = cdLevel.ScoreData;
 
-            Debug.Log(cdLevel.ScoreData.Diamond);
+           // Debug.Log(_shopData._weaponShopSlot[0].WeaponLevel);
         }
 
 
@@ -122,7 +121,9 @@ namespace Managers
             InitializeDataSignals.Instance.onSaveBuyablesData += SyncBuyablesData;
             InitializeDataSignals.Instance.onSaveShopData += SyncShopData;
             InitializeDataSignals.Instance.onSaveScoreData += SyncScoreData;
+
             InitializeDataSignals.Instance.onLoadScoreData += OnLoadScoreData;
+            InitializeDataSignals.Instance.onLoadShopData += OnLoadShopData;
 
             // InitializeDataSignals.Instance.onSaveWeaponData += SyncWeaponData;
         }
@@ -137,7 +138,9 @@ namespace Managers
             InitializeDataSignals.Instance.onSaveBuyablesData -= SyncBuyablesData;
             InitializeDataSignals.Instance.onSaveShopData -= SyncShopData;
             InitializeDataSignals.Instance.onSaveScoreData -= SyncScoreData;
+
             InitializeDataSignals.Instance.onLoadScoreData -= OnLoadScoreData;
+            InitializeDataSignals.Instance.onLoadShopData -= OnLoadShopData;
             //InitializeDataSignals.Instance.onSaveWeaponData -= SyncWeaponData;
         }
 
@@ -156,7 +159,6 @@ namespace Managers
             InitializeDataSignals.Instance.onLoadMineBaseData?.Invoke(_mineBaseData);//
             InitializeDataSignals.Instance.onLoadMilitaryBaseData?.Invoke(_militaryBaseData);//
             InitializeDataSignals.Instance.onLoadBuyablesData?.Invoke(_buyablesData);//
-            InitializeDataSignals.Instance.onLoadShopData?.Invoke(_shopData);
             //InitializeDataSignals.Instance.onLoadAmmoWorkerData?.Invoke(_)
         }
         #region Level Save - Load 
@@ -172,7 +174,6 @@ namespace Managers
         }
 
         #endregion
-
 
 
         #region Data Sync
@@ -218,6 +219,12 @@ namespace Managers
         {
             return _scoreData;
         }
+
+        private ShopData OnLoadShopData()
+        {  
+            return _shopData;
+        }
+
 
         #endregion
 

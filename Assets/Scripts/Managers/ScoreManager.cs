@@ -66,7 +66,6 @@ namespace Managers
         }
         private void SendScoreData()
         {
-            Debug.Log(_scoreData.Money + " " + _scoreData.Diamond);
             CoreGameSignals.Instance.onUpdateMoneyScore?.Invoke(_scoreData.Money);
             CoreGameSignals.Instance.onUpdateGemScore?.Invoke(_scoreData.Diamond);
         }

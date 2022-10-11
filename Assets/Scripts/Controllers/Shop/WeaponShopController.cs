@@ -25,6 +25,7 @@ namespace Controllers
 
         internal bool OnSetBuyWeapon(WeaponTypes type, int _currentMoney)
         {
+            
             if (CheckCanBuy(type, _currentMoney))
             {
                 SendCurrentMoney(_curretWeaponData[(int)type].WeaponPrice);
@@ -37,10 +38,9 @@ namespace Controllers
 
 
         internal WeaponShopData OnSetUpgradeWeapon(WeaponTypes type, int _currentMoney)
-        {
+        {   
             if (CheckCanBuy(type, _currentMoney))
-            {
-
+            {   
                 SendCurrentMoney(_curretWeaponData[(int)type].WeaponPrice);
 
                 _curretWeaponData[(int)type].WeaponPrice += 100;
@@ -57,14 +57,14 @@ namespace Controllers
         private bool CheckCanBuy(WeaponTypes type, int _currentScore)
         {
             if (_curretWeaponData[(int)type].WeaponPrice <= _currentScore)
-            {
+            {   
                 return true;
             }
             return false;
         }
 
         private bool BuyWeapon(WeaponTypes type)
-        {
+        {   
             _curretWeaponData[(int)type].WeaponHasSold = true;
 
             return _curretWeaponData[(int)type].WeaponHasSold;

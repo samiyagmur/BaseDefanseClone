@@ -25,20 +25,17 @@ namespace Managers
         #region Private Variables
         private TurretOtoAtackController _chosenAtackTurret;
 
-
         private TurretShootController _chosenShootController;
-
 
         private FireToTurret _readyToAtack;
 
-      
         private TurretOtoAtackController _chosenTurretList;
         private TurretOtoAtackController _chosenRemoveTurretList;
         private TurretMovementController _chosenMovementController;
         private List<TurretMovementController> _allTurretMovementController;
 
         TurretStatus turretStatus;
-        private float timer;
+
         #endregion
 
         #endregion
@@ -113,7 +110,6 @@ namespace Managers
                         _timer = 0.5f;
 
                         _readyToAtack.FireToRocked();
-
                     }
                     if (turretStatus == TurretStatus.Inplace) return;
 

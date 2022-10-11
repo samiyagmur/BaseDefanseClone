@@ -27,7 +27,7 @@ namespace Signals
         public UnityAction<MilitaryBaseData> onLoadMilitaryBaseData = delegate (MilitaryBaseData arg0) { };
         public UnityAction<BuyablesData> onLoadBuyablesData = delegate (BuyablesData arg0) { };
         public UnityAction<int> onLoadLevelID = delegate (int arg0) { };
-        public UnityAction<ShopData> onLoadShopData = delegate (ShopData arg0) { };
+        public Func<ShopData> onLoadShopData = delegate { return null; };
         public Func<ScoreData> onLoadScoreData = delegate { return null; };
 
         //  public UnityAction<WeaponListData> onLoadWeaponData = delegate (WeaponListData arg0) { };

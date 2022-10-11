@@ -21,6 +21,7 @@ namespace Controllers
 
         internal PlayerShopData OnSetUpgradeFeature(PlayerUpgradeType value, int _currentMoney)
         {
+           
 
                 if (_playerShopData[(int)value].UpgradePrice <= _currentMoney)
                 {

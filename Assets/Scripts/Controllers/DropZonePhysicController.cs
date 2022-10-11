@@ -15,22 +15,22 @@ namespace Controllers
         private void OnTriggerEnter(Collider other)
         {
            
-            if (other.TryGetComponent<IStackable>(out IStackable stackable))
-            {
-                Debug.Log("OnTriggerEnter");
-                if (gemStackerController.PositionList.Count <= gemStackerController.StackList.Count)
-                {
-                    return;
-                }
-                Debug.Log("OnTriggerEnter2");
+            //if (other.CompareTag("Gem"))
+            //{
+            //    Debug.Log("OnTriggerEnter");
+            //    if (gemStackerController.PositionList.Count <= gemStackerController.StackList.Count)
+            //    {
+            //        return;
+            //    }
+              
 
 
-                gemStackerController.GetStack(stackable.SendToStack(),stackable.SendToStack().transform);
-            }
-            else if (other.TryGetComponent<Interactable>(out Interactable interactable))
-            {
-                gemStackerController.OnRemoveAllStack(other.transform);
-            }
+            //    gemStackerController.GetStack(other.gameObject, other.transform);
+            //}
+            //else if (other.TryGetComponent<Interactable>(out Interactable interactable))
+            //{
+            //    gemStackerController.OnRemoveAllStack(other.transform);
+            //}
         }
     }
 }

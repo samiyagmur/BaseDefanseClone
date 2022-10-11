@@ -61,43 +61,43 @@ MonoBehaviour:
   ShopData:
     _weaponShopSlot:
     - weaponType: 0
-      WeaponPrice: 1
+      WeaponPrice: 100
       WeaponHasSold: 1
       WeaponLevel: 1
     - weaponType: 1
-      WeaponPrice: 1
-      WeaponHasSold: 1
+      WeaponPrice: 200
+      WeaponHasSold: 0
       WeaponLevel: 1
     - weaponType: 2
-      WeaponPrice: 1
-      WeaponHasSold: 1
+      WeaponPrice: 300
+      WeaponHasSold: 0
       WeaponLevel: 1
     - weaponType: 3
-      WeaponPrice: 1
-      WeaponHasSold: 1
+      WeaponPrice: 400
+      WeaponHasSold: 0
       WeaponLevel: 1
     _workerShopSlot:
     - WorkerUpgradeType: 0
-      UpgradePrice: 1
+      UpgradePrice: 100
       UpgradeLevel: 1
     - WorkerUpgradeType: 1
-      UpgradePrice: 1
+      UpgradePrice: 100
       UpgradeLevel: 1
     _playerShopSlot:
     - PlayerUpgradeType: 0
-      UpgradePrice: 1
+      UpgradePrice: 100
       UpgradeLevel: 1
     - PlayerUpgradeType: 1
-      UpgradePrice: 1
+      UpgradePrice: 100
       UpgradeLevel: 1
     - PlayerUpgradeType: 2
-      UpgradePrice: 1
+      UpgradePrice: 100
       UpgradeLevel: 1
     soldierShopData:
     - SoldierUpgradeType: 0
-      UpgradePrice: 1
+      UpgradePrice: 100
       UpgradeLevel: 1
   ScoreData:
-    Money: 80
+    Money: 5000
     Diamond: 50
   LevelId: 0
