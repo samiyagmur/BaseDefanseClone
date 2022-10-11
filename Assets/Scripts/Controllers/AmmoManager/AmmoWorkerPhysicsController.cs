@@ -19,7 +19,7 @@ namespace Controllers
             if (other.TryGetComponent(typeof(AmmoManagerPhysicsController), out Component ammoManagment))//it must change
             {   
 
-                _ammoManager = other.gameObject.GetComponent<AmmoManager>();
+                _ammoManager = other.transform.parent.gameObject.GetComponent<AmmoManager>();
 
                 _ammoManager.IsAmmoEnterAmmoWareHouse(transform.parent.GetComponent<AmmoWorkerBrain>());
                 
@@ -40,7 +40,7 @@ namespace Controllers
            
             if (other.TryGetComponent(typeof(AmmoManagerPhysicsController), out Component ammoManagment))//it must change
             {
-                _ammoManager = other.gameObject.GetComponent<AmmoManager>();
+                _ammoManager = other.transform.parent.GetComponent<AmmoManager>();
 
                 _ammoManager.IsAmmoExitAmmoWareHouse(transform.parent.GetComponent<AmmoWorkerBrain>());
 
@@ -61,7 +61,7 @@ namespace Controllers
             
             if (other.TryGetComponent(typeof(AmmoManagerPhysicsController), out Component ammoManagment))//it must change
             {
-                _ammoManager = other.gameObject.GetComponent<AmmoManager>();
+                _ammoManager = other.transform.parent.gameObject.GetComponent<AmmoManager>();
 
                 _timer -= Time.deltaTime;
 

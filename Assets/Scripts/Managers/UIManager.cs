@@ -83,8 +83,6 @@ namespace Managers
                     buttonObject[shopSlotCount].SetActive(_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
                     selectButton[shopSlotCount].SetActive(_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
                     unlockButton[shopSlotCount].SetActive(!_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
-                   
-                Debug.Log(_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
 
                 if ((shopSlotCount < 3)){
                     playerPriceTexts[shopSlotCount].text = _shopdata._playerShopSlot[shopSlotCount].UpgradePrice.ToString();

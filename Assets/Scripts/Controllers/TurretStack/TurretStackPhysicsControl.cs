@@ -10,7 +10,7 @@ namespace Controllers
     {
 
         [SerializeField]
-        private AmmoContaynerManager _ammoContaynerManager;
+        private AmmoDropZoneManager _ammoContaynerManager;
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(typeof(AmmoWorkerPhysicsController), out Component ammoManagment))//it must change

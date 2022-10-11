@@ -31,28 +31,19 @@ namespace Controllers
 
             ammoSeq.Join(bullets.transform.DOLocalMove(new Vector3(Random.Range(0, 2), bullets.transform.localPosition.y +
 
-                   Random.Range(4, 5), bullets.transform.localPosition.z - Random.Range(3, 4)), 0.4f).
-                   OnComplete(()
-                   => {
-                            
-                            
-                            bullets.transform.DOLocalMove(new Vector3(0, ammoWorker.localPosition.y + yPos + 1.5f, -ammoWorker.localScale.z - zPos), 0.4f);
+            Random.Range(4, 5), bullets.transform.localPosition.z - Random.Range(3, 4)), 0.4f).
+            OnComplete(()
+            => {
+                     
+                     bullets.transform.DOLocalMove(new Vector3(0, ammoWorker.localPosition.y + yPos + 1.5f, -ammoWorker.localScale.z - zPos), 0.4f);
 
-                            yPos += 0.5f;
-                      }));
-
-
-                ammoSeq.Join(bullets.transform.DOLocalRotate(new Vector3(Random.Range(-179, 179),Random.Range(-179, 179), Random.Range(-90, 90)), 0.3f).
+                     yPos += 0.5f;
+               }));
+            ammoSeq.Join(bullets.transform.DOLocalRotate(new Vector3(Random.Range(-179, 179),Random.Range(-179, 179), Random.Range(-90, 90)), 0.3f).
 
                     OnComplete(()=> bullets.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.4f)));
 
-
-
-            //Debug.Log(zPos);
-
             ammoSeq.Play();
-
-            
 
             if (yPos >= 5)
             { 

@@ -48,38 +48,17 @@ namespace Managers
 
         #endregion
 
+        private void OnLevelInitialize() => LoadScoreData();
 
+        private void LoadScoreData() => _scoreData = InitializeDataSignals.Instance.onLoadScoreData.Invoke();
 
-        private void OnLevelInitialize()
-        {
-            LoadScoreData();
-        }
+        private void OnUpdateGemScore(int gemValue) => _scoreData.Diamond += gemValue;
 
-        private void LoadScoreData()
-        {
-            _scoreData = InitializeDataSignals.Instance.onLoadScoreData.Invoke();
-            Debug.Log(_scoreData.Money);
-        }
+        private void OnUpdateMoneyScore(int moneyValue) => _scoreData.Money += moneyValue;
 
-        private void OnUpdateGemScore(int gemValue)
-        {
-            _scoreData.Diamond += gemValue;
-        }
+        private int OnGetCurrentMoney() => _scoreData.Money;
 
-        private void OnUpdateMoneyScore(int moneyValue)
-        {
-           
-            _scoreData.Money += moneyValue;
-            Debug.Log(_scoreData.Money);
-        }
-        private int OnGetCurrentMoney()
-        {
-            return _scoreData.Money;
-        }
-        private int OnGetCurrentDiamond()
-        {
-            return _scoreData.Diamond;
-        }
+        private int OnGetCurrentDiamond() => _scoreData.Diamond;
 
 
 

@@ -10,7 +10,7 @@ namespace Controllers
     public class AmmoContaynerStackController :MonoBehaviour
     {
         [SerializeField]
-        private AmmoContaynerManager _ammoContaynerManager;
+        private AmmoDropZoneManager _ammoContaynerManager;
         [SerializeField]
         private List<GameObject> _ammoWorkerStackList;
         [SerializeField]
@@ -28,22 +28,25 @@ namespace Controllers
 
             for (int i = 0; i < gridPosList.Count; i++)
             {
+
                 if (_currentCount < gridPosList.Count)
                 {
                     if (_count < _ammoWorkerStackList.Count)
                     {
-                        _timer-=Time.deltaTime;
-                        if (_timer< 0)
+                        _timer += Time.deltaTime;
+
+                        if (_timer > 0.2f)
                         {
-                            _timer = 0.1f;
+                            _timer = 0f;
+
                             Debug.Log(_count);
 
                             _ammoWorkerStackList[_count].transform.SetParent(transform);
 
                             GameObject bullets = _ammoWorkerStackList[_count];
-
+                        
                             Vector3 endPosOnTurretStack = transform.localPosition + gridPosList[_currentCount];
-
+                        
                             _ammoStackingMovement.Append(bullets.transform.
                             DOLocalMove(new Vector3(Random.Range(-2, 2), endPosOnTurretStack.y +
                             Random.Range(4, 6), bullets.transform.localPosition.z + 3f), 0.4f).
@@ -60,12 +63,15 @@ namespace Controllers
                             _ammoStackingMovement.Play();
 
                             _turretContayner.Add(_ammoWorkerStackList[_count]);
-
+                            Debug.Log("_turretContayner");
+                         
+                        
                             _currentCount++;
 
                             _count++;
+
                         }
-                        
+
                     }
                     else
                     {

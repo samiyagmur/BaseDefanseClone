@@ -23,7 +23,6 @@ namespace States
 
         public void OnEnter()
         {
-            Debug.Log("LoadContayner");
             agent.speed = 0;
         }
 

@@ -23,15 +23,12 @@ namespace AIBrain
         private NavMeshAgent _agent;
         [SerializeField]
         private Animator _animator;
-        [SerializeField]
-        private AmmoManager ammoManager;
+
         #endregion
 
         #region Private Variables 
 
-        int counter;
-        [SerializeField]
-        private bool  _inplaceWorker;
+        private bool _inplaceWorker;
         private bool _isLoadTurretContayner;
         private GameObject _targetTurretContayner;
 
@@ -51,9 +48,6 @@ namespace AIBrain
         private FullAmmo _fullAmmo;
         private Create _creat;
         private AmmoWorkerAIData _ammoWorkerAIData;
-
-
-       
 
         private StateMachine _statemachine;
 

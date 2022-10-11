@@ -24,21 +24,13 @@ namespace States
             _agent = agent;
             _animator = animator;
         }
-
-
-
-
-
         #endregion
 
         #region State
         public  void OnEnter()
         {
-
+            Debug.Log("TakeAmmo");
             _agent.speed = 0;
-
-
-
         }
 
         public void OnExit()

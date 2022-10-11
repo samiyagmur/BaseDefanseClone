@@ -4216,6 +4216,7 @@ MonoBehaviour:
   - {fileID: 3330658103648380164}
   - {fileID: 3330658105343495066}
   - {fileID: 3330658104612613905}
+  selectButton: []
   workerPriceTexts:
   - {fileID: 3330658105504211584}
   - {fileID: 3330658104769256626}
