@@ -26,11 +26,6 @@ namespace Managers
         private ShopData _shopdata;
         private int _currentMoney;
 
-
-        public void SaveLevelID()
-        {
-            InitializeDataSignals.Instance.onSaveShopData?.Invoke(_shopdata);
-        }
         private void LoadShopData(ShopData shopdata)
         {
             weaponShopController.SetShopData(shopdata._weaponShopSlot);
@@ -75,7 +70,7 @@ namespace Managers
             _currentMoney = CoreGameSignals.Instance.onGetCurrentMoney.Invoke();
 
         internal void SendScoreToWeaponShop(int _currentMoney) => 
-            CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(_currentMoney);
+            CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(-_currentMoney);
 
         internal void IsEnterShopsForType(ShopType shopType) =>
             UISignals.Instance.onGetShopTypeOnEnter?.Invoke(shopType);

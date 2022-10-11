@@ -23,7 +23,7 @@ namespace Controllers
         {
             if (_workerShopData[(int)value].UpgradePrice <= _currentMoney)
             {
-                SendCurrentMoney(-100);
+                SendCurrentMoney(_workerShopData[(int)value].UpgradePrice);
 
                 _workerShopData[(int)value].UpgradePrice+=100;
 

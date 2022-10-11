@@ -58,22 +58,19 @@ namespace Managers
         {
             UISignals.Instance.onGetShopTypeOnEnter += OnOpenUIPanel;
             UISignals.Instance.onGetShopTypeOnExit += OnCloseUIPanel;
-            CoreGameSignals.Instance.onUpdateGemScore += OnUpdateGemScore;
-            CoreGameSignals.Instance.onUpdateMoneyScore += OnUpdateMoneyScore;
             CoreGameSignals.Instance.onLevelInitialize += OnLevelInitialize;
         }
         private void UnsubscribeEvents()
         {
             UISignals.Instance.onGetShopTypeOnEnter -= OnOpenUIPanel;
             UISignals.Instance.onGetShopTypeOnExit -= OnCloseUIPanel;
-            CoreGameSignals.Instance.onUpdateMoneyScore -= OnUpdateMoneyScore;
-            CoreGameSignals.Instance.onUpdateGemScore -= OnUpdateGemScore;
             CoreGameSignals.Instance.onLevelInitialize -= OnLevelInitialize;
         }
 
         private void OnLevelInitialize()
         {
             _shopdata = InitializeDataSignals.Instance.onLoadShopData?.Invoke();
+          
             InitText();
         }
         
@@ -105,7 +102,9 @@ namespace Managers
                     soldierPriceText.text = _shopdata.soldierShopData[shopSlotCount].UpgradePrice.ToString();
                     soldierLevelText.text = "LEVEL " + _shopdata.soldierShopData[shopSlotCount].UpgradeLevel.ToString();
                 }
-            }      
+            }
+
+            UpdateScoreText();
         }
 
         private void OnDisable() => UnsubscribeEvents();
@@ -117,14 +116,13 @@ namespace Managers
         public void OnCloseUIPanel(ShopType panels) =>
             uIPanelController.ClosePanel(panels);
 
-        public void OnUpdateMoneyScore(int value) =>
-            levelPanelText[(int)LevelPanelTextType.money].text = value.ToString();
-
-        public void OnUpdateGemScore(int value) => 
-            levelPanelText[(int)LevelPanelTextType.diamond].text = value.ToString();
-
         public void ChangeWeaponType(int weaponline) =>
             UISignals.Instance.onChangeWeaponType?.Invoke((WeaponTypes)weaponline);//change weapon
+        private void UpdateScoreText()
+        {
+            levelPanelText[(int)LevelPanelTextType.money].text = CoreGameSignals.Instance.onGetCurrentMoney.Invoke().ToString();
+            levelPanelText[(int)LevelPanelTextType.diamond].text = CoreGameSignals.Instance.onGetCurrentDiamond.Invoke().ToString();
+        }
 
         public void BuyWeaponButton(int weaponline)
         {
@@ -132,14 +130,19 @@ namespace Managers
             buttonObject[weaponline].SetActive(IsActive);//WeaponType will Activate; 
             selectButton[weaponline].SetActive(IsActive);
             unlockButton[weaponline].SetActive(!IsActive);
+            UpdateScoreText();
         }
 
+   
         public void UpgradeWeaponButton(int weaponline)//weaponType will Upgarde
         {
             WeaponShopData weaponShopData = UISignals.Instance.onPressUpgradeButton.Invoke((WeaponTypes)weaponline);
-
+          
             weaponPriceText[weaponline].text = weaponShopData.WeaponPrice.ToString();
             weaponLevelText[weaponline].text = "LEVEL " + weaponShopData.WeaponLevel.ToString();
+
+            UpdateScoreText();
+
         }
 
         public void UpgradeWorkerButton(int workerButtonline)//workerType will Upgarde
@@ -148,6 +151,7 @@ namespace Managers
 
             workerPriceTexts[workerButtonline].text = workerShopData.UpgradePrice.ToString();
             workerLevelTexts[workerButtonline].text = "LEVEL " + workerShopData.UpgradeLevel.ToString();
+            UpdateScoreText();
         }
 
 
@@ -157,6 +161,7 @@ namespace Managers
 
             playerPriceTexts[playerButtonline].text = playerShopData.UpgradePrice.ToString();
             playerLevelTexts[playerButtonline].text = "LEVEL " + playerShopData.UpgradeLevel.ToString();
+            UpdateScoreText();
         }
 
         public void UpgradeSoldierButton(int soldierButtonLine)//soldierType will Upgarde
@@ -165,6 +170,7 @@ namespace Managers
 
             soldierPriceText.text = soldierShopData.UpgradePrice.ToString();
             soldierLevelText.text = "LEVEL " + soldierShopData.UpgradeLevel.ToString();
+            UpdateScoreText();
         }
         #endregion
 

@@ -48,36 +48,29 @@ namespace Managers
 
         #endregion
 
-        //private void OnApplicationPause(bool pause)
-        //{
-           
-        //    InitializeDataSignals.Instance.onSaveScoreData?.Invoke(_scoreData);
-        //}
+
 
         private void OnLevelInitialize()
         {
             LoadScoreData();
-            SendScoreData();
         }
 
         private void LoadScoreData()
         {
             _scoreData = InitializeDataSignals.Instance.onLoadScoreData.Invoke();
-        }
-        private void SendScoreData()
-        {
-            CoreGameSignals.Instance.onUpdateMoneyScore?.Invoke(_scoreData.Money);
-            CoreGameSignals.Instance.onUpdateGemScore?.Invoke(_scoreData.Diamond);
+            Debug.Log(_scoreData.Money);
         }
 
         private void OnUpdateGemScore(int gemValue)
         {
-            _scoreData.Money += gemValue;
+            _scoreData.Diamond += gemValue;
         }
 
         private void OnUpdateMoneyScore(int moneyValue)
         {
-            //_scoreData.Diamond += moneyValue;
+           
+            _scoreData.Money += moneyValue;
+            Debug.Log(_scoreData.Money);
         }
         private int OnGetCurrentMoney()
         {

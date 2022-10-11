@@ -23,7 +23,7 @@ public class ShopPhysicsController : MonoBehaviour
         if (other.TryGetComponent(out PlayerPhysicsController playerPhyiscs))
         {
             _shopManager.IsExitAnyShops(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
-            _shopManager.SaveLevelID();
+           
         }
     }
 }

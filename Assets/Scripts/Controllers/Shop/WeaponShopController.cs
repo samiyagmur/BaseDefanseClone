@@ -43,7 +43,7 @@ namespace Controllers
             {   
                 SendCurrentMoney(_curretWeaponData[(int)type].WeaponPrice);
 
-                _curretWeaponData[(int)type].WeaponPrice += 100;
+                //_curretWeaponData[(int)type].WeaponPrice += 100;
 
                 _curretWeaponData[(int)type].WeaponLevel++;
 
@@ -71,7 +71,7 @@ namespace Controllers
         }
         private void SendCurrentMoney(int _currentMoney)
         {
-            shopManager.SendScoreToWeaponShop(_currentMoney);
+           shopManager.SendScoreToWeaponShop(_currentMoney);
         }
 
     } 
