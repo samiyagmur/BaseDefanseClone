@@ -14,101 +14,101 @@ namespace Managers
 {
     public class AmmoDropZoneManager : MonoBehaviour
     {
-        #region SelfVariables
+        //#region SelfVariables
 
-        #region Private Variables
+        //#region Private Variables
      
-        private GameObject _selectedTarget;
-        private int count;
-        #endregion
+        //private GameObject _selectedTarget;
+        //private int count;
+        //#endregion
 
-        #region Serilizefield Variebles
+        //#region Serilizefield Variebles
 
-        [SerializeField]
+        //[SerializeField]
 
-        private List<AmmoContaynerStackController> _selectableTargetStacks = new List<AmmoContaynerStackController>();
-        private GridDatas _gridData;
-        private AmmoContaynerGridController _gridController;
+        //private List<AmmoContaynerStackController> _selectableTargetStacks = new List<AmmoContaynerStackController>();
+        //private GridDatas _gridData;
+        //private AmmoContaynerGridController _gridController;
 
-        public bool IsTargetChange { get; private set; }
+        //public bool IsTargetChange { get; private set; }
 
-        #endregion
+        //#endregion
 
-        #endregion
+        //#endregion
 
-        #region LoadScript
+        //#region LoadScript
 
-        private void Awake() => Init();
+        //private void Awake() => Init();
 
-        private void Init()
-        {
+        //private void Init()
+        //{
 
-            _gridData=GetGridData();
+        //    _gridData=GetGridData();
 
-            _gridController=GridController();
+        //    _gridController=GridController();
 
-            GenerateGrid();
-        }
+        //    GenerateGrid();
+        //}
 
-        #endregion
+        //#endregion
 
-        #region Get&SetData
+        //#region Get&SetData
 
-        private GridDatas GetGridData() => Resources.Load<CD_GridData>("Data/AmmoContayner/CD_ContaynerData").ammoContaynerData;
+        //private GridDatas GetGridData() => Resources.Load<CD_GridData>("Data/AmmoContayner/CD_ContaynerData").ammoContaynerData;
 
-        private AmmoContaynerGridController GridController() 
-            => new AmmoContaynerGridController(_gridData.XGridSize, _gridData.YGridSize, _gridData.MaxContaynerAmount, _gridData.Offset);
+        //private AmmoContaynerGridController GridController() 
+        //    => new AmmoContaynerGridController(_gridData.XGridSize, _gridData.YGridSize, _gridData.MaxContaynerAmount, _gridData.Offset);
 
-        private void GenerateGrid() => _gridController.GanarateGrid();
+        //private void GenerateGrid() => _gridController.GanarateGrid();
 
-        #endregion
+        //#endregion
 
-        #region SendMomentInfo
+        //#region SendMomentInfo
 
-        #region Event Subscription
-        private void OnEnable() => SubscribeEvents();
-        private void SubscribeEvents()
-        {
-            AmmoManagerSignals.Instance.onSetConteynerList += OnSetConteynerList;
-        }
+        //#region Event Subscription
+        //private void OnEnable() => SubscribeEvents();
+        //private void SubscribeEvents()
+        //{
+        //    AmmoManagerSignals.Instance.onSetConteynerList += OnSetConteynerList;
+        //}
 
-        private void UnsubscribeEvents()
-        {
-            AmmoManagerSignals.Instance.onSetConteynerList -= OnSetConteynerList;
-        }
-        private void OnDisable() => UnsubscribeEvents();
+        //private void UnsubscribeEvents()
+        //{
+        //    AmmoManagerSignals.Instance.onSetConteynerList -= OnSetConteynerList;
+        //}
+        //private void OnDisable() => UnsubscribeEvents();
 
-        #endregion
-        internal void SelectTarget()
-        {   
-            _selectableTargetStacks = transform.GetComponentsInChildren<AmmoContaynerStackController>().ToList();
+        //#endregion
+        //internal void SelectTarget()
+        //{   
+        //    _selectableTargetStacks = transform.GetComponentsInChildren<AmmoContaynerStackController>().ToList();
 
-            _selectableTargetStacks = _selectableTargetStacks.OrderBy(x => x.GetCurrentCount()).ToList();
+        //    _selectableTargetStacks = _selectableTargetStacks.OrderBy(x => x.GetCurrentCount()).ToList();
 
-            _selectedTarget= _selectableTargetStacks[count].gameObject;
+        //    _selectedTarget= _selectableTargetStacks[count].gameObject;
 
-            AmmoManagerSignals.Instance.onAmmoStackStatus?.Invoke(AmmoStackStatus.Empty);
+        //    AmmoManagerSignals.Instance.onAmmoStackStatus?.Invoke(AmmoStackStatus.Empty);
 
-        }
-        #endregion
+        //}
+        //#endregion
 
-        #region PhysicsMethods
-        public void IsHitAmmoWorker() => _selectableTargetStacks.First().AddStack(_gridController.LastPosition());
+        //#region PhysicsMethods
+        //public void IsHitAmmoWorker() => _selectableTargetStacks.First().AddStack(_gridController.LastPosition());
 
-        #endregion
+        //#endregion
 
-        #region Event Methods
+        //#region Event Methods
 
-        internal void SetTurretStack(List<GameObject> ammoWorkerStackList) => _selectableTargetStacks.First().SetAmmoWorkerList(ammoWorkerStackList);
+        //internal void SetTurretStack(List<GameObject> ammoWorkerStackList) => _selectableTargetStacks.First().SetAmmoWorkerList(ammoWorkerStackList);
 
-        #endregion
+        //#endregion
 
-        private GameObject OnSetConteynerList()
-        {
-            SelectTarget();
+        //private GameObject OnSetConteynerList()
+        //{
+        //    SelectTarget();
 
-            return _selectedTarget;
-        }
+        //    return _selectedTarget;
+        //}
 
     }
 }

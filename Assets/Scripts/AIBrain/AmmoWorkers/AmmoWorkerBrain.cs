@@ -65,7 +65,7 @@ namespace AIBrain
             GetStatesReferences();
             TransitionofState();
         }
-        public void IsStackFul(AmmoStackStatus status) => _playerAmmaStackStatus = status;
+        public void ChangeAmmoWorkerStackStatus(AmmoStackStatus status) => _playerAmmaStackStatus = status;
 
         public void SetTriggerInfo(bool IsInPlaceWareHouse) => _inplaceWorker = IsInPlaceWareHouse;
 
@@ -142,7 +142,7 @@ namespace AIBrain
 
             Func<bool> WhenAmmoWorkerInAmmoWareHouse() => () => _inplaceWorker == true && _ammoWorkerAIData.AmmoWareHouse.transform != null;
 
-            Func<bool> WhenAmmoWorkerStackFull() => () => /*_targetTurretContayner != null &&*/ _playerAmmaStackStatus == AmmoStackStatus.Full;
+            Func<bool> WhenAmmoWorkerStackFull() => () => _targetTurretContayner != null && _playerAmmaStackStatus == AmmoStackStatus.Full;
 
             Func<bool> IsAmmoWorkerInContayner() => () => _targetTurretContayner != null && _isLoadTurretContayner==true;
 

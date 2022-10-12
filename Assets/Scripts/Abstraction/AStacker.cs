@@ -3,7 +3,7 @@ using Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Abstraction
+namespace Abstraction
 {
     
     public abstract class AStacker : MonoBehaviour

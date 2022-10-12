@@ -145,8 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 1902793931624525010}
   _animator: {fileID: 5405024711051857897}
-  ammoManager: {fileID: 0}
-  _inplaceWorker: 0
 --- !u!114 &3729603988605016481
 MonoBehaviour:
   m_ObjectHideFlags: 0

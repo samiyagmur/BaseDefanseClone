@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using Controllers;
+using Enums;
 using Extentions;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,9 @@ namespace Signals
     {
         public UnityAction <Transform> onPlayerEnterAmmoWorkerCreaterArea = delegate { };
 
-        public Func<GameObject> onSetConteynerList = delegate {return null;};
+        public UnityAction< TurretStackController> onSetTurretStackList = delegate { };
 
-        public UnityAction<AmmoStackStatus> onAmmoStackStatus=delegate { };
+        public UnityAction<AmmoStackStatus> onSetAmmoStackStatus = delegate { };
+
     }
 }
