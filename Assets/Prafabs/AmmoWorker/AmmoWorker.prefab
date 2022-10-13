@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ba9741d4c672d24bbdac21eb5bbcbe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stackerController: {fileID: 6215092277387608685}
 --- !u!1 &1902793931624525007
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,14 +86,13 @@ GameObject:
   - component: {fileID: 1902793931624525004}
   - component: {fileID: 1902793931624525010}
   - component: {fileID: 6357671700082295552}
-  - component: {fileID: 3729603988605016481}
   m_Layer: 0
   m_Name: AmmoWorker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1902793931624525004
 Transform:
   m_ObjectHideFlags: 0
@@ -106,6 +106,7 @@ Transform:
   m_Children:
   - {fileID: 2153474349804918163}
   - {fileID: 1902793930348405254}
+  - {fileID: 1110434566632216191}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -145,19 +146,141 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 1902793931624525010}
   _animator: {fileID: 5405024711051857897}
---- !u!114 &3729603988605016481
+--- !u!1 &5325990344316024396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5981801606798271117}
+  - component: {fileID: 6215092277387608685}
+  - component: {fileID: 125289477768352429}
+  m_Layer: 0
+  m_Name: AmmoStacker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5981801606798271117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5325990344316024396}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.03, z: -1.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6186264293811259028}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6215092277387608685
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1902793931624525007}
+  m_GameObject: {fileID: 5325990344316024396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0043bd83f5ba84c9217960629417ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StackList: []
+  positionList: []
+  radiusAround: 1
+--- !u!114 &125289477768352429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5325990344316024396}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee917211225fd294fb7b9539c4b1b0f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoStackObjectList: []
+  stackingSystem: 1
+  stackAreaType: 0
+  stackAreaGridData:
+    isDynamic: 0
+    StackerType: 0
+    StackAreaType: 0
+    GridSize: {x: 0, y: 0, z: 0}
+    Offset: {x: 0, y: 0, z: 0}
+    DrawnedMesh: {fileID: 0}
+  stackerType: 1
+  stackerGridData:
+    isDynamic: 0
+    StackerType: 0
+    StackAreaType: 0
+    GridSize: {x: 0, y: 0, z: 0}
+    Offset: {x: 0, y: 0, z: 0}
+    DrawnedMesh: {fileID: 0}
+  ammoStackerController: {fileID: 6215092277387608685}
+--- !u!1 &7708838887667904273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1110434566632216191}
+  - component: {fileID: 5964837792785707056}
+  - component: {fileID: 8695294232703428355}
+  m_Layer: 16
+  m_Name: AmmoCollector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1110434566632216191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7708838887667904273}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1902793931624525004}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5964837792785707056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7708838887667904273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c154db8141594548800ed830af16fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoStackerController: {fileID: 6215092277387608685}
+--- !u!135 &8695294232703428355
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7708838887667904273}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1902793930357142136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -243,5 +366,10 @@ Transform:
 --- !u!95 &5405024711051857897 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 035dd4fa8168f92428ecc4ff1dc2a03b, type: 3}
+  m_PrefabInstance: {fileID: 1902793930357142136}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6186264293811259028 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3480699329000672020, guid: 035dd4fa8168f92428ecc4ff1dc2a03b, type: 3}
   m_PrefabInstance: {fileID: 1902793930357142136}
   m_PrefabAsset: {fileID: 0}

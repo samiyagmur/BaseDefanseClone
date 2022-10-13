@@ -12,11 +12,11 @@ namespace States
         private NavMeshAgent _agent;
         private Animator _animator;
         private float _movementSpeed;
-        private GameObject _decidedContayner;
+        private GameObject _decidedAmmoDropZone;
 
         public void SetData(GameObject decidedContayner)
         {
-            _decidedContayner = decidedContayner;
+            _decidedAmmoDropZone = decidedContayner;
         }
 
         public MoveToAvaliableContayner(NavMeshAgent agent, Animator animator, float movementSpeed)
@@ -34,7 +34,7 @@ namespace States
 
             _agent.speed = _movementSpeed;
            // _animator.SetTrigger("Walk");
-            _agent.SetDestination(_decidedContayner.transform.position);
+            _agent.SetDestination(_decidedAmmoDropZone.transform.position);
         }
 
         public void OnExit()

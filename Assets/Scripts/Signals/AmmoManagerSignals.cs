@@ -1,4 +1,5 @@
-﻿using Controllers;
+﻿using AIBrain;
+using Controllers;
 using Enums;
 using Extentions;
 using System;
@@ -12,9 +13,11 @@ namespace Signals
     {
         public UnityAction <Transform> onPlayerEnterAmmoWorkerCreaterArea = delegate { };
 
-        public UnityAction< TurretStackController> onSetTurretStackList = delegate { };
+        public UnityAction< AmmoDropZoneStackController> onSetTurretStackList = delegate { };
 
         public UnityAction<AmmoStackStatus> onSetAmmoStackStatus = delegate { };
+
+        public UnityAction<AmmoWorkerBrain> onAmmoworkerEnterAmmoWareHouse = delegate { };
 
     }
 }

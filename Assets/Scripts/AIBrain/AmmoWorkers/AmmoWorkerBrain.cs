@@ -28,9 +28,9 @@ namespace AIBrain
 
         #region Private Variables 
 
-        private bool _inplaceWorker;
+        private bool _IsAmmoWorkerReachedWareHouse;
         private bool _isLoadTurretContayner;
-        private GameObject _targetTurretContayner;
+        private GameObject _targetAmmoDropZone;
 
  
         #endregion
@@ -40,9 +40,9 @@ namespace AIBrain
         private MoveToWareHouse _moveToWareHouse;
         private TakeAmmo _takeAmmo;
 
-        private MoveToAvaliableContayner _moveToAvaliableConteyner;
+        private MoveToAvaliableContayner _moveToAvaliableAmmoDropZone;
 
-        private AmmoStackStatus _playerAmmaStackStatus;
+        private AmmoStackStatus _ammoWorkerStackStatus;
 
         private LoadContayner _loadTurret;
         private FullAmmo _fullAmmo;
@@ -50,6 +50,16 @@ namespace AIBrain
         private AmmoWorkerAIData _ammoWorkerAIData;
 
         private StateMachine _statemachine;
+
+        private bool _isAmmoWorkerReachedWareHouse;
+
+        public bool IsAmmoWorkerReachedWareHouse 
+        {
+            get => _isAmmoWorkerReachedWareHouse; 
+            set => _isAmmoWorkerReachedWareHouse = value; 
+        }
+
+
 
         #endregion
         #endregion
@@ -65,37 +75,33 @@ namespace AIBrain
             GetStatesReferences();
             TransitionofState();
         }
-        public void ChangeAmmoWorkerStackStatus(AmmoStackStatus status) => _playerAmmaStackStatus = status;
+        public void ChangeAmmoWorkerStackStatus(AmmoStackStatus status) => _ammoWorkerStackStatus = status;
 
-        public void SetTriggerInfo(bool IsInPlaceWareHouse) => _inplaceWorker = IsInPlaceWareHouse;
+        // public void SetTriggerInfo(bool IsInPlaceWareHouse) //=> //_IsAmmoWorkerReachedWareHouse = IsInPlaceWareHouse;
 
 
-        internal void IsLoadTurret(bool isLoadTurretContayner)
-        {
-            _isLoadTurretContayner = isLoadTurretContayner;
-        }
+        // public void IsLoadTurret(bool isLoadTurretContayner)// => _isLoadTurretContayner = isLoadTurretContayner;
 
         public void SetTargetTurretStack(GameObject targetTurretContayner)
         {
 
             if (targetTurretContayner == null) Debug.LogError("Turret Stack Target Is Null In AmmoWorkerBrain");
 
-            _moveToAvaliableConteyner.SetData(targetTurretContayner);
-            _targetTurretContayner = targetTurretContayner;
+            _moveToAvaliableAmmoDropZone.SetData(targetTurretContayner);
+            _targetAmmoDropZone = targetTurretContayner;
         }
 
-        internal  void GetStatesReferences()
+        public  void GetStatesReferences()
         {
             _statemachine = new StateMachine();
 
             _creat = new Create();
 
-            _moveToWareHouse = new MoveToWareHouse(_agent, _animator, _ammoWorkerAIData.MovementSpeed, 
-                                                    _ammoWorkerAIData.AmmoWareHouse, _ammoWorkerAIData.AmmoWorker,this);
+            _moveToWareHouse = new MoveToWareHouse(_agent, _animator, _ammoWorkerAIData.MovementSpeed,_ammoWorkerAIData.AmmoWareHouse);
 
             _takeAmmo = new TakeAmmo(_agent,_animator);
 
-            _moveToAvaliableConteyner = new MoveToAvaliableContayner(_agent, _animator, _ammoWorkerAIData.MovementSpeed);
+            _moveToAvaliableAmmoDropZone = new MoveToAvaliableContayner(_agent, _animator, _ammoWorkerAIData.MovementSpeed);
 
             _loadTurret = new LoadContayner(_agent, _animator, _ammoWorkerAIData.MovementSpeed, _ammoWorkerAIData.AmmoWareHouse);
 
@@ -103,32 +109,27 @@ namespace AIBrain
 
         }
 
-    
+
 
         #endregion
 
         #region StateEngine
 
-        internal  void TransitionofState()
+        public void TransitionofState()
         {
    
 
             #region Transtion
 
-            At(_creat, _moveToWareHouse, IsAmmoWorkerBorn());
+            At(_creat, _moveToWareHouse,()=> true);
 
             At(_moveToWareHouse, _takeAmmo, WhenAmmoWorkerInAmmoWareHouse());
 
-            At(_takeAmmo, _moveToAvaliableConteyner,WhenAmmoWorkerStackFull());
+            At(_takeAmmo, _moveToAvaliableAmmoDropZone,WhenAmmoWorkerStackFull());
 
-            At(_moveToAvaliableConteyner, _loadTurret, IsAmmoWorkerInContayner());
+            At(_moveToAvaliableAmmoDropZone, _loadTurret, IsAmmoWorkerInContayner());
 
             At(_loadTurret, _moveToWareHouse, WhenAmmoDichargeStack());
-
-            //if (_playerAmmaStackStatus == PlayerAmmaStackStatus.Full)
-            //{
-            //    _statemachine.AddAnyTransition(_fullAmmo, HasNoEmtyTarget());//bak buna 
-            //}
 
             _statemachine.SetState(_creat);
 
@@ -138,17 +139,14 @@ namespace AIBrain
 
             #region Conditions
 
-            Func<bool> IsAmmoWorkerBorn() => () => _ammoWorkerAIData.AmmoWareHouse.transform != null;
+            Func<bool> WhenAmmoWorkerInAmmoWareHouse() => () => _IsAmmoWorkerReachedWareHouse == true;
 
-            Func<bool> WhenAmmoWorkerInAmmoWareHouse() => () => _inplaceWorker == true && _ammoWorkerAIData.AmmoWareHouse.transform != null;
+            Func<bool> WhenAmmoWorkerStackFull() => () => _targetAmmoDropZone != null;
 
-            Func<bool> WhenAmmoWorkerStackFull() => () => _targetTurretContayner != null && _playerAmmaStackStatus == AmmoStackStatus.Full;
+            Func<bool> IsAmmoWorkerInContayner() => () => _targetAmmoDropZone != null && _isLoadTurretContayner==true;
 
-            Func<bool> IsAmmoWorkerInContayner() => () => _targetTurretContayner != null && _isLoadTurretContayner==true;
+            Func<bool> WhenAmmoDichargeStack() => () =>  _ammoWorkerStackStatus == AmmoStackStatus.Empty;
 
-            Func<bool> WhenAmmoDichargeStack() => () =>  _playerAmmaStackStatus == AmmoStackStatus.Empty;
-
-            //Func<bool> HasNoEmtyTarget() => () => _targetTurretContayner == null;
 
             #endregion
         }

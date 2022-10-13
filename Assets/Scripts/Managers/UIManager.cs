@@ -13,7 +13,8 @@ namespace Managers
     public class UIManager : MonoBehaviour
     {
         #region Self Variables
-
+        [SerializeField]
+        private List<WeaponsShop> weaponsShop;
         #region Serialized Variables
         [SerializeField]
         private UIPanelController uIPanelController;
@@ -140,7 +141,6 @@ namespace Managers
             weaponLevelText[weaponline].text = "LEVEL " + weaponShopData.WeaponLevel.ToString();
 
             UpdateScoreText();
-
         }
 
         public void UpgradeWorkerButton(int workerButtonline)//workerType will Upgarde
@@ -170,6 +170,7 @@ namespace Managers
             soldierLevelText.text = "LEVEL " + soldierShopData.UpgradeLevel.ToString();
             UpdateScoreText();
         }
+
         #endregion
 
         #endregion

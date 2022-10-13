@@ -3,7 +3,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Abstraction
 {
+    using DG.Tweening;
     using global::Interfaces;
+    using global::Signals;
     using Interfaces;
     using UnityEngine;
 
@@ -37,6 +39,10 @@ namespace Assets.Scripts.Abstraction
             }
 
             public abstract GameObject SendToStack();
+            public virtual void SendPosition(Transform transform)
+            {
+                DOVirtual.DelayedCall(0.1f, () => MoneyWorkerSignals.Instance.onSetMoneyPosition?.Invoke(transform));
+            }
         }
     }
 }

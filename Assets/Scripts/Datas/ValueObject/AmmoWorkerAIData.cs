@@ -13,7 +13,7 @@ namespace Datas.ValueObject
 
         public float MovementSpeed;
         public Transform AmmoWareHouse;
-        public GameObject AmmoWorker;
+       // public GameObject AmmoWorker;
         public GameObject Ammo;
         public int MaxStackCount;
     }

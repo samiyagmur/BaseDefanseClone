@@ -38,8 +38,8 @@ TagManager:
   - PlayerCollector
   - PlayerDetection
   - Rocked
-  - 
-  - 
+  - Ammo/AmmoTaken
+  - Ammo/AmmoAvaliable
   - 
   - 
   m_SortingLayers:

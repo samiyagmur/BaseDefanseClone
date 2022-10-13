@@ -16,21 +16,15 @@ namespace States
         private NavMeshAgent _agent;
         private Animator _animator;
         private float _movementSpeed;
-        private Transform _ammoWareHouse;
-        private GameObject _ammoWorker;
-        private AmmoWorkerBrain ammoWorkerBrain;
+        private Transform _ammoWareHousePos;
 
-        public MoveToWareHouse( NavMeshAgent agent, Animator animator, float movementSpeed, Transform ammoWareHouse, GameObject ammoWorker, AmmoWorkerBrain ammoWorkerBrain)
+        public MoveToWareHouse(NavMeshAgent agent, Animator animator, float movementSpeed, Transform ammoWareHousePos)
         {
             _agent = agent;
             _animator = animator;
             _movementSpeed = movementSpeed;
-            _ammoWareHouse = ammoWareHouse;
-            _ammoWorker = ammoWorker;
-            this.ammoWorkerBrain = ammoWorkerBrain;
+            _ammoWareHousePos = ammoWareHousePos;
         }
-
-
 
         #endregion
 
@@ -39,7 +33,7 @@ namespace States
         {
 
             _agent.speed = _movementSpeed;
-            _agent.SetDestination(_ammoWareHouse.position);
+            _agent.SetDestination(_ammoWareHousePos.position);
 
             //_animator.SetTrigger("Walk");
         }

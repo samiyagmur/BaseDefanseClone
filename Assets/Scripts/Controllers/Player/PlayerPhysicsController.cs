@@ -62,13 +62,6 @@ namespace Controllers
 
             }
 
-            if (other.TryGetComponent(typeof(CreatWorkerPhysics), out Component ammoCreater))
-            {
-
-                playerManager.IsEnterAmmoCreater(other.gameObject.transform);
-
-
-            }
             if (other.TryGetComponent(typeof(ObstaclePhysicsController), out Component obstaclePhysicsObject))
             {
                 ChangeLayerMask();

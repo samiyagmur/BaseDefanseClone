@@ -19,7 +19,7 @@ MonoBehaviour:
       initalAmount: 100
       isDynamic: 0
     - ObjectType: {fileID: 9004025123679645240, guid: 0742269e27659a647932f8f57fbb39f2, type: 3}
-      initalAmount: 85
+      initalAmount: 125
       isDynamic: 0
     - ObjectType: {fileID: 8302665550823062759, guid: 141c9111424ff8a41b6e42ec74485a85, type: 3}
       initalAmount: 100
