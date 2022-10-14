@@ -630,6 +630,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5717430135950709696}
+  - component: {fileID: 5813423273491264434}
+  - component: {fileID: 7819557427061939204}
   m_Layer: 0
   m_Name: MoneyStacker
   m_TagString: Untagged
@@ -652,6 +654,51 @@ Transform:
   m_Father: {fileID: 1899695481115673496}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+--- !u!114 &5813423273491264434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682852398163088313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7d6bee491ca944c9693ef1226d18bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyStackerController: {fileID: 7819557427061939204}
+  stackingSystem: 1
+  stackAreaType: 0
+  stackAreaGridData:
+    isDynamic: 0
+    StackerType: 0
+    StackAreaType: 0
+    GridSize: {x: 0, y: 0, z: 0}
+    Offset: {x: 0, y: 0, z: 0}
+    DrawnedMesh: {fileID: 0}
+  stackerType: 0
+  stackerGridData:
+    isDynamic: 0
+    StackerType: 0
+    StackAreaType: 0
+    GridSize: {x: 0, y: 0, z: 0}
+    Offset: {x: 0, y: 0, z: 0}
+    DrawnedMesh: {fileID: 0}
+--- !u!114 &7819557427061939204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682852398163088313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1eca82281b645649d59234775dd8c41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StackList: []
+  positionList: []
+  radiusAround: 1.2
 --- !u!1 &1247038928101026856
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,7 +1133,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &589220352
 MonoBehaviour:
@@ -1198,16 +1245,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b396bad44d2e7454a9f9790454b4de18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentAreaType: 0
+  CurrentAreaType: 0
   WeaponType: 0
   EnemyTarget: {fileID: 0}
   HasEnemyTarget: 0
   meshController: {fileID: 1429477786026016514}
   animationController: {fileID: 3256136071381465238}
-  movementController: {fileID: 9095171920995899773}
-  physicsController: {fileID: 589220352}
   weaponController: {fileID: 1868632370789283655}
   shootingController: {fileID: 708541006}
+  movementController: {fileID: 9095171920995899773}
+  physicsController: {fileID: 589220352}
 --- !u!114 &9095171920995899773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1220,8 +1267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8fba9fc1914b079622cb2ce1b12c93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 5053916822598220937}
   rigidbody: {fileID: 3066750386707274183}
+  manager: {fileID: 5053916822598220937}
 --- !u!1 &3737800519268635348
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,6 +1706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe86d40851b464e95c52e0a6e9667e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moneyStackerController: {fileID: 7819557427061939204}
 --- !u!1 &5491682000366646555
 GameObject:
   m_ObjectHideFlags: 0

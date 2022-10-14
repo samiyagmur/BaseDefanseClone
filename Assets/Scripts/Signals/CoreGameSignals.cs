@@ -18,7 +18,9 @@ namespace Signals
         public UnityAction onAplicationPause= delegate { };
         public Func<int> onGetCurrentMoney = delegate { return 0; };
         public Func<int> onGetCurrentDiamond = delegate { return 0; };
+        public Func<bool> onHasEnoughMoney = delegate { return false; };
 
 
-    } 
+
+    }
 }

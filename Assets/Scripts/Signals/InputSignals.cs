@@ -12,6 +12,8 @@ namespace Signals
         public UnityAction<HorizontalInputParams> onInputDragged = delegate { };
 
         public UnityAction<bool> onInputTakenActive = delegate { };
+
+        public UnityAction<InputHandlers> onInputHandlerChange = delegate (InputHandlers arg0) { };
     }
     
 }

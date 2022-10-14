@@ -1,4 +1,5 @@
-﻿using Extentions;
+﻿using Concreate;
+using Extentions;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,6 +10,7 @@ namespace Signals
     {
         public UnityAction onSoldierActivation = delegate { };
         public UnityAction onSoldierAmountUpgrade = delegate { };
+        public UnityAction<StackableMoney> onSetMoneyPosition = delegate { };
 
     }
 }
