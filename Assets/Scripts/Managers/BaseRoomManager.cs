@@ -28,29 +28,7 @@ namespace Managers
 
         #region Event Subscription
 
-        private void OnEnable()
-        {
-            SubscribeEvents();
-        }
-        private void SubscribeEvents()
-        {
-
-            InitializeDataSignals.Instance.onLoadBaseRoomData += OnLoadBaseRoomData;
-
-        }
-
-        private void UnsubscribeEvents()
-        {
-
-            InitializeDataSignals.Instance.onLoadBaseRoomData -= OnLoadBaseRoomData;
-
-        }
-
-        private void OnDisable()
-        {
-            UnsubscribeEvents();
-        }
-
+   
         #endregion
 
         private void OnLoadBaseRoomData(BaseRoomData data)

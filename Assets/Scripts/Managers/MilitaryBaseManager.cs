@@ -1,4 +1,5 @@
 ﻿using System;
+using Signals;
 using System.Collections.Generic;
 using AIBrains.SoldierBrain;
 using Data.UnityObject;
@@ -10,10 +11,13 @@ using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
 using ValueObject.AIData;
+using System.Threading.Tasks;
+using System.Collections;
+using Data.ValueObject;
 
 namespace Managers
 {
-    public class MilitaryBaseManager : MonoBehaviour,IGetPoolObject,IReleasePoolObject
+    public class MilitaryBaseManager : MonoBehaviour,IGetPoolObject
     {
         #region Self Variables
 
@@ -23,9 +27,17 @@ namespace Managers
 
         #region Serialized Variables
 
-        [SerializeField] private Transform tentTransfrom;
-        [SerializeField] private Transform slotTransform;
+        [SerializeField]
+        private Transform tentTransfrom;
 
+        [SerializeField]
+        private Transform slotTransform;
+
+        [SerializeField]
+        private Transform frontYardPosition;
+
+        [SerializeField]
+        private GameObject slotZonePrefab;
         #endregion
 
         #region Private Variables
@@ -36,16 +48,43 @@ namespace Managers
         private bool _isTentAvaliable = true;
         private int _totalAmount;
         private int _soldierAmount;
-        private List<GameObject> _soldierList = new List<GameObject>();
         [ShowInInspector] private List<Vector3> _slotTransformList = new List<Vector3>();
         private int _tentCapacity;
+        private List<SoldierAIBrain> _soldierList = new List<SoldierAIBrain>();
+
         #endregion
 
         #endregion
 
         private void Awake()
         {
-            _soldierAIData = GetSoldierAIData();
+            _data = GetBaseData();
+            Debug.Log(_data.TentCapacity);
+        }
+        private MilitaryBaseData GetBaseData()
+        {
+            return InitializeDataSignals.Instance.onLoadMilitaryBaseData.Invoke();
+        }
+        public IEnumerator Start()
+        {
+            if (_data.CurrentSoldierAmount == 0)
+                yield break;
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(soldierEnumerator());
+            yield return new WaitForSeconds(3f);
+            StopCoroutine(soldierEnumerator());
+        }
+        private IEnumerator soldierEnumerator()
+        {
+            OnSoldiersInit(_data.CurrentSoldierAmount);
+            yield return null;
+        }
+        private void OnSoldiersInit(int soldierCount)
+        {
+            for (var i = 0; i < soldierCount; i++)
+            {
+                GetSoldier();
+            }
         }
 
         #region Event Subscription
@@ -53,55 +92,49 @@ namespace Managers
         {
             SubscribeEvents();
         }
+
         private void SubscribeEvents()
         {
             AISignals.Instance.onSoldierActivation += OnSoldierActivation;
-            InitializeDataSignals.Instance.onLoadMilitaryBaseData += OnLoadMilitaryBaseData;
+            AISignals.Instance.onSoldierAmountUpgrade += OnSoldierAmountUpgrade;
         }
         private void UnsubscribeEvents()
         {
             AISignals.Instance.onSoldierActivation -= OnSoldierActivation;
-            InitializeDataSignals.Instance.onLoadMilitaryBaseData -= OnLoadMilitaryBaseData;
+            AISignals.Instance.onSoldierAmountUpgrade -= OnSoldierAmountUpgrade;
         }
-
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
 
         #endregion
-
-
-        private void OnLoadMilitaryBaseData(MilitaryBaseData data)
-        {
-            _data = data;
-        }
-
-        private MilitaryBaseData GetBaseData() =>
-            Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0].BaseData.MilitaryBaseData;
-        private SoldierAIData GetSoldierAIData() => Resources.Load<CD_AIData>("Data/CD_AIData").SoldierAIDatas;
         private void OnSoldierActivation()
         {
+            var soldierCount = _soldierList.Count - 1;
+            for (var i = 0; i < soldierCount + 1; i++)
+            {
+                _soldierList[soldierCount - i].HasSoldiersActivated = true;
+                _soldierList.RemoveAt(soldierCount - i);
+                _soldierList.TrimExcess();
+            }
             _isTentAvaliable = true;
+            _data.CurrentSoldierAmount = 0;
         }
-        public GameObject GetObject(PoolType poolName)
+        private void GetSoldier()
         {
-            var soldierAIPrefab = PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
+            var soldierAIPrefab = GetObject(PoolType.SoldierAI);
             var soldierBrain = soldierAIPrefab.GetComponent<SoldierAIBrain>();
+            _soldierList.Add(soldierBrain);
             SetSlotZoneTransformsToSoldiers(soldierBrain);
-            return soldierAIPrefab;
-        }
-        private void SetSlotZoneTransformsToSoldiers(SoldierAIBrain soldierBrain)
-        {
-            soldierBrain.GetSlotTransform(_slotTransformList[_soldierAmount]);
-            soldierBrain.TentPosition = tentTransfrom;
-            soldierBrain.FrontYardStartPosition = _data.frontYardSoldierPosition;
-        }
-        public void ReleaseObject(GameObject obj, PoolType poolName)
-        {
-            PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolName, obj);
         }
 
+        private void SetSlotZoneTransformsToSoldiers(SoldierAIBrain soldierBrain)
+        {
+            soldierBrain.GetSlotTransform(_slotTransformList[_data.CurrentSoldierAmount]);
+            soldierBrain.TentPosition = tentTransfrom;
+            soldierBrain.FrontYardStartPosition = frontYardPosition;
+        }
         public void UpdateTotalAmount(int Amount)
         {
             if (!_isBaseAvaliable) return;
@@ -114,20 +147,25 @@ namespace Managers
                 _isBaseAvaliable = false;
             }
         }
-
+        private void OnSoldierAmountUpgrade()
+        {
+            UpdateSoldierAmount();
+        }
         [Button]
-        public void UpdateSoldierAmount()
+        private async void UpdateSoldierAmount()
         {
             if (!_isTentAvaliable) return;
-            if (_soldierAmount < _data.TentCapacity)
+            if (_data.CurrentSoldierAmount < _data.TentCapacity)
             {
-                GetObject(PoolType.SoldierAI);
-                _soldierAmount += 1;
+                GetSoldier();
+                _data.CurrentSoldierAmount += 1;
+                await Task.Delay(100);
+                UpdateSoldierAmount();
             }
             else
             {
                 _isTentAvaliable = false;
-                _soldierAmount = 0;
+                _data.CurrentSoldierAmount = 0;
             }
         }
         public void GetStackPositions(List<Vector3> gridPositionData)
@@ -135,11 +173,33 @@ namespace Managers
             for (int i = 0; i < gridPositionData.Count; i++)
             {
                 _slotTransformList.Add(gridPositionData[i]);
-                var obj = Instantiate(_data.SlotPrefab, gridPositionData[i], quaternion.identity, slotTransform);
+                var obj = Instantiate(slotZonePrefab, gridPositionData[i], quaternion.identity, slotTransform);
             }
         }
 
-       
+        #region Pool Signals
+
+        public GameObject GetObject(PoolType poolName)
+        {
+            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
+        }
+        #endregion
+
+        #region SaveSignals
+
+        [Button]
+        private void SaveData()
+        {
+            InitializeDataSignals.Instance.onSaveMilitaryBaseData.Invoke(_data);
+        }
+        private void OnApplicationQuit()
+        {
+            InitializeDataSignals.Instance.onSaveMilitaryBaseData.Invoke(_data);
+        }
+
+
+        #endregion
+
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using Data.UnityObject;
+using Data.ValueObject;
 using Data.ValueObject.LevelData;
 using Datas.UnityObject;
 using Datas.ValueObject;
@@ -49,11 +50,13 @@ namespace Managers
         private CD_Level GetLevelDatas() => Resources.Load<CD_Level>("Data/CD_Level");
         private void Awake()
         {
-             _cdLevel = GetLevelDatas();
+            _cdLevel = GetLevelDatas();
             _levelID = _cdLevel.LevelId;
-             levelDatas = _cdLevel.LevelDatas;
+            levelDatas = _cdLevel.LevelDatas;
             _shopData = _cdLevel.ShopData;
-            _scoreData= _cdLevel.ScoreData;
+            _scoreData = _cdLevel.ScoreData;
+    
+
         }
         private void Start()
         {
@@ -121,6 +124,10 @@ namespace Managers
             InitializeDataSignals.Instance.onSaveBuyablesData += SyncBuyablesData;
             InitializeDataSignals.Instance.onSaveShopData += SyncShopData;
             InitializeDataSignals.Instance.onSaveScoreData += SyncScoreData;
+            InitializeDataSignals.Instance.onLoadMilitaryBaseData += SyncOnLoadMilitaryBaseData;
+            InitializeDataSignals.Instance.onLoadBaseRoomData += SyncOnLoadBaseRoomData;
+            InitializeDataSignals.Instance.onLoadBuyablesData += SyncOnLoadBuyablesData;
+            InitializeDataSignals.Instance.onLoadMineBaseData += SyncOnLoadMineBaseData;
 
             InitializeDataSignals.Instance.onLoadScoreData += OnLoadScoreData;
             InitializeDataSignals.Instance.onLoadShopData += OnLoadShopData;
@@ -138,11 +145,18 @@ namespace Managers
             InitializeDataSignals.Instance.onSaveBuyablesData -= SyncBuyablesData;
             InitializeDataSignals.Instance.onSaveShopData -= SyncShopData;
             InitializeDataSignals.Instance.onSaveScoreData -= SyncScoreData;
+            InitializeDataSignals.Instance.onLoadMilitaryBaseData -= SyncOnLoadMilitaryBaseData;
+            InitializeDataSignals.Instance.onLoadBaseRoomData -= SyncOnLoadBaseRoomData;
+            InitializeDataSignals.Instance.onLoadBuyablesData -= SyncOnLoadBuyablesData;
+            InitializeDataSignals.Instance.onLoadMineBaseData -= SyncOnLoadMineBaseData;
 
-            InitializeDataSignals.Instance.onLoadScoreData -= OnLoadScoreData;
+
+        InitializeDataSignals.Instance.onLoadScoreData -= OnLoadScoreData;
             InitializeDataSignals.Instance.onLoadShopData -= OnLoadShopData;
             //InitializeDataSignals.Instance.onSaveWeaponData -= SyncWeaponData;
         }
+
+ 
 
         private void OnDisable()
         {
@@ -155,10 +169,6 @@ namespace Managers
         {
 
             InitializeDataSignals.Instance.onLoadLevelID?.Invoke(_levelID);
-            InitializeDataSignals.Instance.onLoadBaseRoomData?.Invoke(_baseRoomData);//
-            InitializeDataSignals.Instance.onLoadMineBaseData?.Invoke(_mineBaseData);//
-            InitializeDataSignals.Instance.onLoadMilitaryBaseData?.Invoke(_militaryBaseData);//
-            InitializeDataSignals.Instance.onLoadBuyablesData?.Invoke(_buyablesData);//
             //InitializeDataSignals.Instance.onLoadAmmoWorkerData?.Invoke(_)
         }
         #region Level Save - Load 
@@ -215,15 +225,17 @@ namespace Managers
             _scoreData = scoredata;
         }
 
-        private ScoreData OnLoadScoreData()
-        {
-            return _scoreData;
-        }
+        private ScoreData OnLoadScoreData() => _scoreData;
 
-        private ShopData OnLoadShopData()
-        {  
-            return _shopData;
-        }
+        private ShopData OnLoadShopData() => _shopData;
+
+        private MineBaseData SyncOnLoadMineBaseData() => _mineBaseData;
+
+        private BuyablesData SyncOnLoadBuyablesData() => _buyablesData;
+
+        private BaseRoomData SyncOnLoadBaseRoomData() => _baseRoomData;
+
+        private MilitaryBaseData SyncOnLoadMilitaryBaseData() => _militaryBaseData;
 
 
         #endregion

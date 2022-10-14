@@ -8,6 +8,7 @@ namespace Signals
     public class AISignals : MonoSingleton<AISignals>
     {
         public UnityAction onSoldierActivation = delegate { };
+        public UnityAction onSoldierAmountUpgrade = delegate { };
 
     }
 }

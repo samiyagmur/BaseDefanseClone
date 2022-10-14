@@ -1,4 +1,5 @@
 ﻿using AIBrains.SoldierBrain;
+using Data.ValueObject;
 using Datas.UnityObject;
 using Enums;
 using Interfaces;
@@ -8,50 +9,50 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class BulletPhysicsController : MonoBehaviour, IReleasePoolObject
+    public class BulletPhysicsController : MonoBehaviour,IDamager
     {
-        private int bulletDamage = 20;
-        public SoldierAIBrain soldierAIBrain;
-        public Rigidbody Rigidbody;
-        private void Awake()
-        {
-            //Rigidbody = GetComponentInParent<Rigidbody>();
-        }
-        private void OnEnable()
-        {
-            Invoke("Disable", 0.7f);
-        }
+        #region Self Variables
 
+        #region Public Variables
+
+        #endregion
+
+        #region Serialized Variables
+
+        [SerializeField]
+        private BulletManager bulletManager;
+
+        #endregion
+
+        #region Private Variables
+
+        private int _damage;
+
+        int IDamager._damage { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+        #endregion
+
+        #endregion
+
+        public void GetData(WeaponData data)
+        {
+            _damage = data.Damage;
+        }
+        public int Damage()
+        {
+            return _damage;
+        }
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out IDamagable damagable))
+            if (other.TryGetComponent(out IDamagable idDamagable))
             {
-
-
-                if (damagable.IsDead)
-                    return;
-                var health = damagable.TakeDamage(bulletDamage);
-                Disable();
-                if (health <= 0)
-                {
-                    damagable.IsDead = true;
-                    soldierAIBrain.RemoveTarget();
-                }
-                else
-                {
-                    soldierAIBrain.EnemyTargetStatus();
-                }
+                bulletManager.SetBulletToPool();
             }
         }
-        public void ReleaseObject(GameObject obj, PoolType poolName)
+
+        public int GetDamage()
         {
-            PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolName, obj);
-        }
-        protected void Disable()
-        {
-            Rigidbody.velocity = Vector3.zero;
-            ReleaseObject(gameObject, PoolType.PistolBullet);
-            gameObject.transform.position = Vector3.zero;
+            throw new System.NotImplementedException();
         }
     }
 }

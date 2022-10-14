@@ -24,14 +24,14 @@ MonoBehaviour:
     - ObjectType: {fileID: 8302665550823062759, guid: 141c9111424ff8a41b6e42ec74485a85, type: 3}
       initalAmount: 100
       isDynamic: 0
-    - ObjectType: {fileID: 7673831996231402173, guid: bd7c82f0b41d07f4787f3138278fc963, type: 3}
+    - ObjectType: {fileID: 5141339768904831981, guid: 498894d4d8d4a574e8d9435cfe9443fa, type: 3}
       initalAmount: 200
       isDynamic: 1
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
+    - ObjectType: {fileID: 259296487506223718, guid: fa5ae409fd504d4418c04056fc9fedbb, type: 3}
+      initalAmount: 200
       isDynamic: 1
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
+    - ObjectType: {fileID: 3545470273353383339, guid: 9eb874b14a1566d41a684c13c5ebfa52, type: 3}
+      initalAmount: 200
       isDynamic: 0
     - ObjectType: {fileID: 529204781235755429, guid: 19cc21268f9a0bc4b9cf49b0ac5c7b9b, type: 3}
       initalAmount: 150

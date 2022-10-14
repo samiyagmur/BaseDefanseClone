@@ -45,9 +45,9 @@ namespace Controllers
         {
             _animationStatesMap = new Dictionary<WeaponTypes, PlayerAnimationStates>()
             {
-                {WeaponTypes.Pistol, PlayerAnimationStates.Pistol},
-                {WeaponTypes.Riffle, PlayerAnimationStates.Riffle},
-                {WeaponTypes.ShotGun, PlayerAnimationStates.ShotGun},
+                {WeaponTypes.PistolBullet, PlayerAnimationStates.Pistol},
+                {WeaponTypes.RifleBullet, PlayerAnimationStates.Riffle},
+                {WeaponTypes.PumpBullet, PlayerAnimationStates.ShotGun},
                 {WeaponTypes.MiniGun, PlayerAnimationStates.MiniGun},
             };
         }
