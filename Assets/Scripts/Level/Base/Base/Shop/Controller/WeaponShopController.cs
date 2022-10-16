@@ -74,5 +74,6 @@ namespace Controllers
            shopManager.SendScoreToWeaponShop(_currentMoney);
         }
 
+       
     } 
 }

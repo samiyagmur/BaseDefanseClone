@@ -7,6 +7,7 @@ using Controllers;
 using System;
 using System.Collections.Generic;
 using Datas.ValueObject;
+using Controller;
 
 namespace Managers
 {
@@ -15,6 +16,11 @@ namespace Managers
         #region Self Variables
 
         #region Serialized Variables
+
+        [SerializeField]
+        private WeaponShopUI _weaponShopUI;
+        [SerializeField]
+        private Transform _weponShopHolder;
         [SerializeField]
         private UIPanelController uIPanelController;
         [SerializeField]
@@ -39,6 +45,7 @@ namespace Managers
         private List<TextMeshProUGUI> playerLevelTexts;
         [SerializeField]
         private TextMeshProUGUI soldierPriceText;
+
         [SerializeField]
         private TextMeshProUGUI soldierLevelText;
 
@@ -47,7 +54,7 @@ namespace Managers
         #region Private Variables
         private ShopData _shopdata;
         private int _maxSlotCountInShops=4;
-        
+
         #endregion
 
         #endregion
@@ -58,52 +65,105 @@ namespace Managers
         {
             UISignals.Instance.onGetShopTypeOnEnter += OnOpenUIPanel;
             UISignals.Instance.onGetShopTypeOnExit += OnCloseUIPanel;
+            UISignals.Instance.onChangeMoney += OnChangeMoney;
+            UISignals.Instance.onChangeDiamond += OnChangeDiamond;
             CoreGameSignals.Instance.onLevelInitialize += OnLevelInitialize;
+
         }
+
         private void UnsubscribeEvents()
         {
             UISignals.Instance.onGetShopTypeOnEnter -= OnOpenUIPanel;
             UISignals.Instance.onGetShopTypeOnExit -= OnCloseUIPanel;
+            UISignals.Instance.onChangeMoney -= OnChangeMoney;
+            UISignals.Instance.onChangeDiamond -= OnChangeDiamond;
             CoreGameSignals.Instance.onLevelInitialize -= OnLevelInitialize;
         }
 
+
         private void OnLevelInitialize()
         {
+            
             _shopdata = InitializeDataSignals.Instance.onLoadShopData?.Invoke();
-          
-            InitText();
-        }
+            LoadWeapon();
         
-        private void InitText()
-        {   
-            for (int shopSlotCount = 0; shopSlotCount < _maxSlotCountInShops; shopSlotCount++)
+        }
+
+        internal void LoadWeapon()
+        {
+
+            for (int i = 0; i < _shopdata._weaponShopSlot.Count; i++)
             {
-                    weaponPriceText[shopSlotCount].text = _shopdata._weaponShopSlot[shopSlotCount].WeaponPrice.ToString();
-                    weaponLevelText[shopSlotCount].text = "LEVEL " + _shopdata._weaponShopSlot[shopSlotCount].WeaponLevel.ToString();
-                    buttonObject[shopSlotCount].SetActive(_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
-                    selectButton[shopSlotCount].SetActive(_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
-                    unlockButton[shopSlotCount].SetActive(!_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
+                _weaponShopUI.SetToShopData(_shopdata._weaponShopSlot, this);
 
-                if ((shopSlotCount < 3)){
-                    playerPriceTexts[shopSlotCount].text = _shopdata._playerShopSlot[shopSlotCount].UpgradePrice.ToString();
-                    playerLevelTexts[shopSlotCount].text = "LEVEL " + _shopdata._playerShopSlot[shopSlotCount].UpgradeLevel.ToString();
-                    
-                }
-
-                if ((shopSlotCount < 2)){
-                    workerPriceTexts[shopSlotCount].text = _shopdata._workerShopSlot[shopSlotCount].UpgradePrice.ToString();
-                    workerLevelTexts[shopSlotCount].text = "LEVEL " + _shopdata._workerShopSlot[shopSlotCount].UpgradeLevel.ToString(); 
-                }
-
-                if (shopSlotCount < 1) {
-
-                    soldierPriceText.text = _shopdata.soldierShopData[shopSlotCount].UpgradePrice.ToString();
-                    soldierLevelText.text = "LEVEL " + _shopdata.soldierShopData[shopSlotCount].UpgradeLevel.ToString();
-                }
+                Instantiate(_weaponShopUI.gameObject, _weponShopHolder);
+                _weaponShopUI.SetWeaponType((WeaponTypes)i); 
             }
 
-            UpdateScoreText();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //private void InitText()
+        //{   
+        //    for (int shopSlotCount = 0; shopSlotCount < _maxSlotCountInShops; shopSlotCount++)
+        //    {
+        //            weaponPriceText[shopSlotCount].text = _shopdata._weaponShopSlot[shopSlotCount].WeaponPrice.ToString();
+        //            weaponLevelText[shopSlotCount].text = "LEVEL " + _shopdata._weaponShopSlot[shopSlotCount].WeaponLevel.ToString();
+        //            buttonObject[shopSlotCount].SetActive(_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
+        //            selectButton[shopSlotCount].SetActive(_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
+        //            unlockButton[shopSlotCount].SetActive(!_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
+
+        //        if ((shopSlotCount < 3)){
+        //            playerPriceTexts[shopSlotCount].text = _shopdata._playerShopSlot[shopSlotCount].UpgradePrice.ToString();
+        //            playerLevelTexts[shopSlotCount].text = "LEVEL " + _shopdata._playerShopSlot[shopSlotCount].UpgradeLevel.ToString();
+
+        //        }
+
+        //        if ((shopSlotCount < 2)){
+        //            workerPriceTexts[shopSlotCount].text = _shopdata._workerShopSlot[shopSlotCount].UpgradePrice.ToString();
+        //            workerLevelTexts[shopSlotCount].text = "LEVEL " + _shopdata._workerShopSlot[shopSlotCount].UpgradeLevel.ToString(); 
+        //        }
+
+        //        if (shopSlotCount < 1) {
+
+        //            soldierPriceText.text = _shopdata.soldierShopData[shopSlotCount].UpgradePrice.ToString();
+        //            soldierLevelText.text = "LEVEL " + _shopdata.soldierShopData[shopSlotCount].UpgradeLevel.ToString();
+        //        }
+        //    }
+        //}
 
         private void OnDisable() => UnsubscribeEvents();
 
@@ -114,34 +174,39 @@ namespace Managers
         public void OnCloseUIPanel(ShopType panels) =>
             uIPanelController.ClosePanel(panels);
 
-        public void ChangeWeaponType(int weaponline) =>
-            UISignals.Instance.onChangeWeaponType?.Invoke((WeaponTypes)weaponline);//change weapon
-        private void UpdateScoreText()
-        {
-            levelPanelText[(int)LevelPanelTextType.money].text = CoreGameSignals.Instance.onGetCurrentMoney.Invoke().ToString();
-            levelPanelText[(int)LevelPanelTextType.diamond].text = CoreGameSignals.Instance.onGetCurrentDiamond.Invoke().ToString();
-        }
+        public void ChangeWeaponType(WeaponTypes weapontype) =>
+            UISignals.Instance.onChangeWeaponType?.Invoke(weapontype);//change weapon
 
-        public void BuyWeaponButton(int weaponline)
-        {
-            bool IsActive = UISignals.Instance.onPressUnlockButton.Invoke((WeaponTypes)weaponline);
-            buttonObject[weaponline].SetActive(IsActive);//WeaponType will Activate; 
-            selectButton[weaponline].SetActive(IsActive);
-            unlockButton[weaponline].SetActive(!IsActive);
-            UpdateScoreText();
-        }
 
-   
-        public void UpgradeWeaponButton(int weaponline)//weaponType will Upgarde
-        {
-            WeaponShopData weaponShopData = UISignals.Instance.onPressUpgradeButton.Invoke((WeaponTypes)weaponline);
-          
-            weaponPriceText[weaponline].text = weaponShopData.WeaponPrice.ToString();
-            weaponLevelText[weaponline].text = "LEVEL " + weaponShopData.WeaponLevel.ToString();
+        private void OnChangeDiamond(int amount) => 
+            levelPanelText[(int)LevelPanelTextType.diamond].text = amount.ToString();
 
-            UpdateScoreText();
+        private void OnChangeMoney(int amount) => 
+            levelPanelText[(int)LevelPanelTextType.money].text = amount.ToString();
 
-        }
+        public bool BuyWeapon(WeaponTypes weapontype) =>
+            UISignals.Instance.onPressUnlockButton.Invoke(weapontype);
+
+
+        public WeaponShopData UpgradeWeapon(WeaponTypes weaponType) =>
+            UISignals.Instance.onPressUpgradeButton.Invoke(weaponType);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public void UpgradeWorkerButton(int workerButtonline)//workerType will Upgarde
         {  
@@ -149,7 +214,7 @@ namespace Managers
 
             workerPriceTexts[workerButtonline].text = workerShopData.UpgradePrice.ToString();
             workerLevelTexts[workerButtonline].text = "LEVEL " + workerShopData.UpgradeLevel.ToString();
-            UpdateScoreText();
+          
         }
 
 
@@ -159,7 +224,7 @@ namespace Managers
 
             playerPriceTexts[playerButtonline].text = playerShopData.UpgradePrice.ToString();
             playerLevelTexts[playerButtonline].text = "LEVEL " + playerShopData.UpgradeLevel.ToString();
-            UpdateScoreText();
+          
         }
 
         public void UpgradeSoldierButton(int soldierButtonLine)//soldierType will Upgarde
@@ -168,11 +233,13 @@ namespace Managers
 
             soldierPriceText.text = soldierShopData.UpgradePrice.ToString();
             soldierLevelText.text = "LEVEL " + soldierShopData.UpgradeLevel.ToString();
-            UpdateScoreText();
+      
         }
         #endregion
 
         #endregion
+
+        
 
 
     }

@@ -15,7 +15,7 @@ namespace Signals
 
         public UnityAction<int> onChangeMoney =delegate { }; 
 
-        public UnityAction<int> onChangeDiamon = delegate { };
+        public UnityAction<int> onChangeDiamond = delegate { };
 
         public UnityAction<int> onChangeUpgradeAmount =delegate { };
 

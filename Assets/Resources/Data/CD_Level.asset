@@ -60,42 +60,63 @@ MonoBehaviour:
         HostagePlaces: []
   ShopData:
     _weaponShopSlot:
-    - weaponType: 0
+    - Image: {fileID: 21300000, guid: 82f1fe144f4e8ca4d8c26dae8c4b3e66, type: 3}
+      Name: PISTOL
       WeaponPrice: 100
       WeaponHasSold: 1
       WeaponLevel: 1
-    - weaponType: 1
+    - Image: {fileID: 21300000, guid: 46bf3dc021db2ea4cae5a9082510e32e, type: 3}
+      Name: SHOTGUN
       WeaponPrice: 200
       WeaponHasSold: 0
       WeaponLevel: 1
-    - weaponType: 2
+    - Image: {fileID: 21300000, guid: 91b34fb1c292b304db633c4b26f36e9a, type: 3}
+      Name: RIFFLE
       WeaponPrice: 300
       WeaponHasSold: 0
       WeaponLevel: 1
-    - weaponType: 3
+    - Image: {fileID: 21300000, guid: 1e974c49003084049ba6c67d094a2a22, type: 3}
+      Name: MINIGUN
       WeaponPrice: 400
       WeaponHasSold: 0
       WeaponLevel: 1
+    - Image: {fileID: 21300000, guid: 82f1fe144f4e8ca4d8c26dae8c4b3e66, type: 3}
+      Name: hakan
+      WeaponPrice: 50
+      WeaponHasSold: 0
+      WeaponLevel: 0
     _workerShopSlot:
-    - WorkerUpgradeType: 0
+    - Image: {fileID: 0}
+      Name: 
       UpgradePrice: 100
+      WeaponHasSold: 0
       UpgradeLevel: 1
-    - WorkerUpgradeType: 1
+    - Image: {fileID: 0}
+      Name: 
       UpgradePrice: 100
+      WeaponHasSold: 0
       UpgradeLevel: 1
     _playerShopSlot:
-    - PlayerUpgradeType: 0
+    - Image: {fileID: 0}
+      Name: 
       UpgradePrice: 100
+      WeaponHasSold: 0
       UpgradeLevel: 1
-    - PlayerUpgradeType: 1
+    - Image: {fileID: 0}
+      Name: 
       UpgradePrice: 100
+      WeaponHasSold: 0
       UpgradeLevel: 1
-    - PlayerUpgradeType: 2
+    - Image: {fileID: 0}
+      Name: 
       UpgradePrice: 100
+      WeaponHasSold: 0
       UpgradeLevel: 1
     soldierShopData:
-    - SoldierUpgradeType: 0
+    - Image: {fileID: 0}
+      Name: 
       UpgradePrice: 100
+      WeaponHasSold: 0
       UpgradeLevel: 1
   ScoreData:
     Money: 5000

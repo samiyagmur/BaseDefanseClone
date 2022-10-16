@@ -59,7 +59,6 @@ namespace Managers
         private void Awake()
         {
             _data = GetBaseData();
-            Debug.Log(_data.TentCapacity);
         }
         private MilitaryBaseData GetBaseData()
         {
