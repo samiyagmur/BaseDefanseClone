@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Interfaces;
+using Interfaces;
 using Data.ValueObject.LevelData;
 using Enums;
 using UnityEngine;
 
-namespace Controllers.Base
+namespace Controllers
 {
     public class BaseRoomExtentionController : MonoBehaviour, IBuyable
     {

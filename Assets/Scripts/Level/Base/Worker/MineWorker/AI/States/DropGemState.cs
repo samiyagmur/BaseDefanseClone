@@ -1,14 +1,12 @@
-using Abstraction;
 using AI.MinerAI;
-using Managers;
-using UnityEngine;
+using Interfaces;
 
 namespace AI.States
 {
-    public class DropGemState:IState
+    public class DropGemState : IState
     {
         private readonly MinerAIBrain _minerAIBrain;
-        public bool IsGemDropped=>isGemDropped;
+        public bool IsGemDropped => isGemDropped;
         private bool isGemDropped;
 
         public DropGemState(MinerAIBrain minerAIBrain)
@@ -18,7 +16,6 @@ namespace AI.States
 
         public void Tick()
         {
-        
         }
 
         public void OnEnter()

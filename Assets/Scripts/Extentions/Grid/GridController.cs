@@ -7,7 +7,7 @@ using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Controllers.MilitaryBase
+namespace Extentions
 {
     public class GridController : AStack
     {

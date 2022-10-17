@@ -2,7 +2,7 @@
 using Enums;
 using UnityEngine;
 
-namespace ValueObject.AIData
+namespace Data.ValueObject
 {
     [Serializable]
     public class SoldierAIData

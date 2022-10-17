@@ -1,11 +1,10 @@
-﻿using Abstraction;
-using System.Collections;
+﻿using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace States
+namespace AI.States
 {
-    public class FullAmmo :IState
+    public class FullAmmo : IState
     {
         #region Constructor
 
@@ -20,33 +19,27 @@ namespace States
             _movementSpeed = movementSpeed;
         }
 
-
-        #endregion
+        #endregion Constructor
 
         #region States
+
         public void OnEnter()
         {
             Debug.Log("FullAmmo");
             _agent.speed = 0;
-           // _animator.SetTrigger("Idle");
+            // _animator.SetTrigger("Idle");
         }
 
         public void OnExit()
         {
             _agent.speed = _movementSpeed;
-           // _animator.SetTrigger("Walk");
+            // _animator.SetTrigger("Walk");
         }
 
         public void Tick()
         {
-
-
-
-
-
         }
 
-        #endregion
-
+        #endregion States
     }
 }

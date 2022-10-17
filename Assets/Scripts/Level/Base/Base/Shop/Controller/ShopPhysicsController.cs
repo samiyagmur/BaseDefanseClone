@@ -4,26 +4,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopPhysicsController : MonoBehaviour
+namespace Controllers
 {
-    [SerializeField]
-    private ShopManager _shopManager;
-
-    private void OnTriggerEnter(Collider other)
+    public class ShopPhysicsController : MonoBehaviour
     {
-        if (other.TryGetComponent(out PlayerPhysicsController playerPhyiscs))
-        {
-            _shopManager.IsEnterShopsForType(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
-            _shopManager.GetScore();
-        }
-    }
+        [SerializeField]
+        private ShopManager _shopManager;
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out PlayerPhysicsController playerPhyiscs))
+        private void OnTriggerEnter(Collider other)
         {
-            _shopManager.IsExitAnyShops(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
-           
+            if (other.TryGetComponent(out PlayerPhysicsController playerPhyiscs))
+            {
+                _shopManager.IsEnterShopsForType(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
+                _shopManager.GetScore();
+            }
         }
-    }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(out PlayerPhysicsController playerPhyiscs))
+            {
+                _shopManager.IsExitAnyShops(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
+
+            }
+        }
+    } 
 }

@@ -1,38 +1,30 @@
-using System;
-using System.Collections.Generic;
-using AI.MinerAI;
 using Data.UnityObject;
-using Data.ValueObject.LevelData;
+using Data.ValueObject;
 using Data.ValueObjects;
-using Data.ValueObjects.LevelData;
-using DG.Tweening;
 using Enum;
-using Enums;
 using Signals;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Managers
 {
     public class HostageBaseManager : MonoBehaviour
     {
-        public List<MinerManager> StackedHostageList=new List<MinerManager>();
-        private MinerAnimationStates _currentAnimType=MinerAnimationStates.Idle;
+        public List<MinerManager> StackedHostageList = new List<MinerManager>();
+        private MinerAnimationStates _currentAnimType = MinerAnimationStates.Idle;
         [SerializeField] private GameObject hostageInstance;
         [SerializeField] private HostageStackController hostageStackController;
         private HostageData _data;
         private int _maxHostileCount;
         private MineBaseData _mineBaseData;
         private List<Transform> _hostagePositionList;
-        
 
         [SerializeField]
-        //private HostageStackManager hostageStackManager;
         private void Awake()
         {
             _data = GetHostageData();
-            _mineBaseData=GetMineBaseData();
+            _mineBaseData = GetMineBaseData();
             ChangeHostageAnimation(MinerAnimationStates.Crouch);
-
         }
 
         #region EventSubscription
@@ -48,6 +40,7 @@ namespace Managers
             InputSignals.Instance.onInputTakenActive += OnInputTaken;
             HostageSignals.Instance.onAddHostageStack += OnAddHostageStack;
         }
+
         private void OnDisable()
         {
             UnSubscribeEvents();
@@ -77,28 +70,32 @@ namespace Managers
             hostageStackController.AddHostageStack(mineManager);
         }
 
-        #endregion
-        private HostageData GetHostageData()=>Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0/*Take from levelManager*/].FrontYardData.HostageData;
-        private MineBaseData GetMineBaseData()=>Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0/*Take from levelManager*/].BaseData.MineBaseData;
+        #endregion EventSubscription
+
+        private HostageData GetHostageData() => Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0/*Take from levelManager*/].FrontYardData.HostageData;
+
+        private MineBaseData GetMineBaseData() => Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0/*Take from levelManager*/].BaseData.MineBaseData;
+
         private void Start()
         {
             AssignHostileValuesToDictionary();
             InstantiateHostage();
         }
+
         private void InstantiateHostage()
         {
-            int _remainingHostageAmount=_mineBaseData.MaxWorkerAmount - _mineBaseData.CurrentWorkerAmount;
-            for (int index = 0; index <_remainingHostageAmount ; index++)
+            int _remainingHostageAmount = _mineBaseData.MaxWorkerAmount - _mineBaseData.CurrentWorkerAmount;
+            for (int index = 0; index < _remainingHostageAmount; index++)
             {
                 //GameObject hostage=ObjectPoolManager.Instance.GetObject<GameObject>(PoolObjectType.MinerAI.ToString());
                 Instantiate(hostageInstance);
                 hostageInstance.transform.position = _hostagePositionList[index].position;
-               
             }
         }
+
         private void AssignHostileValuesToDictionary()
         {
-            _hostagePositionList=_data.HostagePlaces;
+            _hostagePositionList = _data.HostagePlaces;
         }
 
         private void OnClearHostageStack(Vector3 centerOfGatePos)
@@ -106,20 +103,17 @@ namespace Managers
             hostageStackController.SendToGate(centerOfGatePos);
             hostageStackController.ClearStack();
         }
-        
+
         public void ChangeHostageAnimation(MinerAnimationStates hostageAnimationType)
         {
-            if (_currentAnimType!=hostageAnimationType)
+            if (_currentAnimType != hostageAnimationType)
             {
-                
                 _currentAnimType = hostageAnimationType;
                 foreach (var stackedHostage in StackedHostageList)
                 {
                     stackedHostage.ChangeAnimation(hostageAnimationType);
                 }
-                
             }
-          
         }
 
         public void AddHostageToList(MinerManager hostage)

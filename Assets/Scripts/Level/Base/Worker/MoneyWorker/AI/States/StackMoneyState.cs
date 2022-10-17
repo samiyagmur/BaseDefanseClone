@@ -6,8 +6,9 @@ using Interfaces;
 using System;
 using Signals;
 using Abstraction;
+using AIBrain.MoneyWorkers;
 
-namespace StateMachines.AIBrain.Workers.MoneyStates
+namespace AI.States
 {
     public class StackMoneyState : IState
     {

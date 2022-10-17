@@ -1,7 +1,7 @@
 ﻿using Data.ValueObject;
 using UnityEngine;
 
-namespace Managers
+namespace Controllers
 {
     public class PlayerWeaponController : MonoBehaviour
     {

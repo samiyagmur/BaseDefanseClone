@@ -2,7 +2,7 @@
 using Signals;
 using UnityEngine;
 
-namespace Controllers.MilitaryBase
+namespace Controllers
 {
     public class MilitaryBaseAttackButtonPhysicsController : MonoBehaviour
     {

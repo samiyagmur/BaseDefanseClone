@@ -1,4 +1,4 @@
-﻿namespace Extentions
+﻿namespace Abstraction
 {
     public abstract class AbstractObjectPool
     {

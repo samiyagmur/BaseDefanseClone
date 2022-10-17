@@ -2,9 +2,8 @@ using System;
 using Enums;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using ValueObject.AIData;
 
-namespace Data.ValueObject.AIDatas
+namespace Data.ValueObject
 {
     [Serializable]
     public class WorkerAITypeData

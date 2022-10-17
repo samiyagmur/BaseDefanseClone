@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Data.ValueObjects.LevelData
+namespace Data.ValueObjects
 {
     [Serializable]
     public class HostageData

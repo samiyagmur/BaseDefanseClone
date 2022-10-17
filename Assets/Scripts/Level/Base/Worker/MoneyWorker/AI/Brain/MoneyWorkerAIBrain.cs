@@ -1,21 +1,17 @@
+using AI.States;
+using Controllers;
+using Data.ValueObject;
+using Enums;
+using Interfaces;
+using Signals;
+using Sirenix.OdinInspector;
+using StateBehavior;
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using StateMachines.AIBrain.Workers.MoneyStates;
-using Sirenix.OdinInspector;
-using Enums;
-using Controllers;
-using Data.UnityObject;
-using Data.ValueObject.AIDatas;
-using Interfaces;
-using System;
-using Signals;
-using StateBehavior;
-using Assets.Scripts.Signals;
-using Abstraction;
 
-namespace StateMachines.AIBrain.Workers
+namespace AIBrain.MoneyWorkers
 {
     public class MoneyWorkerAIBrain : MonoBehaviour
     {
@@ -26,23 +22,25 @@ namespace StateMachines.AIBrain.Workers
         [BoxGroup("Public Variables")]
         public Transform CurrentTarget;
 
-        #endregion
+        #endregion Public Variables
 
         #region Serilizable Variables
 
         [BoxGroup("Serializable Variables")]
         [SerializeField]
         private WorkerSlotType workerType;
+
         [BoxGroup("Serializable Variables")]
         [SerializeField]
         private MoneyWorkerPhysicController moneyWorkerDetector;
 
-        #endregion
+        #endregion Serilizable Variables
 
         #region Private Variables
 
         [ShowInInspector]
         private WorkerAITypeData _workerTypeData;
+
         private Animator _animator;
         private NavMeshAgent _navmeshAgent;
 
@@ -55,18 +53,20 @@ namespace StateMachines.AIBrain.Workers
         private DropMoneyOnGateState _dropMoneyOnGateState;
         private StateMachine _stateMachine;
 
-        #endregion
+        #endregion States
 
         #region Worker Game Variables
+
         [ShowInInspector]
         private int _currentStock = 0;
+
         private float _delay = 0.05f;
 
-        #endregion
+        #endregion Worker Game Variables
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
 
         private void Awake()
         {
@@ -101,8 +101,7 @@ namespace StateMachines.AIBrain.Workers
         //    moneyTargetList.Add(pos);
         //}
 
-        #endregion
-
+        #endregion Event Subscriptions
 
         #region Data Jobs
 
@@ -117,7 +116,8 @@ namespace StateMachines.AIBrain.Workers
             _navmeshAgent = GetComponent<NavMeshAgent>();
             _animator = GetComponentInChildren<Animator>();
         }
-        #endregion
+
+        #endregion Data Jobs
 
         #region Worker State Jobs
 
@@ -148,13 +148,14 @@ namespace StateMachines.AIBrain.Workers
 
         private void Update() => _stateMachine.Tick();
 
-        #endregion
+        #endregion Worker State Jobs
 
         #region General Jobs
+
         private void InitWorker()
         {
-
         }
+
         public bool IsAvailable() => _currentStock < _workerTypeData.CapacityOrDamage;
 
         public void SetDest()
@@ -177,9 +178,10 @@ namespace StateMachines.AIBrain.Workers
                 yield return new WaitForSeconds(_delay);
             }
         }
+
         public void StartSearch(bool isStartedSearch)
         {
-            if(isStartedSearch)
+            if (isStartedSearch)
                 StartCoroutine(SearchTarget());
             else
             {
@@ -206,7 +208,6 @@ namespace StateMachines.AIBrain.Workers
             //remove all stack
         }
 
-        #endregion
-
+        #endregion General Jobs
     }
 }

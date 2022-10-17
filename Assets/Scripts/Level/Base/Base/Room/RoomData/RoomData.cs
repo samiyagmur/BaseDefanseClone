@@ -1,7 +1,7 @@
 ﻿using Datas.ValueObject;
 using System;
 
-namespace Data.ValueObject.LevelData
+namespace Data.ValueObject
 {
     [Serializable]
     public class RoomData

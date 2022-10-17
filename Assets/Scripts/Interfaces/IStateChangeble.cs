@@ -1,6 +1,6 @@
 ﻿using Enums;
 
-namespace Abstraction
+namespace Interfaces
 {
     interface IStateChangeble
     {

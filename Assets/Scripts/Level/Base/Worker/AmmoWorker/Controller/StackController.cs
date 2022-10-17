@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Data.UnityObject;
-using Data.ValueObject;
 using Enums;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Interfaces;
 using Abstraction;
-using Controllers.Player;
 using Datas.ValueObject;
 
 namespace Controllers

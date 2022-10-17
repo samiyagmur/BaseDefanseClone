@@ -1,18 +1,16 @@
-﻿using Abstraction;
-using Controllers;
-using System.Collections;
+﻿using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace States
+namespace AI.States
 {
     public class LoadContayner : IState
-    {   
+    {
         private NavMeshAgent agent;
         private Animator animator;
         private float movementSpeed;
         private Transform ammoWareHouse;
-      
+
         public LoadContayner(NavMeshAgent agent, Animator animator, float movementSpeed, Transform ammoWareHouse)
         {
             this.agent = agent;
@@ -28,17 +26,14 @@ namespace States
 
         public void OnExit()
         {
-            
         }
 
         public void Tick()
         {
-            
         }
 
         public void SendAmmoStack()
         {
-
         }
     }
 }

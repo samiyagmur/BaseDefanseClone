@@ -1,32 +1,33 @@
-﻿using Abstraction;
-using Managers;
-using StateMachines;
+﻿using AIBrain.MineBrain;
+using Interfaces;
 using UnityEngine;
 
-namespace Boomb
+namespace AI.States
 {
     public class MineCountDownState : IState
     {
         #region Self Variables
 
         #region Public Variables
+
         public bool IsTimerDone => (timer >= _mineBrain.mineManager.MineCountDownTime);
-        #endregion
+
+        #endregion Public Variables
 
         #region Private Variables
+
         private float timer = 0;
         private MineBrain _mineBrain;
 
-        #endregion
+        #endregion Private Variables
 
-
-        #endregion
+        #endregion Self Variables
 
         public MineCountDownState(MineBrain mineBrain)
         {
             _mineBrain = mineBrain;
-
         }
+
         public void Tick()
         {
             timer += Time.deltaTime;

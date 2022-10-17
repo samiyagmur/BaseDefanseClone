@@ -1,16 +1,16 @@
-using Abstraction;
 using AI.MinerAI;
 using Enum;
+using Interfaces;
 using Managers;
-using UnityEngine;
 
 namespace AI.States
 {
-    public class MinerIdleState:IState
+    public class MinerIdleState : IState
 
     {
         private MinerManager _minerManager;
         private MinerAIBrain _minerAIBrain;
+
         public MinerIdleState(MinerAIBrain minerAIBrain, MinerManager minerManager)
         {
             _minerAIBrain = minerAIBrain;
@@ -19,7 +19,6 @@ namespace AI.States
 
         public void Tick()
         {
-            
         }
 
         public void OnEnter()
@@ -30,7 +29,6 @@ namespace AI.States
 
         public void OnExit()
         {
-            
         }
     }
 }

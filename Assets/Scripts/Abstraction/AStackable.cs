@@ -5,7 +5,7 @@ using Signals;
 using System.Collections;
 using UnityEngine;
 
-namespace Abstracts
+namespace Abstraction
 {
         public abstract class AStackable : MonoBehaviour, IStackable
         {

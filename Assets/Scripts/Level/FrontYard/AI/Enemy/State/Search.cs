@@ -1,21 +1,21 @@
-using Abstraction;
 using AIBrain;
-using System.Collections;
-using System.Collections.Generic;
+using AIBrain.EnemyBrain;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace State
+namespace AI.States
 {
-    public class Search :IState
+    public class Search : IState
     {
-        protected  Animator _animator;
+        protected Animator _animator;
 
-        protected  NavMeshAgent _navMeshAgent;
+        protected NavMeshAgent _navMeshAgent;
 
-        protected  EnemyBrain _enemyBrain;
+        protected EnemyBrain _enemyBrain;
 
         private Transform _spawnPoint;
+
         public Search(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, Transform spawnPoint)
         {
             _animator = animator;
@@ -24,17 +24,14 @@ namespace State
             _spawnPoint = spawnPoint;
         }
 
-        public  void OnEnter()
+        public void OnEnter()
         {
-            
-            
             _enemyBrain.enabled = true;
             GetRandomPointBakedSurface();
-            
         }
+
         private void GetRandomPointBakedSurface()
         {
-            
             bool RandomPoint(Vector3 center, float range, out Vector3 result)
             {
                 for (int i = 0; i < 60; i++)
@@ -44,7 +41,6 @@ namespace State
                     NavMeshHit hit;
                     if (NavMesh.SamplePosition(randomPosition, out hit, 1.0f, 1))
                     {
-                        
                         result = hit.position;
                         return true;
                     }
@@ -57,9 +53,11 @@ namespace State
             if (!RandomPoint(_spawnPoint.position, 20, out point)) return;
             _navMeshAgent.Warp(point);
         }
-        public void OnExit() { }
 
-        public void Tick() { }
+        public void OnExit()
+        { }
 
+        public void Tick()
+        { }
     }
 }

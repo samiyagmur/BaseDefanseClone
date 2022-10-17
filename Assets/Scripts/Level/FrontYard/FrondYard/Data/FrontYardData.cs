@@ -1,8 +1,8 @@
-﻿using Data.ValueObjects.LevelData;
+﻿using Data.ValueObjects;
 using System;
 using System.Collections.Generic;
 
-namespace Data.ValueObject.LevelData
+namespace Data.ValueObject
 {
     [Serializable]
     public class FrontYardData

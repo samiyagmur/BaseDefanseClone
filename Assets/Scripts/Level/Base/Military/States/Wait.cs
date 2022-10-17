@@ -1,8 +1,8 @@
-﻿using Abstraction;
+﻿using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AIBrains.SoldierBrain
+namespace AI.States
 {
     public class Wait : IState
     {
@@ -10,24 +10,25 @@ namespace AIBrains.SoldierBrain
         private NavMeshAgent _navMeshAgent;
         private static readonly int Speed = Animator.StringToHash("Speed");
 
-        public Wait(Animator animator,NavMeshAgent navMeshAgent)
+        public Wait(Animator animator, NavMeshAgent navMeshAgent)
         {
             _animator = animator;
             _navMeshAgent = navMeshAgent;
         }
+
         public void Tick()
         {
-            
         }
+
         public void OnEnter()
         {
             Debug.Log("WaitEntered");
             _navMeshAgent.speed = 1.801268E-05f;
-            _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
+            _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
         }
+
         public void OnExit()
         {
-            
         }
     }
 }

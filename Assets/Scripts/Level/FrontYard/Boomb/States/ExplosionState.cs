@@ -1,10 +1,8 @@
-﻿using System.Threading;
-using Abstraction;
-using Managers;
-using StateMachines;
+﻿using AIBrain.MineBrain;
+using Interfaces;
 using UnityEngine;
 
-namespace State
+namespace AI.States
 {
     public class ExplosionState : IState
     {
@@ -13,10 +11,12 @@ namespace State
 
         private bool isExplosionHappened;
         public bool IsExplosionHappened => _timer >= 0.3f;
+
         public ExplosionState(MineBrain mineBrain)
         {
             _mineBrain = mineBrain;
         }
+
         public void Tick()
         {
             Debug.Log("explosionstate");
@@ -36,6 +36,7 @@ namespace State
             isExplosionHappened = false;
             ResetTimer();
         }
+
         private void ResetTimer()
         {
             _timer = 0;
@@ -65,8 +66,6 @@ namespace State
 //        }
 //        public void Tick()
 //        {
-
-
 //        }
 
 //        public void Enter()
@@ -77,7 +76,7 @@ namespace State
 //        }
 
 //        public void Exit()
-//        {   
+//        {
 //            isExplosionHappened = false;
 
 //            Debug.Log("Onexit explosion");

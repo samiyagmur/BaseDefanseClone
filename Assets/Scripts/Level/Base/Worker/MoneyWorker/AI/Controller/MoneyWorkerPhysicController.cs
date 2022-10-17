@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
-using StateMachines.AIBrain.Workers;
 using Signals;
 using Interfaces;
-using Controllers.Player;
+using AIBrain.MoneyWorkers;
 
 namespace Controllers
 {

@@ -1,5 +1,5 @@
 using UnityEngine;
-using Data.ValueObject.AIDatas;
+using Data.ValueObject;
 
 namespace Data.UnityObject
 {

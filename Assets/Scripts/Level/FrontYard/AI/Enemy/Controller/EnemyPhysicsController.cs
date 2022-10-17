@@ -3,6 +3,7 @@ using UnityEngine;
 using Interfaces;
 using AIBrain;
 using Signals;
+using AIBrain.EnemyBrain;
 
 namespace Controllers
 {

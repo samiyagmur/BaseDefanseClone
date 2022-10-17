@@ -1,11 +1,10 @@
-﻿using Abstraction;
-using System.Collections;
+﻿using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace States
+namespace AI.States
 {
-    public class MoveToAvaliableContayner :  IState
+    public class MoveToAvaliableContayner : IState
     {
         #region Constructor
 
@@ -26,26 +25,25 @@ namespace States
             _movementSpeed = movementSpeed;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region State
-        public void OnEnter()
-        {   
 
+        public void OnEnter()
+        {
             _agent.speed = _movementSpeed;
-           // _animator.SetTrigger("Walk");
+            // _animator.SetTrigger("Walk");
             _agent.SetDestination(_decidedContayner.transform.position);
         }
 
         public void OnExit()
         {
-                
         }
 
         public void Tick()
         {
+        }
 
-        } 
-        #endregion
+        #endregion State
     }
 }

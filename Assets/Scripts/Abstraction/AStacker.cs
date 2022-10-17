@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Interfaces;
-using Interfaces;
+﻿using Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 

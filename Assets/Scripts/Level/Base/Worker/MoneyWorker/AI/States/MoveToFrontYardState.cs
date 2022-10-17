@@ -4,7 +4,7 @@ using UnityEngine;
 using Interfaces;
 using Abstraction;
 
-namespace StateMachines.AIBrain.Workers.MoneyStates
+namespace AI.States
 {
     public class MoveToFrontYardState : IState
     {

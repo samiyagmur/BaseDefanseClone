@@ -1,8 +1,7 @@
-﻿using Abstraction;
-using System.Collections;
+﻿using Interfaces;
 using UnityEngine;
 
-namespace Boomb
+namespace AI.States
 {
     public class ReadyState : IState
     {
@@ -13,14 +12,10 @@ namespace Boomb
 
         public void OnExit()
         {
-            
         }
 
         public void Tick()
         {
-            
         }
-
-
     }
 }

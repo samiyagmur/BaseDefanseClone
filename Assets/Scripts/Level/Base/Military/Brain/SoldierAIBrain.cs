@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Abstraction;
+using AI.States;
 using Data.UnityObject;
+using Data.ValueObject;
 using Interfaces;
 using StateBehavior;
 using UnityEngine;
 using UnityEngine.AI;
-using ValueObject.AIData;
 
 namespace AIBrains.SoldierBrain
 {
@@ -64,7 +65,7 @@ namespace AIBrains.SoldierBrain
             Wait wait = new Wait(animator, _navMeshAgent);
             MoveToFrontYard moveToFrontYard = new MoveToFrontYard(this, _navMeshAgent, FrontYardStartPosition, animator);
             Patrol patrol = new Patrol(this, _navMeshAgent, animator);
-            Attack attack = new Attack(this, _navMeshAgent, animator);
+            SoldiersAtack attack = new SoldiersAtack(this, _navMeshAgent, animator);
             _stateMachine = new StateMachine();
 
             At(idle, moveToSlotZone, hasSlotTransformList());

@@ -1,19 +1,20 @@
-using Abstraction;
 using AI.MinerAI;
 using Enum;
+using Interfaces;
 using Managers;
 using UnityEngine;
 
 namespace AI.States
 {
-    public class GemSourceState:IState
+    public class GemSourceState : IState
     {
         private MinerManager _minerManager;
-        public bool IsMiningTimeUp=>_timer>=_minerAIBrain.GemCollectionOffset;
+        public bool IsMiningTimeUp => _timer >= _minerAIBrain.GemCollectionOffset;
         private MinerAIBrain _minerAIBrain;
         private MinerItems _minerItems;
         private MinerAnimationStates _minerAnimationState;
         private float _timer;
+
         public GemSourceState(MinerAIBrain minerAIBrain, MinerManager minerManager,
             MinerAnimationStates minerAnimationState, MinerItems minerItems)
         {
@@ -30,9 +31,8 @@ namespace AI.States
 
         public void OnEnter()
         {
-        _minerAIBrain.MinerAIItemController.OpenItem(_minerItems);
-        _minerManager.ChangeAnimation(_minerAnimationState);
-        
+            _minerAIBrain.MinerAIItemController.OpenItem(_minerItems);
+            _minerManager.ChangeAnimation(_minerAnimationState);
         }
 
         public void OnExit()

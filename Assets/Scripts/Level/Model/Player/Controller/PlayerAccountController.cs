@@ -5,7 +5,7 @@ using Signals;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Controllers.Player
+namespace Controllers
 {
     public class PlayerAccountController : MonoBehaviour, ICustomer
     {

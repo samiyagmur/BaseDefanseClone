@@ -1,12 +1,11 @@
 ﻿using System;
-using Abstraction;
-using Boomb;
+using AI.States;
+using Interfaces;
 using Managers;
-using State;
 using StateBehavior;
 using UnityEngine;
 
-namespace StateMachines
+namespace AIBrain.MineBrain
 {
     public class MineBrain : MonoBehaviour
     {

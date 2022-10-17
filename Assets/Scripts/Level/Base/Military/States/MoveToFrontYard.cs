@@ -1,10 +1,11 @@
-﻿using Abstraction;
+﻿using AIBrains.SoldierBrain;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AIBrains.SoldierBrain
+namespace AI.States
 {
-    public class MoveToFrontYard: IState
+    public class MoveToFrontYard : IState   
     {
         private NavMeshAgent _navMeshAgent;
         private Transform _frontYardSoldierPosition;
@@ -14,7 +15,7 @@ namespace AIBrains.SoldierBrain
         private static readonly int Speed = Animator.StringToHash("Speed");
         private static readonly int Attacked = Animator.StringToHash("Attack");
 
-        public MoveToFrontYard(SoldierAIBrain soldierAIBrain,NavMeshAgent navMeshAgent,Transform frontYardSoldierPosition,Animator animator)
+        public MoveToFrontYard(SoldierAIBrain soldierAIBrain, NavMeshAgent navMeshAgent, Transform frontYardSoldierPosition, Animator animator)
         {
             _navMeshAgent = navMeshAgent;
             _frontYardSoldierPosition = frontYardSoldierPosition;
@@ -22,14 +23,16 @@ namespace AIBrains.SoldierBrain
             _soldierAIBrain = soldierAIBrain;
             _animator = animator;
         }
+
         public void Tick()
         {
-            _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
+            _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
             if ((_navMeshAgent.transform.position - _frontYardSoldierPosition.position).sqrMagnitude < _stoppingDistance)
-            {  
+            {
                 _soldierAIBrain.HasReachedFrontYard = true;
             }
-        } 
+        }
+
         public void OnEnter()
         {
             _animator.SetTrigger(Attacked);

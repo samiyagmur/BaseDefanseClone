@@ -1,10 +1,9 @@
-using Extentions;
-using UnityEngine.Events;
-using UnityEngine;
-using Data.ValueObject.AIDatas;
-using System;
+using Data.ValueObject;
 using Enums;
-using System.Collections.Generic;
+using Extentions;
+using System;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace Signals
 {
@@ -13,9 +12,9 @@ namespace Signals
         public Func<WorkerSlotType, WorkerAITypeData> onGetMoneyAIData = delegate { return null; };
         public UnityAction onSendMoneyPositionToWorkers = delegate { };
         public UnityAction<Transform> onSetMoneyPosition = delegate { };
-        public UnityAction <Transform> onThisMoneyTaken = delegate { };
+        public UnityAction<Transform> onThisMoneyTaken = delegate { };
 
         public Func<Transform, Transform> onGetTransformMoney = delegate { return null; };
         public Func<Transform, Transform, Transform> OnMyMoneyTaken = delegate { return null; };
-    } 
+    }
 }

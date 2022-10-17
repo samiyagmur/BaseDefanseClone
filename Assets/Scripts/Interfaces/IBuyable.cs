@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Interfaces
+namespace Interfaces
 {
     public interface IBuyable 
     {

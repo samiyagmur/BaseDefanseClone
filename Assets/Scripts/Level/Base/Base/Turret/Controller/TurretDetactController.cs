@@ -1,4 +1,5 @@
 ﻿using AIBrain;
+using AIBrain.EnemyBrain;
 using Managers;
 using System.Collections;
 using UnityEngine;

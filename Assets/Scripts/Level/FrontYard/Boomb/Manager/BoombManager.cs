@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Abstraction;
-using AIBrain;
-
+﻿using AIBrain;
+using AIBrain.EnemyBrain;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,6 +21,7 @@ public class BoombManager : IState
         _enemyAIBrain = enemyAIBrain;
         _navMeshAgent = navmeshAgent;
     }
+
     public void Tick()
     {
         //if (_enemyAIBrain.Mine != null)
@@ -30,6 +29,7 @@ public class BoombManager : IState
         //    _navMeshAgent.destination = _enemyAIBrain.MineTarget.transform.position;
         //}
     }
+
     public void OnEnter()
     {
         //_animator.SetTrigger("Walk");
@@ -40,7 +40,5 @@ public class BoombManager : IState
 
     public void OnExit()
     {
-
     }
-
 }

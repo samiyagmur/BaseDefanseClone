@@ -1,5 +1,6 @@
 ﻿using Abstraction;
 using AIBrain;
+using AIBrain.EnemyBrain;
 using DG.Tweening;
 using Enums;
 using Interfaces;
@@ -8,7 +9,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-namespace State
+namespace AI.States
 {
     public class Death : IState, IReleasePoolObject,IGetPoolObject
     {

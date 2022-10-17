@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace States
+namespace AI.States
 {
     public class TakeAmmo : IState
     {

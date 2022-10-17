@@ -1,8 +1,9 @@
-﻿using Abstraction;
+﻿using AIBrains.SoldierBrain;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AIBrains.SoldierBrain
+namespace AI.States
 {
     public class Patrol : IState
     {
@@ -16,15 +17,16 @@ namespace AIBrains.SoldierBrain
         private Animator _animator;
         private static readonly int Speed = Animator.StringToHash("Speed");
 
-        public Patrol(SoldierAIBrain soldierAIBrain,NavMeshAgent navMeshAgent, Animator animator)
+        public Patrol(SoldierAIBrain soldierAIBrain, NavMeshAgent navMeshAgent, Animator animator)
         {
             _soldierAIBrain = soldierAIBrain;
             _navMeshAgent = navMeshAgent;
             _animator = animator;
         }
+
         public void Tick()
         {
-            _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
+            _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
             if (_destination.HasValue != true || Vector3.Distance(_soldierAIBrain.transform.position,
                 _destination.Value) <= _navMeshAgent.stoppingDistance)
             {
@@ -36,7 +38,7 @@ namespace AIBrains.SoldierBrain
                 _timeStack += Time.deltaTime;
                 if (_timeStack > 1f)
                 {
-                    _soldierAIBrain.transform.rotation = Quaternion.Lerp(_soldierAIBrain.transform.rotation, _lookRotation,0.2f);
+                    _soldierAIBrain.transform.rotation = Quaternion.Lerp(_soldierAIBrain.transform.rotation, _lookRotation, 0.2f);
                     _timeStack = 0;
                 }
                 else
@@ -45,22 +47,24 @@ namespace AIBrains.SoldierBrain
                 }
             }
             lastPosition = _soldierAIBrain.transform.position;
-        } 
+        }
+
         public void OnEnter()
         {
             _navMeshAgent.speed = 1.80f;
             _timeStack = 0;
-        } 
+        }
+
         public void OnExit()
         {
-            
         }
+
         private void FindRandomDestination()
         {
             var randomPositionX = Random.Range(-10, 10);
             var randomPositionZ = Random.Range(-10, 10);
-            Vector3 randomPositionVector = _soldierAIBrain.transform.position + _soldierAIBrain.transform.forward*4f + new Vector3(randomPositionX, 0, randomPositionZ);
-            _destination = new Vector3(randomPositionVector.x,_soldierAIBrain.transform.position.y,randomPositionVector.z);
+            Vector3 randomPositionVector = _soldierAIBrain.transform.position + _soldierAIBrain.transform.forward * 4f + new Vector3(randomPositionX, 0, randomPositionZ);
+            _destination = new Vector3(randomPositionVector.x, _soldierAIBrain.transform.position.y, randomPositionVector.z);
             _direction = Vector3.Normalize(_destination.Value - _soldierAIBrain.transform.position);
             _direction = new Vector3(_direction.x, 0, _direction.z);
             _lookRotation = Quaternion.LookRotation(_direction);

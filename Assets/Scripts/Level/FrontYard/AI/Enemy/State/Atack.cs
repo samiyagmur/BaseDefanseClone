@@ -1,13 +1,11 @@
-﻿using Abstraction;
-using AIBrain;
-using System;
-using System.Collections;
+﻿using AIBrain.EnemyBrain;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace State
+namespace AI.States
 {
-    public class Attack : IState
+    public class Atack :IState
     {
         private Animator _animator;
 
@@ -15,28 +13,20 @@ namespace State
 
         private EnemyBrain _enemyBrain;
 
-        private Transform _playerTransform;
-
         private float _atackRange;
-
-
-
 
         public bool _inAttack;
 
-        public Attack(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, Transform playerTransform, float atackRange)
+        public Atack(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, float atackRange)
         {
-
             _animator = animator;
             _navMeshAgent = navMeshAgent;
             _enemyBrain = enemyBrain;
-            _playerTransform = playerTransform;
             _atackRange = atackRange;
-             
         }
 
-        public  void Tick()
-        {   
+        public void Tick()
+        {
             if (_enemyBrain.PlayerTarget)
             {
                 _navMeshAgent.destination = _enemyBrain.PlayerTarget.position;
@@ -50,27 +40,25 @@ namespace State
             CheckAttackDistance();
         }
 
-        public  void OnEnter()
+        public void OnEnter()
         {
             _navMeshAgent.SetDestination(_enemyBrain.PlayerTarget.position);
             _inAttack = true;
             _animator.SetTrigger("Attack");
         }
 
-
         private void CheckAttackDistance()
         {
             if (_navMeshAgent.remainingDistance > _atackRange)
             {
-                
                 _inAttack = false;
             }
         }
+
         public bool InPlayerAttackRange() => _inAttack;
 
         public void OnExit()
         {
-        
         }
     }
 }

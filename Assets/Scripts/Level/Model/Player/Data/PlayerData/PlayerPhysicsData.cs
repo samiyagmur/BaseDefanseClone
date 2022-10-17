@@ -1,8 +1,5 @@
 ﻿using Enums;
-using Enums.GameStates;
 using System;
-using System.Collections;
-using UnityEngine;
 
 namespace Datas.ValueObject
 {

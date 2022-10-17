@@ -1,15 +1,13 @@
-﻿using Abstraction;
-using AIBrain;
-using System;
-using System.Collections;
+﻿using AIBrain;
+using AIBrain.EnemyBrain;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace State
+namespace AI.States
 {
-    public class Chase :IState
+    public class Chase : IState
     {
-
         private Animator _animator;
 
         private EnemyBrain _enemyBrain;
@@ -19,7 +17,7 @@ namespace State
         private Transform _playerTransform;
 
         private float _chaseSpeed;
-       
+
         private float _atackRange;
 
         private bool _attackOnPlayer;
@@ -35,34 +33,27 @@ namespace State
             _enemyBrain = enemyBrain;
         }
 
-        public  void OnEnter()
+        public void OnEnter()
         {
-            
             AttackOnPlayer = false;
-
 
             _playerTransform = _enemyBrain.PlayerTarget;
 
-            _navMeshAgent.speed= _chaseSpeed/2;
-            
+            _navMeshAgent.speed = _chaseSpeed / 2;
+
             if (_playerTransform != null)
-            _navMeshAgent.SetDestination(_playerTransform.position);
+                _navMeshAgent.SetDestination(_playerTransform.position);
 
             _animator.SetTrigger("Run");
-
-
-
-            
         }
 
-        public  void Tick()
+        public void Tick()
         {
-           _navMeshAgent.destination = _enemyBrain.PlayerTarget.position;
+            _navMeshAgent.destination = _enemyBrain.PlayerTarget.position;
 
-           if (_enemyBrain.PlayerTarget != null) 
+            if (_enemyBrain.PlayerTarget != null)
                 _navMeshAgent.destination = _enemyBrain.PlayerTarget.transform.position;
-            
-            
+
             checkDestance();
         }
 
@@ -72,17 +63,12 @@ namespace State
             {
                 AttackOnPlayer = true;
             }
-                       
         }
 
         public bool GetPlayerInRange() => AttackOnPlayer;
 
         public void OnExit()
         {
-            
-
-
-            
         }
     }
 }

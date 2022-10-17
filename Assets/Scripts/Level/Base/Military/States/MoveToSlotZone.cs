@@ -1,9 +1,9 @@
-﻿using System.Net.Configuration;
-using Abstraction;
+﻿using AIBrains.SoldierBrain;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AIBrains.SoldierBrain
+namespace AI.States
 {
     public class MoveToSlotZone : IState
     {
@@ -16,7 +16,7 @@ namespace AIBrains.SoldierBrain
         private Animator _animator;
         private static readonly int Speed = Animator.StringToHash("Speed");
 
-        public MoveToSlotZone(SoldierAIBrain soldierAIBrain,NavMeshAgent navMeshAgent,bool hasReachToTarget,Vector3 slotPosition,Animator animator)
+        public MoveToSlotZone(SoldierAIBrain soldierAIBrain, NavMeshAgent navMeshAgent, bool hasReachToTarget, Vector3 slotPosition, Animator animator)
         {
             _soldierAIBrain = soldierAIBrain;
             _navMeshAgent = navMeshAgent;
@@ -24,16 +24,18 @@ namespace AIBrains.SoldierBrain
             _slotPosition = slotPosition;
             _stoppingDistance = navMeshAgent.stoppingDistance;
             _animator = animator;
-        } 
+        }
+
         public void Tick()
         {
-            _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
+            _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
             if ((_navMeshAgent.transform.position - _slotPosition).sqrMagnitude < _stoppingDistance)
             {
                 _hasReachToTarget = true;
                 _soldierAIBrain.HasReachedSlotTarget = _hasReachToTarget;
             }
-        } 
+        }
+
         public void OnEnter()
         {
             _navMeshAgent.SetDestination(_slotPosition);

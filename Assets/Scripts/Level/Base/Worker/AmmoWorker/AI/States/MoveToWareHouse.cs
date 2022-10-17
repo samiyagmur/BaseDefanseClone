@@ -1,15 +1,12 @@
-﻿using Abstraction;
-using System.Collections;
-using System.Collections.Generic;
+﻿using AIBrain;
+using AIBrain.AmmoWorkers;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
-using DG.Tweening;
-using System;
-using AIBrain;
 
-namespace States
+namespace AI.States
 {
-    public class MoveToWareHouse :IState
+    public class MoveToWareHouse : IState
     {
         #region Constructor
 
@@ -20,7 +17,7 @@ namespace States
         private GameObject _ammoWorker;
         private AmmoWorkerBrain ammoWorkerBrain;
 
-        public MoveToWareHouse( NavMeshAgent agent, Animator animator, float movementSpeed, Transform ammoWareHouse, GameObject ammoWorker, AmmoWorkerBrain ammoWorkerBrain)
+        public MoveToWareHouse(NavMeshAgent agent, Animator animator, float movementSpeed, Transform ammoWareHouse, GameObject ammoWorker, AmmoWorkerBrain ammoWorkerBrain)
         {
             _agent = agent;
             _animator = animator;
@@ -30,14 +27,12 @@ namespace States
             this.ammoWorkerBrain = ammoWorkerBrain;
         }
 
-
-
-        #endregion
+        #endregion Constructor
 
         #region State
+
         public void OnEnter()
         {
-
             _agent.speed = _movementSpeed;
             _agent.SetDestination(_ammoWareHouse.position);
 
@@ -46,15 +41,12 @@ namespace States
 
         public void OnExit()
         {
-
         }
 
         public void Tick()
         {
-            
-        } 
-        #endregion
+        }
 
-
+        #endregion State
     }
 }

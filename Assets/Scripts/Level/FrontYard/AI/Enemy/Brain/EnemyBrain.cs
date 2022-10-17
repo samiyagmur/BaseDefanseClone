@@ -1,5 +1,3 @@
-using Abstraction;
-using State;
 using Enums;
 using StateBehavior;
 using System;
@@ -8,10 +6,12 @@ using UnityEngine.AI;
 using Random = UnityEngine.Random;
 using Controllers;
 using Data.ValueObject;
-using System.Collections.Generic;
 using Data.UnityObject;
+using AI.States;
+using Interfaces;
 
-namespace AIBrain
+
+namespace AIBrain.EnemyBrain
 {
     public class EnemyBrain : MonoBehaviour
     {
@@ -23,7 +23,7 @@ namespace AIBrain
         private Search _search;
         private Move _move;
         private Chase _chase;
-        private Attack _atack;
+        private Atack _atack;
         private Death _death;
         private BoombManager _moveToBomb;
         private Transform  _turretTarget;
@@ -95,7 +95,7 @@ namespace AIBrain
              _search = new Search(_animators, _navMeshAgents, this, _spawnPosition);
              _move = new Move(_animators, _navMeshAgents, this, _moveSpeed, _turretTarget);
              _chase = new Chase(_animators, _navMeshAgents, this, _chaseSpeed, _attackRange);
-             _atack = new Attack(_animators, _navMeshAgents, this, PlayerTarget, _attackRange);
+             _atack = new Atack(_animators, _navMeshAgents, this,_attackRange);
              _death = new Death(_animators, _navMeshAgents, this, _enemyTypes);
           //  _moveToBomb = new BoombManager(_navMeshAgents, _animators, this, _attackRange, _chaseSpeed);
 

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Enums;
-using Abstraction;
+using Interfaces;
+using UnityEngine;
 
 namespace Controllers
 {
@@ -11,11 +9,6 @@ namespace Controllers
     {
         public void ChangeGateState(GateState state) => MoveRoate((float)state);
 
-        public  void MoveRoate(float rotate) => transform.GetChild(0).transform.DORotate(new Vector3(rotate, 90, 0), 1f);
-
+        public void MoveRoate(float rotate) => transform.GetChild(0).transform.DORotate(new Vector3(rotate, 90, 0), 1f);
     }
-
-    
-
 }
-

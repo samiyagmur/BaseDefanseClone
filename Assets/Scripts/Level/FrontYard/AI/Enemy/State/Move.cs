@@ -1,16 +1,12 @@
-using Abstraction;
-using System.Collections;
-using System.Collections.Generic;
+using AIBrain;
+using AIBrain.EnemyBrain;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
-using AIBrain;
 
-
-namespace State
+namespace AI.States
 {
-
-
-    public class Move :IState
+    public class Move : IState
     {
         private Animator _animator;
 
@@ -31,9 +27,8 @@ namespace State
             _turretTransform = turretTransform;
         }
 
-        public  void OnEnter()
+        public void OnEnter()
         {
-
             _navMeshAgent.enabled = true;
             _navMeshAgent.speed = _movementSpeed;
             _animator.SetBool("Walk", _navMeshAgent.velocity.magnitude > 0.01f);
@@ -41,15 +36,14 @@ namespace State
             //_animator.SetFloat(Speed, 1f);
         }
 
-        public  void OnExit()
+        public void OnExit()
         {
-             //_navMeshAgent.enabled = false;
-             //_animator.SetFloat(Speed, 0f);
+            //_navMeshAgent.enabled = false;
+            //_animator.SetFloat(Speed, 0f);
         }
 
         public void Tick()
         {
-           
         }
     }
 }

@@ -1,19 +1,20 @@
-﻿using Abstraction;
-using Managers;
-using StateMachines;
+﻿using AIBrain.MineBrain;
+using Interfaces;
 using UnityEngine;
 
-namespace Boomb
+namespace AI.States
 {
     public class LureState : IState
     {
         private MineBrain _mineBrain;
         private float timer = 0;
         public bool IsTimerDone => timer >= _mineBrain.mineManager.LureTime;
+
         public LureState(MineBrain mineBrain)
         {
             _mineBrain = mineBrain;
         }
+
         public void Tick()
         {
             timer += Time.deltaTime;

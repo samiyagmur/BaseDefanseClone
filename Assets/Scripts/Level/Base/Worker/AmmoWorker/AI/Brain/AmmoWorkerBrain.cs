@@ -1,17 +1,18 @@
 using Abstraction;
+using AI.States;
 using Data.UnityObject;
 using Datas.ValueObject;
 using Enums;
+using Interfaces;
 using Managers;
 using StateBehavior;
-using States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AIBrain
+namespace AIBrain.AmmoWorkers
 {
     public class AmmoWorkerBrain : MonoBehaviour
     {

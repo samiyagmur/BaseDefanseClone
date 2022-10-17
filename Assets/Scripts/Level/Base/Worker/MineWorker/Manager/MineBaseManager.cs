@@ -4,6 +4,7 @@ using System.Linq;
 using AI.MinerAI;
 using Controllers;
 using Data.UnityObject;
+using Data.ValueObject;
 using Data.ValueObject.LevelData;
 using Data.ValueObjects;
 using DG.Tweening.Core;

@@ -1,8 +1,9 @@
-﻿using Abstraction;
+﻿using AIBrains.SoldierBrain;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AIBrains.SoldierBrain
+namespace AI.States
 {
     public class Idle : IState
     {
@@ -10,17 +11,19 @@ namespace AIBrains.SoldierBrain
         private Transform _tentPosition;
         private NavMeshAgent _navMeshAgent;
         private Animator _animator;
-        public Idle(SoldierAIBrain soldierAIBrain,Transform tentPosition, NavMeshAgent navMeshAgent,Animator animator)
+
+        public Idle(SoldierAIBrain soldierAIBrain, Transform tentPosition, NavMeshAgent navMeshAgent, Animator animator)
         {
             _soldierAIBrain = soldierAIBrain;
-            _tentPosition= tentPosition;
+            _tentPosition = tentPosition;
             _navMeshAgent = navMeshAgent;
             _animator = animator;
         }
+
         public void Tick()
         {
-           
         }
+
         private void GetTentSpawnPosition()
         {
             bool TentSpawnPosition(Vector3 center, out Vector3 result)
@@ -38,7 +41,7 @@ namespace AIBrains.SoldierBrain
                 result = Vector3.zero;
                 return false;
             }
-            if(!TentSpawnPosition(_tentPosition.position,out var point)) return;
+            if (!TentSpawnPosition(_tentPosition.position, out var point)) return;
             _navMeshAgent.Warp(point);
         }
 
@@ -50,7 +53,6 @@ namespace AIBrains.SoldierBrain
 
         public void OnExit()
         {
-            
         }
     }
 }

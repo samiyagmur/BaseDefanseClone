@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
 using Abstraction;
+using AIBrain.MoneyWorkers;
 
-namespace StateMachines.AIBrain.Workers.MoneyStates
+namespace AI.States
 {
     public class WaitOnGateState : IState
     {

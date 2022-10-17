@@ -1,6 +1,6 @@
 using System;
 
-namespace Data.ValueObjects.AiData
+namespace Data.ValueObjects
 {
     [Serializable]
     public class MineWorkerData

@@ -1,8 +1,6 @@
-﻿using Abstraction;
-using System.Collections;
-using UnityEngine;
+﻿using Interfaces;
 
-namespace States
+namespace AI.States
 {
     public class Create : IState
     {
@@ -13,12 +11,10 @@ namespace States
 
         public void OnExit()
         {
-            
         }
 
         public void Tick()
         {
-           
         }
     }
 }

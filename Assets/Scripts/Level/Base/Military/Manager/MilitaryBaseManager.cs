@@ -1,29 +1,22 @@
-﻿using System;
-using Signals;
-using System.Collections.Generic;
-using AIBrains.SoldierBrain;
-using Data.UnityObject;
-using Data.ValueObject.LevelData;
+﻿using AIBrains.SoldierBrain;
+using Data.ValueObject;
 using Enums;
 using Interfaces;
 using Signals;
 using Sirenix.OdinInspector;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
-using ValueObject.AIData;
-using System.Threading.Tasks;
-using System.Collections;
-using Data.ValueObject;
 
 namespace Managers
 {
-    public class MilitaryBaseManager : MonoBehaviour,IGetPoolObject
+    public class MilitaryBaseManager : MonoBehaviour, IGetPoolObject
     {
         #region Self Variables
 
-        #region Public Variables
 
-        #endregion
 
         #region Serialized Variables
 
@@ -38,7 +31,8 @@ namespace Managers
 
         [SerializeField]
         private GameObject slotZonePrefab;
-        #endregion
+
+        #endregion Serialized Variables
 
         #region Private Variables
 
@@ -52,18 +46,20 @@ namespace Managers
         private int _tentCapacity;
         private List<SoldierAIBrain> _soldierList = new List<SoldierAIBrain>();
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
 
         private void Awake()
         {
             _data = GetBaseData();
         }
+
         private MilitaryBaseData GetBaseData()
         {
             return InitializeDataSignals.Instance.onLoadMilitaryBaseData.Invoke();
         }
+
         public IEnumerator Start()
         {
             if (_data.CurrentSoldierAmount == 0)
@@ -73,11 +69,13 @@ namespace Managers
             yield return new WaitForSeconds(3f);
             StopCoroutine(soldierEnumerator());
         }
+
         private IEnumerator soldierEnumerator()
         {
             OnSoldiersInit(_data.CurrentSoldierAmount);
             yield return null;
         }
+
         private void OnSoldiersInit(int soldierCount)
         {
             for (var i = 0; i < soldierCount; i++)
@@ -87,6 +85,7 @@ namespace Managers
         }
 
         #region Event Subscription
+
         private void OnEnable()
         {
             SubscribeEvents();
@@ -97,17 +96,20 @@ namespace Managers
             AISignals.Instance.onSoldierActivation += OnSoldierActivation;
             AISignals.Instance.onSoldierAmountUpgrade += OnSoldierAmountUpgrade;
         }
+
         private void UnsubscribeEvents()
         {
             AISignals.Instance.onSoldierActivation -= OnSoldierActivation;
             AISignals.Instance.onSoldierAmountUpgrade -= OnSoldierAmountUpgrade;
         }
+
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
 
-        #endregion
+        #endregion Event Subscription
+
         private void OnSoldierActivation()
         {
             var soldierCount = _soldierList.Count - 1;
@@ -120,6 +122,7 @@ namespace Managers
             _isTentAvaliable = true;
             _data.CurrentSoldierAmount = 0;
         }
+
         private void GetSoldier()
         {
             var soldierAIPrefab = GetObject(PoolType.SoldierAI);
@@ -134,6 +137,7 @@ namespace Managers
             soldierBrain.TentPosition = tentTransfrom;
             soldierBrain.FrontYardStartPosition = frontYardPosition;
         }
+
         public void UpdateTotalAmount(int Amount)
         {
             if (!_isBaseAvaliable) return;
@@ -146,10 +150,12 @@ namespace Managers
                 _isBaseAvaliable = false;
             }
         }
+
         private void OnSoldierAmountUpgrade()
         {
             UpdateSoldierAmount();
         }
+
         [Button]
         private async void UpdateSoldierAmount()
         {
@@ -167,6 +173,7 @@ namespace Managers
                 _data.CurrentSoldierAmount = 0;
             }
         }
+
         public void GetStackPositions(List<Vector3> gridPositionData)
         {
             for (int i = 0; i < gridPositionData.Count; i++)
@@ -182,7 +189,8 @@ namespace Managers
         {
             return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
         }
-        #endregion
+
+        #endregion Pool Signals
 
         #region SaveSignals
 
@@ -191,14 +199,12 @@ namespace Managers
         {
             InitializeDataSignals.Instance.onSaveMilitaryBaseData.Invoke(_data);
         }
+
         private void OnApplicationQuit()
         {
             InitializeDataSignals.Instance.onSaveMilitaryBaseData.Invoke(_data);
         }
 
-
-        #endregion
-
+        #endregion SaveSignals
     }
 }
-

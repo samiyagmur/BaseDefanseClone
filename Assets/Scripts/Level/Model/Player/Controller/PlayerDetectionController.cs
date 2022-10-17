@@ -1,9 +1,9 @@
-﻿using Enums.GameStates;
+﻿using Enums;
 using Interfaces;
 using Managers;
 using UnityEngine;
 
-namespace Controllers.Player
+namespace Controllers
 {
     public class PlayerDetectionController : MonoBehaviour
     {

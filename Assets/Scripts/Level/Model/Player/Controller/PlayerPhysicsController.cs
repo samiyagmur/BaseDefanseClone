@@ -1,11 +1,7 @@
-﻿using Datas.ValueObject;
-using Interfaces;
-using Managers;
-using System.Collections;
+﻿using Managers;
 using UnityEngine;
 using Enums;
-using System;
-using Enums.GameStates;
+
 
 namespace Controllers
 {

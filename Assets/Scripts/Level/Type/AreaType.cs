@@ -1,4 +1,4 @@
-﻿namespace Enums.GameStates
+﻿namespace Enums
 {
     public enum AreaType
     {

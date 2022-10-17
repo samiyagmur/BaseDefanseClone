@@ -1,8 +1,3 @@
-using System;
-using Abstraction;
-using Interfaces;
-using Managers;
-using Signals;
 using UnityEngine;
 
 namespace Controllers
@@ -11,10 +6,11 @@ namespace Controllers
     {
         [SerializeField]
         private GemStackerController gemStackerController;
+
         [SerializeField] private Collider collider;
+
         private void OnTriggerEnter(Collider other)
         {
-           
             //if (other.CompareTag("Gem"))
             //{
             //    Debug.Log("OnTriggerEnter");
@@ -22,8 +18,6 @@ namespace Controllers
             //    {
             //        return;
             //    }
-              
-
 
             //    gemStackerController.GetStack(other.gameObject, other.transform);
             //}

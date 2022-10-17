@@ -5,7 +5,7 @@ using DG.Tweening;
 using Interfaces;
 using UnityEngine;
 
-namespace Controllers.Player
+namespace Controllers
 {
     // [RequireComponent(typeof(StackController))]
     public class MoneyStackerController : AStacker

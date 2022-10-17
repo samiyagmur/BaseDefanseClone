@@ -1,12 +1,13 @@
-﻿using Abstraction;
+﻿using AIBrains.SoldierBrain;
 using Controllers;
 using Enums;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AIBrains.SoldierBrain
+namespace AI.States
 {
-    public class Attack : IState
+    public class SoldiersAtack : IState
     {
         private SoldierAIBrain _soldierAIBrain;
         private NavMeshAgent _navMeshAgent;
@@ -17,12 +18,13 @@ namespace AIBrains.SoldierBrain
         private static readonly int _hasTarget = Animator.StringToHash("HasTarget");
         private BulletFireController _bulletFireController;
 
-        public Attack(SoldierAIBrain soldierAIBrain, NavMeshAgent navMeshAgent, Animator animator)
+        public SoldiersAtack(SoldierAIBrain soldierAIBrain, NavMeshAgent navMeshAgent, Animator animator)
         {
             _soldierAIBrain = soldierAIBrain;
             _navMeshAgent = navMeshAgent;
             _animator = animator;
         }
+
         public void Tick()
         {
             if (_soldierAIBrain.DamageableEnemy.IsDead)
@@ -40,6 +42,7 @@ namespace AIBrains.SoldierBrain
                 _fireRate = 0.4f;
             }
         }
+
         private void LookTarget()
         {
             _animator.SetFloat(_speed, _navMeshAgent.velocity.magnitude);
@@ -53,18 +56,20 @@ namespace AIBrains.SoldierBrain
             var slerpRotation = Quaternion.Slerp(_soldierAIBrain.transform.rotation, lookRotation, 3f * Time.deltaTime);
 
             _soldierAIBrain.transform.rotation = slerpRotation;
-
         }
+
         public void OnEnter()
         {
             _bulletFireController = new BulletFireController(WeaponTypes.PistolBullet);
             _navMeshAgent.speed = 1.801268E-05f;
             _animator.SetBool(_hasTarget, true);
         }
+
         public void OnExit()
         {
             _animator.SetBool(_hasTarget, false);
         }
+
         private void FireBullets()
         {
             _bulletFireController.FireBullets(_soldierAIBrain.WeaponHolder);
@@ -78,6 +83,7 @@ namespace AIBrains.SoldierBrain
             _soldierAIBrain.DamageableEnemy = _soldierAIBrain.enemyList[0];
             _soldierAIBrain.HasEnemyTarget = true;
         }
+
         private void EnemyTargetStatus()
         {
             if (_soldierAIBrain.enemyList.Count != 0)
@@ -89,6 +95,7 @@ namespace AIBrains.SoldierBrain
                 _soldierAIBrain.HasEnemyTarget = false;
             }
         }
+
         private void RemoveTarget()
         {
             if (_soldierAIBrain.enemyList.Count == 0) return;

@@ -1,10 +1,9 @@
-﻿using Abstraction;
+﻿using Interfaces;
 
-namespace AIBrains.SoldierBrain
+namespace AI.States
 {
     public class DetectTarget : IState
     {
-
         public void OnEnter()
         {
             throw new System.NotImplementedException();

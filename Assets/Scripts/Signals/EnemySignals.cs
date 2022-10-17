@@ -3,7 +3,7 @@ using UnityEngine;
 using Extentions;
 using UnityEngine.Events;
 
-namespace Assets.Scripts.Signals
+namespace Signals
 {
     public class EnemySignals : MonoSingleton<EnemySignals>
     {
