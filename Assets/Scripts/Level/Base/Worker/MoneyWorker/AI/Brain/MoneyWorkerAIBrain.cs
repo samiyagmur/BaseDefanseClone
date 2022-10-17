@@ -32,7 +32,7 @@ namespace StateMachines.AIBrain.Workers
 
         [BoxGroup("Serializable Variables")]
         [SerializeField]
-        private WorkerType workerType;
+        private WorkerSlotType workerType;
         [BoxGroup("Serializable Variables")]
         [SerializeField]
         private MoneyWorkerPhysicController moneyWorkerDetector;

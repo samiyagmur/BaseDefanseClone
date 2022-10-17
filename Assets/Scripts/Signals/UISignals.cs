@@ -17,8 +17,6 @@ namespace Signals
 
         public UnityAction<int> onChangeDiamond = delegate { };
 
-        public UnityAction<int> onChangeUpgradeAmount =delegate { };
-
         public UnityAction<ShopType> onGetShopTypeOnEnter = delegate { };
 
         public UnityAction<ShopType> onGetShopTypeOnExit = delegate { };

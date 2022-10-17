@@ -28,7 +28,7 @@ namespace Controllers
             
             if (CheckCanBuy(type, _currentMoney))
             {
-                SendCurrentMoney(_curretWeaponData[(int)type].WeaponPrice);
+                SendCurrentMoney(_curretWeaponData[(int)type].PurchasePrice);
 
                 return BuyWeapon(type);
             }
@@ -42,8 +42,6 @@ namespace Controllers
             if (CheckCanBuy(type, _currentMoney))
             {   
                 SendCurrentMoney(_curretWeaponData[(int)type].WeaponPrice);
-
-                //_curretWeaponData[(int)type].WeaponPrice += 100;
 
                 _curretWeaponData[(int)type].WeaponLevel++;
 

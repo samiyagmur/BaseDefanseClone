@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Abstraction.Abstracts;
+﻿using Abstraction;
 using System.Collections;
 using UnityEngine;
 

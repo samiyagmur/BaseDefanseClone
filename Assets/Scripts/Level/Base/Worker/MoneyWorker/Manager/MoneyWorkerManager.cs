@@ -56,7 +56,7 @@ namespace Managers
             UnsubscribeEvents();
         }
 
-        private WorkerAITypeData OnGetWorkerAIData(WorkerType type)
+        private WorkerAITypeData OnGetWorkerAIData(WorkerSlotType type)
         {
             return Resources.Load<CD_WorkerAI>("Data/CD_WorkerAI").WorkerAIData.WorkerAITypes[(int)type];
         }

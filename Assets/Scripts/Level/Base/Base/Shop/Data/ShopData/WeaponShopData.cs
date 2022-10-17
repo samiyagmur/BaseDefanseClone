@@ -9,7 +9,7 @@ namespace Datas.ValueObject
 {
     [Serializable]
     public class WeaponShopData 
-    {
+    {   
         [HorizontalGroup("Split")]
         [VerticalGroup("Split/Right")]
         [PreviewField(80)]
@@ -17,8 +17,13 @@ namespace Datas.ValueObject
 
         [VerticalGroup("Split/Left")]
         public string Name;
+
+        [VerticalGroup("Split/Left")]
+        public int PurchasePrice;
+
         [VerticalGroup("Split/Left")]
         public int WeaponPrice;
+
         [VerticalGroup("Split/Left")]
         public bool WeaponHasSold;
 

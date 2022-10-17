@@ -20,6 +20,11 @@ namespace Enums
         Orange,
         Red,
         BossEnemy,
-        
+        WeaponPanel,
+        NewWorkerFeturesSlot,
+        NewPlayerFeturesSlot,
+        NewSoldierrFeturesSlot
+
+
     } 
 }

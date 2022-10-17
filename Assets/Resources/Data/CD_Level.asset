@@ -62,61 +62,54 @@ MonoBehaviour:
     _weaponShopSlot:
     - Image: {fileID: 21300000, guid: 82f1fe144f4e8ca4d8c26dae8c4b3e66, type: 3}
       Name: PISTOL
+      PurchasePrice: 0
       WeaponPrice: 100
       WeaponHasSold: 1
-      WeaponLevel: 1
+      WeaponLevel: 0
     - Image: {fileID: 21300000, guid: 46bf3dc021db2ea4cae5a9082510e32e, type: 3}
       Name: SHOTGUN
+      PurchasePrice: 500
       WeaponPrice: 200
       WeaponHasSold: 0
-      WeaponLevel: 1
+      WeaponLevel: 0
     - Image: {fileID: 21300000, guid: 91b34fb1c292b304db633c4b26f36e9a, type: 3}
       Name: RIFFLE
+      PurchasePrice: 1000
       WeaponPrice: 300
       WeaponHasSold: 0
-      WeaponLevel: 1
+      WeaponLevel: 0
     - Image: {fileID: 21300000, guid: 1e974c49003084049ba6c67d094a2a22, type: 3}
       Name: MINIGUN
+      PurchasePrice: 2000
       WeaponPrice: 400
-      WeaponHasSold: 0
-      WeaponLevel: 1
-    - Image: {fileID: 21300000, guid: 82f1fe144f4e8ca4d8c26dae8c4b3e66, type: 3}
-      Name: hakan
-      WeaponPrice: 50
       WeaponHasSold: 0
       WeaponLevel: 0
     _workerShopSlot:
-    - Image: {fileID: 0}
-      Name: 
+    - Image: {fileID: 21300000, guid: f77f1350eb6d3ec48acc492438fd41e2, type: 3}
+      Name: Capasity
       UpgradePrice: 100
-      WeaponHasSold: 0
       UpgradeLevel: 1
-    - Image: {fileID: 0}
-      Name: 
+    - Image: {fileID: 21300000, guid: 23fcc158108ed7449a86c4481bda5e1e, type: 3}
+      Name: Speed
       UpgradePrice: 100
-      WeaponHasSold: 0
       UpgradeLevel: 1
     _playerShopSlot:
-    - Image: {fileID: 0}
-      Name: 
+    - Image: {fileID: 21300000, guid: f77f1350eb6d3ec48acc492438fd41e2, type: 3}
+      Name: Capasity
       UpgradePrice: 100
-      WeaponHasSold: 0
       UpgradeLevel: 1
-    - Image: {fileID: 0}
-      Name: 
+    - Image: {fileID: 21300000, guid: 23fcc158108ed7449a86c4481bda5e1e, type: 3}
+      Name: Speed
       UpgradePrice: 100
-      WeaponHasSold: 0
       UpgradeLevel: 1
-    - Image: {fileID: 0}
-      Name: 
+    - Image: {fileID: 21300000, guid: 8745ae07229e6ed4ba34c4fafa6720f6, type: 3}
+      Name: Healt
       UpgradePrice: 100
-      WeaponHasSold: 0
       UpgradeLevel: 1
     soldierShopData:
-    - Image: {fileID: 0}
-      Name: 
+    - Image: {fileID: 21300000, guid: ec5b4fedda423c84281cff009833a11f, type: 3}
+      Name: Damage
       UpgradePrice: 100
-      WeaponHasSold: 0
       UpgradeLevel: 1
   ScoreData:
     Money: 5000

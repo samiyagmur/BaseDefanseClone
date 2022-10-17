@@ -21,9 +21,6 @@ namespace Datas.ValueObject
         public int UpgradePrice;
 
         [VerticalGroup("Split/Left")]
-        public bool WeaponHasSold;
-
-        [VerticalGroup("Split/Left")]
         [ReadOnly]
         public int UpgradeLevel;
     }

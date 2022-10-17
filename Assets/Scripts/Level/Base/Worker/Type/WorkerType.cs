@@ -1,6 +1,6 @@
 namespace Enums
 {
-    public enum WorkerType
+    public enum WorkerSlotType
     {
         AmmoWorkerAI,
         MoneyWorkerAI,

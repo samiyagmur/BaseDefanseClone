@@ -50,7 +50,12 @@ namespace Managers
 
         private void OnLevelInitialize() => LoadScoreData();
 
-        private void LoadScoreData() => _scoreData = InitializeDataSignals.Instance.onLoadScoreData.Invoke();
+        private void LoadScoreData()
+        {
+            _scoreData = InitializeDataSignals.Instance.onLoadScoreData.Invoke();
+            UISignals.Instance.onChangeMoney?.Invoke(_scoreData.Diamond);
+            UISignals.Instance.onChangeDiamond?.Invoke(_scoreData.Money);
+        }
 
         private void OnUpdateGemScore(int gemValue)
         {

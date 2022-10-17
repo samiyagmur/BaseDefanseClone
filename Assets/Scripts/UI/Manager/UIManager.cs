@@ -8,52 +8,47 @@ using System;
 using System.Collections.Generic;
 using Datas.ValueObject;
 using Controller;
+using System.Threading.Tasks;
+using Interfaces;
 
 namespace Managers
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : MonoBehaviour,IGetPoolObject
     {
         #region Self Variables
 
         #region Serialized Variables
 
+    
+       
+
         [SerializeField]
-        private WeaponShopUI _weaponShopUI;
+        private Transform weponShopHolder;
         [SerializeField]
-        private Transform _weponShopHolder;
+        private Transform workerShopHolder;
+        [SerializeField]
+        private Transform playerShopHolder;
+        [SerializeField]
+        private Transform soldierShopHolder;
         [SerializeField]
         private UIPanelController uIPanelController;
         [SerializeField]
         private List<TextMeshProUGUI> levelPanelText;
-        [SerializeField]
-        private List<TextMeshProUGUI> weaponPriceText;
-        [SerializeField]
-        private List<TextMeshProUGUI> weaponLevelText;
-        [SerializeField]
-        private List<GameObject> buttonObject;
-        [SerializeField]
-        private List<GameObject> unlockButton;
-        [SerializeField]
-        private List<GameObject> selectButton;
-        [SerializeField]
-        private List<TextMeshProUGUI> workerPriceTexts;
-        [SerializeField]
-        private List<TextMeshProUGUI> workerLevelTexts;
-        [SerializeField]
-        private List<TextMeshProUGUI> playerPriceTexts;
-        [SerializeField]
-        private List<TextMeshProUGUI> playerLevelTexts;
-        [SerializeField]
-        private TextMeshProUGUI soldierPriceText;
 
-        [SerializeField]
-        private TextMeshProUGUI soldierLevelText;
 
         #endregion
 
         #region Private Variables
+
         private ShopData _shopdata;
-        private int _maxSlotCountInShops=4;
+
+        private WeaponShopUI weaponShopUI;
+
+        private WorkerSopUIController workerSopUIController;
+
+        private PlayerShopUIController playerShopUIController;
+
+        private SoldierShopUIController soldierShopUIController;
 
         #endregion
 
@@ -71,6 +66,8 @@ namespace Managers
 
         }
 
+      
+
         private void UnsubscribeEvents()
         {
             UISignals.Instance.onGetShopTypeOnEnter -= OnOpenUIPanel;
@@ -80,92 +77,103 @@ namespace Managers
             CoreGameSignals.Instance.onLevelInitialize -= OnLevelInitialize;
         }
 
+        private void OnDisable()
+        {
+
+            UnsubscribeEvents();
+        }
 
         private void OnLevelInitialize()
         {
             
             _shopdata = InitializeDataSignals.Instance.onLoadShopData?.Invoke();
-            LoadWeapon();
-        
+            
+
+            LoadWeaponSlot();
+
+            LoadWorkerSlot();
+
+            LoadPlayerSlot();
+
+            LoadSoldierSlot();
+
+
         }
 
-        internal void LoadWeapon()
+        internal  void LoadWeaponSlot()
         {
 
             for (int i = 0; i < _shopdata._weaponShopSlot.Count; i++)
             {
-                _weaponShopUI.SetToShopData(_shopdata._weaponShopSlot, this);
 
-                Instantiate(_weaponShopUI.gameObject, _weponShopHolder);
-                _weaponShopUI.SetWeaponType((WeaponTypes)i); 
+                weaponShopUI = GetObject(PoolType.WeaponPanel).GetComponent<WeaponShopUI>();
+
+                weaponShopUI.transform.SetParent(weponShopHolder);
+
+                weaponShopUI.SetWeaponType((WeaponTypes)i);
+
+                weaponShopUI.SetToShopData(_shopdata._weaponShopSlot,this);
+
+               
+
             }
 
         }
 
+        internal void LoadWorkerSlot()
+        {
 
+            for (int i = 0; i < _shopdata._workerShopSlot.Count; i++)
+            {
 
+                workerSopUIController = GetObject(PoolType.NewWorkerFeturesSlot).GetComponent<WorkerSopUIController>();
 
+                workerSopUIController.transform.SetParent(workerShopHolder);
 
+                workerSopUIController.SetWeaponType((WorkerUpgradeType)i);
 
+                workerSopUIController.SetToShopData(_shopdata._workerShopSlot, this);
 
+               
+            }
 
+        }
+        internal void LoadPlayerSlot()
+        {
 
+            for (int i = 0; i < _shopdata._playerShopSlot.Count; i++)
+            {
 
+                playerShopUIController = GetObject(PoolType.NewPlayerFeturesSlot).GetComponent<PlayerShopUIController>();
 
+                playerShopUIController.transform.SetParent(playerShopHolder);
 
+                playerShopUIController.SetWeaponType((PlayerUpgradeType)i);
 
+                playerShopUIController.SetToShopData(_shopdata._playerShopSlot, this);
 
+               
+            }
 
+        }
+        internal void LoadSoldierSlot()
+        {
 
+            for (int i = 0; i < _shopdata.soldierShopData.Count; i++)
+            {
 
+                soldierShopUIController = GetObject(PoolType.NewSoldierrFeturesSlot).GetComponent<SoldierShopUIController>();
 
+                soldierShopUIController.transform.SetParent(soldierShopHolder);
 
+                soldierShopUIController.SetWeaponType((SoldierUpgradeType)i);
 
+                soldierShopUIController.SetToShopData(_shopdata.soldierShopData, this);
 
+               
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //private void InitText()
-        //{   
-        //    for (int shopSlotCount = 0; shopSlotCount < _maxSlotCountInShops; shopSlotCount++)
-        //    {
-        //            weaponPriceText[shopSlotCount].text = _shopdata._weaponShopSlot[shopSlotCount].WeaponPrice.ToString();
-        //            weaponLevelText[shopSlotCount].text = "LEVEL " + _shopdata._weaponShopSlot[shopSlotCount].WeaponLevel.ToString();
-        //            buttonObject[shopSlotCount].SetActive(_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
-        //            selectButton[shopSlotCount].SetActive(_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
-        //            unlockButton[shopSlotCount].SetActive(!_shopdata._weaponShopSlot[shopSlotCount].WeaponHasSold);
-
-        //        if ((shopSlotCount < 3)){
-        //            playerPriceTexts[shopSlotCount].text = _shopdata._playerShopSlot[shopSlotCount].UpgradePrice.ToString();
-        //            playerLevelTexts[shopSlotCount].text = "LEVEL " + _shopdata._playerShopSlot[shopSlotCount].UpgradeLevel.ToString();
-
-        //        }
-
-        //        if ((shopSlotCount < 2)){
-        //            workerPriceTexts[shopSlotCount].text = _shopdata._workerShopSlot[shopSlotCount].UpgradePrice.ToString();
-        //            workerLevelTexts[shopSlotCount].text = "LEVEL " + _shopdata._workerShopSlot[shopSlotCount].UpgradeLevel.ToString(); 
-        //        }
-
-        //        if (shopSlotCount < 1) {
-
-        //            soldierPriceText.text = _shopdata.soldierShopData[shopSlotCount].UpgradePrice.ToString();
-        //            soldierLevelText.text = "LEVEL " + _shopdata.soldierShopData[shopSlotCount].UpgradeLevel.ToString();
-        //        }
-        //    }
-        //}
-
-        private void OnDisable() => UnsubscribeEvents();
+        }
 
         #region Button
         public void OnOpenUIPanel(ShopType panels) => 
@@ -175,8 +183,7 @@ namespace Managers
             uIPanelController.ClosePanel(panels);
 
         public void ChangeWeaponType(WeaponTypes weapontype) =>
-            UISignals.Instance.onChangeWeaponType?.Invoke(weapontype);//change weapon
-
+            UISignals.Instance.onChangeWeaponType?.Invoke(weapontype);
 
         private void OnChangeDiamond(int amount) => 
             levelPanelText[(int)LevelPanelTextType.diamond].text = amount.ToString();
@@ -187,59 +194,27 @@ namespace Managers
         public bool BuyWeapon(WeaponTypes weapontype) =>
             UISignals.Instance.onPressUnlockButton.Invoke(weapontype);
 
-
-        public WeaponShopData UpgradeWeapon(WeaponTypes weaponType) =>
+        public void UpgradeWeapon(WeaponTypes weaponType) =>
             UISignals.Instance.onPressUpgradeButton.Invoke(weaponType);
 
+        public void UpgradeWorkerButton(WorkerUpgradeType workerUpgradeType) => 
+            UISignals.Instance.onPressWorkersUpgradeButtons.Invoke(workerUpgradeType);
 
+        public void UpgradePlayerButton(PlayerUpgradeType playerUpgradeType) => 
+            UISignals.Instance.onPressPlayerUpgradeButtons.Invoke(playerUpgradeType);
 
+        public void UpgradeSoldierButton(SoldierUpgradeType soldierUpgradeType) => 
+            UISignals.Instance.onPressSoldierUpgradeButton.Invoke(soldierUpgradeType);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public void UpgradeWorkerButton(int workerButtonline)//workerType will Upgarde
-        {  
-            WorkerShopData workerShopData = UISignals.Instance.onPressWorkersUpgradeButtons.Invoke((WorkerUpgradeType)workerButtonline);
-
-            workerPriceTexts[workerButtonline].text = workerShopData.UpgradePrice.ToString();
-            workerLevelTexts[workerButtonline].text = "LEVEL " + workerShopData.UpgradeLevel.ToString();
-          
-        }
-
-
-        public void UpgradePlayerButton(int playerButtonline)//playerType will Upgarde
+        public GameObject GetObject(PoolType poolName)
         {
-            PlayerShopData playerShopData = UISignals.Instance.onPressPlayerUpgradeButtons.Invoke((PlayerUpgradeType)playerButtonline);
-
-            playerPriceTexts[playerButtonline].text = playerShopData.UpgradePrice.ToString();
-            playerLevelTexts[playerButtonline].text = "LEVEL " + playerShopData.UpgradeLevel.ToString();
-          
-        }
-
-        public void UpgradeSoldierButton(int soldierButtonLine)//soldierType will Upgarde
-        {
-            SoldierShopData soldierShopData= UISignals.Instance.onPressSoldierUpgradeButton.Invoke((SoldierUpgradeType)soldierButtonLine);
-
-            soldierPriceText.text = soldierShopData.UpgradePrice.ToString();
-            soldierLevelText.text = "LEVEL " + soldierShopData.UpgradeLevel.ToString();
-      
+            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
         }
         #endregion
 
         #endregion
 
-        
+
 
 
     }

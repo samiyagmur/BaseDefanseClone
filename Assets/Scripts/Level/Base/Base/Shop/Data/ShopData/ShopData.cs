@@ -21,7 +21,7 @@ namespace Datas.ValueObject
         [VerticalGroup("WeaponShop/Split/Left")]
         [Button("AddWeaponSlot")]
         private void AddNewWeapon()
-        {
+        {   
             _weaponShopSlot.Add(new WeaponShopData());
         }
 

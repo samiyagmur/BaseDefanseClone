@@ -1,17 +1,12 @@
-﻿using System.Collections;
+﻿using Concreate;
+using DG.Tweening;
+using Interfaces;
+using Signals;
+using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Abstraction
+namespace Abstracts
 {
-    using Concreate;
-    using DG.Tweening;
-    using global::Interfaces;
-    using global::Signals;
-    using Interfaces;
-    using UnityEngine;
-
-    namespace Abstracts
-    {
         public abstract class AStackable : MonoBehaviour, IStackable
         {
             public virtual bool IsSelected { get; set; }
@@ -42,5 +37,4 @@ namespace Assets.Scripts.Abstraction
                 DOVirtual.DelayedCall(0.1f, () => AISignals.Instance.onSetMoneyPosition?.Invoke(stackableMoney));
             }
         }
-    }
 }

@@ -10,7 +10,7 @@ namespace Signals
 {
     public class MoneyWorkerSignals : MonoSingleton<MoneyWorkerSignals>
     {
-        public Func<WorkerType, WorkerAITypeData> onGetMoneyAIData = delegate { return null; };
+        public Func<WorkerSlotType, WorkerAITypeData> onGetMoneyAIData = delegate { return null; };
         public UnityAction onSendMoneyPositionToWorkers = delegate { };
         public UnityAction<Transform> onSetMoneyPosition = delegate { };
         public UnityAction <Transform> onThisMoneyTaken = delegate { };
