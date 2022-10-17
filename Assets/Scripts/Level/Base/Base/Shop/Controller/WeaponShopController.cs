@@ -41,7 +41,9 @@ namespace Controllers
         {   
             if (CheckCanBuy(type, _currentMoney))
             {   
-                SendCurrentMoney(_curretWeaponData[(int)type].WeaponPrice);
+                SendCurrentMoney(_curretWeaponData[(int)type].UpgradePrice);
+
+                _curretWeaponData[(int)type].UpgradePrice+=100;
 
                 _curretWeaponData[(int)type].WeaponLevel++;
 
@@ -54,7 +56,7 @@ namespace Controllers
 
         private bool CheckCanBuy(WeaponTypes type, int _currentScore)
         {
-            if (_curretWeaponData[(int)type].WeaponPrice <= _currentScore)
+            if (_curretWeaponData[(int)type].UpgradePrice <= _currentScore)
             {   
                 return true;
             }

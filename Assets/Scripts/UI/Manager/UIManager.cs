@@ -191,7 +191,7 @@ namespace Managers
         private void OnChangeMoney(int amount) => 
             levelPanelText[(int)LevelPanelTextType.money].text = amount.ToString();
 
-        public bool BuyWeapon(WeaponTypes weapontype) =>
+        public void BuyWeapon(WeaponTypes weapontype) =>
             UISignals.Instance.onPressUnlockButton.Invoke(weapontype);
 
         public void UpgradeWeapon(WeaponTypes weaponType) =>

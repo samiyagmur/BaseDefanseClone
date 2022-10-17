@@ -21,7 +21,7 @@ namespace Controller
         [SerializeField]
         private TextMeshProUGUI key;
         [SerializeField]
-        private TextMeshProUGUI weaponPrice;
+        private TextMeshProUGUI upgradePrice;
         [SerializeField]
         private TextMeshProUGUI weaponLevel;
         [SerializeField]
@@ -64,18 +64,17 @@ namespace Controller
         private void InitWeapon()
         {
        
-            weaponPrice.text = _weaponShopSlot.WeaponPrice.ToString();
+            upgradePrice.text = _weaponShopSlot.UpgradePrice.ToString();
             weaponLevel.text = "LEVEL " + _weaponShopSlot.WeaponLevel.ToString();
             key.text = _weaponShopSlot.Name.ToUpper();
             gameObject.name = _weaponShopSlot.Name;
             image.sprite = _weaponShopSlot.Image;
             purchasePrice.text=_weaponShopSlot.PurchasePrice.ToString();
-            _isActive = _weaponShopSlot.WeaponHasSold;
+ 
 
-            Debug.Log(_isActive);
-
-            buyWeaponButton.gameObject.SetActive(!_isActive);
-            selectWeaponType.gameObject.SetActive(_isActive);
+            buyWeaponButton.gameObject.SetActive(!_weaponShopSlot.WeaponHasSold);
+            selectWeaponType.gameObject.SetActive(_weaponShopSlot.WeaponHasSold);
+            upgradeWeaponButton.gameObject.SetActive(_weaponShopSlot.WeaponHasSold);
         }
 
 
@@ -86,19 +85,16 @@ namespace Controller
 
         private void BuyWeaponButton()
         {
-            _isActive = _uIManager.BuyWeapon(weaponType);
-            selectWeaponType.gameObject.SetActive(_isActive);
-            buyWeaponButton.gameObject.SetActive(_isActive);
+            _uIManager.BuyWeapon(weaponType);
 
+            InitWeapon();
         }
 
         private void UpgradeWeaponButton()
         {
-
             _uIManager.UpgradeWeapon(weaponType);
 
-            weaponPrice.text = _weaponShopSlot.WeaponPrice.ToString();
-            weaponLevel.text = "LEVEL " + _weaponShopSlot.WeaponLevel.ToString();
+            InitWeapon();
         }
 
         public void SetWeaponType(WeaponTypes weaponTypes)

@@ -22,7 +22,7 @@ namespace Datas.ValueObject
         public int PurchasePrice;
 
         [VerticalGroup("Split/Left")]
-        public int WeaponPrice;
+        public int UpgradePrice;
 
         [VerticalGroup("Split/Left")]
         public bool WeaponHasSold;

@@ -97,7 +97,7 @@ MonoBehaviour:
   image: {fileID: 7945548201282527617}
   purchasePrice: {fileID: 7945548199885170534}
   key: {fileID: 7945548200815522708}
-  weaponPrice: {fileID: 7945548200841114141}
+  upgradePrice: {fileID: 7945548200841114141}
   weaponLevel: {fileID: 7945548200921024204}
   selectWeaponType: {fileID: 7945548200344201454}
   buyWeaponButton: {fileID: 7945548199810250632}
