@@ -44,7 +44,7 @@ namespace Managers
 
         private TurretMovementController _chosenMovementController;
 
-        private int ammoCount = 0;
+        private int firedToBulletAmount = 0;
 
         private TurretKey currentTurretKey;
 
@@ -130,12 +130,13 @@ namespace Managers
                     {
                         _timer = 0.5f;
 
-                        ammoCount++;
-                        if (ammoCount==4)
+                        firedToBulletAmount++;
+
+                        if (firedToBulletAmount==4)
                         {
                             currentBullet = AmmoManagerSignals.Instance.onGetAmmoToFire(currentTurretKey);
 
-                            ammoCount=0;
+                            firedToBulletAmount=0;
                         }
 
 

@@ -16,15 +16,13 @@ namespace Controllers
         private List<GameObject> _ammoWorkerStackList;
         [SerializeField]
         private List<GameObject> _turretContayner=new List<GameObject>();
-        public int _currentCount=0;
+
+        private int _currentCount=0;
         private int _count =0;
 
         private Sequence _ammoStackingMovement;
         private float _timer;
-        private void Start()
-        {
-           AmmoManagerSignals.Instance.onSetTurretStackList.Invoke(this);
-        }
+
         public  void AddStack(List<Vector3> gridPosList, List<GameObject> ammoWorkerStackList)
         {
              ammoWorkerStackList.Reverse();

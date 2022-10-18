@@ -21,11 +21,11 @@ namespace Managers
         private CD_AIData cD_AIData;
 
         private int counter;
-
+        private TurretKey turretKey;
         private AmmoWorkerAIData _ammoWorkerAIData;
 
         TurretStackGridController turretStackGridController;
-
+       
         [SerializeField]
         List<TurretStackController> turretStackController=new List<TurretStackController>();
         [SerializeField]
@@ -55,24 +55,22 @@ namespace Managers
         private void SubscribeEvents()
         {
             AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea += OnPlayerEnterAmmoWorkerCreaterArea;
-            AmmoManagerSignals.Instance.onSetTurretStackList += OnSetTurretStackList;
             AmmoManagerSignals.Instance.onSetAmmoStackStatus += OnSetAmmoStackStatus;
-          //  AmmoManagerSignals.Instance.onGetAmmoToFire -= OnGetAmmoToFire;
+            AmmoManagerSignals.Instance.onGetAmmoToFire -= OnGetAmmoToFire;
 
         }
 
         private void UnsubscribeEvents()
         {
             AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea -= OnPlayerEnterAmmoWorkerCreaterArea;
-            AmmoManagerSignals.Instance.onSetTurretStackList -= OnSetTurretStackList;
             AmmoManagerSignals.Instance.onSetAmmoStackStatus -= OnSetAmmoStackStatus;
-           // AmmoManagerSignals.Instance.onGetAmmoToFire -= OnGetAmmoToFire;
+            AmmoManagerSignals.Instance.onGetAmmoToFire -= OnGetAmmoToFire;
         }
 
-        //private GameObject OnGetAmmoToFire(TurretKey arg)
-        //{
-            
-        //}
+        private GameObject OnGetAmmoToFire(TurretKey arg)
+        {
+            return null;
+        }
 
         private void OnDisable() => UnsubscribeEvents();
 
@@ -90,14 +88,11 @@ namespace Managers
             }
         }
 
-        private void OnSetTurretStackList(TurretStackController stackController)
-        {
-            _turretStackControllerHolder.Add(stackController);
-        }
         internal void GiveTargetInAmmoWareHouse(AmmoWorkerBrain ammoWorkerBrain)
         {   
-            turretStackController = _turretStackControllerHolder;
+            //turretStackController = turretStackController[];//debam
             
+
 
             if (selectTargetList.Count == 0)
             {   
