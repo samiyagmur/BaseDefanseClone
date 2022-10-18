@@ -1,5 +1,6 @@
 ﻿using AIBrain;
 using AIBrain.EnemyBrain;
+using Assinger;
 using Managers;
 using System.Collections;
 using UnityEngine;
@@ -10,15 +11,18 @@ namespace Controllers
     {
         [SerializeField]
         private TurretManager _turretManager;
+        [SerializeField]
+        private TurretKeyAssinger turretKeyAssinger;
         private float _timer=0.5f;
         
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(typeof(EnemyBrain), out Component enemy))
             {
-                _turretManager.IsEnemyEnterTurretRange(enemy.gameObject, transform.parent.gameObject);
+                
+                _turretManager.IsEnemyEnterTurretRange(enemy.gameObject);
 
-                _turretManager.IsSelectCurrentTurret(transform.parent.gameObject);
+                _turretManager.IsSelectCurrentTurret(turretKeyAssinger.TurretKey);
             }
         }
 
@@ -26,7 +30,7 @@ namespace Controllers
         {
             if (other.TryGetComponent(typeof(EnemyBrain), out Component enemy))
             {
-                _turretManager.IsEnemyExitTurretRange(transform.parent.gameObject);
+                _turretManager.IsEnemyExitTurretRange();
             }
         }
 

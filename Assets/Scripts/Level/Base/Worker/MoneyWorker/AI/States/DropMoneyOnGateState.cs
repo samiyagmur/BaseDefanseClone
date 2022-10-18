@@ -1,19 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
-using Abstraction;
 
-namespace AI.States
+namespace StateMachines.AIBrain.Workers.MoneyStates
 {
     public class DropMoneyOnGateState : IState
     {
         private readonly NavMeshAgent _navmeshAgent;
         private readonly Animator _animator;
-        private readonly Transform _startPos;
+        private readonly Vector3 _startPos;
         private static readonly int Speed = Animator.StringToHash("Speed");
-        public DropMoneyOnGateState(NavMeshAgent navMeshAgent, Animator animator, ref Transform startPos)
+        public DropMoneyOnGateState(NavMeshAgent navMeshAgent, Animator animator, Vector3 startPos)
         {
             _navmeshAgent = navMeshAgent;
             _animator = animator;
@@ -21,13 +18,14 @@ namespace AI.States
         }
         public void OnEnter()
         {
-            _navmeshAgent.SetDestination(_startPos.position);
+            Debug.Log("OnEnter: " + _startPos);
+            _navmeshAgent.SetDestination(_startPos);
 
         }
 
         public void OnExit()
         {
-            
+
         }
 
         public void Tick()
@@ -36,3 +34,4 @@ namespace AI.States
         }
     }
 }
+

@@ -24,26 +24,14 @@ namespace Managers
 
         #region Public Variables
 
-
-
         #endregion
 
         #region Serialized Variables
 
-        [SerializeField] private TextMeshPro gemWorkerText;
-        [SerializeField] private MineBaseTextController mineBaseTextController;
-
-
-
-        #endregion
-
-        #region Private Variables
-
-        private int _currentLevel; //LevelManager uzerinden cekilecek
-        private int _currentWorkerAmount;
-        private int _maxWorkerAmount;
-        private Dictionary<MinerAIBrain, GameObject> _mineWorkers = new Dictionary<MinerAIBrain, GameObject>();
-        private MineBaseData _mineBaseData;
+        [SerializeField] 
+        private TextMeshPro gemWorkerText;
+        [SerializeField] 
+        private MineBaseTextController mineBaseTextController;
         [SerializeField]
         private List<Transform> mineLocations;//Cd_obkjeyegidecek.
         [SerializeField]
@@ -57,6 +45,18 @@ namespace Managers
 
         #endregion
 
+        #region Private Variables
+
+        private int _currentLevel; //LevelManager uzerinden cekilecek
+        private int _currentWorkerAmount;
+        private int _maxWorkerAmount;
+        private Dictionary<MinerAIBrain, GameObject> _mineWorkers = new Dictionary<MinerAIBrain, GameObject>();
+        private MineBaseData _mineBaseData;
+        
+
+
+        #endregion
+
         #endregion
         private void Awake()
         {
@@ -64,6 +64,21 @@ namespace Managers
             AssignDataValues();
 
         }
+
+        private void Start()
+        {
+            InstantiateAllMiners();
+            UpdateMinerText();
+            AssignMinerValuesToDictionary();
+        }
+
+        private void AssignDataValues()
+        {
+            _currentWorkerAmount = _mineBaseData.CurrentWorkerAmount;
+            _maxWorkerAmount = _mineBaseData.MaxWorkerAmount;
+        }
+
+
 
         #region Event Subscription
 
@@ -85,6 +100,8 @@ namespace Managers
         }
         private void OnDisable() => UnSubscribeEvents();
 
+        #endregion
+
 
         private void OnNewMineWorkerAdd(MinerAIBrain minerBrainAi)
         {
@@ -94,19 +111,10 @@ namespace Managers
             //InitializeDataSignals.Instance.onSaveMineBaseData()
         }
 
+
         private Transform OnGetGemHolderPos()
         {
             return gemHolderPosition;
-        }
-
-        #endregion
-
-
-        private void Start()
-        {
-            InstantiateAllMiners();
-            UpdateMinerText();
-            AssignMinerValuesToDictionary();
         }
 
 
@@ -134,13 +142,6 @@ namespace Managers
             }
 
         }
-
-        private void AssignDataValues()
-        {
-            _currentWorkerAmount = _mineBaseData.CurrentWorkerAmount;
-            _maxWorkerAmount = _mineBaseData.MaxWorkerAmount;
-        }
-
 
         public Tuple<Transform, GemMineType> GetRandomMineTarget()
         {

@@ -20,10 +20,10 @@ namespace Controllers
         [SerializeField]
         private TurretManager _turretManager;
 
-
-
         public void SetInputParams(HorizontalInputParams input)//it can be turn on interface
         {
+           
+
             if (_status == TurretStatus.OutPlace) return;
 
             _horizontalInput = input.MovementVector.x;
@@ -49,11 +49,12 @@ namespace Controllers
             if (_movementDirection == Vector3.zero) return;
             Quaternion _toRotation = Quaternion.LookRotation(_movementDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, _toRotation, _moveSpeed);
-            //Debug.DrawRay(transform.position, transform.forward*15f, Color.red, 0.1f);
+
         }
        
         public void TurretActivationWithPlayer(TurretStatus status)
         {
+            Debug.Log(_status);
             _status = status;
 
         }

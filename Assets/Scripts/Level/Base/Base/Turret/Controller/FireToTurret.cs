@@ -9,15 +9,17 @@ using System.Threading.Tasks;
 
 namespace Controllers
 {
-    public class FireToTurret : MonoBehaviour,IReleasePoolObject, IGetPoolObject
+    public class FireToTurret : MonoBehaviour,IReleasePoolObject
     {
         [SerializeField]
         private float _rockedSpeed;
         private GameObject _rocked;
 
-        internal  void FireToRocked()
+        bool IsRockedAlive;
+
+        internal async void FireToRocked(GameObject rocked)
         {
-            _rocked = GetObject(PoolType.TurretRocket);//RockedHolder
+            IsRockedAlive = _rocked != null;
 
             Rigidbody _rigidbody = _rocked.GetComponent<Rigidbody>();
 
@@ -25,16 +27,15 @@ namespace Controllers
             _rocked.transform.rotation = transform.rotation;
 
             _rigidbody.AddForce(transform.forward * 20, ForceMode.VelocityChange);
+
+            if (IsRockedAlive)
+            {
+                await Task.Delay(5000);
+                ReleaseObject(_rocked,PoolType.TurretRocket);
+            }
             //poola gidecek
-
-            //ammoStackten cekecek
         }
 
-        public GameObject GetObject(PoolType poolName)
-        {
-            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
-
-        }
         public void ReleaseObject(GameObject rocked, PoolType poolName)
         {
             PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolName, rocked);

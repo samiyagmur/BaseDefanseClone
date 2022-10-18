@@ -17,5 +17,8 @@ namespace Interfaces
         void PlayAnimation();
 
         GameObject SendToStack();
+
+        bool IsSelected { get; set; }
+        bool IsCollected { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace Controllers
         private void OnTriggerEnter(Collider other)
         {
             
-            if (other.TryGetComponent(typeof(ObstaclePhysicsController), out Component obstaclePhysicsObject))
+            if (other.TryGetComponent(out ObstaclePhysicsController obstaclePhysicsObject))
             {
                 GateEnter(other);
             }
@@ -57,13 +57,11 @@ namespace Controllers
             {
                 playerManager.SetTurretAnim(true);
             }
-
-
-            }
+        }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(typeof(ObstaclePhysicsController), out Component obstaclePhysicsObject))
+            if (other.TryGetComponent(out ObstaclePhysicsController obstaclePhysicsObject))
             {
                 GateExit(other);
             }

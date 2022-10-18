@@ -20,22 +20,38 @@ namespace Managers
         #region Self Variables
         #region SerializeField Variables
 
+        [SerializeField]
+        private List<TurretOtoAtackController> _allOtoAtackTurrets;
+
+        [SerializeField]
+        private List<TurretShootController> _allShootControllers;
+
+        [SerializeField]
+        private List<TurretMovementController> _allTurretMovementControllers;
+
+        [SerializeField]
+        private List<FireToTurret> _allReadyToFire;
+
         #endregion
 
         #region Private Variables
+
         private TurretOtoAtackController _chosenAtackTurret;
 
         private TurretShootController _chosenShootController;
 
         private FireToTurret _readyToAtack;
 
-        private TurretOtoAtackController _chosenTurretList;
-        private TurretOtoAtackController _chosenRemoveTurretList;
         private TurretMovementController _chosenMovementController;
-        private List<TurretMovementController> _allTurretMovementController;
 
-        TurretStatus turretStatus;
+        private int ammoCount = 0;
 
+        private TurretKey currentTurretKey;
+
+        private GameObject currentBullet;
+
+
+        private TurretStatus turretStatus;
         #endregion
 
         #endregion
@@ -49,7 +65,8 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            InputSignals.Instance.onInputDragged += OnGetInputValues;
+           
+           InputSignals.Instance.onInputDragged += OnGetInputValues;
             TurretSignals.Instance.onPressTurretButton += OnPressTurretButton;
            // TurretSignals.Instance.onDieEnemy += OnDeadEnemy;
          
@@ -57,12 +74,13 @@ namespace Managers
 
         private void UnsubscribeEvents()
         {
+           
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
             TurretSignals.Instance.onPressTurretButton -= OnPressTurretButton;
           //  TurretSignals.Instance.onDieEnemy -= OnDeadEnemy;
 
-
         }
+
 
         private void OnDisable() => UnsubscribeEvents();
 
@@ -84,20 +102,23 @@ namespace Managers
         #region BotController
         private float _timer = 0.5f;
 
-        internal void IsSelectCurrentTurret(GameObject gameObject)
+        internal void IsSelectCurrentTurret(TurretKey turretKey)
         {
-            _chosenAtackTurret = gameObject.GetComponentInChildren<TurretOtoAtackController>();
+            _chosenAtackTurret = _allOtoAtackTurrets[(int)turretKey];
 
-            _chosenShootController = gameObject.GetComponentInChildren<TurretShootController>();
+            _chosenShootController = _allShootControllers[(int)turretKey];
 
-            _readyToAtack = gameObject.GetComponentInChildren<FireToTurret>();
+            _readyToAtack = _allReadyToFire[(int)turretKey];
+
+
         }
 
         private void FixedUpdate() => IsAttackToEnemy();
 
         internal  void IsAttackToEnemy()
         {
-            if (_chosenAtackTurret!=null|| turretStatus == TurretStatus.Inplace)
+          
+            if (_chosenAtackTurret!=null)
             {
                 if (_chosenAtackTurret.GetTargetList().Count!=0|| turretStatus == TurretStatus.Inplace)
                 {
@@ -109,7 +130,16 @@ namespace Managers
                     {
                         _timer = 0.5f;
 
-                        _readyToAtack.FireToRocked();
+                        ammoCount++;
+                        if (ammoCount==4)
+                        {
+                            currentBullet = AmmoManagerSignals.Instance.onGetAmmoToFire(currentTurretKey);
+
+                            ammoCount=0;
+                        }
+
+
+                        _readyToAtack.FireToRocked(currentBullet);
                     }
                     if (turretStatus == TurretStatus.Inplace) return;
 
@@ -126,20 +156,15 @@ namespace Managers
             _chosenAtackTurret.FollowToEnemy();
         }
 
-        public  void IsEnemyEnterTurretRange(GameObject enemy, GameObject gameObject)
+        public  void IsEnemyEnterTurretRange(GameObject enemy)
         {
-            _chosenTurretList = gameObject.GetComponentInChildren<TurretOtoAtackController>();
 
-            _chosenTurretList.AddDeathList(enemy);
+            _chosenAtackTurret.AddDeathList(enemy);
         }
 
-        public void IsEnemyExitTurretRange(GameObject gameObject)
+        public void IsEnemyExitTurretRange()
         {
-            _chosenRemoveTurretList = gameObject.GetComponentInChildren<TurretOtoAtackController>();
-
-            _chosenShootController = gameObject.GetComponentInChildren<TurretShootController>();
-
-            _chosenRemoveTurretList.RemoveDeathList();
+            _chosenAtackTurret.RemoveDeathList();
 
             _chosenShootController.DeactiveGattaling();
         }
@@ -148,36 +173,33 @@ namespace Managers
         #region PlayerController
         private void OnGetInputValues(HorizontalInputParams value)
         {
-            _allTurretMovementController = GetComponentsInChildren<TurretMovementController>().ToList();
-
-            foreach (var item in _allTurretMovementController)
-                         item.SetInputParams(value);    
+            _chosenMovementController.SetInputParams(value);
         }
 
-        public void IsEnterUser(GameObject gameObject)
+        public void IsEnterUser(TurretKey turretKey)
         {
-            _chosenMovementController = gameObject.GetComponentInChildren<TurretMovementController>();
+            _chosenMovementController = _allTurretMovementControllers[(int)turretKey];
 
             _chosenMovementController.TurretActivationWithPlayer(TurretStatus.Inplace);
+            
+            IsSelectCurrentTurret(turretKey);
 
-            IsSelectCurrentTurret(gameObject);
-
-            turretStatus = TurretStatus.Inplace;
+            turretStatus = TurretStatus.Inplace; 
         }
 
-        public void IsExitUser(GameObject gameObject)
+        public void IsExitUser()
         {
-            _chosenMovementController = gameObject.GetComponentInChildren<TurretMovementController>();
-
             _chosenMovementController.TurretActivationWithPlayer(TurretStatus.OutPlace);
 
             turretStatus = TurretStatus.OutPlace;
         }
 
+
+
         #endregion
 
 
 
-        
+
     }
 }

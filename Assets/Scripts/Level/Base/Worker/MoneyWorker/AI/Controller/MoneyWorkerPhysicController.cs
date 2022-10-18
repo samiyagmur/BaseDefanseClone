@@ -21,19 +21,23 @@ namespace Controllers
             {
                 if (moneyWorkerBrain.IsAvailable())
                 {
-                    MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke(other.transform);
+                    stackable.IsCollected = true;
+                    MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke();
                     moneyStackerController.SetStackHolder(stackable.SendToStack().transform);
                     moneyStackerController.GetStack(other.gameObject);
                     moneyWorkerBrain.SetCurrentStock();
                     //other'a layer deðiþtirme yapýlabilir
                 }
             }
+
+
             if (other.CompareTag("Gate"))
             {
                 Debug.Log("Zort Gate");
                 moneyStackerController.OnRemoveAllStack();
                 moneyWorkerBrain.RemoveAllStock();
             }
+
         }
     } 
 }

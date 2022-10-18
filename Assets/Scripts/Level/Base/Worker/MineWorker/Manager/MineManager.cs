@@ -47,10 +47,6 @@ namespace Managers
         }
 
         //private BombData GetMineData()=>Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0].FrontyardData.Bomb[0];
-        public void ShowGemAmountText()
-        {
-
-        }
 
         public void LureColliderState(bool _state)
         {

@@ -10,7 +10,7 @@ namespace Controllers
        
         private void OnTriggerEnter(Collider other)
         {
-         
+           
         }
 
     }

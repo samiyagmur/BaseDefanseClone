@@ -1,4 +1,6 @@
 ﻿using AIBrain;
+using Assinger;
+using Enums;
 using Interfaces;
 using Managers;
 using System.Collections;
@@ -11,24 +13,25 @@ namespace Controllers
         
         [SerializeField]
         private TurretManager _turretManager;
+        [SerializeField]
+        private TurretKeyAssinger turretKeyAssinger;
 
-        
-      
+
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(typeof(PlayerPhysicsController), out Component getterGameObject))
+            if (other.TryGetComponent(out PlayerPhysicsController getterGameObject))
             {
-                _turretManager.IsEnterUser(transform.parent.gameObject);
+                
+                _turretManager.IsEnterUser(turretKeyAssinger.TurretKey);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(typeof(PlayerPhysicsController), out Component getterGameObject))
+            if (other.TryGetComponent(out PlayerPhysicsController getterGameObject))
             {
-                _turretManager.IsExitUser(transform.parent.gameObject);
+                _turretManager.IsExitUser();
             }
-            
         }
 
 

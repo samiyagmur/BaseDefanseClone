@@ -8,15 +8,17 @@ namespace Data.ValueObject
     [Serializable]
     public class WorkerAITypeData
     {
-        public WorkerSlotType WorkerType;
-        [HideIf("WorkerType", WorkerSlotType.SoldierAI)]
+        public WorkerType WorkerType;
+        [HideIf("WorkerType", WorkerType.SoldierAI)]
         public int CapacityOrDamage;
-        [HideIf("WorkerType", WorkerSlotType.SoldierAI)]
+        [HideIf("WorkerType", WorkerType.SoldierAI)]
         public float Speed;
-        [HideIf("WorkerType", WorkerSlotType.SoldierAI)]
-        public Transform StartTarget;
+        [HideIf("WorkerType", WorkerType.SoldierAI)]
+        public int MaxWorkerAmount;
+        [HideIf("WorkerType", WorkerType.SoldierAI)]
+        public float MaxSpeed;
 
-        [ShowIf("WorkerType", WorkerSlotType.SoldierAI)]
+        [ShowIf("WorkerType", WorkerType.SoldierAI)]
         public SoldierAIData SoldierAIData;
     }
 
