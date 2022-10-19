@@ -1,75 +1,79 @@
-﻿using Abstraction;
-using AIBrain;
-using AIBrain.EnemyBrain;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Enums;
 using Interfaces;
 using Signals;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-namespace AI.States
+namespace AIBrains.EnemyBrain
 {
-    public class Death : IState, IReleasePoolObject,IGetPoolObject
+    public class Death : IState, IGetPoolObject, IReleasePoolObject
     {
-        private Animator _animator;
+        #region Self Variables
 
-        private NavMeshAgent _navMeshAgent;
+        #region Public Variables
 
-        private EnemyBrain _enemyBrain;
+        #endregion
 
+        #region Serialized Variables,
+
+        #endregion
+
+        #region Private Variables
+
+        private readonly NavMeshAgent _navMeshAgent;
+        private readonly Animator _animator;
+        private EnemyAIBrain _enemyAIBrain;
         private EnemyType _enemyType;
+        private static readonly int Die = Animator.StringToHash("Die");
 
-        public Death(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, EnemyType enemyType)
+        #endregion
+
+        #endregion
+        public Death(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain enemyAIBrain, EnemyType enemyType)
         {
-            _animator = animator;
             _navMeshAgent = navMeshAgent;
-            _enemyBrain = enemyBrain;
+            _animator = animator;
+            _enemyAIBrain = enemyAIBrain;
             _enemyType = enemyType;
         }
-        private void EnemyDoDead(PoolType type)
+        public void Tick()
         {
-            DOVirtual.DelayedCall(1f, () =>
+
+        }
+        public void OnEnter()
+        {
+            EnemyDead();
+            _navMeshAgent.enabled = false;
+            _animator.SetTrigger(Die);
+            for (int i = 0; i < 3; i++)
             {
-                _enemyBrain.transform.DOMoveY(-3f, 1f).OnComplete(() => ReleaseObject(_enemyBrain.gameObject, type));
-            });
+                var createObj = GetObject(PoolType.Money);
+                createObj.transform.position = _enemyAIBrain.transform.position + new Vector3(0, 3, 0);
+            }
+        }
+        public void OnExit()
+        {
+
         }
 
-        public GameObject GetObject(PoolType poolName)
+        private void EnemyDead()
         {
-            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
+            var poolType = (PoolType)System.Enum.Parse(typeof(PoolType), _enemyType.ToString());
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                _enemyAIBrain.transform.DOMoveY(-3f, 1f).OnComplete(() => ReleaseObject(_enemyAIBrain.gameObject, poolType));
+            });
+            AISignals.Instance.onReleaseObjectUpdate?.Invoke(_enemyAIBrain.gameObject);
         }
+
         public void ReleaseObject(GameObject obj, PoolType poolName)
         {
             PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolName, obj);
         }
-        public  void OnEnter()
+        public GameObject GetObject(PoolType poolName)
         {
-
-            var poolType = (PoolType)System.Enum.Parse(typeof(PoolType), _enemyType.ToString());
-            _navMeshAgent.enabled = false;
-            _animator.SetTrigger("Die");
-            EnemyDoDead(poolType);
-            for (int i = 0; i < 3; i++)
-            {
-                
-                var creatableObj = GetObject(PoolType.Money);
-                Debug.Log(creatableObj.name);
-                creatableObj.transform.position = _enemyBrain.transform.position+new Vector3(0,5,0);   
-            }
-
-        }
-
-  
-        public void Tick()
-        {
-          
-        }
-
-        public void OnExit()
-        {
-            
+            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
         }
     }
 }

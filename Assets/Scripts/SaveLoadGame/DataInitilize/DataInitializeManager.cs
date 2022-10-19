@@ -54,8 +54,11 @@ namespace Managers
             _levelID = _cdLevel.LevelId;
             levelDatas = _cdLevel.LevelDatas;
             _shopData = _cdLevel.ShopData;
-            _scoreData = _cdLevel.ScoreData;
-    
+            _scoreData = _cdLevel.ScoreData; 
+            
+
+
+
 
         }
         private void Start()
@@ -101,7 +104,7 @@ namespace Managers
             _shopData = cdLevel.ShopData;
             _scoreData = cdLevel.ScoreData;
 
-           // Debug.Log(_shopData._weaponShopSlot[0].WeaponLevel);
+           
         }
 
 

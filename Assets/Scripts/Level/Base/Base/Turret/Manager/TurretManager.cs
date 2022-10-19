@@ -174,7 +174,7 @@ namespace Managers
         #region PlayerController
         private void OnGetInputValues(HorizontalInputParams value)
         {
-            _chosenMovementController.SetInputParams(value);
+            //_chosenMovementController.SetInputParams(value);
         }
 
         public void IsEnterUser(TurretKey turretKey)

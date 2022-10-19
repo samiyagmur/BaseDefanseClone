@@ -15,7 +15,31 @@ MonoBehaviour:
   LevelDatas:
   - BaseData:
       BaseRoomData:
-        Rooms: []
+        Rooms:
+        - RoomTypes: 0
+          SideBaseAvaliableStatus: 0
+          TurretLocationType: 2
+          TurretData:
+            MovementDatas:
+              TurretTurnSpeed: 0
+            TurretOtoAtackDatas:
+              TimeScale: 0
+            gattalingRotateDatas:
+              RotateSpeed: 0
+          PayedAmount: 0
+          Cost: 40
+        - RoomTypes: 1
+          SideBaseAvaliableStatus: 0
+          TurretLocationType: 1
+          TurretData:
+            MovementDatas:
+              TurretTurnSpeed: 0
+            TurretOtoAtackDatas:
+              TimeScale: 0
+            gattalingRotateDatas:
+              RotateSpeed: 0
+          PayedAmount: 0
+          Cost: 50
       MineBaseData:
         MaxWorkerAmount: 15
         CurrentWorkerAmount: 5

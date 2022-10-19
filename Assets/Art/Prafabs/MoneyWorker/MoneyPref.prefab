@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4340426124176454866}
   - component: {fileID: 8474084691893376052}
-  - component: {fileID: 8558043984079579270}
-  m_Layer: 0
+  - component: {fileID: 3477870167686553}
+  - component: {fileID: 1245600571106984476}
+  m_Layer: 28
   m_Name: MoneyPref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +50,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &8558043984079579270
+--- !u!114 &3477870167686553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965118812301319539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d25472ec75d6f459d995c51b41fdfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbody: {fileID: 8474084691893376052}
+  collider: {fileID: 1245600571106984476}
+--- !u!65 &1245600571106984476
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,8 +75,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.24266809, y: 0.10365036, z: 0.4486624}
-  m_Center: {x: 0.0030293763, y: 0.036763407, z: 0.003029406}
+  m_Size: {x: 0.29789546, y: 0.06093718, z: 0.15475069}
+  m_Center: {x: -0.002158329, y: 0.033218913, z: -0.00073394924}
 --- !u!1 &6740968687261964742
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,13 +102,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6740968687261964742}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 200, y: 199.99998, z: 199.99998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4340426124176454866}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
 --- !u!33 &7019054046870277337
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -1,132 +1,169 @@
-using Enums;
-using StateBehavior;
 using System;
+using Controllers;
+using Controllers.SoldierPhysicsControllers;
+using Data.UnityObject;
+using Data.ValueObject;
+using Enums;
+using Interfaces;
+using Signals;
+using StateBehavior;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
-using Controllers;
-using Data.ValueObject;
-using Data.UnityObject;
-using AI.States;
-using Interfaces;
 
-
-namespace AIBrain.EnemyBrain
+namespace AIBrains.EnemyBrain
 {
-    public class EnemyBrain : MonoBehaviour
+    public class EnemyAIBrain : MonoBehaviour
     {
+        #region Self Variables
 
-        #region SelfVariables
+        #region Public Variables
 
-        #region Private instanceses
-        private StateMachine _stateMachines;
+        public bool IsBombSettled;
+        public Transform CurrentTarget;
+        public Transform TurretTarget;
+
+        public bool EnemyReachedBase { get; set; }
+        public int Health { get => _health; set => _health = value; }
+
+        #endregion
+
+        #region Serialized Variables
+
+        [SerializeField]
+        private Transform spawnPosition;
+
+        [SerializeField]
+        private EnemyType enemyType;
+
+        [SerializeField]
+        private NavMeshAgent navMeshAgent;
+
+        [SerializeField]
+        private Animator animator;
+
+
+        #endregion
+
+        #region Private Variables
+
+        private const int _enemyAttackPower = 10;
+        private int _health;
+        private EnemyData _data;
+        private StateMachine _stateMachine;
         private Search _search;
-        private Move _move;
-        private Chase _chase;
-        private Atack _atack;
-        private Death _death;
-        private BoombManager _moveToBomb;
-        private Transform  _turretTarget;
-        private Transform _turretTargetList;
-        private Transform _spawnPosition;
-        private EnemyType _enemyTypes;
-        public int _health;
-        private int _damage;
-        private float _attackRange;
-        private float _moveSpeed;
-        private float _navMeshRadius;
-        private float _enemyDamage;
-        private Color _color;
-        private float _chaseSpeed;
-        private Vector3 _scaleSize;
-        private Transform _playerTarget;
-        private EnemyAIData _enemyAIData;
-        private Transform _mineTarget;//bu niye var
+        public PlayerPhysicsController PlayerPhysicsController { get => _playerPhysicsController; set => _playerPhysicsController = value; }
+        public SoldierHealthController SoldierHealthController { get => _soldierHealthController; set => _soldierHealthController = value; }
+
+        private PlayerPhysicsController _playerPhysicsController;
+        private SoldierHealthController _soldierHealthController;
+
         #endregion
 
-        #region SerializeField Variables
-
-        [SerializeField]
-        private NavMeshAgent _navMeshAgents;
-        [SerializeField]
-        private Animator _animators;
-        [SerializeField]
-        private EnemyDetectController _enemyPhysicsController;
-        #endregion
         #endregion
 
-        #region Proporties
-        public Transform PlayerTarget { get => _playerTarget; set => _playerTarget = value; }
-        public EnemyType EnemyTypes { get => _enemyTypes; set => _enemyTypes = value; }
-        public Transform MineTarget { get => _mineTarget; set => _mineTarget = value; }
-        #endregion
-
-        internal  void Awake()
+        private void Awake()
         {
-            GetData();
-            SetEnemyAIData();
+            _data = GetEnemyAIData();
+
+            Health = _data.Healt;
+
+            spawnPosition = AISignals.Instance.getSpawnTransform?.Invoke();
+
+            CurrentTarget = AISignals.Instance.getRandomTransform?.Invoke();
+
             GetStatesReferences();
-
         }
-        internal  void GetData() => _enemyAIData = Resources.Load<CD_AIData>("Data/CD_AIData").EnemyAIDataList[(int)EnemyTypes];
 
-        internal  void SetEnemyAIData()
+        private void OnEnable()
         {
-            int turretCount = Random.Range(0, _enemyAIData.TurretTargetList.Count);
-            _turretTarget = _enemyAIData.TurretTargetList[Random.Range(0, turretCount)];
-            _spawnPosition = _enemyAIData.SpawnPosition;
-             EnemyTypes = _enemyAIData.EnemyType;
-            _health = _enemyAIData.Healt;
-            _damage = _enemyAIData.Damage;
-            _attackRange = _enemyAIData.AttackRange;
-            _moveSpeed = _enemyAIData.MoveSpeed;
-            _navMeshRadius = _enemyAIData.NavMeshRadius;
-            _enemyDamage = _enemyAIData.EnemyDamage;
-            _color = _enemyAIData.Color;
-            _chaseSpeed = _enemyAIData.ChaseSpeed;
-            _scaleSize = _enemyAIData.ScaleSize;
 
+            TurretTarget = CurrentTarget;
+
+            Health = _data.Healt;
+            _stateMachine.SetState(_search);
         }
 
-        internal  void GetStatesReferences()
+        private EnemyData GetEnemyAIData() => Resources.Load<CD_AIData>("Data/CD_AIData").EnemyAIData.EnemyDatas[(int)enemyType];
+
+        private void GetStatesReferences()
         {
-             _stateMachines = new StateMachine();
+            _search = new Search(this, navMeshAgent, spawnPosition);
+            var attack = new Attack(navMeshAgent, animator, this);
+            var move = new Move(this, navMeshAgent, animator);
+            var death = new Death(navMeshAgent, animator, this, enemyType);
+            var chase = new Chase(this, navMeshAgent, animator);
+            var moveToBomb = new MoveToBomb(navMeshAgent, animator);
+            var baseAttack = new BaseAttack(navMeshAgent, animator);
 
-             _search = new Search(_animators, _navMeshAgents, this, _spawnPosition);
-             _move = new Move(_animators, _navMeshAgents, this, _moveSpeed, _turretTarget);
-             _chase = new Chase(_animators, _navMeshAgents, this, _chaseSpeed, _attackRange);
-             _atack = new Atack(_animators, _navMeshAgents, this,_attackRange);
-             _death = new Death(_animators, _navMeshAgents, this, _enemyTypes);
-          //  _moveToBomb = new BoombManager(_navMeshAgents, _animators, this, _attackRange, _chaseSpeed);
+            _stateMachine = new StateMachine();
 
-            TransitionofState();
+            At(_search, move, HasInitTarget());
+            At(move, chase, HasTarget());
+            At(chase, attack, AttackRange());
+            At(attack, chase, AttackOffRange());
+            At(chase, move, TargetNull());
+            At(move, baseAttack, IsEnemyReachedBase());
+            At(baseAttack, chase, IsTargetChange());
+
+            _stateMachine.AddAnyTransition(death, IsDead());
+            _stateMachine.AddAnyTransition(moveToBomb, () => IsBombSettled);
+
+            _stateMachine.SetState(_search);
+
+            void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
+            Func<bool> HasInitTarget() => () => TurretTarget != null;
+            Func<bool> HasTarget() => () => CurrentTarget != null && (CurrentTarget.TryGetComponent(out PlayerPhysicsController playerPhysicsController) || CurrentTarget.TryGetComponent(out SoldierHealthController soldierHealthController)); ;
+            Func<bool> AttackRange() => () => CurrentTarget != null && (transform.position - CurrentTarget.transform.position).sqrMagnitude < Mathf.Pow(navMeshAgent.stoppingDistance, 2);
+            Func<bool> AttackOffRange() => () => CurrentTarget != null && (transform.position - CurrentTarget.transform.position).sqrMagnitude > Mathf.Pow(navMeshAgent.stoppingDistance, 2);
+            Func<bool> TargetNull() => () => CurrentTarget == TurretTarget;
+            Func<bool> IsDead() => () => Health <= 0;
+            Func<bool> IsEnemyReachedBase() => () => CurrentTarget == TurretTarget && (transform.position - CurrentTarget.transform.position).sqrMagnitude < Mathf.Pow(navMeshAgent.stoppingDistance, 2);
+            Func<bool> IsTargetChange() => () => CurrentTarget != TurretTarget;
         }
 
-        internal  void TransitionofState()
+        private void Update()
         {
-            At(_search, _move, HasTurretTarget()); // player chase range
-            At(_move, _chase, HasTarget()); // player chase range
-            At(_chase, _atack, IsAtackPlayer()); // remaining distance < 1f
-            At(_atack, _chase, AttackOffRange()); // remaining distance > 1f
-            At(_chase, _move, HasTargetNull());
-
-
-            _stateMachines.AddAnyTransition(_death,AmIDead());
-            //_stateMachines.AddAnyTransition(_moveToBomb, () => _enemyPhysicsController.IsBombInRange());
-
-            _stateMachines.SetState(_search);
-
-            void At(IState to, IState from, Func<bool> condition) => _stateMachines.AddTransition(to, from, condition);
-
-            Func<bool> HasTurretTarget() => () => _turretTarget != null;
-            Func<bool> HasTarget() => () => PlayerTarget != null;
-            Func<bool> HasTargetNull() => () => PlayerTarget is null;
-            Func<bool> IsAtackPlayer() => () => PlayerTarget != null && _chase.GetPlayerInRange();
-            Func<bool> AttackOffRange() => () =>!_atack.InPlayerAttackRange();
-            Func<bool> AmIDead() => () => _health <= 0;
+            _stateMachine.Tick();
         }
-        internal  void Update() => _stateMachines.Tick();
 
-        
+        public void SetTarget(Transform target)
+        {
+            if (target == CurrentTarget)
+            {
+                return;
+            }
+
+            CurrentTarget = target;
+
+            if (CurrentTarget != null) return;
+            CurrentTarget = TurretTarget;
+            _soldierHealthController = null;
+            _playerPhysicsController = null;
+        }
+
+        public void CacheSoldier(SoldierHealthController soldierHealthController)
+        {
+            if (soldierHealthController != null && soldierHealthController == _soldierHealthController) return;
+            _soldierHealthController = soldierHealthController;
+
+        }
+        public void CachePlayer(PlayerPhysicsController playerPhysicsController)
+        {
+            _playerPhysicsController = playerPhysicsController;
+        }
+        public void HitDamage()
+        {
+            if (_soldierHealthController != null)
+            {
+                int soldierHealth = _soldierHealthController.TakeDamage(_enemyAttackPower);
+                if (soldierHealth > 0) return;
+                _soldierHealthController = null;
+                SetTarget(TurretTarget);
+            }
+            if (_playerPhysicsController == null) return;
+            CoreGameSignals.Instance.onTakePlayerDamage?.Invoke(_enemyAttackPower);
+        }
+
     }
 }

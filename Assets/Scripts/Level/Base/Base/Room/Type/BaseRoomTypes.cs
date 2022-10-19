@@ -8,7 +8,5 @@ namespace Enums
     {
         FirstRighRoom,
         FirstLeftRoom,
-        SecondRighyRoom,
-        SecondLeftRightRoom
     }
 }

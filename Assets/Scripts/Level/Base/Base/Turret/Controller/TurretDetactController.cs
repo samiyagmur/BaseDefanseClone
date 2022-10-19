@@ -1,5 +1,5 @@
 ﻿using AIBrain;
-using AIBrain.EnemyBrain;
+using AIBrains.EnemyBrain;
 using Assinger;
 using Managers;
 using System.Collections;
@@ -17,7 +17,7 @@ namespace Controllers
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(typeof(EnemyBrain), out Component enemy))
+            if (other.TryGetComponent(typeof(EnemyAIBrain), out Component enemy))
             {
                 
                 _turretManager.IsEnemyEnterTurretRange(enemy.gameObject);
@@ -28,7 +28,7 @@ namespace Controllers
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(typeof(EnemyBrain), out Component enemy))
+            if (other.TryGetComponent(typeof(EnemyAIBrain), out Component enemy))
             {
                 _turretManager.IsEnemyExitTurretRange();
             }

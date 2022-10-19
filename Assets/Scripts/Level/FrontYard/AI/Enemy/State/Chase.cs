@@ -1,72 +1,51 @@
-﻿using AIBrain;
-using AIBrain.EnemyBrain;
-using Interfaces;
+﻿using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AI.States
+namespace AIBrains.EnemyBrain
 {
     public class Chase : IState
     {
-        private Animator _animator;
+        private readonly NavMeshAgent _navMeshAgent;
+        private readonly Animator _animator;
+        private readonly EnemyAIBrain _enemyAIBrain;
+        private static readonly int _speed = Animator.StringToHash("Speed");
+        private static readonly int _run = Animator.StringToHash("Run");
+        private const float _enemySpeed = 6.3f;
+        private float _timer = 0.1f;
 
-        private EnemyBrain _enemyBrain;
-
-        private NavMeshAgent _navMeshAgent;
-
-        private Transform _playerTransform;
-
-        private float _chaseSpeed;
-
-        private float _atackRange;
-
-        private bool _attackOnPlayer;
-
-        public bool AttackOnPlayer { get => _attackOnPlayer; set => _attackOnPlayer = value; }
-
-        public Chase(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, float chaseSpeed, float atackRange)
+        public Chase(EnemyAIBrain enemyAIBrain, NavMeshAgent agent, Animator animator)
         {
+            _enemyAIBrain = enemyAIBrain;
+            _navMeshAgent = agent;
             _animator = animator;
-            _navMeshAgent = navMeshAgent;
-            _chaseSpeed = chaseSpeed;
-            _atackRange = atackRange;
-            _enemyBrain = enemyBrain;
-        }
-
-        public void OnEnter()
-        {
-            AttackOnPlayer = false;
-
-            _playerTransform = _enemyBrain.PlayerTarget;
-
-            _navMeshAgent.speed = _chaseSpeed / 2;
-
-            if (_playerTransform != null)
-                _navMeshAgent.SetDestination(_playerTransform.position);
-
-            _animator.SetTrigger("Run");
         }
 
         public void Tick()
         {
-            _navMeshAgent.destination = _enemyBrain.PlayerTarget.position;
 
-            if (_enemyBrain.PlayerTarget != null)
-                _navMeshAgent.destination = _enemyBrain.PlayerTarget.transform.position;
-
-            checkDestance();
-        }
-
-        private void checkDestance()
-        {
-            if (_navMeshAgent.remainingDistance <= _atackRange)
+            _navMeshAgent.destination = _enemyAIBrain.CurrentTarget.position;
+            _animator.SetFloat(_speed, _navMeshAgent.velocity.magnitude);
+            _timer -= Time.deltaTime;
+            if (!(_timer <= 0)) return;
+            if (_enemyAIBrain.SoldierHealthController != null)
             {
-                AttackOnPlayer = true;
+                if (_enemyAIBrain.SoldierHealthController.IsDead)
+                {
+                    _enemyAIBrain.SetTarget(null);
+                }
             }
+
+            // if(_enemyAIBrain.PlayerPhysicsController)  // Player Is Dead scenario should be implemented.
+            _timer = 0.1f;
         }
 
-        public bool GetPlayerInRange() => AttackOnPlayer;
-
+        public void OnEnter()
+        {
+            _navMeshAgent.SetDestination(_enemyAIBrain.CurrentTarget.position);
+            _animator.SetTrigger(_run);
+            _navMeshAgent.speed = _enemySpeed;
+        }
         public void OnExit()
         {
         }

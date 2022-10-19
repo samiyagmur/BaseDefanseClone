@@ -8,7 +8,7 @@ namespace Data.UnityObject
     [CreateAssetMenu(fileName ="CD_AIData",menuName = "Data/AIData")]
     public  class CD_AIData : ScriptableObject
     {
-        public List<EnemyAIData> EnemyAIDataList=new List<EnemyAIData>();
+        public EnemyAIData EnemyAIData=new EnemyAIData();
         public AmmoWorkerAIData AmmoWorkerAIDatas;
         public SoldierAIData SoldierAIDatas;
     } 

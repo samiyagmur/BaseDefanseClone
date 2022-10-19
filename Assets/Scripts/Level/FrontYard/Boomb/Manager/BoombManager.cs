@@ -1,19 +1,19 @@
 ﻿using AIBrain;
-using AIBrain.EnemyBrain;
+using AIBrains.EnemyBrain;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class BoombManager : IState
 {
-    private readonly EnemyBrain _enemyAIBrain;
+    private readonly EnemyAIBrain _enemyAIBrain;
     private readonly NavMeshAgent _navMeshAgent;
     private readonly Animator _animator;
     private readonly float _attackRange;
     private readonly float _chaseSpeed;
     private bool _attackOnPlayer;
 
-    public BoombManager(NavMeshAgent navmeshAgent, Animator animator, EnemyBrain enemyAIBrain, float attackRange, float chaseSpeed)
+    public BoombManager(NavMeshAgent navmeshAgent, Animator animator, EnemyAIBrain enemyAIBrain, float attackRange, float chaseSpeed)
     {
         _animator = animator;
         _attackRange = attackRange;

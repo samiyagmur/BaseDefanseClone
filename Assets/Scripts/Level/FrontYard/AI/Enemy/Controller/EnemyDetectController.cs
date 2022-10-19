@@ -1,80 +1,69 @@
-using UnityEngine;
-using Managers;
-using AIBrain;
-using Abstraction;
+
+using AIBrains.EnemyBrain;
+using Controllers.SoldierPhysicsControllers;
 using Interfaces;
-using AIBrain.EnemyBrain;
+using UnityEngine;
 
-namespace Controllers
-{   
-    public class EnemyDetectController : MonoBehaviour
+namespace Controllers.AIControllers
+{
+    public class EnemyDetectionController : MonoBehaviour
     {
-        [SerializeField]
-        private EnemyBrain brain;
+        #region Self Variables
 
-        private Transform _detectPlayer;
-        private bool _amIDead;
+        #region Public Variables
+
+        #endregion
+
+        #region Serialized Variables
+        [SerializeField]
+        private EnemyAIBrain enemyAIBrain;
+
+        #endregion
+
+        #region Private Variables
+
         private Transform _detectedMine;
 
-        public bool IsBombInRange() => _detectedMine != null;
+        #endregion
 
-        public bool AmIDead { get => _amIDead; set => _amIDead = value; }
-
-        private void OnTriggerEnter(Collider other) 
+        #endregion
+        private void OnTriggerEnter(Collider other)
         {
-
-            if (other.TryGetComponent(typeof(PlayerManager), out Component getterTurretObject)) brain.PlayerTarget = other.transform;
-
-
-            //if (other.CompareTag("LandMine"))
-            //{
-            //    _detectedMine = other.transform;
-            //    brain.MineTarget = _detectedMine;
-
-
-            //}
-
-            //if (other.CompareTag("MineExplosion"))
-            //{
-            //    Debug.Log("MineExplosion");
-            //    int damageAmount = other.transform.parent.parent.GetComponent<IDamager>().GetDamage();
-            //    Debug.Log(damageAmount);
-            //    brain._health -= damageAmount;
-            //    if (brain._health <= 0)
-            //    {
-            //        _amIDead = true;
-
-            //    }
-            //}
-
-            if (other.TryGetComponent(typeof(IDamager), out Component takeDamage))
+            if (other.TryGetComponent(out PlayerPhysicsController physicsController))
             {
-                
+                PickOneTarget(other);
+                enemyAIBrain.CachePlayer(physicsController);
+                enemyAIBrain.CacheSoldier(null);
             }
-           
+
+            if (other.TryGetComponent(out SoldierHealthController soldierHealthController))
+            {
+                Debug.Log("Soldier has target !");
+                enemyAIBrain.CachePlayer(null);
+                PickOneTarget(other);
+                enemyAIBrain.CacheSoldier(soldierHealthController);
+
+            }
+
         }
-        private void OnTriggerExit(Collider other) 
+        private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(typeof(PlayerManager), out Component getterTurretObject)) brain.PlayerTarget = null;
+            if (other.TryGetComponent(out PlayerPhysicsController physicsController))
+            {
+                enemyAIBrain.SetTarget(null);
+                enemyAIBrain.CachePlayer(null);
+            }
 
-
-            //if (other.CompareTag("LandMine"))
-            //{
-            //    _detectPlayer = null;
-            //   brain.MineTarget = _detectedMine;
-            //   brain.MineTarget = null;
-            //}
-
-            //if (other.CompareTag("MineExplosion"))
-            //{
-            //    _detectPlayer = null;
-            //    brain.MineTarget = _detectedMine;
-            //    brain.MineTarget = null;
-            //}
-
-
+            if (!other.TryGetComponent(out IDamagable damageable)) return;
+            enemyAIBrain.SetTarget(null);
+            enemyAIBrain.CacheSoldier(null);
         }
-
-    
-    } 
+        private void PickOneTarget(Collider other)
+        {
+            if (enemyAIBrain.CurrentTarget == enemyAIBrain.TurretTarget)
+            {
+                enemyAIBrain.SetTarget(other.transform);
+            }
+        }
+    }
 }

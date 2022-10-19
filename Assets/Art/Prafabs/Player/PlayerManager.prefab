@@ -1706,7 +1706,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe86d40851b464e95c52e0a6e9667e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyStackerController: {fileID: 7819557427061939204}
+  Collider: {fileID: 4498633671592508039}
+  playerMoneyStackerController: {fileID: 7819557427061939204}
 --- !u!1 &5491682000366646555
 GameObject:
   m_ObjectHideFlags: 0

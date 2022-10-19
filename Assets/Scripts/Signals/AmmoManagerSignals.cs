@@ -12,6 +12,8 @@ namespace Signals
     {
         public UnityAction <Transform> onPlayerEnterAmmoWorkerCreaterArea = delegate { };
 
+        public UnityAction <TurretStackController> onSetTurretStackControllers = delegate { };
+        
         public UnityAction<AmmoStackStatus> onSetAmmoStackStatus = delegate { };
 
         public Func<TurretKey,GameObject> onGetAmmoToFire = delegate { return null; };

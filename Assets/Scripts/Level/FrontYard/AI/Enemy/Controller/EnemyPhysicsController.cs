@@ -1,62 +1,50 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using AIBrains.EnemyBrain;
 using Interfaces;
-using AIBrain;
-using Signals;
-using AIBrain.EnemyBrain;
+using UnityEngine;
 
-namespace Controllers
+namespace Controllers.AIControllers
 {
-    public class EnemyPhysicsController : MonoBehaviour,IDamagable
+    public class EnemyPhysicsController : MonoBehaviour, IDamagable
     {
-        [SerializeField]
-        private EnemyBrain enemyAIBrain;
+        private void OnEnable()
+        {
+            IsDead = false;
+        }
 
+        [SerializeField]
+        private EnemyAIBrain _enemyAIBrain;
         public bool IsTaken { get; set; }
         public bool IsDead { get; set; }
 
-        public Transform GetTransform()
+        private void OnTriggerEnter(Collider other)
         {
-            
-            return this.transform;
 
+            if (!other.TryGetComponent(out IAttacker attacker)) return;
+
+            var damage = attacker.Damage();
+            _enemyAIBrain.Health -= damage;
+
+            if (_enemyAIBrain.Health == 0)
+            {
+                IsDead = true;
+            }
         }
 
         public int TakeDamage(int damage)
         {
+            if (_enemyAIBrain.Health <= 0) return 0;
+            _enemyAIBrain.Health -= damage;
 
-            return DeadCondition(damage);
+            if (_enemyAIBrain.Health != 0) return _enemyAIBrain.Health;
+
+            IsDead = true;
+
+            return _enemyAIBrain.Health;
+
         }
-
-        private void OnTriggerEnter(Collider other)
+        public Transform GetTransform()
         {
-            if (other.TryGetComponent(typeof(IDamager), out Component rocketObject))
-            {
-
-
-                if (enemyAIBrain._health<0)
-                {   
-                    TurretSignals.Instance.onDieEnemy?.Invoke();
-                }
-
-            }
+            return transform;
         }
-
-        private int DeadCondition(int damage)
-        {
-            if (enemyAIBrain._health > 0)
-            {
-                enemyAIBrain._health -= damage;
-
-                if (enemyAIBrain._health <= 0)
-                {
-                    return enemyAIBrain._health;
-                }
-                return enemyAIBrain._health;
-            }
-
-            return 0;
-        }
-
     }
 }

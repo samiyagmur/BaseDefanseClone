@@ -23,6 +23,11 @@ namespace Controllers
         private Sequence _ammoStackingMovement;
         private float _timer;
 
+        private void Start()
+        {
+            
+        }
+
         public  void AddStack(List<Vector3> gridPosList, List<GameObject> ammoWorkerStackList)
         {
              ammoWorkerStackList.Reverse();

@@ -1,63 +1,66 @@
-using AIBrain;
-using AIBrain.EnemyBrain;
+using System.Collections.Generic;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AI.States
+namespace AIBrains.EnemyBrain
 {
     public class Search : IState
     {
-        protected Animator _animator;
+        private readonly EnemyAIBrain _enemyAIBrain;
+        private readonly NavMeshAgent _navMeshAgent;
+        private readonly Transform _spawnPosition;
+        private readonly List<Transform> _targetList;
 
-        protected NavMeshAgent _navMeshAgent;
 
-        protected EnemyBrain _enemyBrain;
-
-        private Transform _spawnPoint;
-
-        public Search(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, Transform spawnPoint)
+        public Search(EnemyAIBrain enemyAIBrain, NavMeshAgent navmeshAgent, Transform spawnPosition)
         {
-            _animator = animator;
-            _navMeshAgent = navMeshAgent;
-            _enemyBrain = enemyBrain;
-            _spawnPoint = spawnPoint;
+            _enemyAIBrain = enemyAIBrain;
+            _navMeshAgent = navmeshAgent;
+            _spawnPosition = spawnPosition;
+        }
+
+
+        public void Tick()
+        {
+
         }
 
         public void OnEnter()
         {
-            _enemyBrain.enabled = true;
-            GetRandomPointBakedSurface();
+            _navMeshAgent.enabled = true;
+            GetRandomPointOnBakedSurface();
+
         }
 
-        private void GetRandomPointBakedSurface()
+        public void OnExit()
+        {
+
+        }
+
+        private void GetRandomPointOnBakedSurface()
         {
             bool RandomPoint(Vector3 center, float range, out Vector3 result)
             {
                 for (int i = 0; i < 60; i++)
                 {
                     Vector3 randomPoint = center + Random.insideUnitSphere * range;
-                    Vector3 randomPosition = new Vector3(randomPoint.x, 0, center.z);
+                    Vector3 randomPos = new Vector3(randomPoint.x, 0, _spawnPosition.transform.localPosition.z);
                     NavMeshHit hit;
-                    if (NavMesh.SamplePosition(randomPosition, out hit, 1.0f, 1))
-                    {
-                        result = hit.position;
-                        return true;
-                    }
+                    if (!NavMesh.SamplePosition(randomPos, out hit, 1.0f, 1)) continue;
+                    result = hit.position;
+                    return true;
+
                 }
                 result = Vector3.zero;
                 return false;
-            }
-            Vector3 point;
 
-            if (!RandomPoint(_spawnPoint.position, 20, out point)) return;
+            }
+
+            if (!RandomPoint(_spawnPosition.position, 30, out var point)) return;
             _navMeshAgent.Warp(point);
         }
 
-        public void OnExit()
-        { }
 
-        public void Tick()
-        { }
     }
 }

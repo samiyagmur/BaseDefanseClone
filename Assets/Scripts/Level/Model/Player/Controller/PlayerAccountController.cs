@@ -1,79 +1,45 @@
-﻿using Abstraction;
-using Concreate;
-using Interfaces;
+﻿using Interfaces;
 using Signals;
-using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Controllers
+namespace Controllers.PlayerControllers
 {
     public class PlayerAccountController : MonoBehaviour, ICustomer
     {
-        #region Self Variables
+        public SphereCollider Collider;
 
-        #region Public Variables
-
-        #endregion
-
-        #region Serialized Variables
-
-        [SerializeField]
-        private MoneyStackerController moneyStackerController;
-
-        #endregion
-
-        #region Private Variables
-
-        private bool _canPay = true;
-
-        #endregion
-
-        #endregion
+       [SerializeField] private MoneyStackerController playerMoneyStackerController;
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<StackableMoney>(out StackableMoney stackable))
-            {
-                CollectMoney(stackable);
-                CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(+1);
-            }
-            if (other.TryGetComponent<StackableGem>(out StackableGem stackableGem))
-            {
 
-            }
-            else if (other.TryGetComponent<Interactable>(out Interactable interactable))
+            if (other.TryGetComponent<IStackable>(out IStackable stackable))
             {
-                moneyStackerController.OnRemoveAllStack();
+                stackable.IsCollected = true;
+                MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke();
+                playerMoneyStackerController.SetStackHolder(stackable.SendToStack().transform);
+               playerMoneyStackerController.GetStack(stackable.SendToStack());
             }
+
+
         }
-        private void CollectMoney(IStackable stackable)
+
+        private void OnTriggerExit(Collider other)
         {
-            moneyStackerController.SetStackHolder(stackable.SendToStack().transform);
-            moneyStackerController.GetStack(stackable.SendToStack());
+            //if (other.TryGetComponent<GatePhysicsController>(out GatePhysicsController gatePhysics))
+            //{
+            //    playerMoneyStackerController.OnRemoveAllStack();
+            //}
         }
 
-        #region Paying Interaction
-        public bool HasMoney { get => CoreGameSignals.Instance.onHasEnoughMoney.Invoke(); set { } }
-        public async void MakePayment()
+        #region Account
+
+        public bool CanPay { get => CoreGameSignals.Instance.onHasEnoughMoney.Invoke(); set { } }
+        public void PlayPaymentAnimation(Transform transform)
         {
-            while (true)
-            {
-                CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(-1);
-
-                if (HasMoney && _canPay)
-                {
-                    await Task.Delay(100);
-
-                    continue;
-                }
-                break;
-            }
+            //playerMoneyStackerController.PaymentStackAnimation(transform);
         }
-        public async void StopPayment()
-        {
-            _canPay = false;
-            await Task.Delay(200);
-            _canPay = true;
-        }
+
         #endregion
+
     }
 }

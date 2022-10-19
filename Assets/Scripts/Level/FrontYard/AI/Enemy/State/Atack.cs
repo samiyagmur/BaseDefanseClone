@@ -1,64 +1,45 @@
-﻿using AIBrain.EnemyBrain;
-using Interfaces;
+﻿using Interfaces;
+using Signals;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AI.States
+namespace AIBrains.EnemyBrain
 {
-    public class Atack :IState
+    public class Attack : IState
     {
-        private Animator _animator;
+        private readonly NavMeshAgent _navMeshAgent;
+        private readonly Animator _animator;
+        private readonly EnemyAIBrain _enemyAIBrain;
+        private static readonly int Attack1 = Animator.StringToHash("Attack");
+        private static readonly int Run = Animator.StringToHash("Run");
 
-        private NavMeshAgent _navMeshAgent;
+        private float _attackTimer = 1f;
 
-        private EnemyBrain _enemyBrain;
 
-        private float _atackRange;
-
-        public bool _inAttack;
-
-        public Atack(Animator animator, NavMeshAgent navMeshAgent, EnemyBrain enemyBrain, float atackRange)
+        public Attack(NavMeshAgent agent, Animator animator, EnemyAIBrain enemyAIBrain)
         {
+            _navMeshAgent = agent;
             _animator = animator;
-            _navMeshAgent = navMeshAgent;
-            _enemyBrain = enemyBrain;
-            _atackRange = atackRange;
+            _enemyAIBrain = enemyAIBrain;
         }
-
         public void Tick()
         {
-            if (_enemyBrain.PlayerTarget)
-            {
-                _navMeshAgent.destination = _enemyBrain.PlayerTarget.position;
-            }
-            else
-            {
-                Debug.Log("_inatack");
-                _inAttack = false;
-            }
 
-            CheckAttackDistance();
+            _attackTimer -= Time.deltaTime;
+            if (!(_attackTimer <= 0)) return;
+            _enemyAIBrain.HitDamage();
+            _animator.SetTrigger(Attack1);
+            _attackTimer = 1f;
+
         }
 
         public void OnEnter()
         {
-            _navMeshAgent.SetDestination(_enemyBrain.PlayerTarget.position);
-            _inAttack = true;
-            _animator.SetTrigger("Attack");
         }
-
-        private void CheckAttackDistance()
-        {
-            if (_navMeshAgent.remainingDistance > _atackRange)
-            {
-                _inAttack = false;
-            }
-        }
-
-        public bool InPlayerAttackRange() => _inAttack;
 
         public void OnExit()
         {
+            //_animator.SetTrigger(Run);
         }
     }
 }

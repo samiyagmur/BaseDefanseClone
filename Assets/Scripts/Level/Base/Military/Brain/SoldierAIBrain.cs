@@ -34,7 +34,8 @@ namespace AIBrains.SoldierBrain
         #region Serialized Variables
         [SerializeField]
         private Animator animator;
-
+        private int _health;
+        public int Health { get => _health; set => _health = value; }
         #endregion
 
         #region Private Variables
