@@ -23,7 +23,8 @@ namespace Enums
         WeaponPanel,
         NewWorkerFeturesSlot,
         NewPlayerFeturesSlot,
-        NewSoldierrFeturesSlot
+        NewSoldierrFeturesSlot,
+        Bomb
 
 
     } 

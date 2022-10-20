@@ -15,7 +15,7 @@ namespace Managers
 
         public bool IsPayedTotalAmount => (_payedGemAmount >= requiredGemAmount);
 
-        public int _damage { get; set ; }
+        public int Damage { get; set ; }
 
         public int GemAmount; //Sinyalle Cekilecek Score Manager Uzerinden
         public int LureTime = 5;

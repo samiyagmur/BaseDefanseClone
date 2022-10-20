@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.ValueObject;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Datas.ValueObject
         public PlayerMovementData MovementDatas;
         public PlayerAnimationData AnimationDatas;
         public PlayerPhysicsData PhysicsDatas;
+        public PlayerCharacterData playerCharacterData;
 
     }
 }

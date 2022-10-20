@@ -11,15 +11,14 @@ namespace Signals
 {
     public class UISignals : MonoSingleton<UISignals>
     {
-        
 
         public UnityAction<int> onChangeMoney =delegate { }; 
 
         public UnityAction<int> onChangeDiamond = delegate { };
 
-        public UnityAction<ShopType> onGetShopTypeOnEnter = delegate { };
+        public UnityAction<UIPanels> onOpenUIPanel = delegate { };
 
-        public UnityAction<ShopType> onGetShopTypeOnExit = delegate { };
+        public UnityAction<UIPanels> onCloseUIPanel = delegate { };
 
         public UnityAction<WeaponTypes> onChangeWeaponType = delegate { };
 

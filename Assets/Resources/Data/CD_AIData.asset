@@ -12,49 +12,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ba154dd5561264a9d5dad6d722e034, type: 3}
   m_Name: CD_AIData
   m_EditorClassIdentifier: 
-  EnemyAIDataList:
-  - TurretTargetList:
-    - {fileID: 2123813329606278108, guid: c640b19ceb945194aaaa0d8e259ee0cb, type: 3}
-    - {fileID: 8097530443510055679, guid: 2168e23fdc2f38c42a056fb8c80c1c1f, type: 3}
-    SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
-    Healt: 1
-    Damage: 1
-    AttackRange: 1.3
-    MoveSpeed: 6
-    EnemyType: 0
-    NavMeshRadius: 1
-    EnemyDamage: 1
-    Color: {r: 1, g: 0.47343755, b: 0, a: 0}
-    ChaseSpeed: 10
-    ScaleSize: {x: 0, y: 0, z: 0}
-  - TurretTargetList:
-    - {fileID: 2123813329606278108, guid: c640b19ceb945194aaaa0d8e259ee0cb, type: 3}
-    - {fileID: 8097530443510055679, guid: 2168e23fdc2f38c42a056fb8c80c1c1f, type: 3}
-    SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
-    Healt: 1
-    Damage: 1
-    AttackRange: 1.3
-    MoveSpeed: 6
-    EnemyType: 1
-    NavMeshRadius: 1
-    EnemyDamage: 1
-    Color: {r: 1, g: 0, b: 0.28982067, a: 0}
-    ChaseSpeed: 10
-    ScaleSize: {x: 0, y: 0, z: 0}
-  - TurretTargetList:
-    - {fileID: 2123813329606278108, guid: c640b19ceb945194aaaa0d8e259ee0cb, type: 3}
-    - {fileID: 8097530443510055679, guid: 2168e23fdc2f38c42a056fb8c80c1c1f, type: 3}
-    SpawnPosition: {fileID: 3471725810260590809, guid: 42a54027603e1fc419d507b6a11aef7d, type: 3}
-    Healt: 1
-    Damage: 1
-    AttackRange: 1.3
-    MoveSpeed: 6
-    EnemyType: 2
-    NavMeshRadius: 1
-    EnemyDamage: 1
-    Color: {r: 1, g: 0.9856311, b: 0, a: 0}
-    ChaseSpeed: 10
-    ScaleSize: {x: 0, y: 0, z: 0}
+  EnemyAIData:
+    EnemyDatas:
+    - Healt: 100
+      Damage: 5
+      AttackRange: 15
+      MoveSpeed: 2
+      EnemyType: 0
+      ChaseSpeed: 2
+    - Healt: 150
+      Damage: 15
+      AttackRange: 15
+      MoveSpeed: 2
+      EnemyType: 1
+      ChaseSpeed: 2
+    - Healt: 120
+      Damage: 15
+      AttackRange: 15
+      MoveSpeed: 2
+      EnemyType: 2
+      ChaseSpeed: 2
+    - Healt: 500
+      Damage: 40
+      AttackRange: 0
+      MoveSpeed: 0
+      EnemyType: 3
+      ChaseSpeed: 0
+    enemySpawnData:
+      NumberOfEnemiesToSpawn: 50
+      SpawnDelay: 2
+      RandomMaxRange: 100
+      MinPossibilityToSpawnEnemy: 30
   AmmoWorkerAIDatas:
     MovementSpeed: 5
     AmmoWareHouse: {fileID: 9004025123679645247, guid: 0742269e27659a647932f8f57fbb39f2, type: 3}

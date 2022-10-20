@@ -7,9 +7,9 @@ namespace Controllers
     public class ShopTypeController : MonoBehaviour
     {
         [SerializeField]
-        private ShopType shopType;
+        private UIPanels shopType;
 
-        public ShopType GetShoopType()
+        public UIPanels GetShoopType()
         {
             return shopType;
 

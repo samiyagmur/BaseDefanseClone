@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5081612434888144162}
   - component: {fileID: 5081612434888144160}
-  - component: {fileID: 4991832446877719535}
-  - component: {fileID: 4796421097177848169}
+  - component: {fileID: 6272465572947426191}
   m_Layer: 23
-  m_Name: PhysicController
+  m_Name: Detection
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,28 +40,12 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5081612434888144165}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 8
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &4991832446877719535
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5081612434888144165}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &4796421097177848169
+--- !u!114 &6272465572947426191
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c4806a165d6aec4696951109b5010be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 5081612436430601193}
+  enemyAIBrain: {fileID: 5081612436430601193}
 --- !u!1 &5081612436430601195
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,15 +69,13 @@ GameObject:
   - component: {fileID: 5081612436430601192}
   - component: {fileID: 5081612436430601206}
   - component: {fileID: 5081612436430601193}
-  - component: {fileID: 1410586698689485564}
-  - component: {fileID: 8525137144810795805}
   m_Layer: 22
   m_Name: Red
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5081612436430601192
 Transform:
   m_ObjectHideFlags: 0
@@ -108,6 +89,7 @@ Transform:
   m_Children:
   - {fileID: 4688030520214356663}
   - {fileID: 5081612434888144162}
+  - {fileID: 2868592822225495820}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -121,18 +103,18 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 1479372276
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 3.747269
+  m_Acceleration: 40
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 360
+  m_StoppingDistance: 1.3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 2.89
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!114 &5081612436430601193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,37 +127,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8612fd0e93a60e64ea2dfba10b5d1662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
-  _navMeshAgents: {fileID: 5081612436430601206}
-  _animators: {fileID: 1724621646321211597}
-  _enemyPhysicsController: {fileID: 4796421097177848169}
---- !u!136 &1410586698689485564
-CapsuleCollider:
+  IsBombSettled: 0
+  CurrentTarget: {fileID: 0}
+  TurretTarget: {fileID: 0}
+  spawnPosition: {fileID: 0}
+  enemyType: 1
+  navMeshAgent: {fileID: 5081612436430601206}
+  animator: {fileID: 1724621646321211597}
+--- !u!1 &7684540868397072499
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5081612436430601195}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 3.8615718
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.8845382, z: 0}
---- !u!114 &8525137144810795805
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2868592822225495820}
+  - component: {fileID: 6943520238293391038}
+  - component: {fileID: 6884043068793743003}
+  m_Layer: 22
+  m_Name: Physics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2868592822225495820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7684540868397072499}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5081612436430601192}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6943520238293391038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5081612436430601195}
+  m_GameObject: {fileID: 7684540868397072499}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1914e07a47c6530479578f4e96bbd2e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAIBrain: {fileID: 5081612436430601193}
+  _enemyAIBrain: {fileID: 5081612436430601193}
+--- !u!136 &6884043068793743003
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7684540868397072499}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.58010316
+  m_Height: 3.723505
+  m_Direction: 1
+  m_Center: {x: -0.016020536, y: 1.9064536, z: 0}
 --- !u!1001 &5081612434879047004
 PrefabInstance:
   m_ObjectHideFlags: 0

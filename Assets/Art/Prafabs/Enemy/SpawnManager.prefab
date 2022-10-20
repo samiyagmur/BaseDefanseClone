@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3471725810260590809}
-  - component: {fileID: 3471725810260590808}
+  - component: {fileID: 2414667860823764244}
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &3471725810260590808
+--- !u!114 &2414667860823764244
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,9 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3716deb11e6b014692c58925a61de4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 861760913835965297, guid: 5bae7cd1382a60a48a47eeaf90b569eb, type: 3}
-  - {fileID: 5081612436430601195, guid: a0868f73fe7faf547b7ba411a4252ed9, type: 3}
-  - {fileID: 1902793931624525007, guid: e506b02dc90c83d41884a63f81ee451a, type: 3}
-  NumberOfEnemiesToSpawn: 50
-  SpawnDelay: 2
+  randomTargetTransform: []
+  throwEventController: {fileID: 0}
+  spawnTransform: {fileID: 0}
+  enemySpawnData:
+    NumberOfEnemiesToSpawn: 0
+    SpawnDelay: 0
+    RandomMaxRange: 0
+    MinPossibilityToSpawnEnemy: 0
+  bossSpawnPos: {fileID: 0}
+  spriteTarget: {fileID: 0}

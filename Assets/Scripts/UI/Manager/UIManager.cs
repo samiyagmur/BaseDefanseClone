@@ -58,30 +58,22 @@ namespace Managers
         private void OnEnable() => SubscribeEvents();
         private void SubscribeEvents()
         {
-            UISignals.Instance.onGetShopTypeOnEnter += OnOpenUIPanel;
-            UISignals.Instance.onGetShopTypeOnExit += OnCloseUIPanel;
+            UISignals.Instance.onOpenUIPanel += OnOpenUIPanel;
+            UISignals.Instance.onCloseUIPanel += OnCloseUIPanel;
             UISignals.Instance.onChangeMoney += OnChangeMoney;
             UISignals.Instance.onChangeDiamond += OnChangeDiamond;
             CoreGameSignals.Instance.onLevelInitialize += OnLevelInitialize;
 
         }
-
-      
-
         private void UnsubscribeEvents()
         {
-            UISignals.Instance.onGetShopTypeOnEnter -= OnOpenUIPanel;
-            UISignals.Instance.onGetShopTypeOnExit -= OnCloseUIPanel;
+            UISignals.Instance.onOpenUIPanel -= OnOpenUIPanel;
+            UISignals.Instance.onCloseUIPanel -= OnCloseUIPanel;
             UISignals.Instance.onChangeMoney -= OnChangeMoney;
             UISignals.Instance.onChangeDiamond -= OnChangeDiamond;
             CoreGameSignals.Instance.onLevelInitialize -= OnLevelInitialize;
         }
-
-        private void OnDisable()
-        {
-
-            UnsubscribeEvents();
-        }
+        private void OnDisable() => UnsubscribeEvents();
 
         private void OnLevelInitialize()
         {
@@ -176,10 +168,10 @@ namespace Managers
         }
 
         #region Button
-        public void OnOpenUIPanel(ShopType panels) => 
+        public void OnOpenUIPanel(UIPanels panels) => 
             uIPanelController.OpenPanel(panels);
 
-        public void OnCloseUIPanel(ShopType panels) =>
+        public void OnCloseUIPanel(UIPanels panels) =>
             uIPanelController.ClosePanel(panels);
 
         public void ChangeWeaponType(WeaponTypes weapontype) =>

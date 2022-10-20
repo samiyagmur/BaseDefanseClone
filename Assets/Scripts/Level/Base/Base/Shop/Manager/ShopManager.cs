@@ -68,11 +68,11 @@ namespace Managers
         internal void SendScoreToWeaponShop(int _currentMoney) =>
             CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(-_currentMoney);
 
-        internal void IsEnterShopsForType(ShopType shopType) =>
-            UISignals.Instance.onGetShopTypeOnEnter?.Invoke(shopType);
+        internal void IsEnterShopsForType(UIPanels shopType) =>
+            UISignals.Instance.onOpenUIPanel?.Invoke(shopType);
 
-        internal void IsExitAnyShops(ShopType shopType) =>
-            UISignals.Instance.onGetShopTypeOnExit?.Invoke(shopType);
+        internal void IsExitAnyShops(UIPanels shopType) =>
+            UISignals.Instance.onCloseUIPanel?.Invoke(shopType);
 
         private bool onPressUnlockWeapon(WeaponTypes type) =>
             weaponShopController.OnSetBuyWeapon(type, _currentMoney);

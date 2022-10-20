@@ -11,7 +11,7 @@ namespace Controllers
         private MoneyWorkerAIBrain moneyWorkerBrain;
 
         [SerializeField]
-        private MoneyStackerController moneyStackerController;
+        private MoneyWorkerStackerController moneyStackerController;
 
 
 

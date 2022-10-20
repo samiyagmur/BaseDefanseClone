@@ -7,7 +7,7 @@ using Enums;
 namespace Signals
 {   
     public class PlayerSignal : MonoSingleton<PlayerSignal>
-    {   
-        
+    {
+        public UnityAction<int> onTakePlayerDamage = delegate { };
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Abstraction;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -15,9 +16,7 @@ namespace Concreate
         private void OnEnable()
         {
             SendStackable(this);
-            collider.enabled = true;
-            rigidbody.isKinematic = false;
-            rigidbody.useGravity = true;
+            EditPhysics();
         }
         public override GameObject SendToStack()
         {
@@ -25,6 +24,13 @@ namespace Concreate
             rigidbody.isKinematic = true;
             collider.enabled = false;
             return transform.gameObject;
+        }
+
+        internal void EditPhysics()
+        {
+            collider.enabled = true;
+            rigidbody.isKinematic = false;
+            rigidbody.useGravity = true;
         }
     }
 }

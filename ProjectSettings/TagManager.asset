@@ -4,11 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - zz
   - LandMine
   - MineExplosion
   - MineEntrance
   - Enemy
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -39,7 +39,7 @@ TagManager:
   - PlayerDetection
   - Rocked
   - Collectable
-  - 
+  - Bomb
   - 
   - 
   m_SortingLayers:

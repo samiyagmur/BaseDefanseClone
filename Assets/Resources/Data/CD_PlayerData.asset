@@ -22,4 +22,7 @@ MonoBehaviour:
       speed: 2
     PhysicsDatas:
       _playerLayersType: 0
-      _disitionAngle: 90
+      _desitionAngle: 90
+    playerCharacterData:
+      PlayerHealth: 100
+      MaxHealt: 100

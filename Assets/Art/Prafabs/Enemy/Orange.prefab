@@ -10,16 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 861760913835965298}
   - component: {fileID: 861760913835965292}
-  - component: {fileID: 861760913835965299}
-  - component: {fileID: 2455897647564175693}
-  - component: {fileID: 7475426017072753075}
+  - component: {fileID: 1610823025340076823}
   m_Layer: 22
   m_Name: Orange
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &861760913835965298
 Transform:
   m_ObjectHideFlags: 0
@@ -33,6 +31,7 @@ Transform:
   m_Children:
   - {fileID: 861760914440992184}
   - {fileID: 900490682076234285}
+  - {fileID: 3247664125149975236}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,19 +45,19 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 1479372276
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 3.747269
+  m_Acceleration: 40
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 360
+  m_StoppingDistance: 1.3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 2.89
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &861760913835965299
+  m_ObstacleAvoidanceType: 2
+--- !u!114 &1610823025340076823
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,37 +69,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8612fd0e93a60e64ea2dfba10b5d1662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
-  _navMeshAgents: {fileID: 861760913835965292}
-  _animators: {fileID: 6529941650897754199}
-  _enemyPhysicsController: {fileID: 7594078314254868477}
---- !u!136 &2455897647564175693
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861760913835965297}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 3.79288
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.8817468, z: 0}
---- !u!114 &7475426017072753075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861760913835965297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1914e07a47c6530479578f4e96bbd2e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyAIBrain: {fileID: 861760913835965299}
+  IsBombSettled: 0
+  CurrentTarget: {fileID: 0}
+  TurretTarget: {fileID: 0}
+  spawnPosition: {fileID: 0}
+  enemyType: 0
+  navMeshAgent: {fileID: 861760913835965292}
+  animator: {fileID: 6529941650897754199}
 --- !u!1 &861760914440992191
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,9 +87,9 @@ GameObject:
   - component: {fileID: 861760914440992184}
   - component: {fileID: 861760914440992186}
   - component: {fileID: 8593171789687612884}
-  - component: {fileID: 7594078314254868477}
+  - component: {fileID: 4024228550019237090}
   m_Layer: 23
-  m_Name: PhysicController
+  m_Name: Detection
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +120,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 8
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8593171789687612884
 Rigidbody:
@@ -159,11 +134,11 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7594078314254868477
+--- !u!114 &4024228550019237090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,7 +150,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c4806a165d6aec4696951109b5010be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 861760913835965299}
+  enemyAIBrain: {fileID: 1610823025340076823}
+--- !u!1 &4765676456721122500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3247664125149975236}
+  - component: {fileID: 8902063292916115703}
+  - component: {fileID: 7767196341341879908}
+  - component: {fileID: 4553458518170031200}
+  m_Layer: 22
+  m_Name: PhysicsController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3247664125149975236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4765676456721122500}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 861760913835965298}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8902063292916115703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4765676456721122500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1914e07a47c6530479578f4e96bbd2e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyAIBrain: {fileID: 1610823025340076823}
+--- !u!136 &7767196341341879908
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4765676456721122500}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.6196306
+  m_Height: 3.7515035
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.894151, z: -0.03987688}
+--- !u!54 &4553458518170031200
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4765676456721122500}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &861760914432026054
 PrefabInstance:
   m_ObjectHideFlags: 0

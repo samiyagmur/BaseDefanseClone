@@ -7,6 +7,7 @@ namespace Enums
     {
         Character,
         Turret,
-        Drone
+        Drone,
+        None
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Enums;
 using Keys;
 using Managers;
@@ -113,12 +114,22 @@ namespace Controllers
                     : PlayerAnimationStates.Idle);
             }
         }
-        private void ChangeAnimations(PlayerAnimationStates animationStates)
+        public void ChangeAnimations(PlayerAnimationStates animationStates)
         {
             if (animationStates == _currentAnimationState) return;
              animator.Play(animationStates.ToString());
-            _currentAnimationState = animationStates;
-        } 
+            _currentAnimationState = animationStates; 
+
+            if (playerManager.CurrentAreaType != AreaType.BaseDefense) return;
+            animator.SetBool("Aimed", false);
+            animator.SetLayerWeight(1, 0);
+            animator.SetBool("IsBattleOn", false);
+        }
+        public void DeathAnimation()
+        {
+            animator.Play(PlayerAnimationStates.Die.ToString());
+            Debug.Log("Die");
+        }
         public void AimTarget(bool hasTarget)
         {
             animator.SetBool("Aimed",hasTarget);

@@ -8,7 +8,7 @@ namespace Controllers.PlayerControllers
     {
         public SphereCollider Collider;
 
-       [SerializeField] private MoneyStackerController playerMoneyStackerController;
+       [SerializeField] private MoneyWorkerStackerController playerMoneyStackerController;
         private void OnTriggerEnter(Collider other)
         {
 

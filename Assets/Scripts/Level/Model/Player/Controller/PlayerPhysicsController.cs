@@ -1,7 +1,9 @@
 ﻿using Managers;
 using UnityEngine;
 using Enums;
-
+using System;
+using Interfaces;
+using Signals;
 
 namespace Controllers
 {
@@ -26,14 +28,12 @@ namespace Controllers
 
         #endregion
 
-
-
-
         private void GateEnter(Collider other)
         {
             var playerIsGoingToFrontYard = other.transform.position.z > transform.position.z;
             gameObject.layer = LayerMask.NameToLayer("BaseDefense");
             playerManager.CheckAreaStatus(playerIsGoingToFrontYard ? AreaType.BattleOn : AreaType.BaseDefense);
+            playerManager.CloseHealtBar();
         }
         private void GateExit(Collider other)
         {
@@ -43,11 +43,11 @@ namespace Controllers
             if (!playerIsGoingToFrontYard) return;
             playerManager.HasEnemyTarget = false;
             playerManager.EnemyList.Clear();
+            playerManager.OpenHealtBar();
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            
             if (other.TryGetComponent(out ObstaclePhysicsController obstaclePhysicsObject))
             {
                 GateEnter(other);
@@ -57,7 +57,13 @@ namespace Controllers
             {
                 playerManager.SetTurretAnim(true);
             }
+
+            if (other.TryGetComponent(out IDamager damager))
+            {   
+                PlayerSignal.Instance.onTakePlayerDamage(damager.GetDamage());
+            }
         }
+
 
         private void OnTriggerExit(Collider other)
         {
@@ -72,6 +78,11 @@ namespace Controllers
 
         }
 
+        public void ResetPlayerLayer()
+        {
+            gameObject.layer = LayerMask.NameToLayer("BaseDefense");//bakcaz
+            Debug.Log("bak");
+        }
     }
 }
 //#region Self Variables

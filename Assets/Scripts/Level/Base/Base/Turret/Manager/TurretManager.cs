@@ -68,7 +68,7 @@ namespace Managers
            
            InputSignals.Instance.onInputDragged += OnGetInputValues;
             TurretSignals.Instance.onPressTurretButton += OnPressTurretButton;
-           // TurretSignals.Instance.onDieEnemy += OnDeadEnemy;
+           //TurretSignals.Instance.onDieEnemy += OnDeadEnemy;
          
         }
 

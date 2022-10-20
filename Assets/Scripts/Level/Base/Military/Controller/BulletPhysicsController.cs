@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class BulletPhysicsController : MonoBehaviour,IDamager
+    public class BulletPhysicsController : MonoBehaviour,IDamager,IAttacker
     {
         #region Self Variables
 
@@ -28,7 +28,7 @@ namespace Controllers
 
         private int _damage;
 
-        int IDamager._damage { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        int IDamager.Damage { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
         #endregion
 
@@ -44,8 +44,10 @@ namespace Controllers
         }
         private void OnTriggerEnter(Collider other)
         {
+            
             if (other.TryGetComponent(out IDamagable idDamagable))
             {
+                
                 bulletManager.SetBulletToPool();
             }
         }

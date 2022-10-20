@@ -1,12 +1,16 @@
+using Controller;
 using Controllers;
+using Controllers.PlayerControllers;
 using Data.UnityObject;
 using Data.ValueObject;
 using Datas.UnityObject;
 using Datas.ValueObject;
+using DG.Tweening;
 using Enums;
 using Interfaces;
 using Keys;
 using Signals;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,6 +49,13 @@ namespace Managers
         private PlayerMovementController movementController;
         [SerializeField]
         private PlayerPhysicsController physicsController;
+        [SerializeField]
+        private PlayerHealtController playerHealtController;
+        [SerializeField]
+        private PlayerAccountController playerAccountController;
+        [SerializeField]
+        private MoneyWorkerStackerController playerMoneyStackerController;
+
         #endregion
 
         #region Private Variables
@@ -54,6 +65,7 @@ namespace Managers
         private WeaponData _weaponData;
 
         public IDamagable DamagableEnemy;
+        private bool _canReset;
 
         #endregion
 
@@ -72,44 +84,72 @@ namespace Managers
             movementController.SetMovementData(_data.MovementDatas);
             weaponController.SetWeaponData(_weaponData);
             meshController.SetWeaponData(_weaponData);
+            playerHealtController.SetHealthData(_data.playerCharacterData);
 
         }
         #region Event Subscription
-        private void OnEnable()
-        {
-            SubscribeEvents();
-        }
+        private void OnEnable() => SubscribeEvents();
         private void SubscribeEvents()
         {
             InputSignals.Instance.onInputDragged += OnGetInputValues;
             InputSignals.Instance.onInputHandlerChange += OnDisableMovement;
+            PlayerSignal.Instance.onTakePlayerDamage += OnTakePlayerDamage;
         }
+
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
             InputSignals.Instance.onInputHandlerChange -= OnDisableMovement;
+            PlayerSignal.Instance.onTakePlayerDamage += OnTakePlayerDamage;
         }
-        private void OnDisable()
-        {
-            UnsubscribeEvents();
-        }
+        private void OnDisable() => UnsubscribeEvents();
         #endregion
+
         private void OnGetInputValues(HorizontalInputParams inputParams)
         {
             movementController.UpdateInputValues(inputParams);
             animationController.PlayAnimation(inputParams);
-            AimEnemy();
+        
         }
         public void SetEnemyTarget()
         {
             shootingController.SetEnemyTargetTransform();
             animationController.AimTarget(true);
-            AimEnemy();
+
         }
-        private void AimEnemy() => movementController.LookAtTarget(!HasEnemyTarget ? null : EnemyList[0]?.GetTransform());
+        public void ResetPlayer()
+        {
+            Debug.Log("ResetPlayer");
+           playerAccountController.Collider.enabled = false;
+           playerMoneyStackerController.ResetStack();
+           CoreGameSignals.Instance.onResetPlayerStack?.Invoke();
+           DOVirtual.DelayedCall(.3f,()=>animationController.DeathAnimation());
+            physicsController.ResetPlayerLayer();
+           EnemyList.Clear();
+           HasEnemyTarget = false;
+           CheckAreaStatus(AreaType.BaseDefense);
+           CoreGameSignals.Instance.onReset?.Invoke();
+           OnDisableMovement(InputHandlers.None);
+           DOVirtual.DelayedCall(3f, () =>
+           {
+               playerAccountController.Collider.enabled = true;
+               UISignals.Instance.onOpenUIPanel?.Invoke(UIPanels.PlayerHealt);
+               playerHealtController.IncreaseHealth();
+               _canReset = false;
+               transform.position = Vector3.zero;
+               CoreGameSignals.Instance.onPlay?.Invoke();
+               animationController.ChangeAnimations(PlayerAnimationStates.Idle);
+
+           });
+        }
+
         public void CheckAreaStatus(AreaType areaType) => meshController.ChangeAreaStatus(CurrentAreaType = areaType);
         private void OnDisableMovement(InputHandlers inputHandler) => movementController.DisableMovement(inputHandler);
         public void SetTurretAnim(bool onTurret) => animationController.PlayTurretAnimation(onTurret);
+        internal void OpenHealtBar() => UISignals.Instance.onOpenUIPanel?.Invoke(UIPanels.PlayerHealt);
+        internal void CloseHealtBar() => UISignals.Instance.onCloseUIPanel?.Invoke(UIPanels.PlayerHealt);
+        private void OnTakePlayerDamage(int damage) => playerHealtController.OnTakeDamage(damage);
+
 
     }
 }

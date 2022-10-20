@@ -10,11 +10,11 @@ namespace Controllers
     {   
         [SerializeField]
         List<GameObject> UIPanelsList ;
-        public void OpenPanel(ShopType panelParams)
+        public void OpenPanel(UIPanels panelParams)
         {
             UIPanelsList[(int)panelParams].SetActive(true);
         }
-        public void ClosePanel(ShopType panelParams)
+        public void ClosePanel(UIPanels panelParams)
         {
             UIPanelsList[(int)panelParams].SetActive(false);
         }

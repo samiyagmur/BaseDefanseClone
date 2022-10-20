@@ -9,11 +9,11 @@ namespace Controllers
     public class RockedPyhsicsController : MonoBehaviour, IDamager
     {
         [SerializeField]
-        public int _damage { get; set ; }
+        public int Damage { get; set ; }
 
         public int GetDamage()
         {
-            return _damage;
+            return Damage;
         }
     }
 }

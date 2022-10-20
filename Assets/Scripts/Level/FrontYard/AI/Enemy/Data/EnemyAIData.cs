@@ -9,6 +9,7 @@ namespace Data.ValueObject
     [Serializable]
     public class EnemyAIData
     {
-        public List<EnemyData> EnemyDatas;
+        public List<EnemyData> EnemyDatas=new List<EnemyData>();
+        public EnemySpawnData enemySpawnData;
     }
 }

@@ -8,7 +8,8 @@ namespace Enums
     {
         Orange,
         Red,
-        Yellow
+        Yellow,
+        BossEnemy
 
     }
 

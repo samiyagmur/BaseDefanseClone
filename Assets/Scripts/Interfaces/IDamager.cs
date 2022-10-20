@@ -7,7 +7,7 @@ namespace Interfaces
     internal interface IDamager
     {
 
-        int _damage { get; set; }
+        int Damage { get; set; }
 
         int GetDamage();
     }

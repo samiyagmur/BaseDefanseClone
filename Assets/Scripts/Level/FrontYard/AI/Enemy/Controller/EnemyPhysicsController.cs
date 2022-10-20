@@ -18,21 +18,16 @@ namespace Controllers.AIControllers
 
         private void OnTriggerEnter(Collider other)
         {
-
             if (!other.TryGetComponent(out IAttacker attacker)) return;
 
             var damage = attacker.Damage();
-            _enemyAIBrain.Health -= damage;
-
-            if (_enemyAIBrain.Health == 0)
-            {
-                IsDead = true;
-            }
+            TakeDamage(damage);
         }
 
         public int TakeDamage(int damage)
         {
             if (_enemyAIBrain.Health <= 0) return 0;
+
             _enemyAIBrain.Health -= damage;
 
             if (_enemyAIBrain.Health != 0) return _enemyAIBrain.Health;

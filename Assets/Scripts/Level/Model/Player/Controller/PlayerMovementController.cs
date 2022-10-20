@@ -50,7 +50,7 @@ namespace Controllers
         public void LookAtTarget(Transform enemyTarget)
         {
             if (enemyTarget == null) return;
-            transform.LookAt(enemyTarget, Vector3.up * 3f);
+            transform.LookAt(new Vector3(enemyTarget.position.x, 0, enemyTarget.position.z), Vector3.up * 3f);
         }
 
         private void EnableMovement(bool movementStatus)
@@ -78,6 +78,13 @@ namespace Controllers
                 rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
             }
         }
+        private void LateUpdate()
+        {
+            if (manager.EnemyTarget == null)
+                return;
+            LookAtTarget(manager.EnemyList[0].GetTransform());
+        }
+       
         private void RotatePlayer()
         {
             Vector3 movementDirection = new Vector3(_inputVector.x, 0, _inputVector.y);

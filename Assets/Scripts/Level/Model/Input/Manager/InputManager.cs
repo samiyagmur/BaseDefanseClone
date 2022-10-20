@@ -29,12 +29,27 @@ namespace Managers
         private Vector2 _inputValuesVector = Vector2.zero;
         private bool _hasTouched;
 
-      
-        #endregion
 
         #endregion
 
+        #endregion
 
+        #region Event Subscription
+        private void OnEnable() => SubscribeEvents();
+        private void SubscribeEvents()
+        {
+            CoreGameSignals.Instance.onReset += OnReset;
+
+        }
+
+        private void UnsubscribeEvents()
+        {
+            CoreGameSignals.Instance.onReset -= OnReset;
+
+        }
+        private void OnDisable() => UnsubscribeEvents();
+
+        #endregion
         private void Update()
         {
             
@@ -62,6 +77,10 @@ namespace Managers
             InputSignals.Instance.onInputTakenActive?.Invoke(_hasTouched);
         }
 
+        private void OnReset()
+        {
+            _hasTouched = false;
+        }
 
     }
 }
