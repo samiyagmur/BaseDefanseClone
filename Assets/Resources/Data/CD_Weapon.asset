@@ -13,35 +13,31 @@ MonoBehaviour:
   m_Name: CD_Weapon
   m_EditorClassIdentifier: Assembly-CSharp:Data.UnityObject:CD_Weapon
   WeaponData:
-  - WeaponType: 0
-    WeaponMesh: {fileID: 6908739434531237095, guid: 7a1d13925b6590f4f9b6fad7fa9cb71f, type: 3}
+  - WeaponMesh: {fileID: 6908739434531237095, guid: 7a1d13925b6590f4f9b6fad7fa9cb71f, type: 3}
     HasSideMesh: 0
     SideMesh: {fileID: 0}
     Damage: 10
     AttackRate: 15
     WeaponLevel: 1
-    Bullet: {fileID: 7673831996231402173, guid: bd7c82f0b41d07f4787f3138278fc963, type: 3}
-  - WeaponType: 1
-    WeaponMesh: {fileID: 1659898151575521214, guid: 579a45d28287c05408dae28f02a4dfd4, type: 3}
+    Bullet: {fileID: 5141339768904831981, guid: 498894d4d8d4a574e8d9435cfe9443fa, type: 3}
+  - WeaponMesh: {fileID: 5171230070905983354, guid: 69ca42d702be8ef4f98bbbea733e7f90, type: 3}
     HasSideMesh: 0
     SideMesh: {fileID: 0}
     Damage: 15
     AttackRate: 15
     WeaponLevel: 1
-    Bullet: {fileID: 7673831996231402173, guid: bd7c82f0b41d07f4787f3138278fc963, type: 3}
-  - WeaponType: 2
-    WeaponMesh: {fileID: 5171230070905983354, guid: 69ca42d702be8ef4f98bbbea733e7f90, type: 3}
+    Bullet: {fileID: 5141339768904831981, guid: 498894d4d8d4a574e8d9435cfe9443fa, type: 3}
+  - WeaponMesh: {fileID: 1659898151575521214, guid: 579a45d28287c05408dae28f02a4dfd4, type: 3}
     HasSideMesh: 0
     SideMesh: {fileID: 0}
     Damage: 20
     AttackRate: 15
     WeaponLevel: 1
-    Bullet: {fileID: 7673831996231402173, guid: bd7c82f0b41d07f4787f3138278fc963, type: 3}
-  - WeaponType: 3
-    WeaponMesh: {fileID: -6080893442825186160, guid: abfc91e8a4c77ac41b30bc250135dbff, type: 3}
+    Bullet: {fileID: 5141339768904831981, guid: 498894d4d8d4a574e8d9435cfe9443fa, type: 3}
+  - WeaponMesh: {fileID: -6080893442825186160, guid: abfc91e8a4c77ac41b30bc250135dbff, type: 3}
     HasSideMesh: 1
     SideMesh: {fileID: 4510576883206382148, guid: abfc91e8a4c77ac41b30bc250135dbff, type: 3}
     Damage: 25
     AttackRate: 15
     WeaponLevel: 1
-    Bullet: {fileID: 7673831996231402173, guid: bd7c82f0b41d07f4787f3138278fc963, type: 3}
+    Bullet: {fileID: 5141339768904831981, guid: 498894d4d8d4a574e8d9435cfe9443fa, type: 3}

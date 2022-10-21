@@ -80,7 +80,6 @@ namespace Managers
             
             _shopdata = InitializeDataSignals.Instance.onLoadShopData?.Invoke();
             
-
             LoadWeaponSlot();
 
             LoadWorkerSlot();
@@ -88,8 +87,6 @@ namespace Managers
             LoadPlayerSlot();
 
             LoadSoldierSlot();
-
-
         }
 
         internal  void LoadWeaponSlot()
@@ -105,9 +102,6 @@ namespace Managers
                 weaponShopUI.SetWeaponType((WeaponTypes)i);
 
                 weaponShopUI.SetToShopData(_shopdata._weaponShopSlot,this);
-
-               
-
             }
 
         }
@@ -143,8 +137,6 @@ namespace Managers
                 playerShopUIController.SetWeaponType((PlayerUpgradeType)i);
 
                 playerShopUIController.SetToShopData(_shopdata._playerShopSlot, this);
-
-               
             }
 
         }
@@ -176,12 +168,11 @@ namespace Managers
 
         public void ChangeWeaponType(WeaponTypes weapontype) =>
             UISignals.Instance.onChangeWeaponType?.Invoke(weapontype);
+        private void OnChangeMoney(int amount) =>
+           levelPanelText[(int)LevelPanelTextType.money].text = amount.ToString();
 
         private void OnChangeDiamond(int amount) => 
-            levelPanelText[(int)LevelPanelTextType.diamond].text = amount.ToString();
-
-        private void OnChangeMoney(int amount) => 
-            levelPanelText[(int)LevelPanelTextType.money].text = amount.ToString();
+           levelPanelText[(int)LevelPanelTextType.diamond].text = amount.ToString();
 
         public void BuyWeapon(WeaponTypes weapontype) =>
             UISignals.Instance.onPressUnlockButton.Invoke(weapontype);

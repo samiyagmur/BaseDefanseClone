@@ -15,7 +15,6 @@ namespace Controllers
 
             if (other.TryGetComponent(out IDamagable damagable))
             {
-                Debug.Log("damagable.IsTaken");
 
                 if (damagable.IsTaken) return;
 
@@ -36,12 +35,13 @@ namespace Controllers
                 damagable.IsTaken = false;
 
                 manager.EnemyList.Remove(damagable);
-
+                
                 manager.EnemyList.TrimExcess();
 
                 if (manager.EnemyList.Count == 0)
                 {
                     manager.EnemyTarget = null;
+
                     manager.HasEnemyTarget = false;
                 }
             }

@@ -64,6 +64,6 @@ MonoBehaviour:
     - isDynamic: 1
       StackerType: 3
       StackAreaType: 0
-      GridSize: {x: 0, y: 0, z: 0}
+      GridSize: {x: 1, y: 1, z: 5}
       Offset: {x: 0, y: 0, z: 0}
       DrawnedMesh: {fileID: 0}

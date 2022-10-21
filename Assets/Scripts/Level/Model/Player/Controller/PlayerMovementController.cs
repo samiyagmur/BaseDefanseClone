@@ -49,8 +49,11 @@ namespace Controllers
 
         public void LookAtTarget(Transform enemyTarget)
         {
-            if (enemyTarget == null) return;
-            transform.LookAt(new Vector3(enemyTarget.position.x, 0, enemyTarget.position.z), Vector3.up * 3f);
+            if (enemyTarget != null)
+            {
+                transform.LookAt(new Vector3(enemyTarget.position.x, 0, enemyTarget.position.z), Vector3.up * 3f);
+            }
+           
         }
 
         private void EnableMovement(bool movementStatus)
@@ -79,12 +82,14 @@ namespace Controllers
             }
         }
         private void LateUpdate()
-        {
-            if (manager.EnemyTarget == null)
-                return;
-            LookAtTarget(manager.EnemyList[0].GetTransform());
+        {  
+            if (manager.EnemyTarget != null)
+            {
+                LookAtTarget(manager.EnemyList[0].GetTransform());
+            }
+
         }
-       
+
         private void RotatePlayer()
         {
             Vector3 movementDirection = new Vector3(_inputVector.x, 0, _inputVector.y);

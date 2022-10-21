@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2725546755933409228}
   - component: {fileID: 6990459842346991360}
+  - component: {fileID: 5018393164928940450}
   m_Layer: 24
   m_Name: PhysicsController
   m_TagString: Untagged
@@ -45,6 +46,19 @@ CapsuleCollider:
   m_Height: 0.26268315
   m_Direction: 2
   m_Center: {x: 0, y: -0.0020073317, z: 0.11487797}
+--- !u!114 &5018393164928940450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3032416468138951921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b3ad764d308c974fa98f635070a0ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletManager: {fileID: -1543965436663472104}
 --- !u!1 &3545470273353383339
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,6 +70,8 @@ GameObject:
   - component: {fileID: 7699466075808814320}
   - component: {fileID: 5732745245380726024}
   - component: {fileID: 3614198098836278180}
+  - component: {fileID: -1543965436663472104}
+  - component: {fileID: 1882475126061021852}
   m_Layer: 0
   m_Name: ShotGunBullet
   m_TagString: Untagged
@@ -202,6 +218,33 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &-1543965436663472104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3545470273353383339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7b1b811b6eb14443bd18608991b3f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 1
+  physicsController: {fileID: 5018393164928940450}
+--- !u!114 &1882475126061021852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3545470273353383339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51c53f622c438e4abdb5535f6baae0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbody: {fileID: 5732745245380726024}
 --- !u!1001 &5696265896892040413
 PrefabInstance:
   m_ObjectHideFlags: 0

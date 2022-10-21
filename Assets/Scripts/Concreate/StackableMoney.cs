@@ -15,7 +15,9 @@ namespace Concreate
         public override bool IsCollected { get; set; }
         private void OnEnable()
         {
+            
             SendStackable(this);
+           
             EditPhysics();
         }
         public override GameObject SendToStack()

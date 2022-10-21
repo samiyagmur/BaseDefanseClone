@@ -29,7 +29,7 @@ TagManager:
   - AmmoWorker
   - AmmoStore
   - AmmoKontayner
-  - AmmoCreater
+  - GarateWorkerArea
   - SoldierBody
   - SoldierDetection
   - EnemyBody

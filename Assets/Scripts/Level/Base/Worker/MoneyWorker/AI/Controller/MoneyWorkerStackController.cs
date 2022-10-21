@@ -125,13 +125,6 @@ namespace Controller
 
             }
         }
-        private void OnDrawGizmos()
-        {
-            for (int i = 0; i < gridPositionsData.Count; i++)
-            {
-                Gizmos.DrawMesh(_gridData.DrawnedMesh, gridPositionsData[i]);
-            }
-        }
         public override void SendGridDataToStacker()
         {
             moneyWorkerManager.GetStackPositions(gridPositionsData);

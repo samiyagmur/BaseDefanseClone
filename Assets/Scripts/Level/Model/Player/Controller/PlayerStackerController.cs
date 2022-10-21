@@ -1,6 +1,7 @@
 ﻿using Abstraction;
 using DG.Tweening;
 using Interfaces;
+using Signals;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -57,12 +58,13 @@ namespace Controller
 
         }
         public void OnRemoveAllStack()
-        {
+        {   
             if (!canRemove)
                 return;
             canRemove = false;
             stackListConstCount = StackList.Count;
             RemoveAllStack();
+            CoreGameSignals.Instance.onUpdateMoneyScore(stackListConstCount*10);
         }
 
         private async void RemoveAllStack()
@@ -70,10 +72,12 @@ namespace Controller
             if (StackList.Count == 0)
             {
                 canRemove = true;
+                
                 return;
             }
             if (StackList.Count >= stackListConstCount - 6)
-            {
+            {   
+
                 RemoveStackAnimation(StackList[StackList.Count - 1]);
                 StackList.TrimExcess();
                 await Task.Delay(201);
@@ -95,7 +99,7 @@ namespace Controller
             GetStackSequence = DOTween.Sequence();
             var randomRemovedStackPosition = CalculateRandomRemoveStackPosition();
             var randomRemovedStackRotation = CalculateRandomStackRotation();
-
+           
             GetStackSequence.Append(removedStack.transform.DOLocalMove(randomRemovedStackPosition, .2f));
             GetStackSequence.Join(removedStack.transform.DOLocalRotate(randomRemovedStackRotation, .2f)).OnComplete(() =>
             {

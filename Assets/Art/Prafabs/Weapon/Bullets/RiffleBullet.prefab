@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b1b811b6eb14443bd18608991b3f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 0
+  weaponType: 2
   physicsController: {fileID: 1619323418833653259}
 --- !u!114 &5702619651433962912
 MonoBehaviour:

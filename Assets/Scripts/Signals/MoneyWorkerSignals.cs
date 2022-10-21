@@ -14,6 +14,7 @@ namespace Signals
         public UnityAction onSendMoneyPositionToWorkers = delegate { };
         public UnityAction<StackableMoney> onSetStackable = delegate { };
         public UnityAction onThisMoneyTaken = delegate { };
+        public UnityAction <Transform> onGenerateMoneyWorker = delegate { };
 
         public Func<Transform, Transform> onGetTransformMoney = delegate { return null; };
         public Func<Vector3> onSendWaitPosition = delegate { return Vector3.zero; };

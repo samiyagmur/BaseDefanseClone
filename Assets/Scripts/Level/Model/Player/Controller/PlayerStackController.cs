@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Abstraction;
 using Datas.ValueObject;
+using Controller;
 
 namespace Controllers
 {
@@ -15,7 +16,7 @@ namespace Controllers
         #region Serialized Variables
 
         [SerializeField]
-        private MoneyWorkerStackerController moneyStackerController;
+        private PlayerStackerController moneyStackerController;
 
         [SerializeField] private StackingSystem stackingSystem;
 

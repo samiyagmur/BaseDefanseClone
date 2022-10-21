@@ -44,10 +44,12 @@ namespace Managers
             MoneyWorkerSignals.Instance.onGetTransformMoney += OnSendMoneyPositionToWorkers;
             MoneyWorkerSignals.Instance.onThisMoneyTaken += OnThisMoneyTaken;
             MoneyWorkerSignals.Instance.onSetStackable += OnAddMoneyPositionToList;
+            MoneyWorkerSignals.Instance.onGenerateMoneyWorker += CreateMoneyWorker;
         }
 
         private void UnsubscribeEvents()
         {
+            MoneyWorkerSignals.Instance.onGenerateMoneyWorker -= CreateMoneyWorker;
             MoneyWorkerSignals.Instance.onGetMoneyAIData -= OnGetWorkerAIData;
             MoneyWorkerSignals.Instance.onThisMoneyTaken -= OnThisMoneyTaken;
             MoneyWorkerSignals.Instance.onSetStackable -= OnAddMoneyPositionToList;
@@ -111,18 +113,18 @@ namespace Managers
             _slotTransformList.RemoveAt(0);
             _slotTransformList.TrimExcess();
         }
-
-        [Button("Add Money Worker")]
-        private void CreateMoneyWorker()
+        private void CreateMoneyWorker(Transform genarateArea)
         {
             if (OnGetWorkerAIData(WorkerType.MoneyWorkerAI).MaxWorkerAmount == _currentWorker)
                 return;
             var obj = GetObject(PoolType.MoneyWorkerAI);
+            obj.transform.position = genarateArea.position;
             var objComp = obj.GetComponent<MoneyWorkerAIBrain>();
             _workerList.Add(objComp);
             _currentWorker++;
             SetWorkerPosition(objComp);
         }
+
         [Button("Release Worker")]
         private void ReleaseMoneyWorker()
         {
@@ -132,7 +134,6 @@ namespace Managers
                 ReleaseObject(obj.gameObject, PoolType.MoneyWorkerAI);
                 _workerList.Remove(obj);
             }
-
         }
 
         public void ReleaseObject(GameObject obj, PoolType poolName)

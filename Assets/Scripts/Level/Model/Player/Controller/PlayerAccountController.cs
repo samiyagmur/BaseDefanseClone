@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Controller;
+using Interfaces;
 using Signals;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Controllers.PlayerControllers
     {
         public SphereCollider Collider;
 
-       [SerializeField] private MoneyWorkerStackerController playerMoneyStackerController;
+       [SerializeField] private PlayerStackerController playerMoneyStackerController;
         private void OnTriggerEnter(Collider other)
         {
 
@@ -25,10 +26,10 @@ namespace Controllers.PlayerControllers
 
         private void OnTriggerExit(Collider other)
         {
-            //if (other.TryGetComponent<GatePhysicsController>(out GatePhysicsController gatePhysics))
-            //{
-            //    playerMoneyStackerController.OnRemoveAllStack();
-            //}
+            if (other.TryGetComponent(out ObstaclePhysicsController gatePhysics))
+            {
+                playerMoneyStackerController.OnRemoveAllStack();
+            }
         }
 
         #region Account

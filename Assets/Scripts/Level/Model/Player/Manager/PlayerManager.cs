@@ -10,6 +10,7 @@ using Enums;
 using Interfaces;
 using Keys;
 using Signals;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace Managers
         public AreaType CurrentAreaType = AreaType.BaseDefense;
 
         public WeaponTypes WeaponType;
-
+        [ShowInInspector]   
         public List<IDamagable> EnemyList = new List<IDamagable>();
 
         public Transform EnemyTarget;
@@ -54,7 +55,7 @@ namespace Managers
         [SerializeField]
         private PlayerAccountController playerAccountController;
         [SerializeField]
-        private MoneyWorkerStackerController playerMoneyStackerController;
+        private PlayerStackerController playerMoneyStackerController;
 
         #endregion
 
@@ -94,14 +95,25 @@ namespace Managers
             InputSignals.Instance.onInputDragged += OnGetInputValues;
             InputSignals.Instance.onInputHandlerChange += OnDisableMovement;
             PlayerSignal.Instance.onTakePlayerDamage += OnTakePlayerDamage;
+            UISignals.Instance.onChangeWeaponType += OnChangeWeaponType;
         }
 
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
             InputSignals.Instance.onInputHandlerChange -= OnDisableMovement;
-            PlayerSignal.Instance.onTakePlayerDamage += OnTakePlayerDamage;
+            PlayerSignal.Instance.onTakePlayerDamage -= OnTakePlayerDamage;
+            UISignals.Instance.onChangeWeaponType -= OnChangeWeaponType;
         }
+
+        private void OnChangeWeaponType(WeaponTypes type)
+        {
+             WeaponType = type;
+            _weaponData = GetWeaponData();
+            weaponController.ChangeWeaponType(_weaponData);
+
+        }
+
         private void OnDisable() => UnsubscribeEvents();
         #endregion
 

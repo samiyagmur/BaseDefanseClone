@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8718584647687059979}
   - component: {fileID: 4953279697125863643}
-  - component: {fileID: 1089365002996266846}
+  - component: {fileID: 6744740861355829830}
   m_Layer: 0
   m_Name: StackController
   m_TagString: Untagged
@@ -48,7 +48,7 @@ MonoBehaviour:
   StackList: []
   positionList: []
   radiusAround: 1.2
---- !u!114 &1089365002996266846
+--- !u!114 &6744740861355829830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,11 +57,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 292934153851073933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c7d6bee491ca944c9693ef1226d18bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b23e536410e8fb41b7c3e2cfe1abb53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyStackerController: {fileID: 4953279697125863643}
-  stackingSystem: 1
+  moneyWorkerManager: {fileID: 0}
+  GridParent: {fileID: 0}
+  stackingSystem: 0
   stackAreaType: 0
   stackAreaGridData:
     isDynamic: 0
@@ -70,7 +71,7 @@ MonoBehaviour:
     GridSize: {x: 0, y: 0, z: 0}
     Offset: {x: 0, y: 0, z: 0}
     DrawnedMesh: {fileID: 0}
-  stackerType: 2
+  stackerType: 0
   stackerGridData:
     isDynamic: 0
     StackerType: 0
@@ -165,7 +166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5455066261541432749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.1, y: 0.33, z: 0}
+  m_LocalPosition: {x: 0, y: 0.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5455066260182408962}

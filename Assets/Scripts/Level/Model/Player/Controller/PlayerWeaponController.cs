@@ -17,7 +17,6 @@ namespace Controllers
          #endregion
      
          #region Private Variabl
-         private WeaponData _weaponData;
          private bool _hasSideMesh;
          private int _damage;
          private float _attackRate;
@@ -27,18 +26,22 @@ namespace Controllers
 
          public void SetWeaponData(WeaponData weaponData)
          {
-             _weaponData = weaponData;
-             SetData();
+             SetData(weaponData);
          }
-         private void SetData()
+         private void SetData(WeaponData weaponData)
          {
-             meshFilter.mesh = _weaponData.WeaponMesh;
-             _damage = _weaponData.Damage;
-             _attackRate = _weaponData.AttackRate;
-             _weaponLevel = _weaponData.WeaponLevel;
-             _hasSideMesh = _weaponData.HasSideMesh;
-             if (!_weaponData.HasSideMesh) return;
-             sideMeshFilter.mesh = _weaponData.SideMesh;
+             meshFilter.mesh = weaponData.WeaponMesh;
+             _damage = weaponData.Damage;
+             _attackRate = weaponData.AttackRate;
+             _weaponLevel = weaponData.WeaponLevel;
+             _hasSideMesh = weaponData.HasSideMesh;
+             if (!weaponData.HasSideMesh) return;
+             sideMeshFilter.mesh = weaponData.SideMesh;
+         }
+         public void ChangeWeaponType(WeaponData weaponData)
+         {
+            Debug.Log("ChangeWeaponType");
+            SetData(weaponData);
          }
     }
 }

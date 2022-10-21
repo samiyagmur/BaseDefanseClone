@@ -58,20 +58,20 @@ namespace Managers
         private void LoadScoreData()
         {
             _scoreData = InitializeDataSignals.Instance.onLoadScoreData.Invoke();
-            UISignals.Instance.onChangeMoney?.Invoke(_scoreData.Diamond);
-            UISignals.Instance.onChangeDiamond?.Invoke(_scoreData.Money);
+            UISignals.Instance.onChangeMoney?.Invoke(_scoreData.Money);
+            UISignals.Instance.onChangeDiamond?.Invoke(_scoreData.Diamond);
         }
 
         private void OnUpdateGemScore(int gemValue)
         {
             _scoreData.Diamond += gemValue;
-            UISignals.Instance.onChangeMoney?.Invoke(_scoreData.Diamond);
+            UISignals.Instance.onChangeDiamond?.Invoke(_scoreData.Diamond);
         }
 
         private void OnUpdateMoneyScore(int moneyValue)
         {
             _scoreData.Money += moneyValue;
-            UISignals.Instance.onChangeDiamond?.Invoke(_scoreData.Money);
+            UISignals.Instance.onChangeMoney?.Invoke(_scoreData.Money);
         }
 
         private int OnGetCurrentMoney() => _scoreData.Money;
