@@ -48,7 +48,7 @@ namespace Controllers
                 stackableObj.transform.rotation = Quaternion.LookRotation(transform.forward);
             
                 StackList.Add(stackableObj);
-            
+                
                 stackableObj.transform.DOLocalMove(PositionList[StackList.Count - 1], 0.3f);
             });
             if (PositionList.Count-1 <= StackList.Count)
@@ -105,10 +105,9 @@ namespace Controllers
             {
                 removedStack.transform.rotation = Quaternion.LookRotation(targetTransform.forward);
                             StackList.Remove(removedStack);
-                //removedStack.transform.parent=targetTransform;           
+        
                 removedStack.transform.DOMove(targetTransform.localPosition+new Vector3(0,targetTransform.localScale.y*2,0), .1f).OnComplete(() =>
                 {
-                    
                     removedStack.transform.DOScale(Vector3.zero, 0.2f);
                     removedStack.transform.SetParent(null);
                     removedStack.SetActive(false);

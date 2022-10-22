@@ -49,7 +49,7 @@ namespace AIBrain.AmmoWorkers
         private FullAmmo _fullAmmo;
         private Create _creat;
         private AmmoWorkerAIData _ammoWorkerAIData;
-
+        private float _speed;
         private StateMachine _statemachine;
 
         #endregion
@@ -63,18 +63,18 @@ namespace AIBrain.AmmoWorkers
         public void InitBrain()
         {
             _ammoWorkerAIData = Resources.Load<CD_AIData>("Data/CD_AIData").AmmoWorkerAIDatas;
+            _speed = _ammoWorkerAIData.MovementSpeed;
             GetStatesReferences();
             TransitionofState();
         }
         public void ChangeAmmoWorkerStackStatus(AmmoStackStatus status) => _playerAmmaStackStatus = status;
 
         public void SetTriggerInfo(bool IsInPlaceWareHouse) => _inplaceWorker = IsInPlaceWareHouse;
+        internal void IncreaseSpeed(int amount) => _speed = (float)amount;
 
+        internal bool Get_isLoadTurretContayner() => _isLoadTurretContayner;
 
-        internal void IsLoadTurret(bool isLoadTurretContayner)
-        {
-            _isLoadTurretContayner = isLoadTurretContayner;
-        }
+        internal void IsLoadTurret(bool isLoadTurretContayner, bool _isLoadTurretContayner) => _isLoadTurretContayner = isLoadTurretContayner;
 
         public void SetTargetTurretStack(GameObject targetTurretContayner)
         {
@@ -100,7 +100,7 @@ namespace AIBrain.AmmoWorkers
 
             _loadTurret = new LoadContayner(_agent, _animator, _ammoWorkerAIData.MovementSpeed, _ammoWorkerAIData.AmmoWareHouse);
 
-            _fullAmmo = new FullAmmo(_agent, _animator, _ammoWorkerAIData.MovementSpeed);
+            _fullAmmo = new FullAmmo(_agent, _animator, _ammoWorkerAIData.MovementSpeed, _ammoWorkerAIData.AmmoWareHouse);
 
         }
 
@@ -126,10 +126,10 @@ namespace AIBrain.AmmoWorkers
 
             At(_loadTurret, _moveToWareHouse, WhenAmmoDichargeStack());
 
-            //if (_playerAmmaStackStatus == PlayerAmmaStackStatus.Full)
-            //{
-            //    _statemachine.AddAnyTransition(_fullAmmo, HasNoEmtyTarget());//bak buna 
-            //}
+            At(_fullAmmo, _moveToWareHouse, WhenAmmoWorkerStackFull());
+
+            _statemachine.AddAnyTransition(_fullAmmo, HasNoEmtyTarget());//bak buna 
+
 
             _statemachine.SetState(_creat);
 
@@ -143,13 +143,13 @@ namespace AIBrain.AmmoWorkers
 
             Func<bool> WhenAmmoWorkerInAmmoWareHouse() => () => _inplaceWorker == true && _ammoWorkerAIData.AmmoWareHouse.transform != null;
 
-            Func<bool> WhenAmmoWorkerStackFull() => () => _targetTurretContayner != null && _playerAmmaStackStatus == AmmoStackStatus.Full;
+            Func<bool> WhenAmmoWorkerStackFull() => () => _targetTurretContayner != null && _playerAmmaStackStatus == AmmoStackStatus.Fill;
 
             Func<bool> IsAmmoWorkerInContayner() => () => _targetTurretContayner != null && _isLoadTurretContayner==true;
 
             Func<bool> WhenAmmoDichargeStack() => () =>  _playerAmmaStackStatus == AmmoStackStatus.Empty;
 
-            //Func<bool> HasNoEmtyTarget() => () => _targetTurretContayner == null;
+            Func<bool> HasNoEmtyTarget() => () => _playerAmmaStackStatus==AmmoStackStatus.Full;
 
             #endregion
         }
@@ -159,6 +159,8 @@ namespace AIBrain.AmmoWorkers
 
             _statemachine.Tick();
         }
+
+
         #endregion
 
 

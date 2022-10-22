@@ -24,7 +24,6 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         public void OnEnter()
         {
             //isWalking anim
-            Debug.Log(_gateTarget);
             _navmeshAgent.speed = _speed;
             _navmeshAgent.SetDestination(_gateTarget);
         }

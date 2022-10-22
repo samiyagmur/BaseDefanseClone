@@ -6,6 +6,7 @@ namespace Enums
     public enum AmmoStackStatus
     {
         Empty,
+        Fill,
         Full
         
     }

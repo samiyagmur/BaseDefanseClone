@@ -96,6 +96,7 @@ namespace Managers
             InputSignals.Instance.onInputHandlerChange += OnDisableMovement;
             PlayerSignal.Instance.onTakePlayerDamage += OnTakePlayerDamage;
             UISignals.Instance.onChangeWeaponType += OnChangeWeaponType;
+            PlayerSignal.Instance.onIncreaseHealt += OnIncreaseHealt;
         }
 
         private void UnsubscribeEvents()
@@ -104,6 +105,7 @@ namespace Managers
             InputSignals.Instance.onInputHandlerChange -= OnDisableMovement;
             PlayerSignal.Instance.onTakePlayerDamage -= OnTakePlayerDamage;
             UISignals.Instance.onChangeWeaponType -= OnChangeWeaponType;
+            PlayerSignal.Instance.onIncreaseHealt -= OnIncreaseHealt;
         }
 
         private void OnChangeWeaponType(WeaponTypes type)

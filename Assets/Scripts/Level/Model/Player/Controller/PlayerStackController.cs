@@ -16,7 +16,7 @@ namespace Controllers
         #region Serialized Variables
 
         [SerializeField]
-        private PlayerStackerController moneyStackerController;
+        private PlayerStackerController playerStackerController;
 
         [SerializeField] private StackingSystem stackingSystem;
 
@@ -131,7 +131,7 @@ namespace Controllers
 
         public override void SendGridDataToStacker()
         {
-            moneyStackerController.GetStackPositions(gridPositionsData);
+            playerStackerController.GetStackPositions(gridPositionsData);
         }
 
     }

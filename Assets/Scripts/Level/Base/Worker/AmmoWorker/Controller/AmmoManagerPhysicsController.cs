@@ -9,18 +9,42 @@ namespace Controllers
     {
         [SerializeField]
         private AmmoManager _ammoManager;
+        private float _timer=0.4f;
 
         private void OnTriggerEnter(Collider other)
         {
-            _ammoManager.WhenAmmoworkerEnterAmmoWareHouse(other.GetComponent<AmmoWorkerBrain>());
+            if (other.TryGetComponent(out AmmoWorkerPhysicsController ammoWorkerPhysicsController))
+            {
 
-            _ammoManager.WhenGetTurretStackInfo(other.GetComponent<AmmoWorkerBrain>());
+                _ammoManager.WhenAmmoworkerEnterAmmoWareHouse(other.transform.parent.GetComponent<AmmoWorkerBrain>());
+
+                _ammoManager.WhenGetTurretStackInfo(other.transform.parent.GetComponent<AmmoWorkerBrain>());
+            }
         }
         private void OnTriggerExit(Collider other)
         {
-            _ammoManager.WhenAmmoworkerExitAmmoWareHouse(other.GetComponent<AmmoWorkerBrain>());
+            if (other.TryGetComponent(out AmmoWorkerPhysicsController ammoWorkerPhysicsController))
+            {
+                _ammoManager.WhenAmmoworkerExitAmmoWareHouse(other.transform.parent.GetComponent<AmmoWorkerBrain>());
+            }
+        }
+        private void OnTriggerStay(Collider other)
+        {
+            
+            if (other.TryGetComponent(out AmmoWorkerPhysicsController ammoWorkerPhysicsController))//it must change
+            {
+                _timer -= Time.deltaTime;
 
-            //_ammoManager.WhenAmmoworkerExitAmmoWareHouse(other.GetComponent<AmmoWorkerStackController>());
+                if (_timer < 0)
+                {
+
+                    _timer = 0.1f;
+           
+                    _ammoManager.WhenStayOnAmmoWareHouse(other.transform.parent.GetComponent<AmmoWorkerBrain>(),
+                                                        other.transform.parent.GetComponent<AmmoWorkerStackController>());
+                }
+            }
+
         }
 
     }

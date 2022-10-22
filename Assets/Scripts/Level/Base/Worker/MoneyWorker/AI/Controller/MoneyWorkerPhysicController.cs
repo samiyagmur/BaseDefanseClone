@@ -31,7 +31,7 @@ namespace Controllers
             }
 
 
-            if (other.CompareTag("Gate"))
+            if (other.TryGetComponent(out GatePhysicsController GatePhysicsController))
             {
                 Debug.Log("Zort Gate");
                 moneyStackerController.OnRemoveAllStack();

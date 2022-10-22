@@ -2,6 +2,7 @@
 using Datas.ValueObject;
 using Enums;
 using Managers;
+using Signals;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Controllers
         private ShopManager shopManager;
 
         private List<PlayerShopData> _playerShopData;
+        private int _increasedSpeedCost= +10;
 
         internal void SetShopData(List<PlayerShopData> playerShop) => _playerShopData = playerShop;
 
@@ -30,6 +32,8 @@ namespace Controllers
                     _playerShopData[(int)value].UpgradePrice += 100;
     
                     _playerShopData[(int)value].UpgradeLevel++;
+
+                    PlayerSignal.Instance.onIncreaseHealt?.Invoke(_increasedSpeedCost);
 
                     return _playerShopData[(int)value];
                 }

@@ -10,7 +10,6 @@ namespace Controllers
         {
             if (other.TryGetComponent(out PlayerPhysicsController playerPhysicsController))
             {
-                Debug.Log("ss");
                 MoneyWorkerSignals.Instance.onGenerateMoneyWorker?.Invoke(transform);
             }
         }

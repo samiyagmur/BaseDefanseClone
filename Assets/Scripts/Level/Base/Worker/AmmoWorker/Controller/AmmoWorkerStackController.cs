@@ -13,21 +13,23 @@ namespace Controllers
     {
 
 
-        private float yPos=-0.5f;//passed false
-        private float zPos=-0.25f;
+        private float yPos=0f;//passed false
+        private float zPos=0f;
         private Sequence ammoSeq;
         
         [SerializeField]
         private List<GameObject> ammoStackObjectList=new List<GameObject>();
 
-        public void AddStack(Transform startPoint, Transform ammoWorker, GameObject bullets)
+        public void AddStack(Transform startPoint, Transform ammoWorker, GameObject bullets, int maxStackCount)
         {
+
+            if (ammoStackObjectList.Count >= maxStackCount) return;
+
             ammoSeq = DOTween.Sequence();
             bullets.transform.position = startPoint.position;
             bullets.transform.SetParent(ammoWorker);
 
-            ammoSeq.Append(bullets.transform.DOScale(new Vector3(1, 1, 1), 0.8f));
-
+            ammoSeq.Append(bullets.transform.DOScale(new Vector3(1.5f,1.5f,1.5f), 0.8f));
 
             ammoSeq.Join(bullets.transform.DOLocalMove(new Vector3(Random.Range(0, 2), bullets.transform.localPosition.y +
 
@@ -37,7 +39,7 @@ namespace Controllers
                      
                      bullets.transform.DOLocalMove(new Vector3(0, ammoWorker.localPosition.y + yPos + 1.5f, -ammoWorker.localScale.z - zPos), 0.4f);
 
-                     yPos += 0.5f;
+                     yPos += 0.75f;
                }));
             ammoSeq.Join(bullets.transform.DOLocalRotate(new Vector3(Random.Range(-179, 179),Random.Range(-179, 179), Random.Range(-90, 90)), 0.3f).
 
@@ -45,13 +47,15 @@ namespace Controllers
 
             ammoSeq.Play();
 
-            if (yPos >= 5)
+            if (yPos >= 7.5f)
             { 
-           
-                zPos += 0.5f;
                 yPos = 0;
+
+                zPos += 0.75f;
             }
-         
+
+
+
             ammoStackObjectList.Add(bullets);
 
         }
@@ -61,8 +65,8 @@ namespace Controllers
         }
         public void SetClearWorkerStackList()
         {
-            zPos = -0.25f;
-
+            yPos=0;
+            zPos =0;
             ammoStackObjectList.Clear();
             ammoStackObjectList.TrimExcess();
         }

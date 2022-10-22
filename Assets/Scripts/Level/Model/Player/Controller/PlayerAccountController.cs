@@ -1,4 +1,5 @@
-﻿using Controller;
+﻿using Concreate;
+using Controller;
 using Interfaces;
 using Signals;
 using UnityEngine;
@@ -13,20 +14,18 @@ namespace Controllers.PlayerControllers
         private void OnTriggerEnter(Collider other)
         {
 
-            if (other.TryGetComponent<IStackable>(out IStackable stackable))
+            if (other.TryGetComponent<StackableMoney>(out StackableMoney stackableMoney))
             {
-                stackable.IsCollected = true;
+                stackableMoney.IsCollected = true;
                 MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke();
-                playerMoneyStackerController.SetStackHolder(stackable.SendToStack().transform);
-               playerMoneyStackerController.GetStack(stackable.SendToStack());
+                playerMoneyStackerController.SetStackHolder(stackableMoney.SendToStack().transform);
+               playerMoneyStackerController.GetStack(stackableMoney.SendToStack());
             }
-
-
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out ObstaclePhysicsController gatePhysics))
+            if (other.TryGetComponent(out GatePhysicsController gatePhysics))
             {
                 playerMoneyStackerController.OnRemoveAllStack();
             }

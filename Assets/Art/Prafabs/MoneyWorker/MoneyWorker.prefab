@@ -60,10 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b23e536410e8fb41b7c3e2cfe1abb53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyWorkerManager: {fileID: 0}
-  GridParent: {fileID: 0}
-  stackingSystem: 0
-  stackAreaType: 0
+  moneyWorkerStackerController: {fileID: 4953279697125863643}
+  stackingSystem: 1
+  stackAreaType: 2
   stackAreaGridData:
     isDynamic: 0
     StackerType: 0
@@ -71,7 +70,7 @@ MonoBehaviour:
     GridSize: {x: 0, y: 0, z: 0}
     Offset: {x: 0, y: 0, z: 0}
     DrawnedMesh: {fileID: 0}
-  stackerType: 0
+  stackerType: 2
   stackerGridData:
     isDynamic: 0
     StackerType: 0

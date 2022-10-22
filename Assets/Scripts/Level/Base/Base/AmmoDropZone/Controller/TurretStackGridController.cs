@@ -11,7 +11,7 @@ namespace Controllers
     {
 
         private int _orderOfContayner ;
-        private float _offset=0.5f;
+        private float _offset=0.75f;
         private int _xGridSize=2;
         private int _yGridSize=2;
         private int _maxContaynerAmount=40;

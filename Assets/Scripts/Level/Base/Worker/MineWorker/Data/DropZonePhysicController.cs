@@ -1,3 +1,5 @@
+using Abstraction;
+using Concreate;
 using UnityEngine;
 
 namespace Controllers
@@ -11,20 +13,20 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            //if (other.CompareTag("Gem"))
-            //{
-            //    Debug.Log("OnTriggerEnter");
-            //    if (gemStackerController.PositionList.Count <= gemStackerController.StackList.Count)
-            //    {
-            //        return;
-            //    }
+            if (other.TryGetComponent(out StackableGem stackableGem))
+            {
+                if (gemStackerController.PositionList.Count <= gemStackerController.StackList.Count)
+                {
+                    return;
+                }
 
-            //    gemStackerController.GetStack(other.gameObject, other.transform);
-            //}
-            //else if (other.TryGetComponent<Interactable>(out Interactable interactable))
-            //{
-            //    gemStackerController.OnRemoveAllStack(other.transform);
-            //}
+                gemStackerController.GetStack(other.gameObject, other.transform);
+            }
+            else if (other.TryGetComponent<PlayerInteractable>(out PlayerInteractable interactable))
+            {
+                Debug.Log(other.name);
+                gemStackerController.OnRemoveAllStack(other.transform.parent.gameObject.transform);
+            }
         }
     }
 }

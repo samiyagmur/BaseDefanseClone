@@ -11,12 +11,14 @@ namespace AI.States
         private NavMeshAgent _agent;
         private Animator _animator;
         private float _movementSpeed;
+        private Transform _ammoWareHouse;
 
-        public FullAmmo(NavMeshAgent agent, Animator animator, float movementSpeed)
+        public FullAmmo(NavMeshAgent agent, Animator animator, float movementSpeed, Transform ammoWareHouse)
         {
             _agent = agent;
             _animator = animator;
             _movementSpeed = movementSpeed;
+            _ammoWareHouse = ammoWareHouse;
         }
 
         #endregion Constructor
@@ -26,14 +28,16 @@ namespace AI.States
         public void OnEnter()
         {
             Debug.Log("FullAmmo");
-            _agent.speed = 0;
-            // _animator.SetTrigger("Idle");
+            _agent.speed = _movementSpeed;
+            _animator.SetTrigger("Walk");
+           
+            _agent.SetDestination(_ammoWareHouse.position);
         }
 
         public void OnExit()
         {
-            _agent.speed = _movementSpeed;
-            // _animator.SetTrigger("Walk");
+            _agent.speed = 0;
+            _animator.SetTrigger("Idle");
         }
 
         public void Tick()

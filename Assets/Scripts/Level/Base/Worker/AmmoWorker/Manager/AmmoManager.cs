@@ -1,10 +1,10 @@
-﻿using AIBrain;
-using AIBrain.AmmoWorkers;
+﻿using AIBrain.AmmoWorkers;
 using Controllers;
 using Data.UnityObject;
 using Datas.ValueObject;
 using Enums;
 using Signals;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +20,17 @@ namespace Managers
         [SerializeField]
         private CD_AIData cD_AIData;
 
-       
 
-        List<TurretStackController> turretStackController=new List<TurretStackController>();
-
-        List<TurretStackController> selectTargetList = new List<TurretStackController>();
         [SerializeField]
+        List<TurretStackController>  loadTurretStackController=new List<TurretStackController>();
+
+        [SerializeField]
+        List<TurretStackController> selectTargetList = new List<TurretStackController>();
+
+        [SerializeField]
+        List<TurretStackController> currentTurretStackController = new List<TurretStackController>();
+
+        [ShowInInspector]
         Queue<AmmoWorkerBrain> _currentAmmoWorkersInTurretStackArae=new Queue<AmmoWorkerBrain>();
 
         #endregion
@@ -34,8 +39,7 @@ namespace Managers
         private TurretKey turretKey;
         private AmmoWorkerAIData _ammoWorkerAIData;
         private TurretStackGridController turretStackGridController;
-
-  
+        private int _maxStackCapasity;
         private TurretStackController _selectedTarget;
 
         internal void Awake() => Init();
@@ -44,51 +48,83 @@ namespace Managers
         {
             _ammoWorkerAIData = cD_AIData.AmmoWorkerAIDatas;
             turretStackGridController=new TurretStackGridController();
+            _maxStackCapasity = _ammoWorkerAIData.MaxStackCount;
         }
         private void Start()
         {
             turretStackGridController.GanarateGrid();
+
+            foreach (var item in loadTurretStackController)
+            {
+                item.LoadGrid(turretStackGridController.LastPosition());
+                if (item.gameObject.activeInHierarchy)
+                {
+                  
+                    currentTurretStackController.Add(item);
+
+                }
+            }
         }
         #region Event Subscription
         private void OnEnable() => SubscribeEvents();
         private void SubscribeEvents()
         {
             AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea += OnPlayerEnterAmmoWorkerCreaterArea;
-            //AmmoManagerSignals.Instance.onSetAmmoStackStatus += OnSetAmmoStackStatus;
-            AmmoManagerSignals.Instance.onGetAmmoToFire -= OnGetAmmoToFire;
-            AmmoManagerSignals.Instance.onSetTurretStackControllers += OnSetTurretStackControllers;
-
+            AmmoManagerSignals.Instance.onSetAmmoStackStatus += OnSetAmmoStackStatus;
+            AmmoManagerSignals.Instance.onGetAmmoToFire += OnGetAmmoToFire;
+            AmmoManagerSignals.Instance.onGetCurrentTurretStackCount += OnGetCurrentTurretStackCount;
+            AmmoManagerSignals.Instance.onIncreaseAmmoWorkerCapasity += OnIncreaseAmmoWorkerCapasity;
+            AmmoManagerSignals.Instance.onIncreaseAmmoWorkerSpeed += onIncreaseAmmoWorkerSpeed;
         }
 
         private void UnsubscribeEvents()
         {
             AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea -= OnPlayerEnterAmmoWorkerCreaterArea;
-            //AmmoManagerSignals.Instance.onSetAmmoStackStatus -= OnSetAmmoStackStatus;
+            AmmoManagerSignals.Instance.onSetAmmoStackStatus -= OnSetAmmoStackStatus;
             AmmoManagerSignals.Instance.onGetAmmoToFire -= OnGetAmmoToFire;
-            AmmoManagerSignals.Instance.onSetTurretStackControllers -= OnSetTurretStackControllers;
-        }
-        private GameObject OnGetAmmoToFire(TurretKey arg)
-        {
-            return null;
+            AmmoManagerSignals.Instance.onGetCurrentTurretStackCount -= OnGetCurrentTurretStackCount;
+            AmmoManagerSignals.Instance.onIncreaseAmmoWorkerCapasity -= OnIncreaseAmmoWorkerCapasity;
+            AmmoManagerSignals.Instance.onIncreaseAmmoWorkerSpeed -= onIncreaseAmmoWorkerSpeed;
         }
 
-        private void OnSetTurretStackControllers(TurretStackController stack)
+        private void OnDisable() => UnsubscribeEvents();
+
+        #endregion
+        private GameObject OnGetAmmoToFire(TurretKey key)
         {
-            turretStackController.Add(stack);
+
+            var s = loadTurretStackController[(int)key].RemoveToStack();
+
+            loadTurretStackController[(int)key].UpDateList();
+
+            return s; 
+        }
+
+        private int OnGetCurrentTurretStackCount(TurretKey key)
+        {
+            return loadTurretStackController[(int)key].GetCurrentCount();
         }
 
         internal void WhenGetTurretStackInfo(AmmoWorkerBrain ammoWorkerBrain)
         {
+            foreach (var item in loadTurretStackController)
+            {
+                if (item.gameObject.activeInHierarchy)
+                {
+                    currentTurretStackController.Add(item);
+                }
+            }
+
             if (selectTargetList.Count == 0)
             {
-                selectTargetList = turretStackController.OrderBy(x => x.GetCurrentCount()).ToList();
+                selectTargetList = currentTurretStackController.OrderBy(x => x.GetCurrentCount()).ToList();
             }
 
             _selectedTarget = selectTargetList[0];
 
-            turretStackController.RemoveAt(0);
+            currentTurretStackController.Clear();
 
-            selectTargetList.TrimExcess();
+            currentTurretStackController.TrimExcess();
 
             selectTargetList.RemoveAt(0);
 
@@ -100,30 +136,39 @@ namespace Managers
 
         internal void WhenEnterTurretStack(TurretStackController turretStackController, AmmoWorkerStackController ammoWorkerStackController)
         {
-            turretStackController.AddStack(turretStackGridController.LastPosition(), ammoWorkerStackController.SendAmmoStack());
+
+            turretStackController.AddStack(ammoWorkerStackController.SendAmmoStack());
 
         }
 
-        private void OnDisable() => UnsubscribeEvents();
-
-        #endregion
         private void OnSetAmmoStackStatus(AmmoStackStatus status)
         {
-            Debug.Log(status);
+
 
             if (_currentAmmoWorkersInTurretStackArae.Count != 0)
             {
                 _currentAmmoWorkersInTurretStackArae.Peek().ChangeAmmoWorkerStackStatus(status);
 
-                _currentAmmoWorkersInTurretStackArae.Dequeue();
+                //_currentAmmoWorkersInTurretStackArae.Dequeue();
             }
         }
 
+        private void onIncreaseAmmoWorkerSpeed(int amount)
+        {
+            foreach (var item in _currentAmmoWorkersInTurretStackArae)
+            {
+                item.IncreaseSpeed(amount);
+            }
+        }
+
+        private void OnIncreaseAmmoWorkerCapasity(int amount) => _maxStackCapasity += amount;
+
+
         internal void WhenEnterTurretStack(AmmoWorkerBrain ammoWorkerBrain)
-            => ammoWorkerBrain.IsLoadTurret(true);
+            => ammoWorkerBrain.IsLoadTurret(true, ammoWorkerBrain.Get_isLoadTurretContayner());
 
         internal void WhenExitTurretStack(AmmoWorkerBrain ammoWorkerBrain)
-            => ammoWorkerBrain.IsLoadTurret(false);
+            => ammoWorkerBrain.IsLoadTurret(false, ammoWorkerBrain.Get_isLoadTurretContayner());
 
         public void WhenExitOnTurretStack(AmmoWorkerStackController ammoWorkerStackController) 
             => ammoWorkerStackController.SetClearWorkerStackList();//clear
@@ -135,16 +180,19 @@ namespace Managers
             => ammoWorkerBrain.SetTriggerInfo(false);
 
         internal void WhenStayOnAmmoWareHouse(AmmoWorkerBrain ammoWorkerBrain,AmmoWorkerStackController ammoWorkerStackController)//clear
-        {           
+        {
+            Debug.Log(counter);
             if (counter < _ammoWorkerAIData.MaxStackCount)
             {
                 ammoWorkerStackController.AddStack(_ammoWorkerAIData.AmmoWareHouse, ammoWorkerBrain.gameObject.transform, 
-                                          GetObject(PoolType.Ammo.ToString()));
+                                          GetObject(PoolType.Ammo.ToString()), _maxStackCapasity);
                 counter++;
             }
             else
             {
-                ammoWorkerBrain.ChangeAmmoWorkerStackStatus(AmmoStackStatus.Full);
+                counter = 0;
+                ammoWorkerBrain.ChangeAmmoWorkerStackStatus(AmmoStackStatus.Fill);
+               
             }
         }
 
@@ -160,6 +208,8 @@ namespace Managers
             GameObject ammoWorker = GetObject(PoolType.AmmoWorkerAI.ToString());
 
             ammoWorker.transform.position = workerCreater.position;
+            AmmoWorkerBrain ammoWorkerBrain = ammoWorker.GetComponent<AmmoWorkerBrain>();
+            _currentAmmoWorkersInTurretStackArae.Enqueue(ammoWorkerBrain);
         }
       
         public void ResetItems() => counter = 0;

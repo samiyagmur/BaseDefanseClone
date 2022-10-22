@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Abstraction;
 using DG.Tweening;
 using Interfaces;
+using Signals;
 using UnityEngine;
 
 namespace Controllers
@@ -63,6 +64,7 @@ namespace Controllers
         canRemove = false;
         stackListConstCount = StackList.Count;
         RemoveAllStack();
+        CoreGameSignals.Instance.onUpdateMoneyScore(stackListConstCount * 10);
     }
 
     private async void RemoveAllStack()

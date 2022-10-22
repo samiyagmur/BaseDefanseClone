@@ -101,15 +101,16 @@ namespace Managers
 
         #region BotController
         private float _timer = 0.5f;
+        private int currentStackCount;
 
         internal void IsSelectCurrentTurret(TurretKey turretKey)
         {
+      
             _chosenAtackTurret = _allOtoAtackTurrets[(int)turretKey];
 
             _chosenShootController = _allShootControllers[(int)turretKey];
 
             _readyToAtack = _allReadyToFire[(int)turretKey];
-
 
         }
 
@@ -117,36 +118,46 @@ namespace Managers
 
         internal  void IsAttackToEnemy()
         {
-          
-            if (_chosenAtackTurret!=null)
+            
+
+
+
+            if (_chosenAtackTurret != null && _chosenShootController != null && _readyToAtack != null)
             {
-                if (_chosenAtackTurret.GetTargetList().Count!=0|| turretStatus == TurretStatus.Inplace)
-                {
-                    _chosenShootController.ActiveGattaling();
-
-                    _timer -= Time.deltaTime;
-
-                    if (_timer < 0)
+                for (int i =0 ; i < _allShootControllers.Count; i++)
+                {   
+                    if (_allOtoAtackTurrets[i].gameObject.activeInHierarchy)
                     {
-                        _timer = 0.5f;
 
-                        firedToBulletAmount++;
+                        currentStackCount = AmmoManagerSignals.Instance.onGetCurrentTurretStackCount.Invoke((TurretKey)i);
 
-                        if (firedToBulletAmount==4)
+                        if (currentStackCount <=0) return;
+
+                        if (_chosenAtackTurret.GetTargetList().Count != 0 || turretStatus == TurretStatus.Inplace)
                         {
-                            currentBullet = AmmoManagerSignals.Instance.onGetAmmoToFire(currentTurretKey);
+                            _allShootControllers[i].ActiveGattaling();
 
-                            firedToBulletAmount=0;
+                            _timer -= Time.deltaTime;
+
+                            if (_timer < 0)
+                            {
+                                _timer = 1f;
+
+                                firedToBulletAmount++;
+   
+                                firedToBulletAmount = 0;
+
+                                currentBullet = AmmoManagerSignals.Instance.onGetAmmoToFire?.Invoke((TurretKey)i);
+
+                                _allReadyToFire[i].FireToRocked(currentBullet);
+                            }
+                            if (turretStatus == TurretStatus.Inplace) return;
+
+                            OtoRotate();
+
                         }
-
-
-                        _readyToAtack.FireToRocked(currentBullet);
                     }
-                    if (turretStatus == TurretStatus.Inplace) return;
-
-                    OtoRotate();
-
-                }
+                } 
             }
         }
 
@@ -159,7 +170,6 @@ namespace Managers
 
         public  void IsEnemyEnterTurretRange(GameObject enemy)
         {
-
             _chosenAtackTurret.AddDeathList(enemy);
         }
 
@@ -194,9 +204,6 @@ namespace Managers
 
             turretStatus = TurretStatus.OutPlace;
         }
-
-
-
         #endregion
 
 

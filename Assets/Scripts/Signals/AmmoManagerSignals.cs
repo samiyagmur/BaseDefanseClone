@@ -16,7 +16,13 @@ namespace Signals
         
         public UnityAction<AmmoStackStatus> onSetAmmoStackStatus = delegate { };
 
+        public UnityAction<int> onIncreaseAmmoWorkerSpeed = delegate { };
+
+        public UnityAction<int> onIncreaseAmmoWorkerCapasity = delegate { };
+
         public Func<TurretKey,GameObject> onGetAmmoToFire = delegate { return null; };
+
+        public Func<TurretKey,int> onGetCurrentTurretStackCount = delegate { return 0; };
 
     }
 }

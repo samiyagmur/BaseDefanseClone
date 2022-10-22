@@ -731,14 +731,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cD_AIData: {fileID: 11400000, guid: 40163b82f71911f45a943dc79b6991a5, type: 2}
-  turretStackController:
-  - {fileID: 7916762324592357967, guid: add8a2b32caedfc49a91c0b2dc0aa85f, type: 3}
-  - {fileID: 5022989167213091742, guid: 5683d63a0ca593044929c37ea1e0bbee, type: 3}
-  - {fileID: 5808984518335483831, guid: 342381363ebdba14db606d393b1df83e, type: 3}
-  - {fileID: 971383184699404690, guid: 917d1cd533d648c449a3de2aaab22a92, type: 3}
+  loadTurretStackController:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   selectTargetList: []
-  IsAmmoWorkerWentToTarget: 
-  _turretStackControllerHolder: []
+  currentTurretStackController: []
 --- !u!1 &3626418692737256886
 GameObject:
   m_ObjectHideFlags: 0
@@ -3330,3 +3329,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d0cfd5d6f1bd8b418d28db91617bbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ammoManager: {fileID: 2849294880446245959}

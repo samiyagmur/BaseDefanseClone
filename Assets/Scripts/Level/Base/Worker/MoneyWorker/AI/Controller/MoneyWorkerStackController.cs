@@ -1,4 +1,5 @@
 ﻿using Abstraction;
+using Controllers;
 using Data.UnityObject;
 using Datas.ValueObject;
 using Enums;
@@ -16,11 +17,14 @@ namespace Controller
 
         #region Serialized Variables
 
-        [SerializeField]
-        private MoneyWorkerManager moneyWorkerManager;
+        //[SerializeField]
+        //private MoneyWorkerManager moneyWorkerManager;
 
         [SerializeField]
-        private Transform GridParent;
+        private MoneyWorkerStackerController moneyWorkerStackerController;
+
+        //[SerializeField]
+        //private Transform GridParent;
 
         [SerializeField] private StackingSystem stackingSystem;
 
@@ -115,9 +119,11 @@ namespace Controller
                         modZ * _gridData.Offset.z, divideXZ * _gridData.Offset.y);
                 else
                 {
-                    var position = GridParent.transform.position;
-                    _gridPositions = new Vector3(modX * _gridData.Offset.x + position.x, divideXZ * _gridData.Offset.y + position.y,
-                     modZ * _gridData.Offset.z + position.z);
+                    _gridPositions = new Vector3(modX * _gridData.Offset.x, divideXZ * _gridData.Offset.y,
+                        modZ * _gridData.Offset.z);
+                    //var position = GridParent.transform.position;
+                    //_gridPositions = new Vector3(modX * _gridData.Offset.x + position.x, divideXZ * _gridData.Offset.y + position.y,
+                    // modZ * _gridData.Offset.z + position.z);
                 }
 
 
@@ -127,7 +133,7 @@ namespace Controller
         }
         public override void SendGridDataToStacker()
         {
-            moneyWorkerManager.GetStackPositions(gridPositionsData);
+            moneyWorkerStackerController.GetStackPositions(gridPositionsData);
         }
 
 

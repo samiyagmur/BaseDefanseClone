@@ -48,7 +48,7 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out ObstaclePhysicsController obstaclePhysicsObject))
+            if (other.TryGetComponent(out GatePhysicsController obstaclePhysicsObject))
             {
                 GateEnter(other);
             }
@@ -67,7 +67,7 @@ namespace Controllers
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out ObstaclePhysicsController obstaclePhysicsObject))
+            if (other.TryGetComponent(out GatePhysicsController obstaclePhysicsObject))
             {
                 GateExit(other);
             }

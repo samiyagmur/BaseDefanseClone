@@ -6,7 +6,6 @@ namespace Enums
     {
         AmmoStackArea,
         GemStackArea,
-        SoldierStackArea,
         MoneyWorkerSlotZone
     }
 }

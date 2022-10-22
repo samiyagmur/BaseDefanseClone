@@ -9,17 +9,27 @@ using System.Threading.Tasks;
 
 namespace Controllers
 {
-    public class FireToTurret : MonoBehaviour,IReleasePoolObject
+    public class FireToTurret : MonoBehaviour,IReleasePoolObject,IGetPoolObject
     {
         [SerializeField]
         private float _rockedSpeed;
+
         private GameObject _rocked;
 
         bool IsRockedAlive;
 
-        internal async void FireToRocked(GameObject rocked)
+        private Sequence moveToTurret;
+        internal async void FireToRocked(GameObject ammo)
         {
-            IsRockedAlive = _rocked != null;
+            moveToTurret = DOTween.Sequence();
+
+            moveToTurret.Append(ammo.transform.DOMove(transform.position, 0.8f));
+
+            moveToTurret.Join(ammo.transform.DOScale(Vector3.zero, 0.8f));
+
+            moveToTurret.Play().OnComplete(() => ReleaseObject(ammo, PoolType.Ammo));
+
+            _rocked=GetObject(PoolType.TurretRocket);
 
             Rigidbody _rigidbody = _rocked.GetComponent<Rigidbody>();
 
@@ -28,12 +38,15 @@ namespace Controllers
 
             _rigidbody.AddForce(transform.forward * 20, ForceMode.VelocityChange);
 
+            IsRockedAlive = _rocked != null;
+
             if (IsRockedAlive)
             {
                 await Task.Delay(5000);
+
                 ReleaseObject(_rocked,PoolType.TurretRocket);
             }
-            //poola gidecek
+
         }
 
         public void ReleaseObject(GameObject rocked, PoolType poolName)
@@ -41,5 +54,9 @@ namespace Controllers
             PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolName, rocked);
         }
 
+        public GameObject GetObject(PoolType poolName)
+        {
+            return PoolSignals.Instance.onGetObjectFromPool(PoolType.TurretRocket);
+        }
     }   
 }

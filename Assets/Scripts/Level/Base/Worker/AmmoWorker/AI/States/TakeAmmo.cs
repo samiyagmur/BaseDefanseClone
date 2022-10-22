@@ -29,7 +29,7 @@ namespace AI.States
         #region State
         public  void OnEnter()
         {
-            Debug.Log("TakeAmmo");
+
             _agent.speed = 0;
         }
 

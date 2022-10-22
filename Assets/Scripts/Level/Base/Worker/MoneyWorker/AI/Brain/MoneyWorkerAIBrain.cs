@@ -41,7 +41,7 @@ namespace AIBrain.MoneyWorkers
         private NavMeshAgent _navmeshAgent;
 
         #region States
-
+        private Transform _moneytransform;
         private MoveToGateState _moveToGateState;
         private SearchState _searchState;
         private StackMoneyState _stackMoneyState;
@@ -55,7 +55,7 @@ namespace AIBrain.MoneyWorkers
         #region Worker Game Variables
         [ShowInInspector]
         private int _currentStock = 0;
-        private const float _delay = 0.05f;
+        private const float _delay = 0.2f;
 
         #endregion
 
@@ -125,8 +125,12 @@ namespace AIBrain.MoneyWorkers
 
         public void SetDest()
         {
-            CurrentTarget = GetMoneyPosition();
-            if (CurrentTarget)
+            GetMoneyPosition();
+            if (_moneytransform == null) return;
+
+            CurrentTarget = _moneytransform;
+
+            if (CurrentTarget!=null)
                 _navmeshAgent.SetDestination(CurrentTarget.position);
         }
 
@@ -137,23 +141,34 @@ namespace AIBrain.MoneyWorkers
 
         public Transform GetMoneyPosition()
         {
-            return MoneyWorkerSignals.Instance.onGetTransformMoney?.Invoke(this.transform);
+
+            _moneytransform = MoneyWorkerSignals.Instance.onGetTransformMoney?.Invoke(this.transform);
+
+            return _moneytransform;
         }
 
         private IEnumerator SearchTarget()
         {
-            while (!CurrentTarget)
+            while (CurrentTarget==null)
             {
                 SetDest();
+              
                 yield return new WaitForSeconds(_delay);
             }
         }
         public void StartSearch(bool isStartedSearch)
         {
+           
             if (isStartedSearch)
+            {
                 StartCoroutine(SearchTarget());
+
+            }
             else
+            {
                 StopCoroutine(SearchTarget());
+            }
+                
         }
 
         public void SetCurrentStock()

@@ -19,54 +19,13 @@ MonoBehaviour:
       Speed: 1
       MaxWorkerAmount: 0
       MaxSpeed: 0
-      SoldierAIData:
-        SoldierType: 0
-        SoldierPrefab: {fileID: 0}
-        Damage: 0
-        SoldierSpeed: 0
-        AttackRadius: 0
-        AttackDelay: 0
-        Health: 0
-        SpawnPoint: {fileID: 0}
     - WorkerType: 1
       CapacityOrDamage: 3
       Speed: 1
       MaxWorkerAmount: 5
       MaxSpeed: 2.294292
-      SoldierAIData:
-        SoldierType: 0
-        SoldierPrefab: {fileID: 0}
-        Damage: 0
-        SoldierSpeed: 0
-        AttackRadius: 0
-        AttackDelay: 0
-        Health: 0
-        SpawnPoint: {fileID: 0}
     - WorkerType: 2
       CapacityOrDamage: 3
       Speed: 1
       MaxWorkerAmount: 0
       MaxSpeed: 0
-      SoldierAIData:
-        SoldierType: 0
-        SoldierPrefab: {fileID: 0}
-        Damage: 0
-        SoldierSpeed: 0
-        AttackRadius: 0
-        AttackDelay: 0
-        Health: 0
-        SpawnPoint: {fileID: 0}
-    - WorkerType: 3
-      CapacityOrDamage: 0
-      Speed: 0
-      MaxWorkerAmount: 0
-      MaxSpeed: 0
-      SoldierAIData:
-        SoldierType: 0
-        SoldierPrefab: {fileID: 0}
-        Damage: 0
-        SoldierSpeed: 0
-        AttackRadius: 0
-        AttackDelay: 0
-        Health: 0
-        SpawnPoint: {fileID: 0}

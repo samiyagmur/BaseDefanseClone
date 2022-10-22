@@ -1,6 +1,7 @@
 using Datas.ValueObject;
 using Enums;
 using Managers;
+using Signals;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,10 @@ namespace Controllers
                 _workerShopData[(int)value].UpgradePrice+=100;
 
                 _workerShopData[(int)value].UpgradeLevel++;
+
+                AmmoManagerSignals.Instance.onIncreaseAmmoWorkerCapasity?.Invoke(2);
+
+                AmmoManagerSignals.Instance.onIncreaseAmmoWorkerSpeed?.Invoke(2);
 
                 return _workerShopData[(int)value];
             }

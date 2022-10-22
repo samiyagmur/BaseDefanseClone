@@ -5,6 +5,8 @@ namespace Enums
         AmmoWorkerAI,
         MoneyWorkerAI,
         MineWorkerAI,
-        SoldierAI,
+
+
+
     } 
 }

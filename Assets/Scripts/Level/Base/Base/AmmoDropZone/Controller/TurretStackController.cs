@@ -15,46 +15,41 @@ namespace Controllers
         [SerializeField]
         private List<GameObject> _ammoWorkerStackList;
         [SerializeField]
-        private List<GameObject> _turretContayner=new List<GameObject>();
-
+        private List<GameObject> _turretStack=new List<GameObject>();
+        List<Vector3> _gridPosList;
         private int _currentCount=0;
         private int _count =0;
 
         private Sequence _ammoStackingMovement;
-        private float _timer;
 
-        private void Start()
+        internal void LoadGrid(List<Vector3> gridList)
         {
-            
+            _gridPosList=gridList;
         }
 
-        public  void AddStack(List<Vector3> gridPosList, List<GameObject> ammoWorkerStackList)
-        {
+        public async void AddStack(List<GameObject> ammoWorkerStackList)
+        {   
+             int _counter = 0;
+
              ammoWorkerStackList.Reverse();
 
             _ammoWorkerStackList = ammoWorkerStackList;
 
             _ammoStackingMovement = DOTween.Sequence();
 
-            for (int i = 0; i < gridPosList.Count; i++)
-            {
-
-              
-                if (_currentCount < gridPosList.Count)
+            
+                while ( _counter < _gridPosList.Count)
                 {
-                    if (_count < _ammoWorkerStackList.Count)
+                    if (_currentCount < _gridPosList.Count)
                     {
-                        
-                            _timer = 0f;
-
-                         
-
+                        if (_count < _ammoWorkerStackList.Count)
+                        {
                             _ammoWorkerStackList[_count].transform.SetParent(transform);
 
                             GameObject bullets = _ammoWorkerStackList[_count];
-                        
-                            Vector3 endPosOnTurretStack = transform.localPosition + gridPosList[_currentCount];
-                        
+
+                            Vector3 endPosOnTurretStack = transform.localPosition + _gridPosList[_currentCount];
+
                             _ammoStackingMovement.Append(bullets.transform.
                             DOLocalMove(new Vector3(Random.Range(-2, 2), endPosOnTurretStack.y +
                             Random.Range(4, 6), bullets.transform.localPosition.z + 3f), 0.4f).
@@ -70,37 +65,48 @@ namespace Controllers
 
                             _ammoStackingMovement.Play();
 
-                            _turretContayner.Add(_ammoWorkerStackList[_count]);
+                            _turretStack.Add(_ammoWorkerStackList[_count]);
 
-                         
-                        
+                            await Task.Delay(100);
+
                             _currentCount++;
 
                             _count++;
 
+                            
+                         }
+
+                        else
+                        {
+                            _count = 0;
+
+                            AmmoManagerSignals.Instance.onSetAmmoStackStatus.Invoke(AmmoStackStatus.Empty);
+
+                            _ammoWorkerStackList.Clear();
+
+                            _ammoWorkerStackList.TrimExcess();
+
+                            break;
+                        }
                     }
-                    else
-                    {                           
-                        _count = 0;
-
-                        AmmoManagerSignals.Instance.onSetAmmoStackStatus.Invoke(AmmoStackStatus.Empty);
-
-                        _ammoWorkerStackList.Clear();
-
-                        _ammoWorkerStackList.TrimExcess();
-
-                        return;
-                    }
-                }  
-            }
+                    _counter++;
+                    if (_currentCount >= _gridPosList.Count)
+                    AmmoManagerSignals.Instance.onSetAmmoStackStatus.Invoke(AmmoStackStatus.Full);
+                }            
         }
-        
-        public void RemoveStack()
+
+        public GameObject RemoveToStack()
         {
+            Debug.Log(_turretStack.Count);
 
-
+            return _turretStack[_turretStack.Count - 1];
         }
-
+        public void UpDateList()
+        {
+            _turretStack.RemoveAt(_turretStack.Count - 1);
+            _turretStack.TrimExcess();
+            _currentCount--;
+        }
         public int GetCurrentCount()
         {
             return _currentCount;

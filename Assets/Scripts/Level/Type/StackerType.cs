@@ -8,6 +8,6 @@ namespace Enums
         Player,
         AmmoWorker,
         MoneyWorker,
-        MineWorker,
+        MineWorker
     }
 }

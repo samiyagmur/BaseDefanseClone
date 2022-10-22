@@ -73,15 +73,23 @@ namespace Managers
 
         private Transform OnSendMoneyPositionToWorkers(Transform workerTransform)
         {
+          
             if (_targetList.Count == 0)
+            {
+                Debug.Log("TargetList is null");
                 return null;
+            }
+                
 
             var _targetT = _targetList.OrderBy(t => (t.transform.position - workerTransform.transform.position).sqrMagnitude)
             .Where(t => !t.IsSelected)
-            .Take(_targetList.Count - 1)
+            .Take(1)
+            .OrderBy(t => UnityEngine.Random.Range(0, int.MaxValue))
             .LastOrDefault();
             _targetT.IsSelected = true;
+            Debug.Log(_targetT.name);
             return _targetT.transform;
+           
 
         }
 
