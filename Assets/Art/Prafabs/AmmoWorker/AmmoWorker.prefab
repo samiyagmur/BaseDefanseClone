@@ -117,20 +117,20 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1902793931624525007}
   m_Enabled: 1
-  m_AgentTypeID: 1479372276
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_AgentTypeID: -902729914
+  m_Radius: 0.28
+  m_Speed: 3.747269
+  m_Acceleration: 30
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 4
+  m_Height: 1.57
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &6357671700082295552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,10 +212,14 @@ PrefabInstance:
     - target: {fileID: -7836144184260228312, guid: 035dd4fa8168f92428ecc4ff1dc2a03b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f9642ef42a2be2a42b1a330deea92209, type: 2}
+      objectReference: {fileID: 2100000, guid: 968d2a2055ae0ff4788125163293e0e1, type: 2}
     - target: {fileID: -1373197884023157541, guid: 035dd4fa8168f92428ecc4ff1dc2a03b, type: 3}
       propertyPath: m_Name
       value: AmmoAnimationController
+      objectReference: {fileID: 0}
+    - target: {fileID: -1373197884023157541, guid: 035dd4fa8168f92428ecc4ff1dc2a03b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 035dd4fa8168f92428ecc4ff1dc2a03b, type: 3}
       propertyPath: m_Name
@@ -223,12 +227,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 035dd4fa8168f92428ecc4ff1dc2a03b, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 035dd4fa8168f92428ecc4ff1dc2a03b, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9100000, guid: 52b52cd3eefe2b24b91bd579c8b7c433, type: 2}
     - target: {fileID: 5866666021909216657, guid: 035dd4fa8168f92428ecc4ff1dc2a03b, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0

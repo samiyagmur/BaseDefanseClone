@@ -20,7 +20,9 @@ namespace Signals
 
         public UnityAction<GameObject> onReleaseObjectUpdate = delegate (GameObject arg0) { };
 
-   
+        public UnityAction onGenerateSoldier = delegate{ };
+
+        public UnityAction<GameObject> onEnemyDead = delegate { };
 
     }
 }

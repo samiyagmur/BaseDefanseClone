@@ -29,14 +29,28 @@ namespace Controllers
                 _workerShopData[(int)value].UpgradePrice+=100;
 
                 _workerShopData[(int)value].UpgradeLevel++;
+                IncreaseFetures(value);
 
-                AmmoManagerSignals.Instance.onIncreaseAmmoWorkerCapasity?.Invoke(2);
-
-                AmmoManagerSignals.Instance.onIncreaseAmmoWorkerSpeed?.Invoke(2);
 
                 return _workerShopData[(int)value];
             }
             return _workerShopData[(int)value];
+        }
+
+        private void IncreaseFetures(WorkerUpgradeType value)
+        {
+          
+            switch (value)  
+            {
+                case WorkerUpgradeType.Capasity:
+                    AmmoManagerSignals.Instance.onIncreaseAmmoWorkerCapasity?.Invoke(2);
+                    break;
+                case WorkerUpgradeType.Speed:
+                    AmmoManagerSignals.Instance.onIncreaseAmmoWorkerSpeed?.Invoke(0.4f);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void SendCurrentMoney(int _currentMoney)

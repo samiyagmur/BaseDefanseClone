@@ -4,6 +4,7 @@ using Enums;
 using Interfaces;
 using Signals;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -95,12 +96,14 @@ namespace Managers
         {
             AISignals.Instance.onSoldierActivation += OnSoldierActivation;
             AISignals.Instance.onSoldierAmountUpgrade += OnSoldierAmountUpgrade;
+            AISignals.Instance.onGenerateSoldier += OnGenerateSoldier;
         }
 
         private void UnsubscribeEvents()
         {
             AISignals.Instance.onSoldierActivation -= OnSoldierActivation;
             AISignals.Instance.onSoldierAmountUpgrade -= OnSoldierAmountUpgrade;
+            AISignals.Instance.onGenerateSoldier += OnGenerateSoldier;
         }
 
         private void OnDisable()
@@ -156,7 +159,11 @@ namespace Managers
             UpdateSoldierAmount();
         }
 
-        [Button]
+        private void OnGenerateSoldier()
+        {
+            UpdateSoldierAmount();
+        }
+
         private async void UpdateSoldierAmount()
         {
             if (!_isTentAvaliable) return;

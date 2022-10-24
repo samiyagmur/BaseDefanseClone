@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!206 &-8105386575597803987
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlendTree
+  m_Childs: []
+  m_BlendParameter: Speed
+  m_BlendParameterY: Speed
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!1107 &-5174004965757584515
 AnimatorStateMachine:
   serializedVersion: 6
@@ -54,7 +69,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WorkerAnimator
+  m_Name: AmmoWorkerAnimator 1
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Speed
@@ -88,22 +103,22 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: 5cee4eb4a07cf5b448673c4edd13074e, type: 2}
     m_Threshold: 0.000018012675
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1.5
+    m_TimeScale: 1.3
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 44c3ae69dd2ff89448216c16c057e610, type: 2}
-    m_Threshold: 2.294292
+    m_Motion: {fileID: 7400000, guid: 49ff994b50f242a4f93adb00a00244e8, type: 2}
+    m_Threshold: 3.747269
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1.5
+    m_TimeScale: 1.3
     m_CycleOffset: 0
-    m_DirectBlendParameter: Blend
+    m_DirectBlendParameter: Speed
     m_Mirror: 0
   m_BlendParameter: Speed
   m_BlendParameterY: Blend
   m_MinThreshold: 0.000018012675
-  m_MaxThreshold: 2.294292
+  m_MaxThreshold: 3.747269
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0

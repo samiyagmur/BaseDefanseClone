@@ -19,7 +19,8 @@ namespace Controllers
 
             if (other.TryGetComponent(out TurretStackPhysicsControl turretStackPhysicsControl))//it must change
             {
-                _ammoManager.WhenEnterTurretStack(transform.parent.GetComponent<AmmoWorkerBrain>());
+                
+                _ammoManager.WhenEnterTurretStack(transform.parent.GetComponent<AmmoWorkerBrain>(), turretStackPhysicsControl.TurretKey);
                 
                 _ammoManager.WhenEnterTurretStack(other.transform.parent.GetComponent<TurretStackController>(), 
                     transform.parent.gameObject.GetComponent<AmmoWorkerStackController>());
@@ -36,10 +37,6 @@ namespace Controllers
                 _ammoManager.WhenExitOnTurretStack(transform.parent.GetComponent<AmmoWorkerStackController>());
             }
         }
-
-      
-
-
 
     }
 }

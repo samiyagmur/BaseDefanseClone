@@ -51,8 +51,8 @@ namespace Controller
 
         private void UpgradeWorkerButton()
         {
+            
             _uIManager.UpgradeWorkerButton(workerUpgradeType);
-
             feturesPrice.text = _workerShopSlot.UpgradePrice.ToString();
             feturesLevel.text = "LEVEL " + _workerShopSlot.UpgradeLevel.ToString();
         }

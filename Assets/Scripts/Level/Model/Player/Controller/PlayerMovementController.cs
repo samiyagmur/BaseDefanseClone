@@ -33,6 +33,10 @@ namespace Controllers
         private Vector2 _inputVector;
 
         private bool _isReadyToMove;
+        private GameObject _currentParent;
+        private TurretStatus _turretStatus;
+
+        public bool IsOutPlace { get; private set; }
 
         #endregion
 
@@ -40,6 +44,7 @@ namespace Controllers
         public void SetMovementData(PlayerMovementData movementData)
         {
             _data = movementData;
+
         }
         public void UpdateInputValues(HorizontalInputParams inputParams)
         {
@@ -49,11 +54,9 @@ namespace Controllers
 
         public void LookAtTarget(Transform enemyTarget)
         {
-            if (enemyTarget != null)
-            {
-                transform.LookAt(new Vector3(enemyTarget.position.x, 0, enemyTarget.position.z), Vector3.up * 3f);
-            }
-           
+            if (manager.EnemyList.Count==0) return;
+            
+            transform.LookAt(new Vector3(enemyTarget.position.x, 0, enemyTarget.position.z), Vector3.up * 3f);
         }
 
         private void EnableMovement(bool movementStatus)
@@ -71,23 +74,26 @@ namespace Controllers
                 var velocity = rigidbody.velocity;
                 velocity = new Vector3(_inputVector.x, velocity.y, _inputVector.y) * _data.Speed;
                 rigidbody.velocity = velocity;
+
                 if (!manager.HasEnemyTarget)
                 {
                     RotatePlayer();
                 }
             }
             else if (rigidbody.velocity != Vector3.zero)
-            {
+            {   
                 rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
             }
         }
-        private void LateUpdate()
-        {  
-            if (manager.EnemyTarget != null)
-            {
-                LookAtTarget(manager.EnemyList[0].GetTransform());
-            }
 
+        private void LateUpdate()
+        {
+           // Debug.Log(IsOutPlace);
+            if (manager.EnemyList.Count == 0) return;
+           // if (!IsOutPlace) return;
+            LookAtTarget(manager.EnemyList[0].GetTransform());
+
+           
         }
 
         private void RotatePlayer()
@@ -102,6 +108,18 @@ namespace Controllers
             if (inputHandlers != InputHandlers.Turret) return;
             rigidbody.velocity = Vector3.zero;
             transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
+
+        internal void SetLayer(int layer)
+        {
+
+            
+            CheckToArea(layer == LayerMask.NameToLayer("BaseDefense"));
+        }
+
+        private void CheckToArea(bool areaCheck)
+        {
+            IsOutPlace = areaCheck;
         }
     }
 }

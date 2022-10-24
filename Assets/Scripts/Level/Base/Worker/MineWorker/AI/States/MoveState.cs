@@ -43,7 +43,7 @@ namespace AI.States
 
         private void MoveToTarget()
         {
-            _minerAIBrain.transform.position = Vector3.MoveTowards(_minerAIBrain.transform.position, _minerAIBrain.ManipulatedTarget, 0.05f);
+            _minerAIBrain.transform.position = Vector3.MoveTowards(_minerAIBrain.transform.position, _minerAIBrain.ManipulatedTarget, 0.1f);
         }
 
         private void RotateToTarget()

@@ -76,6 +76,7 @@ namespace Controllers
             
             if (StackList.Count == 0)
             {
+       
                 DropzoneSignals.Instance.onDropZoneFull?.Invoke(false);
                 canRemove = true;
                 return;
@@ -83,6 +84,7 @@ namespace Controllers
             
             if(StackList.Count > 0)
             {
+                CoreGameSignals.Instance.onUpdateGemScore?.Invoke(1);
                 RemoveStackAnimation(StackList[StackList.Count - 1],targetTransform);
                 StackList.TrimExcess();
                 if (StackList.Count % 9==0)

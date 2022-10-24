@@ -127,8 +127,11 @@ namespace Controllers
         }
         public void DeathAnimation()
         {
+            animator.ResetTrigger("Run");
+            animator.ResetTrigger("Throw");
+            animator.ResetTrigger("Attack");
             animator.Play(PlayerAnimationStates.Die.ToString());
-            Debug.Log("Die");
+    
         }
         public void AimTarget(bool hasTarget)
         {

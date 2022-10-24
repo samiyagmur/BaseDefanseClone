@@ -24,7 +24,7 @@ namespace Controllers
             }
             else if (other.TryGetComponent<PlayerInteractable>(out PlayerInteractable interactable))
             {
-                Debug.Log(other.name);
+       
                 gemStackerController.OnRemoveAllStack(other.transform.parent.gameObject.transform);
             }
         }

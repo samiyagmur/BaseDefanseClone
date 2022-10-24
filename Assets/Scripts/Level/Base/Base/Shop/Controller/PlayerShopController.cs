@@ -25,20 +25,36 @@ namespace Controllers
         {
            
 
-                if (_playerShopData[(int)value].UpgradePrice <= _currentMoney)
-                {
-                    SendCurrentMoney(_playerShopData[(int)value].UpgradePrice);
+            if (_playerShopData[(int)value].UpgradePrice <= _currentMoney)
+            {
+                SendCurrentMoney(_playerShopData[(int)value].UpgradePrice);
 
-                    _playerShopData[(int)value].UpgradePrice += 100;
+                _playerShopData[(int)value].UpgradePrice += 100;
     
-                    _playerShopData[(int)value].UpgradeLevel++;
+                _playerShopData[(int)value].UpgradeLevel++;
+                UpdateFeateru(value);
+               
 
-                    PlayerSignal.Instance.onIncreaseHealt?.Invoke(_increasedSpeedCost);
-
-                    return _playerShopData[(int)value];
-                }
                 return _playerShopData[(int)value];
+            }
+            return _playerShopData[(int)value];
             
+        }
+
+        private void UpdateFeateru(PlayerUpgradeType playerUpgradeType)
+        {
+            switch (playerUpgradeType)
+            {
+                case PlayerUpgradeType.Capasity:
+                    break;
+                case PlayerUpgradeType.Speed:
+                    break;
+                case PlayerUpgradeType.Healt:
+                    PlayerSignal.Instance.onIncreaseHealt?.Invoke(_increasedSpeedCost);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void SendCurrentMoney(int _currentMoney)

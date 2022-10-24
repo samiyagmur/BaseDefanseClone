@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -27,9 +28,8 @@ namespace AI.States
 
         public void OnEnter()
         {
-            Debug.Log("FullAmmo");
             _agent.speed = _movementSpeed;
-            _animator.SetTrigger("Walk");
+      
            
             _agent.SetDestination(_ammoWareHouse.position);
         }
@@ -37,11 +37,17 @@ namespace AI.States
         public void OnExit()
         {
             _agent.speed = 0;
-            _animator.SetTrigger("Idle");
+        
         }
 
         public void Tick()
         {
+            _animator.SetFloat("Speed", _agent.velocity.magnitude);
+        }
+
+        internal void IncreaseSpeed(float speed)
+        {
+          _movementSpeed=speed;
         }
 
         #endregion States

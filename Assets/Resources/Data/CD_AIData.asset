@@ -32,27 +32,27 @@ MonoBehaviour:
       MoveSpeed: 20
       EnemyType: 2
       ChaseSpeed: 2
-    - Healt: 500
+    - Healt: 800
       Damage: 40
       AttackRange: 0
       MoveSpeed: 0
       EnemyType: 3
       ChaseSpeed: 0
     enemySpawnData:
-      NumberOfEnemiesToSpawn: 50
+      NumberOfEnemiesToSpawn: 120
       SpawnDelay: 2
       RandomMaxRange: 100
       MinPossibilityToSpawnEnemy: 30
   AmmoWorkerAIDatas:
-    MovementSpeed: 5
+    MovementSpeed: 4.8714495
     AmmoWareHouse: {fileID: 9004025123679645247, guid: 0742269e27659a647932f8f57fbb39f2, type: 3}
     AmmoWorker: {fileID: 1902793931624525007, guid: 324601c81182dfa40b70906e47c79d4e, type: 3}
     Ammo: {fileID: 9004025123679645240, guid: 0742269e27659a647932f8f57fbb39f2, type: 3}
-    MaxStackCount: 15
+    MaxStackCount: 5
   SoldierAIDatas:
     SoldierType: 0
     SoldierPrefab: {fileID: 6684208820631058611, guid: c09b7aa7dd92c6b499a7c79cc9d9c7a8, type: 3}
-    Damage: 10
+    Damage: 20
     SoldierSpeed: 10
     AttackRadius: 10
     AttackDelay: 2

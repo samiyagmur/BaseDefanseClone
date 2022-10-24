@@ -59,7 +59,9 @@ namespace AIBrains.EnemyBrain
 
         private void EnemyDead()
         {
+            
             var poolType = (PoolType)System.Enum.Parse(typeof(PoolType), _enemyType.ToString());
+
             DOVirtual.DelayedCall(1f, () =>
             {
                 _enemyAIBrain.transform.DOMoveY(-3f, 1f).OnComplete(() => ReleaseObject(_enemyAIBrain.gameObject, poolType));

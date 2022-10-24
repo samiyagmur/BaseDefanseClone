@@ -24,7 +24,8 @@ namespace Enums
         NewWorkerFeturesSlot,
         NewPlayerFeturesSlot,
         NewSoldierrFeturesSlot,
-        Bomb
+        Bomb,
+        PaymentGem
 
 
     } 

@@ -1,6 +1,8 @@
 ﻿using AIBrain;
 using AIBrain.AmmoWorkers;
 using Interfaces;
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,20 +33,27 @@ namespace AI.States
 
         #region State
 
-        public void OnEnter()
+        public  void OnEnter()
         {
             _agent.speed = _movementSpeed;
-            _agent.SetDestination(_ammoWareHouse.position);
 
-            //_animator.SetTrigger("Walk");
+            _agent.SetDestination(_ammoWareHouse.position);
         }
 
         public void OnExit()
         {
+
+
         }
 
         public void Tick()
         {
+            _animator.SetFloat("Speed", _agent.velocity.magnitude);
+        }
+
+        internal void IncreaseSpeed(float speed)
+        {
+            _movementSpeed=speed;
         }
 
         #endregion State

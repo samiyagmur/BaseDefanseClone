@@ -17,14 +17,12 @@ namespace Controller
 
         #region Serialized Variables
 
-        //[SerializeField]
-        //private MoneyWorkerManager moneyWorkerManager;
+        [SerializeField]
+        private MoneyWorkerManager moneyWorkerManager;
+
 
         [SerializeField]
-        private MoneyWorkerStackerController moneyWorkerStackerController;
-
-        //[SerializeField]
-        //private Transform GridParent;
+        private Transform GridParent;
 
         [SerializeField] private StackingSystem stackingSystem;
 
@@ -119,11 +117,11 @@ namespace Controller
                         modZ * _gridData.Offset.z, divideXZ * _gridData.Offset.y);
                 else
                 {
-                    _gridPositions = new Vector3(modX * _gridData.Offset.x, divideXZ * _gridData.Offset.y,
-                        modZ * _gridData.Offset.z);
-                    //var position = GridParent.transform.position;
-                    //_gridPositions = new Vector3(modX * _gridData.Offset.x + position.x, divideXZ * _gridData.Offset.y + position.y,
-                    // modZ * _gridData.Offset.z + position.z);
+                    //_gridPositions = new Vector3(modX * _gridData.Offset.x, divideXZ * _gridData.Offset.y,
+                    //    modZ * _gridData.Offset.z);
+                    var position = GridParent.transform.position;
+                    _gridPositions = new Vector3(modX * _gridData.Offset.x + position.x, divideXZ * _gridData.Offset.y + position.y,
+                     modZ * _gridData.Offset.z + position.z);
                 }
 
 
@@ -133,7 +131,7 @@ namespace Controller
         }
         public override void SendGridDataToStacker()
         {
-            moneyWorkerStackerController.GetStackPositions(gridPositionsData);
+            moneyWorkerManager.GetStackPositions(gridPositionsData);
         }
 
 

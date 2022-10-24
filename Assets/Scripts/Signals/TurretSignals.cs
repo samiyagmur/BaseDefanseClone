@@ -1,4 +1,5 @@
-﻿using Extentions;
+﻿using Enums;
+using Extentions;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,14 @@ namespace Signals
 
       public UnityAction onPressTurretButton =delegate { };
 
-      public UnityAction onDieEnemy = delegate { };
-      
+      public UnityAction<TurretKey> onReloadStack = delegate { };
+
+      public UnityAction<TurretKey> onDieEnemy = delegate { };
+
+      public UnityAction<BotCreatType> onGenarateBot = delegate { };
+
+       
+        
+
     }
 }

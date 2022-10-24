@@ -34,5 +34,9 @@ namespace Concreate
             rigidbody.isKinematic = false;
             rigidbody.useGravity = true;
         }
+        private void OnDisable()
+        {
+            SendStackableOndisable(this);
+        }
     }
 }

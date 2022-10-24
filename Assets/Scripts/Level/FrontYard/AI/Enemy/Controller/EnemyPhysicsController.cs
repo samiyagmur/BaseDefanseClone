@@ -1,11 +1,14 @@
 ﻿using AIBrains.EnemyBrain;
+using Enums;
 using Interfaces;
+using Signals;
 using UnityEngine;
 
 namespace Controllers.AIControllers
 {
     public class EnemyPhysicsController : MonoBehaviour, IDamagable
     {
+        private TurretKey _turretKey;
         private void OnEnable()
         {
             IsDead = false;
@@ -18,6 +21,12 @@ namespace Controllers.AIControllers
 
         private void OnTriggerEnter(Collider other)
         {
+            if (other.TryGetComponent(out TurretDetactController turretDetactController))
+            {
+                _turretKey = turretDetactController.TurretKey;
+            }
+
+
             if (!other.TryGetComponent(out IAttacker attacker)) return;
 
             var damage = attacker.Damage();
@@ -40,6 +49,14 @@ namespace Controllers.AIControllers
         public Transform GetTransform()
         {
             return transform;
+        }
+        private void OnDisable()
+        {
+            IsDead = true;
+
+            TurretSignals.Instance.onDieEnemy?.Invoke(_turretKey);
+          
+            
         }
     }
 }

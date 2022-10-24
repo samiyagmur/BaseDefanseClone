@@ -1,5 +1,6 @@
 ﻿using Concreate;
 using Controller;
+using Enums;
 using Interfaces;
 using Signals;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace Controllers.PlayerControllers
                 stackableMoney.IsCollected = true;
                 MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke();
                 playerMoneyStackerController.SetStackHolder(stackableMoney.SendToStack().transform);
-               playerMoneyStackerController.GetStack(stackableMoney.SendToStack());
+                playerMoneyStackerController.GetStack(stackableMoney.SendToStack());
             }
         }
 
@@ -34,9 +35,10 @@ namespace Controllers.PlayerControllers
         #region Account
 
         public bool CanPay { get => CoreGameSignals.Instance.onHasEnoughMoney.Invoke(); set { } }
-        public void PlayPaymentAnimation(Transform transform)
+ 
+        public void PaymentAnimation(Transform stackableTransform, PoolType stackabletype)
         {
-            //playerMoneyStackerController.PaymentStackAnimation(transform);
+            playerMoneyStackerController.PaymentStackAnimation(stackableTransform, stackabletype);
         }
 
         #endregion

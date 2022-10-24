@@ -901,7 +901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b260100246de8b74fbfc40a916740b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  workerUpgradeType: 1
+  workerUpgradeType: 0
   image: {fileID: 5482537157448824229}
   key: {fileID: 5482537157373681770}
   feturesPrice: {fileID: 5482537156578527304}

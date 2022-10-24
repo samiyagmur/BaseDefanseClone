@@ -44,6 +44,10 @@ namespace Controllers
 
                     manager.HasEnemyTarget = false;
                 }
+                if (damagable.IsDead)
+                {
+                    manager.HasEnemyTarget = false;
+                }
             }
         }
     }

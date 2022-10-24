@@ -36,12 +36,9 @@ namespace Controller
 
         private UIManager _uIManager;
 
-
-        private bool _isActive=false;
         private  void Start()
         {
             InitButton();
-
         }
         
         private   void InitButton()

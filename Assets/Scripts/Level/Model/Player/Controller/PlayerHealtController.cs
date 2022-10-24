@@ -37,7 +37,7 @@ namespace Controller
         private PlayerCharacterData _data;
 
         private int _health;
-
+        private int _maxHealt;
         private const int _increaseAmount = 1;
 
       
@@ -55,6 +55,7 @@ namespace Controller
         private void Init()
         {
             _health = _data.PlayerHealth;
+            _maxHealt = _data.MaxHealt;
         }
 
         public async void IncreaseHealth()
@@ -62,8 +63,8 @@ namespace Controller
 
             if (playerManager.CurrentAreaType != AreaType.BaseDefense)
                 return;
-
-            if (_health == _data.MaxHealt)
+     
+            if (_health == _maxHealt)
             {
                 playerManager.CloseHealtBar();
                 
@@ -83,7 +84,7 @@ namespace Controller
             else
             {
                 playerManager.ResetPlayer();
-                _health = 100;
+                _health = _maxHealt;
             }
                 
 
@@ -93,17 +94,26 @@ namespace Controller
             playerManager.CloseHealtBar();
         }
 
-        private void OnSetHealthText(float healthValue) => healthText.text = healthValue+"%"+_data.MaxHealt;
+        private void OnSetHealthText(float healthValue) => healthText.text = healthValue+"%"+ _maxHealt;
         private void OnHealthUpdate(int healthValue) 
         {
+            OnSetHealthText(healthValue);
 
-            healtBar.fillAmount= (float)healthValue / _data.MaxHealt;
+            healtBar.fillAmount= (float)healthValue / _maxHealt;
          
-            if (healthValue == _data.MaxHealt)
+            if (healthValue == _maxHealt)
             {   
-
                 playerManager.CloseHealtBar();
             }
+        }
+
+        internal void IncreaseMaxealt(int amount)
+        {
+            _maxHealt += amount;
+
+            IncreaseHealth();
+
+            OnHealthUpdate(_health);
         }
     }
 }

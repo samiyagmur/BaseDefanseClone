@@ -4,20 +4,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 namespace Controllers
 {
     public class TurretOtoAtackController : MonoBehaviour
     {
-      
+
         #region Self Variabels
         #region Private Variables
+        [ShowInInspector]
         private Queue<GameObject> _deadList = new Queue<GameObject>();
         private GameObject botTarget;
         private TurretOtoAtackData _turretOtoAtackDatas;
 
         private Tweener _tween;
-        private TurretOtoAtackController _chosenAtackTurret;
+
         #endregion
         #endregion
         private void Awake()
@@ -26,6 +28,7 @@ namespace Controllers
         }
 
         public void SetOtoAtackDatas(TurretOtoAtackData turretOtoAtackDatas) => _turretOtoAtackDatas = turretOtoAtackDatas;
+
         public void AddDeathList(GameObject enemy)
         {
             _deadList.Enqueue(enemy);
@@ -36,16 +39,21 @@ namespace Controllers
 
         public void RemoveDeathList()
         {
-            if (_deadList.Count != 0)
-            {
-                _deadList.Dequeue();
-                botTarget = _deadList.Peek();
-            }
+            if (_deadList.Count <= 0) return;
+            _deadList.Dequeue();
+            if (_deadList.Count <= 0) return;
+            botTarget = _deadList.Peek();
+            
         }
+
+        //private void FixedUpdate()
+        //{
+        //    FollowToEnemy();
+        //}
 
         public void FollowToEnemy()
         {
-            if (_deadList.Count == 0) return;
+            if (_deadList.Count <= 0) return;
 
             ArangeRotateRotation(botTarget.transform);
         }
@@ -54,7 +62,7 @@ namespace Controllers
         {
             if (_movementDirection.position == Vector3.zero) return;
 
-            Vector3 horizontalRotation = new Vector3(_movementDirection.position.x, 0, _movementDirection.position.z);
+            Vector3 horizontalRotation = new Vector3(_movementDirection.position.x, 0, _movementDirection.position.z+0.5f);
 
             Vector3 _relativePos = horizontalRotation - transform.position;
 
@@ -65,12 +73,18 @@ namespace Controllers
 
         public void RotateTurret()
         {
-            if (_deadList.Count == 0) return;
+            if (_deadList.Count <= 0) return;
             _tween = transform.DORotateQuaternion(botTarget.transform.rotation, 0.499f).SetAutoKill(true);
         }
-        public Queue<GameObject> GetTargetList()
+
+        public bool GetTargetStatus()
+        {   
+            return _deadList.Count >= 0;
+        }
+
+        public GameObject GetTarget()
         {
-            return _deadList;
+            return botTarget;
         }
     }
 }

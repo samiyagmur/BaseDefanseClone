@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,7 +33,7 @@ namespace AI.States
         public void OnEnter()
         {
             _agent.speed = _movementSpeed;
-            // _animator.SetTrigger("Walk");
+
             _agent.SetDestination(_decidedContayner.transform.position);
         }
 
@@ -42,6 +43,12 @@ namespace AI.States
 
         public void Tick()
         {
+            _animator.SetFloat("Speed", _agent.velocity.magnitude);
+        }
+
+        internal void IncreaseSpeed(float speed)
+        {
+           _movementSpeed=speed;
         }
 
         #endregion State

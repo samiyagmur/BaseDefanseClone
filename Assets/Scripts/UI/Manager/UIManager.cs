@@ -19,9 +19,6 @@ namespace Managers
 
         #region Serialized Variables
 
-    
-       
-
         [SerializeField]
         private Transform weponShopHolder;
         [SerializeField]
@@ -34,7 +31,6 @@ namespace Managers
         private UIPanelController uIPanelController;
         [SerializeField]
         private List<TextMeshProUGUI> levelPanelText;
-
 
         #endregion
 

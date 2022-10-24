@@ -6,10 +6,11 @@ using Interfaces;
 using Managers;
 using Signals;
 using UnityEngine;
+using Controllers.AIControllers;
 
 namespace Controllers
 {
-    public class BulletPhysicsController : MonoBehaviour,IDamager,IAttacker
+    public class BulletPhysicsController : MonoBehaviour,IAttacker
     {
         #region Self Variables
 
@@ -19,16 +20,13 @@ namespace Controllers
 
         #region Serialized Variables
 
-        [SerializeField]
-        private BulletManager bulletManager;
+        
 
         #endregion
 
         #region Private Variables
 
         private int _damage;
-
-        int IDamager.Damage { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
         #endregion
 
@@ -42,20 +40,9 @@ namespace Controllers
         {
             return _damage;
         }
-        private void OnTriggerEnter(Collider other)
-        {
-            
-            if (other.TryGetComponent(out IDamagable idDamagable))
-            {
-                
-                bulletManager.SetBulletToPool();
-            }
-        }
 
-        public int GetDamage()
-        {
-            throw new System.NotImplementedException();
-        }
+
+
     }
 }
 

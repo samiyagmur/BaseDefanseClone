@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8718584647687059979}
   - component: {fileID: 4953279697125863643}
-  - component: {fileID: 6744740861355829830}
+  - component: {fileID: 2579801424079550007}
   m_Layer: 0
   m_Name: StackController
   m_TagString: Untagged
@@ -48,7 +48,7 @@ MonoBehaviour:
   StackList: []
   positionList: []
   radiusAround: 1.2
---- !u!114 &6744740861355829830
+--- !u!114 &2579801424079550007
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,10 +57,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 292934153851073933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b23e536410e8fb41b7c3e2cfe1abb53, type: 3}
+  m_Script: {fileID: 11500000, guid: e39a7647b641a0e4c9727ad9bf80e6ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moneyWorkerStackerController: {fileID: 4953279697125863643}
+  GridParent: {fileID: 6435958113284997161}
   stackingSystem: 1
   stackAreaType: 2
   stackAreaGridData:
@@ -221,7 +222,7 @@ GameObject:
   - component: {fileID: 5455066261640143878}
   - component: {fileID: 58406757918653319}
   - component: {fileID: 2359164052623209574}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Physics
   m_TagString: Untagged
   m_Icon: {fileID: 0}

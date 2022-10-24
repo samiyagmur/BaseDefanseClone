@@ -8,6 +8,7 @@ namespace Data.ValueObject
     [Serializable]
     public class WeaponData
     {
+        public WeaponTypes WeaponTypes;
         public Mesh WeaponMesh;
         public bool HasSideMesh;
         [ShowIf("HasSideMesh")]

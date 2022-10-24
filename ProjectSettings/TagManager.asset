@@ -9,6 +9,7 @@ TagManager:
   - MineEntrance
   - Enemy
   - Ground
+  - Gem
   layers:
   - Default
   - TransparentFX
@@ -40,7 +41,7 @@ TagManager:
   - Rocked
   - Collectable
   - Bomb
-  - 
+  - Stack
   - 
   m_SortingLayers:
   - name: Default

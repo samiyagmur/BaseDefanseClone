@@ -1,5 +1,6 @@
 ﻿using Abstraction;
 using DG.Tweening;
+using Enums;
 using Interfaces;
 using Signals;
 using System.Collections;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace Controller
 {
-    public class PlayerStackerController : AStacker
+    public class PlayerStackerController : AStacker,IGetPoolObject,IReleasePoolObject
     {
         [SerializeField] private List<Vector3> positionList;
 
@@ -24,6 +25,7 @@ namespace Controller
         private int stackListConstCount;
 
         private bool canRemove = true;
+        private Sequence _getStackSequence;
 
         private void Awake()
         {
@@ -58,13 +60,15 @@ namespace Controller
 
         }
         public void OnRemoveAllStack()
-        {   
+        { 
+            
             if (!canRemove)
                 return;
             canRemove = false;
             stackListConstCount = StackList.Count;
             RemoveAllStack();
             CoreGameSignals.Instance.onUpdateMoneyScore(stackListConstCount*10);
+
         }
 
         private async void RemoveAllStack()
@@ -144,7 +148,31 @@ namespace Controller
             var randomRotationZ = Random.Range(-90, 90);
             return new Vector3(randomRotationX, randomRotationY, randomRotationZ);
         }
+        public void PaymentStackAnimation(Transform transform, PoolType poolname)
+        {
+            _getStackSequence = DOTween.Sequence();
+            var randomBouncePosition = CalculateRandomAddStackPositionWithObjTransform();
+            var randomRotation = CalculateRandomStackRotation();
+            var moneyObj = GetObject(poolname);
+            moneyObj.transform.position = this.transform.parent.transform.position;
+            moneyObj.GetComponent<Collider>().enabled = false;
+            _getStackSequence.Append(moneyObj.transform.DOMove(randomBouncePosition, .5f));
+            _getStackSequence.Join(moneyObj.transform.DOLocalRotate(randomRotation, .5f)).OnComplete(() =>
+            {
+                moneyObj.transform.rotation = Quaternion.LookRotation(transform.forward);
 
+                moneyObj.transform.DOMove(transform.position, 0.3f).OnComplete(() => ReleaseObject(moneyObj, poolname));
+
+            });
+        }
+        private Vector3 CalculateRandomAddStackPositionWithObjTransform()
+        {
+            var randomHeight = Random.Range(0.1f, 3f);
+            var randomAngle = Random.Range(230, 310);
+            var rad = randomAngle * Mathf.Deg2Rad;
+            return new Vector3(transform.parent.position.x + radiusAround * Mathf.Cos(rad),
+                transform.parent.position.y + randomHeight, transform.parent.position.z + -radiusAround * Mathf.Sin(rad));
+        }
         public async void ResetStack()
         {
             if (StackList.Count == 0)
@@ -156,6 +184,16 @@ namespace Controller
             StackList.TrimExcess();
             await Task.Delay(10);
             ResetStack();
+        }
+
+        public GameObject GetObject(PoolType poolName)
+        {
+            return PoolSignals.Instance.onGetObjectFromPool.Invoke(poolName);
+        }
+
+        public void ReleaseObject(GameObject obj, PoolType poolName)
+        {
+            PoolSignals.Instance.onReleaseObjectFromPool.Invoke(poolName, obj);
         }
     }
 }

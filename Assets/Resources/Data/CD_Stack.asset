@@ -25,7 +25,7 @@ MonoBehaviour:
       StackerType: 0
       StackAreaType: 1
       GridSize: {x: 3, y: 7, z: 3}
-      Offset: {x: 3, y: 3, z: 3}
+      Offset: {x: 4, y: 5, z: 4}
       DrawnedMesh: {fileID: 0}
     - isDynamic: 0
       StackerType: 0

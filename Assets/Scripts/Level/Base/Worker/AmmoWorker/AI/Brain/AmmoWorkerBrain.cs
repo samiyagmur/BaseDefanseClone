@@ -70,11 +70,17 @@ namespace AIBrain.AmmoWorkers
         public void ChangeAmmoWorkerStackStatus(AmmoStackStatus status) => _playerAmmaStackStatus = status;
 
         public void SetTriggerInfo(bool IsInPlaceWareHouse) => _inplaceWorker = IsInPlaceWareHouse;
-        internal void IncreaseSpeed(int amount) => _speed = (float)amount;
+        internal void IncreaseSpeed(float amount)
+        {
+            //_speed += amount;
+            _moveToWareHouse.IncreaseSpeed(_speed);
+            _moveToAvaliableConteyner.IncreaseSpeed(_speed);
+            _fullAmmo.IncreaseSpeed(_speed);
+        }
 
         internal bool Get_isLoadTurretContayner() => _isLoadTurretContayner;
 
-        internal void IsLoadTurret(bool isLoadTurretContayner, bool _isLoadTurretContayner) => _isLoadTurretContayner = isLoadTurretContayner;
+        internal void IsLoadTurret(bool isLoadTurretContayner) => _isLoadTurretContayner = isLoadTurretContayner;
 
         public void SetTargetTurretStack(GameObject targetTurretContayner)
         {
@@ -91,16 +97,16 @@ namespace AIBrain.AmmoWorkers
 
             _creat = new Create();
 
-            _moveToWareHouse = new MoveToWareHouse(_agent, _animator, _ammoWorkerAIData.MovementSpeed, 
+            _moveToWareHouse = new MoveToWareHouse(_agent, _animator, _speed, 
                                                     _ammoWorkerAIData.AmmoWareHouse, _ammoWorkerAIData.AmmoWorker,this);
 
             _takeAmmo = new TakeAmmo(_agent,_animator);
 
-            _moveToAvaliableConteyner = new MoveToAvaliableContayner(_agent, _animator, _ammoWorkerAIData.MovementSpeed);
+            _moveToAvaliableConteyner = new MoveToAvaliableContayner(_agent, _animator, _speed);
 
-            _loadTurret = new LoadContayner(_agent, _animator, _ammoWorkerAIData.MovementSpeed, _ammoWorkerAIData.AmmoWareHouse);
+            _loadTurret = new LoadContayner(_agent, _animator, _ammoWorkerAIData.AmmoWareHouse);
 
-            _fullAmmo = new FullAmmo(_agent, _animator, _ammoWorkerAIData.MovementSpeed, _ammoWorkerAIData.AmmoWareHouse);
+            _fullAmmo = new FullAmmo(_agent, _animator, _speed, _ammoWorkerAIData.AmmoWareHouse);
 
         }
 

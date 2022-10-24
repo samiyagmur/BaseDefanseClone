@@ -52,7 +52,7 @@ MonoBehaviour:
         - {fileID: 9124970232288323556, guid: f7cd782124f26da489a5c16e83b7a00d, type: 3}
         - {fileID: 5794965802787714742, guid: 73cd68e9f39fd034faadb6fb1fd19d8c, type: 3}
         CartPlaces:
-        - {fileID: 2001691899360365547, guid: 3aa53e23d2b5c6b419ed87f6bb1f75e1, type: 3}
+        - {fileID: 3769120901699656056, guid: 31e1721e54bb78f4da324719fc5edb44, type: 3}
       MilitaryBaseData:
         SlotsGrid: {x: 0, y: 0}
         SlotOffSet: {x: 0, y: 0}
@@ -136,6 +136,6 @@ MonoBehaviour:
       UpgradePrice: 100
       UpgradeLevel: 1
   ScoreData:
-    Money: 5000
-    Diamond: 50
+    Money: 100000
+    Diamond: 10000
   LevelId: 0

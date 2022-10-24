@@ -6,6 +6,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using System.Threading.Tasks;
+using Managers;
 
 namespace Controllers
 {
@@ -14,22 +15,47 @@ namespace Controllers
         [SerializeField]
         private float _rockedSpeed;
 
+        [SerializeField]
+        private TurretManager turretManager;
+
         private GameObject _rocked;
 
-        bool IsRockedAlive;
-
         private Sequence moveToTurret;
-        internal async void FireToRocked(GameObject ammo)
+        private float _timer;
+
+        public  void LoadMagazine(TurretKey turretKey, bool IsDeadListUnEmty, SphereCollider attackerTurretCollider)
         {
+            if (attackerTurretCollider.radius <= 0) return;
+
+            if (IsDeadListUnEmty==false) return;
+
+            if (turretManager.GetToStackInfo(turretKey) == false);
+
+            _timer -= Time.deltaTime;
+            if (_timer < 0)
+            {
+                _timer = 4f;
+                FireToRocked(turretManager.GetToRocked(turretKey));
+            }
+
+        }
+        internal  void FireToRocked(GameObject ammo)
+        {
+
+
+            if (ammo == false) return;
+
             moveToTurret = DOTween.Sequence();
 
+      
             moveToTurret.Append(ammo.transform.DOMove(transform.position, 0.8f));
 
             moveToTurret.Join(ammo.transform.DOScale(Vector3.zero, 0.8f));
 
             moveToTurret.Play().OnComplete(() => ReleaseObject(ammo, PoolType.Ammo));
 
-            _rocked=GetObject(PoolType.TurretRocket);
+
+            _rocked = GetObject(PoolType.TurretRocket);
 
             Rigidbody _rigidbody = _rocked.GetComponent<Rigidbody>();
 
@@ -38,14 +64,12 @@ namespace Controllers
 
             _rigidbody.AddForce(transform.forward * 20, ForceMode.VelocityChange);
 
-            IsRockedAlive = _rocked != null;
+            //if (_rocked.activeInHierarchy)
+            //{
+            //    _rocked.transform.DOScale(_rocked.transform.localScale, 3f).OnComplete(()
+            //    => ReleaseObject(ammo, PoolType.Ammo));
+            //}
 
-            if (IsRockedAlive)
-            {
-                await Task.Delay(5000);
-
-                ReleaseObject(_rocked,PoolType.TurretRocket);
-            }
 
         }
 
@@ -58,5 +82,12 @@ namespace Controllers
         {
             return PoolSignals.Instance.onGetObjectFromPool(PoolType.TurretRocket);
         }
+
+
+
+
+
+
+
     }   
 }

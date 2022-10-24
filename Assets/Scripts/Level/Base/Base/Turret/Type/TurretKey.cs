@@ -5,14 +5,9 @@ namespace Enums
 {
     public enum TurretKey 
     {
-
-        
+        FirstTurret,
         SecondTurret,
         ThirdTurret,
-        FirstTurret,
         FourthTurret
-
-
-        
     }
 }

@@ -22,9 +22,9 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: PolygonWesternFrontier_Texture_01_A 3
   m_Shader: {fileID: 4800000, guid: 6c046203321edf34fb092959a05e5b4a, type: 3}
-  m_ShaderKeywords: _MK_ALBEDO_MAP _MK_ARTISTIC_PROJECTION_SCREEN_SPACE _MK_ENVIRONMENT_REFLECTIONS_AMBIENT
-    _MK_LIGHT_CEL _MK_OUTLINE_HULL_CLIP _MK_RECEIVE_SHADOWS _MK_WRAPPED_DIFFUSE _RECEIVESHADOWS_ON
-    _WRAPPEDLIGHTING_ON
+  m_ShaderKeywords: _MK_ALBEDO_MAP _MK_ARTISTIC_PROJECTION_SCREEN_SPACE _MK_COLOR_GRADING_ALBEDO
+    _MK_ENVIRONMENT_REFLECTIONS_AMBIENT _MK_OUTLINE_HULL_CLIP _MK_RECEIVE_SHADOWS
+    _MK_WRAPPED_DIFFUSE _RECEIVESHADOWS_ON _WRAPPEDLIGHTING_ON
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -171,12 +171,12 @@ Material:
     - _Blend: 0
     - _BlendDst: 0
     - _BlendSrc: 1
-    - _Brightness: 1
+    - _Brightness: 1.98
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _ColorGrading: 0
-    - _Contrast: 1
+    - _ColorGrading: 1
+    - _Contrast: 1.2
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
@@ -203,7 +203,7 @@ Material:
     - _IridescenceSize: 1
     - _IridescenceSmoothness: 0.5
     - _IridescenceThresholdOffset: 0
-    - _Light: 1
+    - _Light: 0
     - _LightBands: 4
     - _LightBandsScale: 0.5
     - _LightThreshold: 0.647
@@ -228,7 +228,7 @@ Material:
     - _RimSize: 1
     - _RimSmoothness: 0.5
     - _RimThresholdOffset: 0.25
-    - _Saturation: 1
+    - _Saturation: 2
     - _SketchMapScale: 1
     - _Smoothness: 0.2
     - _SmoothnessTextureChannel: 0

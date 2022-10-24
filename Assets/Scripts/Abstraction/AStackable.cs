@@ -37,5 +37,9 @@ namespace Abstraction
             {
                 DOVirtual.DelayedCall(0.1f, () => MoneyWorkerSignals.Instance.onSetStackable?.Invoke(stackableMoney));
             }
-        }
+            public virtual void SendStackableOndisable(StackableMoney stackableMoney)
+            {
+               DOVirtual.DelayedCall(0.1f, () => MoneyWorkerSignals.Instance.onRemoveStackable?.Invoke(stackableMoney));
+            }
+    }
 }

@@ -29,7 +29,7 @@ namespace AI.States
         #region State
         public  void OnEnter()
         {
-
+            
             _agent.speed = 0;
         }
 
@@ -41,8 +41,8 @@ namespace AI.States
     
         public void Tick()
         {
-           
 
+            _animator.SetFloat("Speed", _agent.velocity.magnitude);
         }
 
 

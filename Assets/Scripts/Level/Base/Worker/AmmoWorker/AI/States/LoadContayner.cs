@@ -1,6 +1,7 @@
 ﻿using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 namespace AI.States
 {
@@ -8,19 +9,18 @@ namespace AI.States
     {
         private NavMeshAgent agent;
         private Animator animator;
-        private float movementSpeed;
         private Transform ammoWareHouse;
 
-        public LoadContayner(NavMeshAgent agent, Animator animator, float movementSpeed, Transform ammoWareHouse)
+        public LoadContayner(NavMeshAgent agent, Animator animator, Transform ammoWareHouse)
         {
             this.agent = agent;
             this.animator = animator;
-            this.movementSpeed = movementSpeed;
             this.ammoWareHouse = ammoWareHouse;
         }
 
         public void OnEnter()
         {
+            
             agent.speed = 0;
         }
 
@@ -30,6 +30,7 @@ namespace AI.States
 
         public void Tick()
         {
+            animator.SetFloat("Speed", agent.velocity.magnitude);
         }
 
         public void SendAmmoStack()

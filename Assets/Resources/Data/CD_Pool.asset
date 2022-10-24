@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CD_Pool
   m_EditorClassIdentifier: 
   PoolDataDic:
-    m_Keys: 0000000001000000020000000300000004000000050000000600000007000000090000000a0000000b000000080000000c0000000d0000000f0000000e0000001000000011000000120000001300000014000000
+    m_Keys: 0000000001000000020000000300000004000000050000000600000007000000090000000a0000000b000000080000000c0000000d0000000f0000000e000000100000001100000012000000130000001400000015000000
     m_Values:
     - ObjectType: {fileID: 1965118812301319539, guid: 12537a22a575d784bbf5596f3327ac43, type: 3}
       initalAmount: 100
@@ -22,7 +22,7 @@ MonoBehaviour:
       initalAmount: 85
       isDynamic: 0
     - ObjectType: {fileID: 8302665550823062759, guid: 141c9111424ff8a41b6e42ec74485a85, type: 3}
-      initalAmount: 100
+      initalAmount: 200
       isDynamic: 0
     - ObjectType: {fileID: 5141339768904831981, guid: 498894d4d8d4a574e8d9435cfe9443fa, type: 3}
       initalAmount: 200
@@ -52,16 +52,16 @@ MonoBehaviour:
       initalAmount: 6
       isDynamic: 0
     - ObjectType: {fileID: 1902793931624525007, guid: e506b02dc90c83d41884a63f81ee451a, type: 3}
-      initalAmount: 30
+      initalAmount: 40
       isDynamic: 0
     - ObjectType: {fileID: 861760913835965297, guid: 5bae7cd1382a60a48a47eeaf90b569eb, type: 3}
-      initalAmount: 30
+      initalAmount: 40
       isDynamic: 0
     - ObjectType: {fileID: 8986287384279758473, guid: 6913c5484633f7d4f97499f9379ccc20, type: 3}
       initalAmount: 1
       isDynamic: 0
     - ObjectType: {fileID: 5081612436430601195, guid: a0868f73fe7faf547b7ba411a4252ed9, type: 3}
-      initalAmount: 30
+      initalAmount: 40
       isDynamic: 0
     - ObjectType: {fileID: 7945548199718392923, guid: 592f040dc0ae2d544a3125ab6edf5b95, type: 3}
       initalAmount: 10
@@ -78,3 +78,6 @@ MonoBehaviour:
     - ObjectType: {fileID: 445013897161806018, guid: 88c897216e7095e4db07cda987bd60fa, type: 3}
       initalAmount: 5
       isDynamic: 0
+    - ObjectType: {fileID: 8302665550823062759, guid: 7e4203bffc0736a4caf90edaeffcd052, type: 3}
+      initalAmount: 400
+      isDynamic: 1

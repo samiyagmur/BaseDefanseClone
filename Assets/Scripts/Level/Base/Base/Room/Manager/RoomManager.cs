@@ -15,6 +15,7 @@ namespace Managers
     {
         [SerializeField]
         private RoomTypes roomTypes;
+
         [SerializeField]
         private RoomPaymentTextController roomPaymentTextController;
 
@@ -27,7 +28,6 @@ namespace Managers
         {   
             _roomData = GetRoomData();
             SetRoomCost(_roomData.Cost);
-            
         }
         private RoomData GetRoomData() => BaseSignals.Instance.onSetRoomData.Invoke(roomTypes);
 
@@ -59,7 +59,7 @@ namespace Managers
                 CoreGameSignals.Instance.onStopMoneyPayment?.Invoke();
                 return;
             }
-            customer.PlayPaymentAnimation(paymentTarget);
+            customer.PaymentAnimation(paymentTarget,PoolType.Money);
             _roomData.Cost -= _payedAmount;
             CoreGameSignals.Instance.onStartMoneyPayment?.Invoke();
             CoreGameSignals.Instance.onUpdateMoneyScore(-_payedAmount);
@@ -70,8 +70,6 @@ namespace Managers
         }
 
         private void UpdateRoomData() => BaseSignals.Instance.onUpdateRoomData(_roomData, roomTypes);
-
-
 
     }
 }

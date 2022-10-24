@@ -39,7 +39,7 @@ namespace Controllers
 
             
                 while ( _counter < _gridPosList.Count)
-                {
+                {   
                     if (_currentCount < _gridPosList.Count)
                     {
                         if (_count < _ammoWorkerStackList.Count)
@@ -55,8 +55,7 @@ namespace Controllers
                             Random.Range(4, 6), bullets.transform.localPosition.z + 3f), 0.4f).
                             OnComplete(() =>
                             {
-                                bullets.transform.
-                            DOMove(new Vector3(endPosOnTurretStack.x, endPosOnTurretStack.y + 0.25f, endPosOnTurretStack.z), 0.4f);
+                                bullets.transform.DOMove(new Vector3(endPosOnTurretStack.x, endPosOnTurretStack.y + 0.25f, endPosOnTurretStack.z), 0.4f);
                             }));
 
                             _ammoStackingMovement.Join(bullets.transform.DOLocalRotate(new Vector3(Random.Range(-179, 179), Random.Range(-179, 179), Random.Range(-179, 179)), 0.6f).
@@ -70,16 +69,15 @@ namespace Controllers
                             await Task.Delay(100);
 
                             _currentCount++;
-
+                            
                             _count++;
-
                             
                          }
 
                         else
                         {
                             _count = 0;
-
+                       
                             AmmoManagerSignals.Instance.onSetAmmoStackStatus.Invoke(AmmoStackStatus.Empty);
 
                             _ammoWorkerStackList.Clear();
@@ -97,12 +95,13 @@ namespace Controllers
 
         public GameObject RemoveToStack()
         {
-            Debug.Log(_turretStack.Count);
+            if (_turretStack.Count <= 0) return null;
 
             return _turretStack[_turretStack.Count - 1];
         }
         public void UpDateList()
         {
+            if (_turretStack.Count <= 0) return;
             _turretStack.RemoveAt(_turretStack.Count - 1);
             _turretStack.TrimExcess();
             _currentCount--;

@@ -33,7 +33,7 @@ namespace Controllers
 
             if (other.TryGetComponent(out GatePhysicsController GatePhysicsController))
             {
-                Debug.Log("Zort Gate");
+
                 moneyStackerController.OnRemoveAllStack();
                 moneyWorkerBrain.RemoveAllStock();
             }

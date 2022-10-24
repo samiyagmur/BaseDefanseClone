@@ -10,6 +10,7 @@ using AIBrain.MoneyWorkers;
 using Data.ValueObject;
 using Abstraction;
 using Concreate;
+using System;
 
 namespace Managers
 {
@@ -44,8 +45,10 @@ namespace Managers
             MoneyWorkerSignals.Instance.onGetTransformMoney += OnSendMoneyPositionToWorkers;
             MoneyWorkerSignals.Instance.onThisMoneyTaken += OnThisMoneyTaken;
             MoneyWorkerSignals.Instance.onSetStackable += OnAddMoneyPositionToList;
+            MoneyWorkerSignals.Instance.onRemoveStackable += OnRemoveStackableFromTargetList;
             MoneyWorkerSignals.Instance.onGenerateMoneyWorker += CreateMoneyWorker;
         }
+
 
         private void UnsubscribeEvents()
         {
@@ -53,6 +56,7 @@ namespace Managers
             MoneyWorkerSignals.Instance.onGetMoneyAIData -= OnGetWorkerAIData;
             MoneyWorkerSignals.Instance.onThisMoneyTaken -= OnThisMoneyTaken;
             MoneyWorkerSignals.Instance.onSetStackable -= OnAddMoneyPositionToList;
+            MoneyWorkerSignals.Instance.onRemoveStackable -= OnRemoveStackableFromTargetList;
             MoneyWorkerSignals.Instance.onGetTransformMoney -= OnSendMoneyPositionToWorkers;
         }
 
@@ -67,8 +71,14 @@ namespace Managers
         }
 
         private void OnAddMoneyPositionToList(StackableMoney pos)
-        {
+        {   
             _targetList.Add(pos);
+        }
+        private void OnRemoveStackableFromTargetList(StackableMoney pos)
+        {
+            if (_targetList.Count <= 0) return;
+
+            _targetList.Remove(pos);
         }
 
         private Transform OnSendMoneyPositionToWorkers(Transform workerTransform)

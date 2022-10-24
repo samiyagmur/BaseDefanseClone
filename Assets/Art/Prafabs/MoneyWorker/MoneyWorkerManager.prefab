@@ -58,7 +58,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyWorkerManager: {fileID: 4352710046317339678}
-  stackingSystem: 1
+  GridParent: {fileID: 8626163708778030217}
+  stackingSystem: 0
   stackAreaType: 2
   stackAreaGridData:
     isDynamic: 0

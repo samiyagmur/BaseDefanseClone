@@ -19,13 +19,16 @@ namespace Controllers
         
         [SerializeField]
         private List<GameObject> ammoStackObjectList=new List<GameObject>();
-
+ 
         public void AddStack(Transform startPoint, Transform ammoWorker, GameObject bullets, int maxStackCount)
-        {
+        {   
+
 
             if (ammoStackObjectList.Count >= maxStackCount) return;
 
             ammoSeq = DOTween.Sequence();
+            if (bullets==null) return;
+
             bullets.transform.position = startPoint.position;
             bullets.transform.SetParent(ammoWorker);
 

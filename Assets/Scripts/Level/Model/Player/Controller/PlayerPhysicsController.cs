@@ -4,6 +4,7 @@ using Enums;
 using System;
 using Interfaces;
 using Signals;
+using Controller;
 
 namespace Controllers
 {
@@ -51,17 +52,22 @@ namespace Controllers
             if (other.TryGetComponent(out GatePhysicsController obstaclePhysicsObject))
             {
                 GateEnter(other);
-            }
 
-            if (other.TryGetComponent(out TurretPhysicsController turretPhysicsController))
-            {
-                playerManager.SetTurretAnim(true);
+                playerManager.SendToLayer(gameObject.layer);
             }
 
             if (other.TryGetComponent(out IDamager damager))
             {   
                 PlayerSignal.Instance.onTakePlayerDamage(damager.GetDamage());
+
             }
+
+            //if (other.TryGetComponent(out BotGenareteController botGenareteController))
+            //{
+            //    Debug.Log("BotGenareteController");
+            //    playerManager.PayToBuyableZone(botGenareteController.transform, botGenareteController.Price, botGenareteController.BotCreatType);
+            //}
+
         }
 
 
@@ -70,18 +76,14 @@ namespace Controllers
             if (other.TryGetComponent(out GatePhysicsController obstaclePhysicsObject))
             {
                 GateExit(other);
+                playerManager.SendToLayer(gameObject.layer);
             }
-            if (other.TryGetComponent(out TurretPhysicsController turretPhysicsController))
-            {
-                playerManager.SetTurretAnim(false);
-            }
-
         }
 
         public void ResetPlayerLayer()
         {
             gameObject.layer = LayerMask.NameToLayer("BaseDefense");//bakcaz
-            Debug.Log("bak");
+
         }
     }
 }

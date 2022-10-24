@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Enums;
+using System.Collections;
 using UnityEngine;
 
 namespace Interfaces
@@ -6,8 +7,7 @@ namespace Interfaces
    
         public interface ICustomer
         {
-
-            void PlayPaymentAnimation(Transform transform);
+            void PaymentAnimation(Transform paymentTransform, PoolType poolType);
 
             bool CanPay { get; set; }
 

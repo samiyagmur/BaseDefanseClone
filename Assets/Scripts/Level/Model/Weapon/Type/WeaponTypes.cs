@@ -10,5 +10,6 @@ namespace Enums
         PumpBullet,
         RifleBullet,
         MiniGun
+ 
     }
 }

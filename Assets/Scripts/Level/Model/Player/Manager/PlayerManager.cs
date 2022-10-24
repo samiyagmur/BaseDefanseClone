@@ -13,11 +13,13 @@ using Signals;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : MonoBehaviour//,IGetPoolObject,IReleasePoolObject
     {
         
         #region Self Variables
@@ -29,6 +31,8 @@ namespace Managers
         public WeaponTypes WeaponType;
         [ShowInInspector]   
         public List<IDamagable> EnemyList = new List<IDamagable>();
+        [SerializeField]
+        public SphereCollider detectCollider;
 
         public Transform EnemyTarget;
 
@@ -77,6 +81,7 @@ namespace Managers
             _weaponData = GetWeaponData();
             Init();
         }
+
         private PlayerData GetPlayerData() => Resources.Load<CD_PlayerData>("Data/CD_PlayerData").playerData;
         private WeaponData GetWeaponData() => Resources.Load<CD_Weapon>("Data/CD_Weapon").WeaponData[(int)WeaponType];
         private void Init() => SetDataToControllers();
@@ -88,6 +93,7 @@ namespace Managers
             playerHealtController.SetHealthData(_data.playerCharacterData);
 
         }
+
         #region Event Subscription
         private void OnEnable() => SubscribeEvents();
         private void SubscribeEvents()
@@ -97,6 +103,9 @@ namespace Managers
             PlayerSignal.Instance.onTakePlayerDamage += OnTakePlayerDamage;
             UISignals.Instance.onChangeWeaponType += OnChangeWeaponType;
             PlayerSignal.Instance.onIncreaseHealt += OnIncreaseHealt;
+          //  AISignals.Instance.onEnemyDead += OnEnemyDead;
+
+
         }
 
         private void UnsubscribeEvents()
@@ -106,6 +115,8 @@ namespace Managers
             PlayerSignal.Instance.onTakePlayerDamage -= OnTakePlayerDamage;
             UISignals.Instance.onChangeWeaponType -= OnChangeWeaponType;
             PlayerSignal.Instance.onIncreaseHealt -= OnIncreaseHealt;
+            //AISignals.Instance.onEnemyDead -= OnEnemyDead;
+
         }
 
         private void OnChangeWeaponType(WeaponTypes type)
@@ -131,9 +142,15 @@ namespace Managers
             animationController.AimTarget(true);
 
         }
+
+        private void OnIncreaseHealt(int amount)
+        {
+            playerHealtController.IncreaseMaxealt(amount);
+        }
+
         public void ResetPlayer()
         {
-            Debug.Log("ResetPlayer");
+     
            playerAccountController.Collider.enabled = false;
            playerMoneyStackerController.ResetStack();
            CoreGameSignals.Instance.onResetPlayerStack?.Invoke();
@@ -165,6 +182,26 @@ namespace Managers
         private void OnTakePlayerDamage(int damage) => playerHealtController.OnTakeDamage(damage);
 
 
+
+        //private void OnEnemyDead(GameObject enemyobj)
+        //{
+        //    EnemyList.Remove(EnemyList);
+        //}
+
+        internal void SendToLayer(int layer)
+        {
+
+            if (layer == LayerMask.NameToLayer("BaseDefense"))
+            {
+                detectCollider.radius = 0;
+            }
+            else if (layer == LayerMask.NameToLayer("BattleOn"))
+            {   
+                detectCollider.radius = 17.75847f;
+            }
+        }
+
+        
     }
 }
 

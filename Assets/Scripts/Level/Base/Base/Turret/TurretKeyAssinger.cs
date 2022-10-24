@@ -10,5 +10,6 @@ namespace Assinger
         private TurretKey turretKey;
 
         public TurretKey TurretKey { get => turretKey; }
+
     }
 }
