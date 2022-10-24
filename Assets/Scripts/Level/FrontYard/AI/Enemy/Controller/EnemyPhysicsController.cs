@@ -54,9 +54,6 @@ namespace Controllers.AIControllers
         {
             IsDead = true;
 
-            TurretSignals.Instance.onDieEnemy?.Invoke(_turretKey);
-          
-            
         }
     }
 }

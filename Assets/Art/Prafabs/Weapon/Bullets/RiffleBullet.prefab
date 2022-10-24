@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
+  bulletMovementController: {fileID: 5702619651433962912}
   physicsController: {fileID: 1619323418833653259}
 --- !u!114 &5702619651433962912
 MonoBehaviour:
@@ -325,4 +326,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3ad764d308c974fa98f635070a0ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletManager: {fileID: 7552894088197858608}

@@ -24,6 +24,7 @@ namespace Controllers
             var bullet = GetObject(poolType);
             bullet.transform.position = holderTransform.position;
             bullet.transform.rotation = holderTransform.rotation;
+            bullet.transform.SetParent(holderTransform);
         }
 
 

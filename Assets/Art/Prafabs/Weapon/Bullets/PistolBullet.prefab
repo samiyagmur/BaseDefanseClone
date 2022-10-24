@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
+  bulletMovementController: {fileID: 1010575185934393745}
   physicsController: {fileID: 6791923880852299192}
 --- !u!1 &5465620613082496557
 GameObject:
@@ -245,7 +246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3ad764d308c974fa98f635070a0ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletManager: {fileID: 160058198521151032}
 --- !u!54 &8062457636207051459
 Rigidbody:
   m_ObjectHideFlags: 0

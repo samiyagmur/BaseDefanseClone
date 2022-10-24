@@ -23,7 +23,7 @@ Material:
   m_Name: SoldierMaterial
   m_Shader: {fileID: 4800000, guid: 733fefdcde0d35f4b822d2935d5a22f4, type: 3}
   m_ShaderKeywords: _MK_ARTISTIC_PROJECTION_SCREEN_SPACE _MK_COLOR_GRADING_ALBEDO
-    _MK_ENVIRONMENT_REFLECTIONS_AMBIENT _MK_LIGHT_BANDED _MK_RECEIVE_SHADOWS _MK_SPECULAR_ISOTROPIC
+    _MK_ENVIRONMENT_REFLECTIONS_AMBIENT _MK_LIGHT_CEL _MK_RECEIVE_SHADOWS _MK_SPECULAR_ISOTROPIC
     _MK_WRAPPED_DIFFUSE _RECEIVESHADOWS_ON _WRAPPEDLIGHTING_ON
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
@@ -177,7 +177,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DiffuseSmoothness: 0.81
+    - _DiffuseSmoothness: 0.768
     - _DiffuseThresholdOffset: 0.25
     - _Dissolve: 0
     - _DissolveAmount: 0.5
@@ -199,10 +199,10 @@ Material:
     - _IridescenceSize: 2.31
     - _IridescenceSmoothness: 0.5
     - _IridescenceThresholdOffset: 0
-    - _Light: 2
-    - _LightBands: 4
-    - _LightBandsScale: 0.6
-    - _LightThreshold: 0.53
+    - _Light: 1
+    - _LightBands: 5
+    - _LightBandsScale: 0.51
+    - _LightThreshold: 0.816
     - _Metallic: 0
     - _NormalMapIntensity: 1
     - _OcclusionStrength: 1
@@ -216,14 +216,14 @@ Material:
     - _RimSize: 1
     - _RimSmoothness: 0.5
     - _RimThresholdOffset: 0.25
-    - _Saturation: 1.2
+    - _Saturation: 1.4
     - _SketchMapScale: 1
     - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _Specular: 1
     - _SpecularHighlights: 1
     - _SpecularIntensity: 1
-    - _SpecularSmoothness: 0.83
+    - _SpecularSmoothness: 0.746
     - _SpecularThresholdOffset: 0.25
     - _SrcBlend: 1
     - _Stencil: 1
@@ -245,13 +245,13 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     m_Colors:
-    - _AlbedoColor: {r: 0.24689372, g: 0.5471698, b: 0, a: 1}
+    - _AlbedoColor: {r: 0.6871827, g: 0.9811321, b: 0.4479886, a: 1}
     - _BaseColor: {r: 0.19611801, g: 0.4339623, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GoochBrightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GoochDarkColor: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
+    - _GoochDarkColor: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
     - _IridescenceColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _RimBrightColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}

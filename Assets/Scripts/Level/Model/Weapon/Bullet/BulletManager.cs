@@ -4,6 +4,7 @@ using Data.ValueObject;
 using Enums;
 using Interfaces;
 using Signals;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -21,6 +22,10 @@ namespace Managers
 
         [SerializeField]
         private WeaponTypes weaponType;
+
+        [SerializeField]
+        private BulletMovementController bulletMovementController;
+
         [SerializeField]
         private BulletPhysicsController physicsController;
 
@@ -41,7 +46,29 @@ namespace Managers
         private void OnEnable()
         {
             Invoke(nameof(SetBulletToPool), 1f);
+            SubscribeEvents();
         }
+
+        private void SubscribeEvents()
+        {
+
+            PlayerSignal.Instance.onSetWeaponTransform += OnSetWeaponTransform;
+
+        }
+
+        private void UnsubscribeEvents()
+        {
+            PlayerSignal.Instance.onSetWeaponTransform -= OnSetWeaponTransform;
+        }
+        private void OnDisable() => UnsubscribeEvents();
+
+
+        private void OnSetWeaponTransform(Transform playerTransform)
+        {
+            Debug.Log(playerTransform);
+            bulletMovementController.SetPlayerTransform(playerTransform);
+        }
+
         private WeaponData GetBulletData() => Resources.Load<CD_Weapon>("Data/CD_Weapon").WeaponData[(int)weaponType];
         private void SetDataToControllers() => physicsController.GetData(_data);
         public void ReleaseObject(GameObject obj, PoolType poolName) => PoolSignals.Instance.onReleaseObjectFromPool.Invoke(poolName, obj);
@@ -50,5 +77,6 @@ namespace Managers
             var poolName = (PoolType)System.Enum.Parse(typeof(PoolType), weaponType.ToString());
             ReleaseObject(gameObject, poolName);
         }
+
     }
 }

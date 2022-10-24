@@ -68,6 +68,8 @@ public class ThrowEventController : MonoBehaviour, IReleasePoolObject, IGetPoolO
     private void Throw()
     {
         SpriteTarget.SetActive(true);
+        if (SpriteTarget.transform.position == null) return;
+        if (bossBrain.PlayerTarget.position == null) return;
         SpriteTarget.transform.position = bossBrain.PlayerTarget.position + new Vector3(0, 0.2f, 0);
         _throwBomb.transform.SetParent(null);
         var rb = _throwBomb.GetComponent<Rigidbody>();

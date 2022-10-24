@@ -49,6 +49,9 @@ namespace AIBrains.EnemyBrain
             for (int i = 0; i < 3; i++)
             {
                 var createObj = GetObject(PoolType.Money);
+                    
+                if (createObj == null) return;
+                if (_enemyAIBrain.transform.position == null) return;
                 createObj.transform.position = _enemyAIBrain.transform.position + new Vector3(0, 3, 0);
             }
         }

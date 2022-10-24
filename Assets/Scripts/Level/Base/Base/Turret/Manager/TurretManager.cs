@@ -143,6 +143,10 @@ namespace Managers
 
             allOtoAtackTurrets[(int)turretKey].RemoveDeathList();
 
+
+
+
+
             //Attack(turretKey);
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Enums;
 using Managers;
+using Signals;
 using UnityEngine;
 
 namespace Controllers
@@ -12,6 +13,7 @@ namespace Controllers
 
         [SerializeField]
         private Transform weaponHolder;
+
 
         private BulletFireController _fireController;
         private const float _fireRate = 0.3f;
@@ -61,7 +63,11 @@ namespace Controllers
         private IEnumerator FireBullets()
         {
             yield return new WaitForSeconds(_fireRate);
+
             _fireController.FireBullets(weaponHolder);
+
+            PlayerSignal.Instance.onSetWeaponTransform?.Invoke(weaponHolder);
+            
             Shoot();
         }
 

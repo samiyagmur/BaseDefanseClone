@@ -103,7 +103,8 @@ namespace Managers
             PlayerSignal.Instance.onTakePlayerDamage += OnTakePlayerDamage;
             UISignals.Instance.onChangeWeaponType += OnChangeWeaponType;
             PlayerSignal.Instance.onIncreaseHealt += OnIncreaseHealt;
-          //  AISignals.Instance.onEnemyDead += OnEnemyDead;
+          
+
 
 
         }
@@ -115,7 +116,8 @@ namespace Managers
             PlayerSignal.Instance.onTakePlayerDamage -= OnTakePlayerDamage;
             UISignals.Instance.onChangeWeaponType -= OnChangeWeaponType;
             PlayerSignal.Instance.onIncreaseHealt -= OnIncreaseHealt;
-            //AISignals.Instance.onEnemyDead -= OnEnemyDead;
+          
+
 
         }
 
@@ -182,11 +184,6 @@ namespace Managers
         private void OnTakePlayerDamage(int damage) => playerHealtController.OnTakeDamage(damage);
 
 
-
-        //private void OnEnemyDead(GameObject enemyobj)
-        //{
-        //    EnemyList.Remove(EnemyList);
-        //}
 
         internal void SendToLayer(int layer)
         {

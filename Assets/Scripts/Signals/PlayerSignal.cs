@@ -13,6 +13,7 @@ namespace Signals
 
         public UnityAction<int> onIncreaseHealt = delegate { };
 
-    
+        public UnityAction<Transform> onSetWeaponTransform = delegate { };
+        
     }
 }

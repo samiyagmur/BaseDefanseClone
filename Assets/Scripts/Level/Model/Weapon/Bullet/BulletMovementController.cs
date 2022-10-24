@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace Controllers
 
         [SerializeField]
         private new Rigidbody rigidbody;
-
+        private Transform _playerTransform;
         private const float fireDelay = 0.05f;
         private const float fireSpeed = 70;
 
@@ -34,12 +35,20 @@ namespace Controllers
         }
 
         private void FireBullet()
-        {
+        {   
             rigidbody.AddRelativeForce(Vector3.forward * fireSpeed, ForceMode.VelocityChange);
+   
+
+            gameObject.transform.SetParent(transform);
         }
         private void OnDisable()
         {
             rigidbody.velocity = Vector3.zero;
+        }
+
+        internal void SetPlayerTransform(Transform playerTransform)
+        {
+            _playerTransform = playerTransform;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Signals
     public class AISignals : MonoSingleton<AISignals>
     {
         public UnityAction onSoldierActivation = delegate { };
+
         public UnityAction onSoldierAmountUpgrade = delegate { };
 
         public UnityAction<StackableMoney> onSetMoneyPosition = delegate { };
@@ -22,7 +23,7 @@ namespace Signals
 
         public UnityAction onGenerateSoldier = delegate{ };
 
-        public UnityAction<GameObject> onEnemyDead = delegate { };
+        public UnityAction onEnemyDead = delegate { };
 
     }
 }
