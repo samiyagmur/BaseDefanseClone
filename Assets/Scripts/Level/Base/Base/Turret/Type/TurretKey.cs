@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enums
 {
-    public enum TurretKey 
+    public enum TurretId 
     {
         FirstTurret,
         SecondTurret,

@@ -3,6 +3,7 @@ using AIBrains.EnemyBrain;
 using Assinger;
 using Controllers.AIControllers;
 using Enums;
+using Interfaces;
 using Managers;
 using System.Collections;
 using UnityEngine;
@@ -13,49 +14,29 @@ namespace Controllers
     {
         [SerializeField]
         private TurretManager _turretManager;
+
         [SerializeField]
-        private TurretKey turretKey;
+        private TurretID turretID;
 
-        public TurretKey TurretKey { get => turretKey; }
-
-        //private void OnEnable()
-        //{
-
-        //    _turretManager.AddNewTurret(turretKey);
-
-        //}
+        public TurretID TurretID { get => turretID;  }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out EnemyPhysicsController enemy))
             {
-               
-                _turretManager.IsEnemyEnterTurretRange(other.transform.parent.gameObject, TurretKey);
-
-                //_turretManager.OtoRotate(TurretKey);
-
-                //_turretManager.SpinGattaling(TurretKey);
-
-                //_turretManager.Attack(TurretKey);
+                _turretManager.IsEnemyEnterTurretRange(other.transform.parent.gameObject, TurretID.GetId);
             }
         }
 
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.TryGetComponent(out EnemyPhysicsController  enemy))
-            {
-                _turretManager.IsEnemyExitTurretRange(TurretKey);
-            }
-        }
         private void OnTriggerStay(Collider other)
         {
             if (other.TryGetComponent(out EnemyPhysicsController enemy))
             {
-                _turretManager.OtoRotate(TurretKey);
+                _turretManager.OtoRotate(TurretID.GetId);
 
-                _turretManager.SpinGattaling(TurretKey);
+                _turretManager.SpinGattaling(TurretID.GetId);
 
-                _turretManager.Attack(TurretKey);
+                _turretManager.Attack(TurretID.GetId);
             }
         }
 

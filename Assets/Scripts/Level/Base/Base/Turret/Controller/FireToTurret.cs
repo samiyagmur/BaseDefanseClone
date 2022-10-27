@@ -13,63 +13,59 @@ namespace Controllers
     public class FireToTurret : MonoBehaviour,IReleasePoolObject,IGetPoolObject
     {
         [SerializeField]
-        private float _rockedSpeed;
+        private float rockedSpeed;
 
         [SerializeField]
         private TurretManager turretManager;
 
+        Rigidbody _rigidbody;
+
         private GameObject _rocked;
 
-        private Sequence moveToTurret;
+        private Sequence _moveToTurret;
         private float _timer;
 
-        public  void LoadMagazine(TurretKey turretKey, bool IsDeadListUnEmty, SphereCollider attackerTurretCollider)
+        public  void LoadMagazine(TurretId turretKey, bool IsDeadListEmty, SphereCollider attackerTurretCollider)
         {
+            _moveToTurret = DOTween.Sequence();
             if (attackerTurretCollider.radius <= 0) return;
 
-            if (IsDeadListUnEmty==false) return;
+          
+            if (turretManager.GetToStackStatus(turretKey) == false);
 
-            if (turretManager.GetToStackInfo(turretKey) == false);
+            if (!IsDeadListEmty) return;
 
             _timer -= Time.deltaTime;
+
             if (_timer < 0)
             {
                 _timer = 4f;
+
                 FireToRocked(turretManager.GetToRocked(turretKey));
             }
 
         }
         internal  void FireToRocked(GameObject ammo)
         {
-
+            
 
             if (ammo == false) return;
+       
+            _moveToTurret.Append(ammo.transform.DOMove(transform.position, 0.8f));
 
-            moveToTurret = DOTween.Sequence();
+            _moveToTurret.Join(ammo.transform.DOScale(Vector3.zero, 0.8f));
 
-      
-            moveToTurret.Append(ammo.transform.DOMove(transform.position, 0.8f));
-
-            moveToTurret.Join(ammo.transform.DOScale(Vector3.zero, 0.8f));
-
-            moveToTurret.Play().OnComplete(() => ReleaseObject(ammo, PoolType.Ammo));
-
+            _moveToTurret.Play();
 
             _rocked = GetObject(PoolType.TurretRocket);
 
-            Rigidbody _rigidbody = _rocked.GetComponent<Rigidbody>();
+            _rigidbody=_rocked.GetComponent<Rigidbody>();
 
             _rocked.transform.position = transform.position;
+
             _rocked.transform.rotation = transform.rotation;
 
             _rigidbody.AddForce(transform.forward * 20, ForceMode.VelocityChange);
-
-            //if (_rocked.activeInHierarchy)
-            //{
-            //    _rocked.transform.DOScale(_rocked.transform.localScale, 3f).OnComplete(()
-            //    => ReleaseObject(ammo, PoolType.Ammo));
-            //}
-
 
         }
 

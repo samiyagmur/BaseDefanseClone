@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using Enums;
+using Assinger;
 
 namespace Controllers
 {
@@ -13,19 +15,21 @@ namespace Controllers
 
         #region Self Variabels
         #region Private Variables
+
         [ShowInInspector]
         private Queue<GameObject> _deadList = new Queue<GameObject>();
+
         private GameObject botTarget;
+
         private TurretOtoAtackData _turretOtoAtackDatas;
 
         private Tweener _tween;
 
         #endregion
         #endregion
-        private void Awake()
-        {
-            Application.targetFrameRate = 60;
-        }
+
+        [SerializeField]
+        private TurretID turretID;
 
         public void SetOtoAtackDatas(TurretOtoAtackData turretOtoAtackDatas) => _turretOtoAtackDatas = turretOtoAtackDatas;
 
@@ -36,23 +40,20 @@ namespace Controllers
             botTarget = _deadList.Peek();
         }
 
-
-        public void RemoveDeathList()
+        public void RemoveDeathList(GameObject gameObject)
         {
+            Debug.Log(gameObject);
+            if (!_deadList.Contains(gameObject)) return;
+            
             if (_deadList.Count <= 0) return;
             _deadList.Dequeue();
+
             if (_deadList.Count <= 0) return;
             botTarget = _deadList.Peek();
-            
         }
 
-        //private void FixedUpdate()
-        //{
-        //    FollowToEnemy();
-        //}
-
         public void FollowToEnemy()
-        {
+        {   
             if (_deadList.Count <= 0) return;
 
             ArangeRotateRotation(botTarget.transform);
@@ -84,7 +85,7 @@ namespace Controllers
 
         public GameObject GetTarget()
         {
-            return botTarget;
+            return _deadList.Peek();
         }
     }
 }

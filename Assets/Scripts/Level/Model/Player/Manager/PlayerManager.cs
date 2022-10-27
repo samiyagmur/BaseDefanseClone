@@ -110,7 +110,7 @@ namespace Managers
         }
 
         private void UnsubscribeEvents()
-        {
+        {   
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
             InputSignals.Instance.onInputHandlerChange -= OnDisableMovement;
             PlayerSignal.Instance.onTakePlayerDamage -= OnTakePlayerDamage;
@@ -136,7 +136,9 @@ namespace Managers
         {
             movementController.UpdateInputValues(inputParams);
             animationController.PlayAnimation(inputParams);
-        
+            shootingController.ArrangeBulletpos(inputParams);
+
+
         }
         public void SetEnemyTarget()
         {

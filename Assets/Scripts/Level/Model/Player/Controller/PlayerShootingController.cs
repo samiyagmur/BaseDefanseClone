@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Enums;
+using Keys;
 using Managers;
 using Signals;
 using UnityEngine;
@@ -16,6 +18,7 @@ namespace Controllers
 
 
         private BulletFireController _fireController;
+        private Vector2 _bulletPosRange;
         private const float _fireRate = 0.3f;
 
         private void Awake()
@@ -64,13 +67,16 @@ namespace Controllers
         {
             yield return new WaitForSeconds(_fireRate);
 
-            _fireController.FireBullets(weaponHolder);
+            _fireController.FireBullets(weaponHolder,new Vector3(_bulletPosRange.x,0, _bulletPosRange.y));
 
             PlayerSignal.Instance.onSetWeaponTransform?.Invoke(weaponHolder);
             
             Shoot();
         }
 
-
+        internal void ArrangeBulletpos(HorizontalInputParams inputParams)
+        {
+            _bulletPosRange = inputParams.MovementVector;
+        }
     }
 }

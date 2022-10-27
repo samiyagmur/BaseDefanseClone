@@ -25,6 +25,15 @@ namespace Controllers
             {
                 PoolSignals.Instance.onReleaseObjectFromPool(PoolType.TurretRocket, transform.parent.gameObject);
             }
+
+            if (other.TryGetComponent(out IDamagable damagable))
+            {
+                if (damagable.IsDead)
+                {
+                    Debug.Log("EnemyDeadForTurret");
+                }
+                
+            }
         }
         private void OnEnable()
         {

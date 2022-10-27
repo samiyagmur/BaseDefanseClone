@@ -22,7 +22,7 @@ namespace Managers
         private List<TurretShootController> allShootControllers;
 
         [SerializeField]
-        private List<FireToTurret> _allReadyToFire;
+        private List<FireToTurret> allReadyToFire;
 
         [SerializeField]
         private List<GameObject> bots;
@@ -36,7 +36,9 @@ namespace Managers
 
 
         #endregion Private Variables
-
+        private int _count;
+        private int _currentTriggerAmount;
+        private int _currentStackCount;
         #endregion Self Variables
 
         #region Event Subscription
@@ -47,15 +49,15 @@ namespace Managers
         {
             TurretSignals.Instance.onGenarateBot += OnGenarateBot;
             TurretSignals.Instance.onDieEnemy += OnDeadEnemy;
-           // TurretSignals.Instance.onReloadStack += OnReloadStack;
+
         }
 
         private void UnsubscribeEvents()
         {
             TurretSignals.Instance.onGenarateBot -= OnGenarateBot;
             TurretSignals.Instance.onDieEnemy -= OnDeadEnemy;
-           // TurretSignals.Instance.onReloadStack -= OnReloadStack;
         }
+
 
         private void Start()
         {
@@ -68,91 +70,67 @@ namespace Managers
         private async void OnGenarateBot(BotCreatType type)
         {
             bots[(int)type].gameObject.SetActive(true);
-
-        
-
-            count= 0;
-            while (count < 15)
+            _count= 0;
+            while (_count < 15)
             {
-                Debug.Log(count);
+               
                 await Task.Delay(100);
-                canOpenForTrigger[(int)type].radius = count;
+                canOpenForTrigger[(int)type].radius = _count;
 
-                
-
-                count++;
+                _count++;
             }
         }
         private void OnDisable() => UnsubscribeEvents();
 
         #endregion Event Subscription
 
-
-
         #region BotController
 
-        private int currentStackCount;
-        private int count;
-
-        private int triggerCount;
-        private int ss;
-
-        public void Attack(TurretKey turretKey)
+      
+       
+        public void Attack(TurretId turretKey)
         {
-            _allReadyToFire[(int)turretKey].LoadMagazine(turretKey, allOtoAtackTurrets[(int)turretKey].GetTargetStatus(), 
+
+            allReadyToFire[(int)turretKey].LoadMagazine(turretKey, allOtoAtackTurrets[(int)turretKey].GetTargetStatus(), 
                 canOpenForTrigger[(int)turretKey]);
         }
 
-        internal bool GetToStackInfo(TurretKey turretKey)
+        internal bool GetToStackStatus(TurretId turretKey)
         {
-            currentStackCount = AmmoManagerSignals.Instance.onGetCurrentTurretStackCount.Invoke(turretKey);
+            _currentStackCount = AmmoManagerSignals.Instance.onGetCurrentTurretStackCount.Invoke(turretKey);
 
-            return currentStackCount > 0;
+            return _currentStackCount > 0;
         }
 
-        internal GameObject GetToRocked(TurretKey turretKey)
+        internal GameObject GetToRocked(TurretId turretKey)
         {
             return AmmoManagerSignals.Instance.onGetAmmoForFire?.Invoke(turretKey);
         }
 
-        public void OtoRotate(TurretKey turretKey)
+        public void OtoRotate(TurretId turretKey)
         {
             allOtoAtackTurrets[(int)turretKey].RotateTurret();
 
             allOtoAtackTurrets[(int)turretKey].FollowToEnemy();
         }
 
-        public void IsEnemyEnterTurretRange(GameObject enemy, TurretKey turretKey)
+        public void IsEnemyEnterTurretRange(GameObject enemy, TurretId turretKey)
         {
             allOtoAtackTurrets[(int)turretKey].AddDeathList(enemy);
         }
 
-        public void SpinGattaling(TurretKey turretKey)
+        public void SpinGattaling(TurretId turretKey)
         {
             allShootControllers[(int)turretKey].ActiveGattaling();
         }
-
-        //private void OnReloadStack(TurretKey turretKey)
-        //{
-        //    Attack(turretKey);
-
-        //}
-
-        private  void OnDeadEnemy(TurretKey turretKey)
+        private  void OnDeadEnemy(TurretId turretKey,GameObject gameObject)
         {
-
-            allOtoAtackTurrets[(int)turretKey].RemoveDeathList();
-
-
-
-
-
-            //Attack(turretKey);
+            allOtoAtackTurrets[(int)turretKey].RemoveDeathList(gameObject);
         }
 
-        public void IsEnemyExitTurretRange(TurretKey turretKey)
-        {
-            allOtoAtackTurrets[(int)turretKey].RemoveDeathList();
+        public void IsEnemyExitTurretRange(TurretId turretKey, GameObject gameObject)
+        {   
+            allOtoAtackTurrets[(int)turretKey].RemoveDeathList(gameObject);
         }
 
         #endregion BotController

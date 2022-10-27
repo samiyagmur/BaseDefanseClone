@@ -12,9 +12,9 @@ namespace Signals
 
       public UnityAction onPressTurretButton =delegate { };
 
-      public UnityAction<TurretKey> onReloadStack = delegate { };
+      public UnityAction<TurretId> onReloadStack = delegate { };
 
-      public UnityAction<TurretKey> onDieEnemy = delegate { };
+      public UnityAction<TurretId,GameObject> onDieEnemy = delegate { };
 
       public UnityAction<BotCreatType> onGenarateBot = delegate { };
 

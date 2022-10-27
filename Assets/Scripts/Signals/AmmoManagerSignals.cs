@@ -12,7 +12,7 @@ namespace Signals
     {
         public UnityAction <Transform> onPlayerEnterAmmoWorkerCreaterArea = delegate { };
 
-        public UnityAction <TurretStackController> onSetTurretStackControllers = delegate { };
+        public UnityAction <AmmoDropZoneController> onSetTurretStackControllers = delegate { };
         
         public UnityAction<AmmoStackStatus> onSetAmmoStackStatus = delegate { };
 
@@ -20,11 +20,11 @@ namespace Signals
 
         public UnityAction<int> onIncreaseAmmoWorkerCapasity = delegate { };
 
-        public Func<TurretKey, GameObject> onGetAmmoForFire = delegate { return null; };
+        public Func<TurretId, GameObject> onGetAmmoForFire = delegate { return null; };
 
-        public Func<TurretKey,int> onGetCurrentTurretStackCount = delegate { return 0; };
+        public Func<TurretId,int> onGetCurrentTurretStackCount = delegate { return 0; };
 
-        public Func<TurretKey> onActiveTurretStack = delegate { return 0; };
+        public Func<TurretId> onActiveTurretStack = delegate { return 0; };
 
     }
 }

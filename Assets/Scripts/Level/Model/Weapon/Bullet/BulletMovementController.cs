@@ -37,9 +37,6 @@ namespace Controllers
         private void FireBullet()
         {   
             rigidbody.AddRelativeForce(Vector3.forward * fireSpeed, ForceMode.VelocityChange);
-   
-
-            gameObject.transform.SetParent(transform);
         }
         private void OnDisable()
         {

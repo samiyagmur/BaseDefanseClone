@@ -16,15 +16,18 @@ namespace Controllers
         public GameObject GetObject(PoolType poolName)
         {
             var obj = PoolSignals.Instance.onGetObjectFromPool.Invoke(poolName);
+
             return obj;
         }
-        public void FireBullets(Transform holderTransform)
+        public void FireBullets(Transform holderTransform, Vector3 vector3)
         {
             var poolType = (PoolType)System.Enum.Parse(typeof(PoolType), _weaponType.ToString());
+
             var bullet = GetObject(poolType);
-            bullet.transform.position = holderTransform.position;
-            bullet.transform.rotation = holderTransform.rotation;
-            bullet.transform.SetParent(holderTransform);
+
+            bullet.transform.position = holderTransform.position + vector3/2;
+
+            bullet.transform.rotation = holderTransform.rotation ;
         }
 
 

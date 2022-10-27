@@ -17,12 +17,12 @@ namespace Controllers
                 _ammoManager = other.transform.parent.GetComponent<AmmoManager>();
             }
 
-            if (other.TryGetComponent(out TurretStackPhysicsControl turretStackPhysicsControl))//it must change
+            if (other.TryGetComponent(out AmmoDropZonePhysicsControl turretStackPhysicsControl))//it must change
             {
                 
                 _ammoManager.WhenEnterTurretStack(transform.parent.GetComponent<AmmoWorkerBrain>(), turretStackPhysicsControl.TurretKey);
                 
-                _ammoManager.WhenEnterTurretStack(other.transform.parent.GetComponent<TurretStackController>(), 
+                _ammoManager.WhenEnterTurretStack(other.transform.parent.GetComponent<AmmoDropZoneController>(), 
                     transform.parent.gameObject.GetComponent<AmmoWorkerStackController>());
             }
         }
@@ -30,7 +30,7 @@ namespace Controllers
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out TurretStackPhysicsControl turretStackPhysicsControl))//it must change
+            if (other.TryGetComponent(out AmmoDropZonePhysicsControl turretStackPhysicsControl))//it must change
             {
                 _ammoManager.WhenExitTurretStack(transform.parent.GetComponent<AmmoWorkerBrain>());
 

@@ -8,7 +8,7 @@ namespace Controllers.AIControllers
 {
     public class EnemyPhysicsController : MonoBehaviour, IDamagable
     {
-        private TurretKey _turretKey;
+        private TurretId _turretKey;
         private void OnEnable()
         {
             IsDead = false;
@@ -23,7 +23,7 @@ namespace Controllers.AIControllers
         {
             if (other.TryGetComponent(out TurretDetactController turretDetactController))
             {
-                _turretKey = turretDetactController.TurretKey;
+                _turretKey = turretDetactController.TurretID.GetId;
             }
 
 
@@ -54,6 +54,7 @@ namespace Controllers.AIControllers
         {
             IsDead = true;
 
+            TurretSignals.Instance.onDieEnemy?.Invoke(_turretKey,transform.parent.gameObject);
         }
     }
 }

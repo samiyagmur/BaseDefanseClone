@@ -23,13 +23,13 @@ namespace Managers
 
         private int _delayStack=125;
         [SerializeField]
-        List<TurretStackController>  loadTurretStackController=new List<TurretStackController>();
+        List<AmmoDropZoneController>  loadTurretStackController=new List<AmmoDropZoneController>();
 
         [SerializeField]
-        List<TurretStackController> selectTargetList = new List<TurretStackController>();
+        List<AmmoDropZoneController> selectTargetList = new List<AmmoDropZoneController>();
 
         [SerializeField]
-        List<TurretStackController> currentTurretStackController = new List<TurretStackController>();
+        List<AmmoDropZoneController> currentTurretStackController = new List<AmmoDropZoneController>();
 
         [ShowInInspector]
         Queue<AmmoWorkerBrain> _currentAmmoWorkersInTurretStackArae=new Queue<AmmoWorkerBrain>();
@@ -37,11 +37,11 @@ namespace Managers
         #endregion
 
         private int counter;
-        private TurretKey turretKey;
+        private TurretId turretKey;
         private AmmoWorkerAIData _ammoWorkerAIData;
-        private TurretStackGridController turretStackGridController;
+        private AmmoDropZoneGridController turretStackGridController;
         private int _maxStackCapasity;
-        private TurretStackController _selectedTarget;
+        private AmmoDropZoneController _selectedTarget;
         private int _currentDelay;
 
         internal void Awake() => Init();
@@ -49,7 +49,7 @@ namespace Managers
         private void Init()
         {
             _ammoWorkerAIData = cD_AIData.AmmoWorkerAIDatas;
-            turretStackGridController=new TurretStackGridController();
+            turretStackGridController=new AmmoDropZoneGridController();
             _maxStackCapasity = _ammoWorkerAIData.MaxStackCount;
         }
         private void Start()
@@ -68,6 +68,7 @@ namespace Managers
                 }
             }
         }
+
         //private TurretKey onActiveTurretStack()
         //{
 
@@ -101,8 +102,9 @@ namespace Managers
         private void OnDisable() => UnsubscribeEvents();
 
         #endregion
-        private GameObject OnGetAmmoToFire(TurretKey key)
+        private GameObject OnGetAmmoToFire(TurretId key)
         {
+
 
             var s = loadTurretStackController[(int)key].RemoveToStack();
 
@@ -111,7 +113,7 @@ namespace Managers
             return s; 
         }
 
-        private int OnGetCurrentTurretStackCount(TurretKey key)
+        private int OnGetCurrentTurretStackCount(TurretId key)
         {
             return loadTurretStackController[(int)key].GetCurrentCount();
         }
@@ -145,7 +147,7 @@ namespace Managers
 
         }
 
-        internal void WhenEnterTurretStack(TurretStackController turretStackController, AmmoWorkerStackController ammoWorkerStackController)
+        internal void WhenEnterTurretStack(AmmoDropZoneController turretStackController, AmmoWorkerStackController ammoWorkerStackController)
         {
 
             turretStackController.AddStack(ammoWorkerStackController.SendAmmoStack());
@@ -175,15 +177,14 @@ namespace Managers
 
         private void OnIncreaseAmmoWorkerCapasity(int amount)
         {
-            Debug.Log(amount);
+
             _maxStackCapasity += amount;
 
             _currentDelay = _delayStack * _maxStackCapasity-(_maxStackCapasity-1);
 
-            Debug.Log(_currentDelay);
         }
 
-        internal void WhenEnterTurretStack(AmmoWorkerBrain ammoWorkerBrain, TurretKey turretKey)
+        internal void WhenEnterTurretStack(AmmoWorkerBrain ammoWorkerBrain, TurretId turretKey)
         {
             TurretSignals.Instance.onReloadStack?.Invoke(turretKey);
             ammoWorkerBrain.IsLoadTurret(true);

@@ -21,6 +21,7 @@ namespace Controllers
 
         [SerializeField]
         private new Rigidbody rigidbody;
+
         [SerializeField]
         private PlayerManager manager;
 
@@ -33,8 +34,9 @@ namespace Controllers
         private Vector2 _inputVector;
 
         private bool _isReadyToMove;
+
         private GameObject _currentParent;
-        private TurretStatus _turretStatus;
+    
 
         public bool IsOutPlace { get; private set; }
 

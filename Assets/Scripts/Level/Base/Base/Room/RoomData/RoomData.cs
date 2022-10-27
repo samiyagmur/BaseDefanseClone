@@ -11,8 +11,6 @@ namespace Data.ValueObject
 
         public SideBaseAvaliableStatus SideBaseAvaliableStatus;
 
-        public TurretLocationType TurretLocationType;
-
         public TurretData TurretData;
 
         public int PayedAmount;
