@@ -6,29 +6,18 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class BaseRoomExtentionController : MonoBehaviour, IBuyable
+    public class BaseRoomExtentionController : MonoBehaviour
     {
-        private List<GameObject> OpenUpExtentions;
-        private List<GameObject> CloseDownExtentions;
+        private List<GameObject> _openUpExtentions;
+        private List<GameObject> _closeDownExtentions;
 
         public void ChangeExtentionVisibility(BaseRoomTypes baseRoomType)
         {
-            OpenUpExtentions[(int)baseRoomType].SetActive(true);
-            CloseDownExtentions[(int)baseRoomType].SetActive(false);
-        }
-        //public BuyableZoneDataList GetBuyableData()
-        //{
-
-        //}
-
-        public void TriggerBuyingEvent()
-        {
-            throw new System.NotImplementedException();
+            _openUpExtentions[(int)baseRoomType].SetActive(true);
+            _closeDownExtentions[(int)baseRoomType].SetActive(false);
         }
 
-        public bool MakePayment()
-        {
-            throw new System.NotImplementedException();
-        }
+
+
     }
 }

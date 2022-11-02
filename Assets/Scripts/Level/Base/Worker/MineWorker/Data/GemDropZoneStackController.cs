@@ -34,12 +34,11 @@ namespace Controllers
 
         [SerializeField] private GemStackerController gemStackerController;
 
+        [ShowInInspector] private List<Vector3> gridPositionsData = new List<Vector3>();
         #endregion
 
         #region Private Variables
-        
-        [ShowInInspector] private List<Vector3> gridPositionsData = new List<Vector3>();
-        
+
         private Vector3 _gridPositions;
 
         private StackData _stackData;

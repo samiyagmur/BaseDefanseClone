@@ -27,10 +27,7 @@ namespace Controllers
 
         private bool _canTake;
         private const int _payedAmount= 10;
-        //private void OnEnable()
-        //{
-        //    priceText.text = price.ToString();
-        //}
+
         private void OnTriggerEnter(Collider other)
         {
 

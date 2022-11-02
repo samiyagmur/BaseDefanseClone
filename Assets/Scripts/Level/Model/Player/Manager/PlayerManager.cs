@@ -29,8 +29,10 @@ namespace Managers
         public AreaType CurrentAreaType = AreaType.BaseDefense;
 
         public WeaponTypes WeaponType;
+
         [ShowInInspector]   
         public List<IDamagable> EnemyList = new List<IDamagable>();
+
         [SerializeField]
         public SphereCollider detectCollider;
 
@@ -38,6 +40,7 @@ namespace Managers
 
         public bool HasEnemyTarget = false;
 
+        public IDamagable DamagableEnemy;
         #endregion
 
         #region Serialized Variables
@@ -69,7 +72,7 @@ namespace Managers
 
         private WeaponData _weaponData;
 
-        public IDamagable DamagableEnemy;
+    
         private bool _canReset;
 
         #endregion

@@ -23,9 +23,6 @@ namespace Managers
         [SerializeField]
         private List<LevelData> levelDatas = new List<LevelData>();
 
-
-        private CD_Level _cdLevel;
-
         [SerializeField]
         private CD_Enemy cdEnemy;
 
@@ -42,6 +39,8 @@ namespace Managers
         private BuyablesData _buyablesData;
         private ShopData _shopData;
         private ScoreData _scoreData;
+        private CD_Level _cdLevel;
+
 
         #endregion
 

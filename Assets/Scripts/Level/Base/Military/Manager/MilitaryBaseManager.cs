@@ -38,13 +38,11 @@ namespace Managers
         #region Private Variables
 
         private MilitaryBaseData _data;
-        private SoldierAIData _soldierAIData;
+
         private bool _isBaseAvaliable;
         private bool _isTentAvaliable = true;
         private int _totalAmount;
-        private int _soldierAmount;
         [ShowInInspector] private List<Vector3> _slotTransformList = new List<Vector3>();
-        private int _tentCapacity;
         private List<SoldierAIBrain> _soldierList = new List<SoldierAIBrain>();
 
         #endregion Private Variables

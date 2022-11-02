@@ -37,7 +37,6 @@ namespace Managers
 
         #endregion Private Variables
         private int _count;
-        private int _currentTriggerAmount;
         private int _currentStackCount;
         #endregion Self Variables
 

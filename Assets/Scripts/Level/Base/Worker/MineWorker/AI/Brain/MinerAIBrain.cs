@@ -26,6 +26,7 @@ namespace AI.MinerAI
         public Transform GemHolder;
         public MinerManager MinerManager;
         public float GemCollectionOffset=5;
+        public MinerAIItemController MinerAIItemController;
         public bool IsDropZoneFullStatus
         {
             get => isDropZoneFull;
@@ -50,8 +51,8 @@ namespace AI.MinerAI
 
         private StateMachine _stateMachine;
         private FindRandomPointOnCircleCommand _findRandomPointOnCircleCommand;
-        public MinerAIItemController MinerAIItemController;
-        //public List<var>
+
+
 
         #endregion
 

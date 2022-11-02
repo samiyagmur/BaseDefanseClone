@@ -19,7 +19,7 @@ namespace Controllers
         [ShowInInspector]
         private Queue<GameObject> _deadList = new Queue<GameObject>();
 
-        private GameObject botTarget;
+        private GameObject _botTarget;
 
         private TurretOtoAtackData _turretOtoAtackDatas;
 
@@ -37,7 +37,7 @@ namespace Controllers
         {
             _deadList.Enqueue(enemy);
 
-            botTarget = _deadList.Peek();
+            _botTarget = _deadList.Peek();
         }
 
         public void RemoveDeathList(GameObject gameObject)
@@ -49,14 +49,14 @@ namespace Controllers
             _deadList.Dequeue();
 
             if (_deadList.Count <= 0) return;
-            botTarget = _deadList.Peek();
+            _botTarget = _deadList.Peek();
         }
 
         public void FollowToEnemy()
         {   
             if (_deadList.Count <= 0) return;
 
-            ArangeRotateRotation(botTarget.transform);
+            ArangeRotateRotation(_botTarget.transform);
         }
 
         private void ArangeRotateRotation(Transform _movementDirection)
@@ -75,7 +75,7 @@ namespace Controllers
         public void RotateTurret()
         {
             if (_deadList.Count <= 0) return;
-            _tween = transform.DORotateQuaternion(botTarget.transform.rotation, 0.499f).SetAutoKill(true);
+            _tween = transform.DORotateQuaternion(_botTarget.transform.rotation, 0.499f).SetAutoKill(true);
         }
 
         public bool GetTargetStatus()

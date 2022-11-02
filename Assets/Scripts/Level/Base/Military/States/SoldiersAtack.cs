@@ -78,15 +78,15 @@ namespace AI.States
         private void SetEnemyTargetTransform()
         {
             _soldierAIBrain.HasEnemyTarget = false;
-            if (_soldierAIBrain.enemyList.Count == 0) return;
-            _soldierAIBrain.EnemyTarget = _soldierAIBrain.enemyList[0].GetTransform();
-            _soldierAIBrain.DamageableEnemy = _soldierAIBrain.enemyList[0];
+            if (_soldierAIBrain.EnemyList.Count == 0) return;
+            _soldierAIBrain.EnemyTarget = _soldierAIBrain.EnemyList[0].GetTransform();
+            _soldierAIBrain.DamageableEnemy = _soldierAIBrain.EnemyList[0];
             _soldierAIBrain.HasEnemyTarget = true;
         }
 
         private void EnemyTargetStatus()
         {
-            if (_soldierAIBrain.enemyList.Count != 0)
+            if (_soldierAIBrain.EnemyList.Count != 0)
             {
                 SetEnemyTargetTransform();
             }
@@ -98,9 +98,9 @@ namespace AI.States
 
         private void RemoveTarget()
         {
-            if (_soldierAIBrain.enemyList.Count == 0) return;
-            _soldierAIBrain.enemyList.RemoveAt(0);
-            _soldierAIBrain.enemyList.TrimExcess();
+            if (_soldierAIBrain.EnemyList.Count == 0) return;
+            _soldierAIBrain.EnemyList.RemoveAt(0);
+            _soldierAIBrain.EnemyList.TrimExcess();
             _soldierAIBrain.EnemyTarget = null;
             EnemyTargetStatus();
         }

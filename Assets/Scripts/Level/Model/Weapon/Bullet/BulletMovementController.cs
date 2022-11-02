@@ -19,8 +19,8 @@ namespace Controllers
         [SerializeField]
         private new Rigidbody rigidbody;
         private Transform _playerTransform;
-        private const float fireDelay = 0.05f;
-        private const float fireSpeed = 70;
+        private const float _fireDelay = 0.05f;
+        private const float _fireSpeed = 70;
 
         #endregion
 
@@ -31,12 +31,12 @@ namespace Controllers
         #endregion
         private void OnEnable()
         {
-            DOVirtual.DelayedCall(fireDelay, () => FireBullet());
+            DOVirtual.DelayedCall(_fireDelay, () => FireBullet());
         }
 
         private void FireBullet()
         {   
-            rigidbody.AddRelativeForce(Vector3.forward * fireSpeed, ForceMode.VelocityChange);
+            rigidbody.AddRelativeForce(Vector3.forward * _fireSpeed, ForceMode.VelocityChange);
         }
         private void OnDisable()
         {

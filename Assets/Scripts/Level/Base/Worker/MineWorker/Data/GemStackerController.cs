@@ -15,11 +15,11 @@ namespace Controllers
         [SerializeField] private float radiusAround;
 
 
-        private Sequence GetStackSequence;
+        private Sequence _getStackSequence;
 
-        private int stackListConstCount;
+        private int _stackListConstCount;
 
-        private bool canRemove = true;
+        private bool _canRemove = true;
         
         private void Awake()
         {
@@ -38,12 +38,12 @@ namespace Controllers
         {
             
             SetStackHolder(otherTransform);
-            GetStackSequence = DOTween.Sequence();
+            _getStackSequence = DOTween.Sequence();
             var randomBouncePosition =CalculateRandomAddStackPosition();
             var randomRotation = CalculateRandomStackRotation();
             
-            GetStackSequence.Append(stackableObj.transform.DOLocalMove(randomBouncePosition, .5f));
-            GetStackSequence.Join(stackableObj.transform.DOLocalRotate(randomRotation, .5f)).OnComplete(() =>
+            _getStackSequence.Append(stackableObj.transform.DOLocalMove(randomBouncePosition, .5f));
+            _getStackSequence.Join(stackableObj.transform.DOLocalRotate(randomRotation, .5f)).OnComplete(() =>
             {
                 stackableObj.transform.rotation = Quaternion.LookRotation(transform.forward);
             
@@ -60,13 +60,13 @@ namespace Controllers
         }
         public void OnRemoveAllStack(Transform targetTransform)
         {   
-            if(!canRemove)
+            if(!_canRemove)
                 return;
             
             
-            canRemove = false;
+            _canRemove = false;
             
-            stackListConstCount = StackList.Count;
+            _stackListConstCount = StackList.Count;
             
             RemoveAllStack(targetTransform);
         }
@@ -78,7 +78,7 @@ namespace Controllers
             {
        
                 DropzoneSignals.Instance.onDropZoneFull?.Invoke(false);
-                canRemove = true;
+                _canRemove = true;
                 return;
             }
             
@@ -99,11 +99,11 @@ namespace Controllers
 
         private void RemoveStackAnimation(GameObject removedStack,Transform targetTransform)
         {
-            GetStackSequence = DOTween.Sequence();
+            _getStackSequence = DOTween.Sequence();
             var randomRemovedStackPosition = CalculateRandomRemoveStackPosition();
             var randomRemovedStackRotation = CalculateRandomStackRotation();
-            GetStackSequence.Append(removedStack.transform.DOLocalMove(randomRemovedStackPosition, .1f));
-            GetStackSequence.Join(removedStack.transform.DOLocalRotate(randomRemovedStackRotation, .1f)).OnComplete(() =>
+            _getStackSequence.Append(removedStack.transform.DOLocalMove(randomRemovedStackPosition, .1f));
+            _getStackSequence.Join(removedStack.transform.DOLocalRotate(randomRemovedStackRotation, .1f)).OnComplete(() =>
             {
                 removedStack.transform.rotation = Quaternion.LookRotation(targetTransform.forward);
                             StackList.Remove(removedStack);

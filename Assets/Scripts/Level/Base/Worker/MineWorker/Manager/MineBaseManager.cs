@@ -30,8 +30,6 @@ namespace Managers
 
         [SerializeField] 
         private TextMeshPro gemWorkerText;
-        [SerializeField] 
-        private MineBaseTextController mineBaseTextController;
         [SerializeField]
         private List<Transform> mineLocations;//Cd_obkjeyegidecek.
         [SerializeField]
@@ -68,7 +66,6 @@ namespace Managers
         private void Start()
         {
             InstantiateAllMiners();
-            UpdateMinerText();
             AssignMinerValuesToDictionary();
         }
 
@@ -107,7 +104,7 @@ namespace Managers
         {
             _currentWorkerAmount++;
             _mineWorkers.Add(minerBrainAi, minerBrainAi.gameObject);
-            UpdateMinerText();
+ 
             //InitializeDataSignals.Instance.onSaveMineBaseData()
         }
 
@@ -129,10 +126,6 @@ namespace Managers
             }
         }
 
-        private void UpdateMinerText()
-        {
-            mineBaseTextController.UpdateMineWorkerAmountText(gemWorkerText, _currentWorkerAmount, _maxWorkerAmount);
-        }
 
         private void AssignMinerValuesToDictionary()
         {

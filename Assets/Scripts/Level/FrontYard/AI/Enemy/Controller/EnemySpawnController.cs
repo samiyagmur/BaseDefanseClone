@@ -38,11 +38,13 @@ namespace Managers.AIManagers
         [SerializeField]
         private GameObject spriteTarget;
 
-        private const string _dataPath = "Data/CD_AIData";
+
 
         #endregion
 
         #region Private Variables
+
+        private const string _dataPath = "Data/CD_AIData";
 
         private bool _isSpawning;
 

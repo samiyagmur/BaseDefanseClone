@@ -10,7 +10,7 @@ namespace Data.ValueObject
     public class PoolData
     {
         public GameObject ObjectType;
-        public int initalAmount;
-        public bool isDynamic;
+        public int InitalAmount;
+        public bool IsDynamic;
     } 
 }

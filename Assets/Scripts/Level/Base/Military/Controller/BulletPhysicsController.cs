@@ -12,25 +12,10 @@ namespace Controllers
 {
     public class BulletPhysicsController : MonoBehaviour,IAttacker
     {
-        #region Self Variables
-
-        #region Public Variables
-
-        #endregion
-
-        #region Serialized Variables
-
-        
-
-        #endregion
-
-        #region Private Variables
+      
 
         private int _damage;
 
-        #endregion
-
-        #endregion
 
         public void GetData(WeaponData data)
         {

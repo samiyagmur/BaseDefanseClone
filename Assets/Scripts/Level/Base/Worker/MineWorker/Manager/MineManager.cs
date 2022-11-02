@@ -34,7 +34,7 @@ namespace Managers
         #region Private Variables
 
         private int _payedGemAmount = 0;
-        //private BombData Data;
+
 
 
 

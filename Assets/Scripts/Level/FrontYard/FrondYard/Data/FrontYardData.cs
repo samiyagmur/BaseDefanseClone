@@ -9,6 +9,6 @@ namespace Data.ValueObject
     {
         public List<StageData> StageDataList;
         public List<FrontYardItemsData> FrontYardItemsDataList;
-        public HostageData HostageData;
+
     }
 }

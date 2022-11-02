@@ -19,7 +19,7 @@ namespace Managers
 
         #region Private Variables
 
-        private BaseRoomData baseRoomData;
+        private BaseRoomData _baseRoomData;
 
         #endregion
 
@@ -27,7 +27,7 @@ namespace Managers
 
         private void Awake()
         {
-            baseRoomData = GetData();
+            _baseRoomData = GetData();
             SetExistingRooms();
         }
 
@@ -52,11 +52,11 @@ namespace Managers
         #endregion  
         private BaseRoomData GetData() => InitializeDataSignals.Instance.onLoadBaseRoomData?.Invoke();
 
-        private void SaveData() => InitializeDataSignals.Instance.onSaveBaseRoomData?.Invoke(baseRoomData);
+        private void SaveData() => InitializeDataSignals.Instance.onSaveBaseRoomData?.Invoke(_baseRoomData);
 
         private void SetExistingRooms()
         {
-            foreach (var t in baseRoomData.Rooms.Where(t => t.SideBaseAvaliableStatus == SideBaseAvaliableStatus.Unlocked))
+            foreach (var t in _baseRoomData.Rooms.Where(t => t.SideBaseAvaliableStatus == SideBaseAvaliableStatus.Unlocked))
             {
                 ChangeVisibility(t.RoomTypes);
             }
@@ -64,11 +64,11 @@ namespace Managers
 
         private void OnUpdateRoomData(RoomData roomData, RoomTypes roomTypes)
         {
-            baseRoomData.Rooms[(int)roomTypes] = roomData;
+            _baseRoomData.Rooms[(int)roomTypes] = roomData;
             SaveData();
         }
 
-        private RoomData OnSetRoomData(RoomTypes roomTypes) => baseRoomData.Rooms[(int)roomTypes];
+        private RoomData OnSetRoomData(RoomTypes roomTypes) => _baseRoomData.Rooms[(int)roomTypes];
         private void OnChangeVisibility(RoomTypes roomTypes)
         {
             ChangeVisibility(roomTypes);
@@ -77,8 +77,8 @@ namespace Managers
 
         private void ChangeAvailabilityType(RoomTypes roomTypes)
         {
-            baseRoomData.Rooms[(int)roomTypes].SideBaseAvaliableStatus = SideBaseAvaliableStatus.Unlocked;
-            InitializeDataSignals.Instance.onSaveBaseRoomData?.Invoke(baseRoomData);
+            _baseRoomData.Rooms[(int)roomTypes].SideBaseAvaliableStatus = SideBaseAvaliableStatus.Unlocked;
+            InitializeDataSignals.Instance.onSaveBaseRoomData?.Invoke(_baseRoomData);
         }
 
         private void ChangeVisibility(RoomTypes roomTypes) => extentionController.ChangeExtentionVisibility(roomTypes);

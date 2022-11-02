@@ -21,11 +21,11 @@ namespace Controllers
         #endregion
 
         #region Private Variables
-        private int initalLureSphereSize = 20;
-        private int initalExplosionSphereSize = 10;
+        private int _initalLureSphereSize = 20;
+        private int _initalExplosionSphereSize = 10;
 
-        private float timer;
-        private float payOffset = 0.1f;
+        private float _timer;
+        private float _payOffset = 0.1f;
 
 
         #endregion
@@ -39,16 +39,16 @@ namespace Controllers
         {
             if (other.CompareTag("Player"))
             {
-                if (timer > payOffset)
+                if (_timer > _payOffset)
                 {
 
                     //Revize edecegim button modulunu yapinca
                     mineManager.PayGemToMine();
-                    timer = 0;
+                    _timer = 0;
                 }
                 else
                 {
-                    timer += Time.deltaTime;
+                    _timer += Time.deltaTime;
                 }
 
             }
@@ -60,7 +60,7 @@ namespace Controllers
             {
 
                 //gameObject.tag = "MineLure";
-                lureCollider.radius = initalLureSphereSize;
+                lureCollider.radius = _initalLureSphereSize;
                 lureCollider.enabled = true;
             }
             else
@@ -74,7 +74,7 @@ namespace Controllers
             if (_state)
             {   
                 //gameObject.tag = "MineExplosion";
-                lureCollider.radius = initalExplosionSphereSize;
+                lureCollider.radius = _initalExplosionSphereSize;
                 explosionCollider.enabled = true;
             }
             else

@@ -7,35 +7,21 @@ namespace Controllers
 {
     public class SoldierDetectionController : MonoBehaviour
     {
-        #region Self Variables
-
-        #region Public Variables
-
-        #endregion
-
-        #region Serialized Variables
 
         [SerializeField]
         private SoldierAIBrain soldierAIBrain;
 
-        #endregion
-
-        #region Private Variables
-
-        #endregion
-
-        #endregion
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out IDamagable damagable))
             {
                 if (damagable.IsTaken) return;
                 damagable.IsTaken = true;
-                soldierAIBrain.enemyList.Add(damagable);
+                soldierAIBrain.EnemyList.Add(damagable);
                 if (soldierAIBrain.EnemyTarget == null)
                 {
-                    soldierAIBrain.EnemyTarget = soldierAIBrain.enemyList[0].GetTransform();
-                    soldierAIBrain.DamageableEnemy = soldierAIBrain.enemyList[0];
+                    soldierAIBrain.EnemyTarget = soldierAIBrain.EnemyList[0].GetTransform();
+                    soldierAIBrain.DamageableEnemy = soldierAIBrain.EnemyList[0];
                     soldierAIBrain.HasEnemyTarget = true;
                 }
             }
@@ -44,10 +30,10 @@ namespace Controllers
         {
             if (other.TryGetComponent(out IDamagable damagable))
             {
-                if (soldierAIBrain.enemyList.Count == 0) return;
-                soldierAIBrain.enemyList.Remove(damagable);
-                soldierAIBrain.enemyList.TrimExcess();
-                if (soldierAIBrain.enemyList.Count == 0)
+                if (soldierAIBrain.EnemyList.Count == 0) return;
+                soldierAIBrain.EnemyList.Remove(damagable);
+                soldierAIBrain.EnemyList.TrimExcess();
+                if (soldierAIBrain.EnemyList.Count == 0)
                 {
                     soldierAIBrain.EnemyTarget = null;
                     soldierAIBrain.HasEnemyTarget = false;

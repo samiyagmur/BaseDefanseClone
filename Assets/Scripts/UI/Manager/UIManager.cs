@@ -38,13 +38,13 @@ namespace Managers
 
         private ShopData _shopdata;
 
-        private WeaponShopUI weaponShopUI;
+        private WeaponShopUI _weaponShopUI;
 
-        private WorkerSopUIController workerSopUIController;
+        private WorkerSopUIController _workerSopUIController;
 
-        private PlayerShopUIController playerShopUIController;
+        private PlayerShopUIController _playerShopUIController;
 
-        private SoldierShopUIController soldierShopUIController;
+        private SoldierShopUIController _soldierShopUIController;
 
         #endregion
 
@@ -91,13 +91,13 @@ namespace Managers
             for (int i = 0; i < _shopdata._weaponShopSlot.Count; i++)
             {
 
-                weaponShopUI = GetObject(PoolType.WeaponPanel).GetComponent<WeaponShopUI>();
+                _weaponShopUI = GetObject(PoolType.WeaponPanel).GetComponent<WeaponShopUI>();
 
-                weaponShopUI.transform.SetParent(weponShopHolder);
+                _weaponShopUI.transform.SetParent(weponShopHolder);
 
-                weaponShopUI.SetWeaponType((WeaponTypes)i);
+                _weaponShopUI.SetWeaponType((WeaponTypes)i);
 
-                weaponShopUI.SetToShopData(_shopdata._weaponShopSlot,this);
+                _weaponShopUI.SetToShopData(_shopdata._weaponShopSlot,this);
             }
 
         }
@@ -108,13 +108,13 @@ namespace Managers
             for (int i = 0; i < _shopdata._workerShopSlot.Count; i++)
             {
 
-                workerSopUIController = GetObject(PoolType.NewWorkerFeturesSlot).GetComponent<WorkerSopUIController>();
+                _workerSopUIController = GetObject(PoolType.NewWorkerFeturesSlot).GetComponent<WorkerSopUIController>();
 
-                workerSopUIController.transform.SetParent(workerShopHolder);
+                _workerSopUIController.transform.SetParent(workerShopHolder);
 
-                workerSopUIController.SetWeaponType((WorkerUpgradeType)i);
+                _workerSopUIController.SetWeaponType((WorkerUpgradeType)i);
 
-                workerSopUIController.SetToShopData(_shopdata._workerShopSlot, this);
+                _workerSopUIController.SetToShopData(_shopdata._workerShopSlot, this);
 
                
             }
@@ -126,13 +126,13 @@ namespace Managers
             for (int i = 0; i < _shopdata._playerShopSlot.Count; i++)
             {
 
-                playerShopUIController = GetObject(PoolType.NewPlayerFeturesSlot).GetComponent<PlayerShopUIController>();
+                _playerShopUIController = GetObject(PoolType.NewPlayerFeturesSlot).GetComponent<PlayerShopUIController>();
 
-                playerShopUIController.transform.SetParent(playerShopHolder);
+                _playerShopUIController.transform.SetParent(playerShopHolder);
 
-                playerShopUIController.SetWeaponType((PlayerUpgradeType)i);
+                _playerShopUIController.SetWeaponType((PlayerUpgradeType)i);
 
-                playerShopUIController.SetToShopData(_shopdata._playerShopSlot, this);
+                _playerShopUIController.SetToShopData(_shopdata._playerShopSlot, this);
             }
 
         }
@@ -142,13 +142,13 @@ namespace Managers
             for (int i = 0; i < _shopdata.soldierShopData.Count; i++)
             {
 
-                soldierShopUIController = GetObject(PoolType.NewSoldierrFeturesSlot).GetComponent<SoldierShopUIController>();
+                _soldierShopUIController = GetObject(PoolType.NewSoldierrFeturesSlot).GetComponent<SoldierShopUIController>();
 
-                soldierShopUIController.transform.SetParent(soldierShopHolder);
+                _soldierShopUIController.transform.SetParent(soldierShopHolder);
 
-                soldierShopUIController.SetWeaponType((SoldierUpgradeType)i);
+                _soldierShopUIController.SetWeaponType((SoldierUpgradeType)i);
 
-                soldierShopUIController.SetToShopData(_shopdata.soldierShopData, this);
+                _soldierShopUIController.SetToShopData(_shopdata.soldierShopData, this);
 
                
             }

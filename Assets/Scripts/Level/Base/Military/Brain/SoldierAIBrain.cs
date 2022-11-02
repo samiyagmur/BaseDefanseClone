@@ -24,7 +24,7 @@ namespace AIBrains.SoldierBrain
 
         public Transform TentPosition;
         public Transform FrontYardStartPosition;
-        public List<IDamagable> enemyList = new List<IDamagable>();
+        public List<IDamagable> EnemyList = new List<IDamagable>();
         public Transform EnemyTarget;
         public IDamagable DamageableEnemy;
         public Transform WeaponHolder;
@@ -34,8 +34,7 @@ namespace AIBrains.SoldierBrain
         #region Serialized Variables
         [SerializeField]
         private Animator animator;
-        private int _health;
-        public int Health { get => _health; set => _health = value; }
+    
         #endregion
 
         #region Private Variables
@@ -46,6 +45,8 @@ namespace AIBrains.SoldierBrain
 
         private StateMachine _stateMachine;
         private Vector3 _slotTransform;
+        private int _health;
+        public int Health { get => _health; set => _health = value; }
 
         #endregion
         #endregion

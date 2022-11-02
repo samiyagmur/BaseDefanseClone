@@ -9,14 +9,14 @@ namespace Controllers
     public class ShopPhysicsController : MonoBehaviour
     {
         [SerializeField]
-        private ShopManager _shopManager;
+        private ShopManager shopManager;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out PlayerPhysicsController playerPhyiscs))
             {
-                _shopManager.IsEnterShopsForType(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
-                _shopManager.GetScore();
+                shopManager.IsEnterShopsForType(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
+                shopManager.GetScore();
             }
         }
 
@@ -24,7 +24,7 @@ namespace Controllers
         {
             if (other.TryGetComponent(out PlayerPhysicsController playerPhyiscs))
             {
-                _shopManager.IsExitAnyShops(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
+                shopManager.IsExitAnyShops(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
 
             }
         }

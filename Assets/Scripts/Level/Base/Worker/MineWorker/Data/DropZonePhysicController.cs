@@ -9,7 +9,8 @@ namespace Controllers
         [SerializeField]
         private GemStackerController gemStackerController;
 
-        [SerializeField] private Collider collider;
+        [SerializeField] 
+        private Collider collider;
 
         private void OnTriggerEnter(Collider other)
         {

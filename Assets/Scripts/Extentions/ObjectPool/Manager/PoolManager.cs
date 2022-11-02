@@ -77,7 +77,7 @@ namespace Managers
             for (int index = 0; index < _data.Count; index++)
             {
                 _listCountCache = index;
-                InitPool(((PoolType)index), _data[((PoolType)index)].initalAmount, _data[((PoolType)index)].isDynamic);
+                InitPool(((PoolType)index), _data[((PoolType)index)].InitalAmount, _data[((PoolType)index)].IsDynamic);
             }
 
         }

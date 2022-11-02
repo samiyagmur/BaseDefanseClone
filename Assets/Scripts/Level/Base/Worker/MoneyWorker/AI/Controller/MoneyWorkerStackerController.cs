@@ -17,11 +17,9 @@ namespace Controllers
 
         private float stackDelay = 0.5f;
 
-        private Sequence GetStackSequence;
+        private Sequence _getStackSequence;
 
-        private int stackListOrder = 0;
-
-        private int stackListConstCount;
+        private int _stackListConstCount;
 
         private bool canRemove = true;
 
@@ -40,12 +38,12 @@ namespace Controllers
         }
         public override void GetStack(GameObject stackableObj)
         {
-            GetStackSequence = DOTween.Sequence();
+            _getStackSequence = DOTween.Sequence();
             var randomBouncePosition = CalculateRandomAddStackPosition();
             var randomRotation = CalculateRandomStackRotation();
 
-            GetStackSequence.Append(stackableObj.transform.DOLocalMove(randomBouncePosition, .5f));
-            GetStackSequence.Join(stackableObj.transform.DOLocalRotate(randomRotation, .5f)).OnComplete(() =>
+            _getStackSequence.Append(stackableObj.transform.DOLocalMove(randomBouncePosition, .5f));
+            _getStackSequence.Join(stackableObj.transform.DOLocalRotate(randomRotation, .5f)).OnComplete(() =>
             {
                 stackableObj.transform.rotation = Quaternion.LookRotation(transform.forward);
 
@@ -62,9 +60,9 @@ namespace Controllers
         if (!canRemove)
             return;
         canRemove = false;
-        stackListConstCount = StackList.Count;
+        _stackListConstCount = StackList.Count;
         RemoveAllStack();
-        CoreGameSignals.Instance.onUpdateMoneyScore(stackListConstCount * 10);
+        CoreGameSignals.Instance.onUpdateMoneyScore(_stackListConstCount * 10);
     }
 
     private async void RemoveAllStack()
@@ -74,7 +72,7 @@ namespace Controllers
             canRemove = true;
             return;
         }
-        if (StackList.Count >= stackListConstCount - 6)
+        if (StackList.Count >= _stackListConstCount - 6)
         {
             RemoveStackAnimation(StackList[StackList.Count - 1]);
             StackList.TrimExcess();
@@ -94,12 +92,12 @@ namespace Controllers
 
     private void RemoveStackAnimation(GameObject removedStack)
     {
-        GetStackSequence = DOTween.Sequence();
+        _getStackSequence = DOTween.Sequence();
         var randomRemovedStackPosition = CalculateRandomRemoveStackPosition();
         var randomRemovedStackRotation = CalculateRandomStackRotation();
 
-        GetStackSequence.Append(removedStack.transform.DOLocalMove(randomRemovedStackPosition, .2f));
-        GetStackSequence.Join(removedStack.transform.DOLocalRotate(randomRemovedStackRotation, .2f)).OnComplete(() =>
+        _getStackSequence.Append(removedStack.transform.DOLocalMove(randomRemovedStackPosition, .2f));
+        _getStackSequence.Join(removedStack.transform.DOLocalRotate(randomRemovedStackRotation, .2f)).OnComplete(() =>
         {
             removedStack.transform.rotation = Quaternion.LookRotation(transform.forward);
 

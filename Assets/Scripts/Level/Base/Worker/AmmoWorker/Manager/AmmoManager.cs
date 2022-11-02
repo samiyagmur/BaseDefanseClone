@@ -19,7 +19,7 @@ namespace Managers
     {
         #region Self-Private Variabels
         [SerializeField]
-        private CD_AIData cD_AIData;
+        private CD_AIData _cD_AIData;
 
         private int _delayStack=125;
         [SerializeField]
@@ -32,14 +32,13 @@ namespace Managers
         List<AmmoDropZoneController> currentTurretStackController = new List<AmmoDropZoneController>();
 
         [ShowInInspector]
-        Queue<AmmoWorkerBrain> _currentAmmoWorkersInTurretStackArae=new Queue<AmmoWorkerBrain>();
+        Queue<AmmoWorkerBrain> currentAmmoWorkersInTurretStackArae=new Queue<AmmoWorkerBrain>();
 
         #endregion
 
-        private int counter;
-        private TurretId turretKey;
+        private int _counter;
         private AmmoWorkerAIData _ammoWorkerAIData;
-        private AmmoDropZoneGridController turretStackGridController;
+        private AmmoDropZoneGridController _turretStackGridController;
         private int _maxStackCapasity;
         private AmmoDropZoneController _selectedTarget;
         private int _currentDelay;
@@ -48,17 +47,17 @@ namespace Managers
 
         private void Init()
         {
-            _ammoWorkerAIData = cD_AIData.AmmoWorkerAIDatas;
-            turretStackGridController=new AmmoDropZoneGridController();
+            _ammoWorkerAIData = _cD_AIData.AmmoWorkerAIDatas;
+            _turretStackGridController=new AmmoDropZoneGridController();
             _maxStackCapasity = _ammoWorkerAIData.MaxStackCount;
         }
         private void Start()
         {
-            turretStackGridController.GanarateGrid();
+            _turretStackGridController.GanarateGrid();
 
             foreach (var item in loadTurretStackController)
             {
-                item.LoadGrid(turretStackGridController.LastPosition());
+                item.LoadGrid(_turretStackGridController.LastPosition());
 
                 if (item.gameObject.activeInHierarchy)
                 {
@@ -158,9 +157,9 @@ namespace Managers
         {
 
 
-            if (_currentAmmoWorkersInTurretStackArae.Count != 0)
+            if (currentAmmoWorkersInTurretStackArae.Count != 0)
             {
-                _currentAmmoWorkersInTurretStackArae.Peek().ChangeAmmoWorkerStackStatus(status);
+                currentAmmoWorkersInTurretStackArae.Peek().ChangeAmmoWorkerStackStatus(status);
 
                 //_currentAmmoWorkersInTurretStackArae.Dequeue();
             }
@@ -169,7 +168,7 @@ namespace Managers
         private void onIncreaseAmmoWorkerSpeed(float amount)
         {
             
-            foreach (var item in _currentAmmoWorkersInTurretStackArae)
+            foreach (var item in currentAmmoWorkersInTurretStackArae)
             {
                 item.IncreaseSpeed(amount);
             }
@@ -205,16 +204,16 @@ namespace Managers
         internal async void WhenStayOnAmmoWareHouse(AmmoWorkerBrain ammoWorkerBrain,AmmoWorkerStackController ammoWorkerStackController)//clear
         {
 
-            if (counter < _ammoWorkerAIData.MaxStackCount)
+            if (_counter < _ammoWorkerAIData.MaxStackCount)
             {
               
                 ammoWorkerStackController.AddStack(_ammoWorkerAIData.AmmoWareHouse, ammoWorkerBrain.gameObject.transform, 
                                           GetObject(PoolType.Ammo.ToString()), _maxStackCapasity);
-                counter++;
+                _counter++;
             }
             else
             {
-                counter = 0;
+                _counter = 0;
                 await Task.Delay(_currentDelay);
                 ammoWorkerBrain.ChangeAmmoWorkerStackStatus(AmmoStackStatus.Fill);
                
@@ -234,10 +233,10 @@ namespace Managers
 
             ammoWorker.transform.position = workerCreater.position;
             AmmoWorkerBrain ammoWorkerBrain = ammoWorker.GetComponent<AmmoWorkerBrain>();
-            _currentAmmoWorkersInTurretStackArae.Enqueue(ammoWorkerBrain);
+            currentAmmoWorkersInTurretStackArae.Enqueue(ammoWorkerBrain);
         }
       
-        public void ResetItems() => counter = 0;
+        public void ResetItems() => _counter = 0;
 
     }
 }

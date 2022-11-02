@@ -8,7 +8,7 @@ namespace Managers
 {
     public class CameraManager : MonoBehaviour
     {   
-        Animator animator;
+        private Animator _animator;
 
 
         #region Event Subscription
@@ -27,7 +27,7 @@ namespace Managers
         #endregion
         private void ChangeCamera(CameraTypes type)
         {
-            animator.Play(type.ToString());
+            _animator.Play(type.ToString());
         }
 
         private void OnSetCameraTarget()

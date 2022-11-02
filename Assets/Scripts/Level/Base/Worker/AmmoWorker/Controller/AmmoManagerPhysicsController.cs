@@ -8,7 +8,7 @@ namespace Controllers
     public class AmmoManagerPhysicsController : MonoBehaviour
     {
         [SerializeField]
-        private AmmoManager _ammoManager;
+        private AmmoManager ammoManager;
         private float _timer=0.4f;
 
         private void OnTriggerEnter(Collider other)
@@ -16,16 +16,16 @@ namespace Controllers
             if (other.TryGetComponent(out AmmoWorkerPhysicsController ammoWorkerPhysicsController))
             {
 
-                _ammoManager.WhenAmmoworkerEnterAmmoWareHouse(other.transform.parent.GetComponent<AmmoWorkerBrain>());
+                ammoManager.WhenAmmoworkerEnterAmmoWareHouse(other.transform.parent.GetComponent<AmmoWorkerBrain>());
 
-                _ammoManager.WhenGetTurretStackInfo(other.transform.parent.GetComponent<AmmoWorkerBrain>());
+                ammoManager.WhenGetTurretStackInfo(other.transform.parent.GetComponent<AmmoWorkerBrain>());
             }
         }
         private void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent(out AmmoWorkerPhysicsController ammoWorkerPhysicsController))
             {
-                _ammoManager.WhenAmmoworkerExitAmmoWareHouse(other.transform.parent.GetComponent<AmmoWorkerBrain>());
+                ammoManager.WhenAmmoworkerExitAmmoWareHouse(other.transform.parent.GetComponent<AmmoWorkerBrain>());
             }
         }
         private void OnTriggerStay(Collider other)
@@ -40,7 +40,7 @@ namespace Controllers
 
                     _timer = 0.1f;
            
-                    _ammoManager.WhenStayOnAmmoWareHouse(other.transform.parent.GetComponent<AmmoWorkerBrain>(),
+                    ammoManager.WhenStayOnAmmoWareHouse(other.transform.parent.GetComponent<AmmoWorkerBrain>(),
                                                         other.transform.parent.GetComponent<AmmoWorkerStackController>());
                 }
             }

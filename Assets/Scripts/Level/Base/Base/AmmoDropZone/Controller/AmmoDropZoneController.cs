@@ -13,10 +13,10 @@ namespace Controllers
     {
 
         [SerializeField]
-        private List<GameObject> _ammoWorkerStackList;
+        private List<GameObject> ammoWorkerStackList;
         [SerializeField]
-        private List<GameObject> _turretStack=new List<GameObject>();
-        List<Vector3> _gridPosList;
+        private List<GameObject> turretStack=new List<GameObject>();
+        private List<Vector3> _gridPosList;
         private int _currentCount=0;
         private int _count =0;
 
@@ -33,7 +33,7 @@ namespace Controllers
 
              ammoWorkerStackList.Reverse();
 
-            _ammoWorkerStackList = ammoWorkerStackList;
+            this.ammoWorkerStackList = ammoWorkerStackList;
 
             _ammoStackingMovement = DOTween.Sequence();
 
@@ -42,15 +42,15 @@ namespace Controllers
                 {   
                     if (_currentCount < _gridPosList.Count)
                     {
-                        if (_count < _ammoWorkerStackList.Count)
+                        if (_count < this.ammoWorkerStackList.Count)
                         {
-                            _ammoWorkerStackList[_count].transform.SetParent(transform);
+                            this.ammoWorkerStackList[_count].transform.SetParent(transform);
 
-                            GameObject bullets = _ammoWorkerStackList[_count];
+                        GameObject bullets = this.ammoWorkerStackList[_count];
 
-                            Vector3 endPosOnTurretStack = transform.localPosition + _gridPosList[_currentCount];
+                        Vector3 endPosOnTurretStack = transform.localPosition + _gridPosList[_currentCount];
 
-                            _ammoStackingMovement.Append(bullets.transform.
+                        _ammoStackingMovement.Append(bullets.transform.
                             DOLocalMove(new Vector3(Random.Range(-2, 2), endPosOnTurretStack.y +
                             Random.Range(4, 6), bullets.transform.localPosition.z + 3f), 0.4f).
                             OnComplete(() =>
@@ -58,31 +58,31 @@ namespace Controllers
                                 bullets.transform.DOMove(new Vector3(endPosOnTurretStack.x, endPosOnTurretStack.y + 0.25f, endPosOnTurretStack.z), 0.4f);
                             }));
 
-                            _ammoStackingMovement.Join(bullets.transform.DOLocalRotate(new Vector3(Random.Range(-179, 179), Random.Range(-179, 179), Random.Range(-179, 179)), 0.6f).
+                        _ammoStackingMovement.Join(bullets.transform.DOLocalRotate(new Vector3(Random.Range(-179, 179), Random.Range(-179, 179), Random.Range(-179, 179)), 0.6f).
 
                             OnComplete(() => bullets.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.2f)));
 
-                            _ammoStackingMovement.Play();
+                        _ammoStackingMovement.Play();
 
-                            _turretStack.Add(_ammoWorkerStackList[_count]);
+                        turretStack.Add(this.ammoWorkerStackList[_count]);
 
                             await Task.Delay(100);
 
-                            _currentCount++;
-                            
-                            _count++;
+                        _currentCount++;
+
+                        _count++;
                             
                          }
 
                         else
                         {
-                            _count = 0;
-                       
-                            AmmoManagerSignals.Instance.onSetAmmoStackStatus.Invoke(AmmoStackStatus.Empty);
+                        _count = 0;
 
-                            _ammoWorkerStackList.Clear();
+                        AmmoManagerSignals.Instance.onSetAmmoStackStatus.Invoke(AmmoStackStatus.Empty);
 
-                            _ammoWorkerStackList.TrimExcess();
+                            this.ammoWorkerStackList.Clear();
+
+                            this.ammoWorkerStackList.TrimExcess();
 
                             break;
                         }
@@ -95,15 +95,15 @@ namespace Controllers
 
         public GameObject RemoveToStack()
         {
-            if (_turretStack.Count <= 0) return null;
+            if (turretStack.Count <= 0) return null;
 
-            return _turretStack[_turretStack.Count - 1];
+            return turretStack[turretStack.Count - 1];
         }
         public void UpDateList()
         {
-            if (_turretStack.Count <= 0) return;
-            _turretStack.RemoveAt(_turretStack.Count - 1);
-            _turretStack.TrimExcess();
+            if (turretStack.Count <= 0) return;
+            turretStack.RemoveAt(turretStack.Count - 1);
+            turretStack.TrimExcess();
             _currentCount--;
         }
         public int GetCurrentCount()

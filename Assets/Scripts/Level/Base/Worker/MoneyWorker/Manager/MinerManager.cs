@@ -20,7 +20,6 @@ namespace Managers
 
         #region Serialized Variables
         
-        public HostageType CurrentType=HostageType.HostageWaiting; 
         [SerializeField] private Animator animator;
 
 
@@ -76,7 +75,7 @@ namespace Managers
 
         public void AddToHostageStack()
         {
-            CurrentType = HostageType.Hostage;
+          
             HostageSignals.Instance.onAddHostageStack?.Invoke(this);
         }
     }

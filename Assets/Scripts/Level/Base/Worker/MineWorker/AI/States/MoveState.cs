@@ -8,8 +8,8 @@ namespace AI.States
 {
     public class MoveState : IState
     {
-        public bool IsReachedToTarget => isReachedToTarget;
-        private bool isReachedToTarget = false;
+        public bool IsReachedToTarget => _isReachedToTarget;
+        private bool _isReachedToTarget = false;
         private MinerAnimationStates _minerAnimationStates;
         private MinerItems _minerItems;
         private MinerManager _minerManager;
@@ -32,11 +32,11 @@ namespace AI.States
                 RotateToTarget();
                 if (_minerAIBrain.transform.position == _minerAIBrain.ManipulatedTarget)
                 {
-                    isReachedToTarget = true;
+                    _isReachedToTarget = true;
                 }
                 else
                 {
-                    isReachedToTarget = false;
+                    _isReachedToTarget = false;
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace AI.States
 
         public void OnExit()
         {
-            isReachedToTarget = false;
+            _isReachedToTarget = false;
         }
     }
 }

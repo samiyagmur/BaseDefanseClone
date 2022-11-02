@@ -21,9 +21,9 @@ namespace AIBrain.AmmoWorkers
         #region SerilizeField Variables
 
         [SerializeField]
-        private NavMeshAgent _agent;
+        private NavMeshAgent agent;
         [SerializeField]
-        private Animator _animator;
+        private Animator animator;
 
         #endregion
 
@@ -97,16 +97,16 @@ namespace AIBrain.AmmoWorkers
 
             _creat = new Create();
 
-            _moveToWareHouse = new MoveToWareHouse(_agent, _animator, _speed, 
+            _moveToWareHouse = new MoveToWareHouse(agent, animator, _speed, 
                                                     _ammoWorkerAIData.AmmoWareHouse, _ammoWorkerAIData.AmmoWorker,this);
 
-            _takeAmmo = new TakeAmmo(_agent,_animator);
+            _takeAmmo = new TakeAmmo(agent,animator);
 
-            _moveToAvaliableConteyner = new MoveToAvaliableContayner(_agent, _animator, _speed);
+            _moveToAvaliableConteyner = new MoveToAvaliableContayner(agent, animator, _speed);
 
-            _loadTurret = new LoadContayner(_agent, _animator, _ammoWorkerAIData.AmmoWareHouse);
+            _loadTurret = new LoadContayner(agent, animator, _ammoWorkerAIData.AmmoWareHouse);
 
-            _fullAmmo = new FullAmmo(_agent, _animator, _speed, _ammoWorkerAIData.AmmoWareHouse);
+            _fullAmmo = new FullAmmo(agent, animator, _speed, _ammoWorkerAIData.AmmoWareHouse);
 
         }
 

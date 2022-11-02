@@ -15,8 +15,8 @@ namespace Controllers
         private ShopManager shopManager;
 
         private List<WorkerShopData> _workerShopData;
+
         [SerializeField]
-  
         internal void SetShopData(List<WorkerShopData> workerShop) => _workerShopData = workerShop;
 
 

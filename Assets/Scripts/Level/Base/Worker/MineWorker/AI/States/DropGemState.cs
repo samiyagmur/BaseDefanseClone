@@ -6,8 +6,8 @@ namespace AI.States
     public class DropGemState : IState
     {
         private readonly MinerAIBrain _minerAIBrain;
-        public bool IsGemDropped => isGemDropped;
-        private bool isGemDropped;
+        public bool IsGemDropped => _isGemDropped;
+        private bool _isGemDropped;
 
         public DropGemState(MinerAIBrain minerAIBrain)
         {
@@ -20,7 +20,7 @@ namespace AI.States
 
         public void OnEnter()
         {
-            isGemDropped = true;
+            _isGemDropped = true;
         }
 
         public void OnExit()

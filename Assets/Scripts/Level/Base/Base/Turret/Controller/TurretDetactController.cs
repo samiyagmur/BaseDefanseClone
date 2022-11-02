@@ -13,7 +13,7 @@ namespace Controllers
     public class TurretDetactController : MonoBehaviour
     {
         [SerializeField]
-        private TurretManager _turretManager;
+        private TurretManager turretManager;
 
         [SerializeField]
         private TurretID turretID;
@@ -24,7 +24,7 @@ namespace Controllers
         {
             if (other.TryGetComponent(out EnemyPhysicsController enemy))
             {
-                _turretManager.IsEnemyEnterTurretRange(other.transform.parent.gameObject, TurretID.GetId);
+                turretManager.IsEnemyEnterTurretRange(other.transform.parent.gameObject, TurretID.GetId);
             }
         }
 
@@ -32,11 +32,11 @@ namespace Controllers
         {
             if (other.TryGetComponent(out EnemyPhysicsController enemy))
             {
-                _turretManager.OtoRotate(TurretID.GetId);
+                turretManager.OtoRotate(TurretID.GetId);
 
-                _turretManager.SpinGattaling(TurretID.GetId);
+                turretManager.SpinGattaling(TurretID.GetId);
 
-                _turretManager.Attack(TurretID.GetId);
+                turretManager.Attack(TurretID.GetId);
             }
         }
 
