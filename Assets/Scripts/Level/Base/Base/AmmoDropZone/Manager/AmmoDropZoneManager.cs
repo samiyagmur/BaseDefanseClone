@@ -1,14 +1,4 @@
-﻿using Controllers;
-using Datas.UnityObject;
-using Datas.ValueObject;
-using Enums;
-using Signals;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 namespace Managers
 {
@@ -17,7 +7,7 @@ namespace Managers
         //#region SelfVariables
 
         //#region Private Variables
-     
+
         //private GameObject _selectedTarget;
         //private int count;
         //#endregion
@@ -42,7 +32,6 @@ namespace Managers
 
         //private void Init()
         //{
-
         //    _gridData=GetGridData();
 
         //    _gridController=GridController();
@@ -56,7 +45,7 @@ namespace Managers
 
         //private GridDatas GetGridData() => Resources.Load<CD_GridData>("Data/AmmoContayner/CD_ContaynerData").ammoContaynerData;
 
-        //private AmmoContaynerGridController GridController() 
+        //private AmmoContaynerGridController GridController()
         //    => new AmmoContaynerGridController(_gridData.XGridSize, _gridData.YGridSize, _gridData.MaxContaynerAmount, _gridData.Offset);
 
         //private void GenerateGrid() => _gridController.GanarateGrid();
@@ -80,7 +69,7 @@ namespace Managers
 
         //#endregion
         //internal void SelectTarget()
-        //{   
+        //{
         //    _selectableTargetStacks = transform.GetComponentsInChildren<AmmoContaynerStackController>().ToList();
 
         //    _selectableTargetStacks = _selectableTargetStacks.OrderBy(x => x.GetCurrentCount()).ToList();
@@ -109,6 +98,5 @@ namespace Managers
 
         //    return _selectedTarget;
         //}
-
     }
 }

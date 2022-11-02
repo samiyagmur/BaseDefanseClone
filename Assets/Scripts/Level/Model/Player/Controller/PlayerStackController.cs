@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Abstraction;
+using Controller;
 using Data.UnityObject;
+using Datas.ValueObject;
 using Enums;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
-using Abstraction;
-using Datas.ValueObject;
-using Controller;
 
 namespace Controllers
 {
@@ -24,7 +24,6 @@ namespace Controllers
         [SerializeField]
         private StackAreaType stackAreaType;
 
-
         [ShowIf("stackingSystem", Enums.StackingSystem.Static)]
         [SerializeField]
         [ReadOnly]
@@ -34,13 +33,12 @@ namespace Controllers
         [SerializeField]
         private StackerType stackerType;
 
-
         [ShowIf("stackingSystem", Enums.StackingSystem.Dynamic)]
         [SerializeField]
         [ReadOnly]
         private GridData stackerGridData;
 
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
@@ -52,13 +50,9 @@ namespace Controllers
 
         private GridData _gridData;
 
-        #endregion
+        #endregion Private Variables
 
-        #region Public Variables
-
-        #endregion
-
-        #endregion
+        #endregion Self Variables
 
         private void GetData()
         {
@@ -94,7 +88,6 @@ namespace Controllers
             gameObject.transform.SetParent(transform);
         }
 
-
         public override void SetGrid()
         {
             if (stackingSystem == StackingSystem.Static)
@@ -119,13 +112,10 @@ namespace Controllers
                 }
                 else
                 {
-
                     _gridPositions = new Vector3(modX * _gridData.Offset.x, divideXZ * _gridData.Offset.y,
                         modZ * _gridData.Offset.z);
-
                 }
                 gridPositionsData.Add(_gridPositions);
-
             }
         }
 
@@ -133,6 +123,5 @@ namespace Controllers
         {
             playerStackerController.GetStackPositions(gridPositionsData);
         }
-
     }
 }

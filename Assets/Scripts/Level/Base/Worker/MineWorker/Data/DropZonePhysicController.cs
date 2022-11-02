@@ -1,4 +1,3 @@
-using Abstraction;
 using Concreate;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ namespace Controllers
         [SerializeField]
         private GemStackerController gemStackerController;
 
-        [SerializeField] 
+        [SerializeField]
         private Collider collider;
 
         private void OnTriggerEnter(Collider other)
@@ -25,7 +24,6 @@ namespace Controllers
             }
             else if (other.TryGetComponent<PlayerInteractable>(out PlayerInteractable interactable))
             {
-       
                 gemStackerController.OnRemoveAllStack(other.transform.parent.gameObject.transform);
             }
         }

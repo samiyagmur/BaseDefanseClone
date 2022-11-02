@@ -10,12 +10,10 @@
 //{
 //    public class TurretPhysicsController : MonoBehaviour
 //    {
-        
 //        [SerializeField]
 //        private TurretManager _turretManager;
 //        [SerializeField]
 //        private TurretKeyAssinger turretKeyAssinger;
-
 
 //        private void OnTriggerEnter(Collider other)
 //        {
@@ -33,7 +31,6 @@
 //                _turretManager.IsExitUser(turretKeyAssinger.TurretKey);
 //            }
 //        }
-
 
 //    }
 //}

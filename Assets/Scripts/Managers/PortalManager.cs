@@ -1,33 +1,23 @@
-using UnityEngine;
-using Signals;
-using Data.ValueObject;
-using Enums;
 using Controllers;
-using Data.UnityObject;
-using Managers.AIManagers;
+using Signals;
+using UnityEngine;
 
 namespace Managers
 {
     public class PortalManager : MonoBehaviour
     {
-        #region Self variables 
+        #region Self variables
 
-        #region Public Variables
 
-        #endregion
 
         #region Seriliazable Variables
 
         [SerializeField]
         private PortalController portalController;
 
-        #endregion
+        #endregion Seriliazable Variables
 
-        #region Private Variables
-
-        #endregion
-
-        #endregion
+        #endregion Self variables
 
         #region Event Subscriptions
 
@@ -41,9 +31,6 @@ namespace Managers
 
         private void OnOpenPortal() => portalController.OpenPortal();
 
-        #endregion
-
-
-
-    } 
+        #endregion Event Subscriptions
+    }
 }

@@ -1,7 +1,6 @@
 ﻿using Enums;
 using Interfaces;
 using Signals;
-using System.Collections;
 using UnityEngine;
 
 namespace Controllers
@@ -9,27 +8,28 @@ namespace Controllers
     public class BulletFireController : IGetPoolObject
     {
         private WeaponTypes _weaponType;
+
         public BulletFireController(WeaponTypes weaponType)
         {
             _weaponType = weaponType;
         }
+
         public GameObject GetObject(PoolType poolName)
         {
             var obj = PoolSignals.Instance.onGetObjectFromPool.Invoke(poolName);
 
             return obj;
         }
+
         public void FireBullets(Transform holderTransform, Vector3 vector3)
         {
             var poolType = (PoolType)System.Enum.Parse(typeof(PoolType), _weaponType.ToString());
 
             var bullet = GetObject(poolType);
 
-            bullet.transform.position = holderTransform.position + vector3/2;
+            bullet.transform.position = holderTransform.position + vector3 / 2;
 
-            bullet.transform.rotation = holderTransform.rotation ;
+            bullet.transform.rotation = holderTransform.rotation;
         }
-
-
     }
 }

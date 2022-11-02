@@ -6,6 +6,6 @@ namespace Data.ValueObject
     [Serializable]
     public class BaseRoomData
     {
-        public List<RoomData> Rooms=new List<RoomData>();
+        public List<RoomData> Rooms = new List<RoomData>();
     }
 }

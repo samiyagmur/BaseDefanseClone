@@ -1,14 +1,10 @@
-﻿using Datas.ValueObject;
+﻿using Data.ValueObject;
 using Enums;
 using Managers;
-using Signals;
-using System.Collections;
 using System.Threading.Tasks;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using System;
-using Data.ValueObject;
 
 namespace Controller
 {
@@ -16,9 +12,7 @@ namespace Controller
     {
         #region Self Variables
 
-        #region Public Variables
 
-        #endregion
 
         #region Serialized Variables
 
@@ -27,10 +21,11 @@ namespace Controller
 
         [SerializeField]
         private TextMeshProUGUI healthText;
+
         [SerializeField]
         private Image healtBar;
 
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
@@ -40,12 +35,10 @@ namespace Controller
         private int _maxHealt;
         private const int _increaseAmount = 1;
 
-      
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
 
-        #endregion
-        
         public void SetHealthData(PlayerCharacterData data)
         {
             _data = data;
@@ -60,14 +53,13 @@ namespace Controller
 
         public async void IncreaseHealth()
         {
-
             if (playerManager.CurrentAreaType != AreaType.BaseDefense)
                 return;
-     
+
             if (_health == _maxHealt)
             {
                 playerManager.CloseHealtBar();
-                
+
                 return;
             }
             _health += _increaseAmount;
@@ -75,18 +67,17 @@ namespace Controller
 
             await Task.Delay(50);
             IncreaseHealth();
-
         }
+
         public void OnTakeDamage(int damage)
         {
-            if (_health>=0)
-                _health -= damage; 
+            if (_health >= 0)
+                _health -= damage;
             else
             {
                 playerManager.ResetPlayer();
                 _health = _maxHealt;
             }
-                
 
             OnHealthUpdate(_health);
             OnSetHealthText(_health);
@@ -94,15 +85,16 @@ namespace Controller
             playerManager.CloseHealtBar();
         }
 
-        private void OnSetHealthText(float healthValue) => healthText.text = healthValue+"%"+ _maxHealt;
-        private void OnHealthUpdate(int healthValue) 
+        private void OnSetHealthText(float healthValue) => healthText.text = healthValue + "%" + _maxHealt;
+
+        private void OnHealthUpdate(int healthValue)
         {
             OnSetHealthText(healthValue);
 
-            healtBar.fillAmount= (float)healthValue / _maxHealt;
-         
+            healtBar.fillAmount = (float)healthValue / _maxHealt;
+
             if (healthValue == _maxHealt)
-            {   
+            {
                 playerManager.CloseHealtBar();
             }
         }

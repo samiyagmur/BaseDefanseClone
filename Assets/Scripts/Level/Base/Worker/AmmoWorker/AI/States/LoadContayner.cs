@@ -1,7 +1,6 @@
 ﻿using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
-using DG.Tweening;
 
 namespace AI.States
 {
@@ -20,7 +19,6 @@ namespace AI.States
 
         public void OnEnter()
         {
-            
             agent.speed = 0;
         }
 

@@ -1,5 +1,4 @@
 using AI.States;
-using Controllers;
 using Data.ValueObject;
 using Enums;
 using Interfaces;
@@ -23,7 +22,7 @@ namespace AIBrain.MoneyWorkers
         [BoxGroup("Public Variables")]
         public Transform CurrentTarget;
 
-        #endregion
+        #endregion Public Variables
 
         #region Serilizable Variables
 
@@ -31,37 +30,42 @@ namespace AIBrain.MoneyWorkers
         [SerializeField]
         private WorkerType workerType;
 
-        #endregion
+        #endregion Serilizable Variables
 
         #region Private Variables
 
         [ShowInInspector]
         private WorkerAITypeData _workerTypeData;
+
         private Animator _animator;
         private NavMeshAgent _navmeshAgent;
 
         #region States
+
         private Transform _moneytransform;
         private MoveToGateState _moveToGateState;
         private SearchState _searchState;
         private StackMoneyState _stackMoneyState;
         private DropMoneyOnGateState _dropMoneyOnGateState;
         private StateMachine _stateMachine;
+
         [ShowInInspector]
         private Vector3 waitPos;
 
-        #endregion
+        #endregion States
 
         #region Worker Game Variables
+
         [ShowInInspector]
         private int _currentStock = 0;
+
         private const float _delay = 0.2f;
 
-        #endregion
+        #endregion Worker Game Variables
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
 
         private void Awake()
         {
@@ -86,13 +90,13 @@ namespace AIBrain.MoneyWorkers
             _navmeshAgent = GetComponent<NavMeshAgent>();
             _animator = GetComponentInChildren<Animator>();
         }
-        #endregion
+
+        #endregion Data Jobs
 
         #region Worker State Jobs
 
         private void GetReferenceStates()
         {
-
             _searchState = new SearchState(_navmeshAgent, _animator, this);
             _moveToGateState = new MoveToGateState(_navmeshAgent, _animator, waitPos, _workerTypeData.MaxSpeed);
             _stackMoneyState = new StackMoneyState(_navmeshAgent, _animator, this, _workerTypeData.MaxSpeed);
@@ -117,7 +121,7 @@ namespace AIBrain.MoneyWorkers
 
         private void Update() => _stateMachine.Tick();
 
-        #endregion
+        #endregion Worker State Jobs
 
         #region General Jobs
 
@@ -130,7 +134,7 @@ namespace AIBrain.MoneyWorkers
 
             CurrentTarget = _moneytransform;
 
-            if (CurrentTarget!=null)
+            if (CurrentTarget != null)
                 _navmeshAgent.SetDestination(CurrentTarget.position);
         }
 
@@ -141,7 +145,6 @@ namespace AIBrain.MoneyWorkers
 
         public Transform GetMoneyPosition()
         {
-
             _moneytransform = MoneyWorkerSignals.Instance.onGetTransformMoney?.Invoke(this.transform);
 
             return _moneytransform;
@@ -149,26 +152,24 @@ namespace AIBrain.MoneyWorkers
 
         private IEnumerator SearchTarget()
         {
-            while (CurrentTarget==null)
+            while (CurrentTarget == null)
             {
                 SetDest();
-              
+
                 yield return new WaitForSeconds(_delay);
             }
         }
+
         public void StartSearch(bool isStartedSearch)
         {
-           
             if (isStartedSearch)
             {
                 StartCoroutine(SearchTarget());
-
             }
             else
             {
                 StopCoroutine(SearchTarget());
             }
-                
         }
 
         public void SetCurrentStock()
@@ -189,6 +190,7 @@ namespace AIBrain.MoneyWorkers
 
             //remove all stack
         }
-        #endregion
+
+        #endregion General Jobs
     }
 }

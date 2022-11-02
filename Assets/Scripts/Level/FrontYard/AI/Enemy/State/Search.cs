@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Interfaces;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,7 +12,6 @@ namespace AIBrains.EnemyBrain
         private readonly Transform _spawnPosition;
         private readonly List<Transform> _targetList;
 
-
         public Search(EnemyAIBrain enemyAIBrain, NavMeshAgent navmeshAgent, Transform spawnPosition)
         {
             _enemyAIBrain = enemyAIBrain;
@@ -20,22 +19,18 @@ namespace AIBrains.EnemyBrain
             _spawnPosition = spawnPosition;
         }
 
-
         public void Tick()
         {
-
         }
 
         public void OnEnter()
         {
             _navMeshAgent.enabled = true;
             GetRandomPointOnBakedSurface();
-
         }
 
         public void OnExit()
         {
-
         }
 
         private void GetRandomPointOnBakedSurface()
@@ -50,17 +45,13 @@ namespace AIBrains.EnemyBrain
                     if (!NavMesh.SamplePosition(randomPos, out hit, 1.0f, 1)) continue;
                     result = hit.position;
                     return true;
-
                 }
                 result = Vector3.zero;
                 return false;
-
             }
 
             if (!RandomPoint(_spawnPosition.position, 30, out var point)) return;
             _navMeshAgent.Warp(point);
         }
-
-
     }
 }

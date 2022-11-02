@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace Data.ValueObject
 {
@@ -7,5 +7,5 @@ namespace Data.ValueObject
     public class WorkerAIData
     {
         public List<WorkerAITypeData> WorkerAITypes;
-    } 
+    }
 }

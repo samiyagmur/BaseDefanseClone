@@ -1,19 +1,16 @@
-﻿using Datas.ValueObject;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Assinger;
+using Datas.ValueObject;
 using DG.Tweening;
 using Sirenix.OdinInspector;
-using Enums;
-using Assinger;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Controllers
 {
     public class TurretOtoAtackController : MonoBehaviour
     {
-
         #region Self Variabels
+
         #region Private Variables
 
         [ShowInInspector]
@@ -25,8 +22,9 @@ namespace Controllers
 
         private Tweener _tween;
 
-        #endregion
-        #endregion
+        #endregion Private Variables
+
+        #endregion Self Variabels
 
         [SerializeField]
         private TurretID turretID;
@@ -44,7 +42,7 @@ namespace Controllers
         {
             Debug.Log(gameObject);
             if (!_deadList.Contains(gameObject)) return;
-            
+
             if (_deadList.Count <= 0) return;
             _deadList.Dequeue();
 
@@ -53,7 +51,7 @@ namespace Controllers
         }
 
         public void FollowToEnemy()
-        {   
+        {
             if (_deadList.Count <= 0) return;
 
             ArangeRotateRotation(_botTarget.transform);
@@ -63,7 +61,7 @@ namespace Controllers
         {
             if (_movementDirection.position == Vector3.zero) return;
 
-            Vector3 horizontalRotation = new Vector3(_movementDirection.position.x, 0, _movementDirection.position.z+0.5f);
+            Vector3 horizontalRotation = new Vector3(_movementDirection.position.x, 0, _movementDirection.position.z + 0.5f);
 
             Vector3 _relativePos = horizontalRotation - transform.position;
 
@@ -79,7 +77,7 @@ namespace Controllers
         }
 
         public bool GetTargetStatus()
-        {   
+        {
             return _deadList.Count >= 0;
         }
 

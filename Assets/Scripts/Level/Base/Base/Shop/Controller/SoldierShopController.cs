@@ -1,11 +1,8 @@
 using Datas.ValueObject;
 using Enums;
 using Managers;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Controllers
 {
@@ -20,7 +17,6 @@ namespace Controllers
 
         internal SoldierShopData OnSetUpgradeFeature(SoldierUpgradeType value, int _currentMoney)
         {
-
             if (_soldierShopData[(int)value].UpgradeLevel <= _currentMoney)
             {
                 SendCurrentMoney(_soldierShopData[0].UpgradePrice);
@@ -34,7 +30,7 @@ namespace Controllers
             return _soldierShopData[(int)value];
         }
 
-        private void  SendCurrentMoney(int _currentMoney)
+        private void SendCurrentMoney(int _currentMoney)
         {
             shopManager.SendScoreToWeaponShop(_currentMoney);
         }

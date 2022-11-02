@@ -1,15 +1,12 @@
-﻿using Enums;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Datas.ValueObject
 {
     [Serializable]
-    public class WeaponShopData 
-    {   
+    public class WeaponShopData
+    {
         [HorizontalGroup("Split")]
         [VerticalGroup("Split/Right")]
         [PreviewField(80)]
@@ -30,13 +27,5 @@ namespace Datas.ValueObject
         [VerticalGroup("Split/Left")]
         [ReadOnly]
         public int WeaponLevel;
-
-        
-
-
-        
-
-       
-
     }
 }

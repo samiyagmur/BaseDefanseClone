@@ -1,8 +1,5 @@
-﻿using AIBrain;
-using AIBrain.AmmoWorkers;
+﻿using AIBrain.AmmoWorkers;
 using Interfaces;
-using System;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -33,7 +30,7 @@ namespace AI.States
 
         #region State
 
-        public  void OnEnter()
+        public void OnEnter()
         {
             _agent.speed = _movementSpeed;
 
@@ -42,8 +39,6 @@ namespace AI.States
 
         public void OnExit()
         {
-
-
         }
 
         public void Tick()
@@ -53,7 +48,7 @@ namespace AI.States
 
         internal void IncreaseSpeed(float speed)
         {
-            _movementSpeed=speed;
+            _movementSpeed = speed;
         }
 
         #endregion State

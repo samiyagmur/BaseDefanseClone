@@ -1,31 +1,25 @@
-﻿using Enums;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Datas.ValueObject
 {
     [Serializable]
     public class ShopData
     {
-        
         [BoxGroup("WeaponShop")]
-        
-        [ListDrawerSettings(HideAddButton =true,HideRemoveButton =true)]
+        [ListDrawerSettings(HideAddButton = true, HideRemoveButton = true)]
         public List<WeaponShopData> _weaponShopSlot = new List<WeaponShopData>();
 
         [HorizontalGroup("WeaponShop/Split")]
         [VerticalGroup("WeaponShop/Split/Left")]
         [Button("AddWeaponSlot")]
         private void AddNewWeapon()
-        {   
+        {
             _weaponShopSlot.Add(new WeaponShopData());
         }
 
-   
         [VerticalGroup("WeaponShop/Split/Right")]
         [Button("RemoveWeaponSlot")]
         private void RemoveNewWeapon()
@@ -94,12 +88,7 @@ namespace Datas.ValueObject
         [Button("RemoveSoliderFeatureSlot")]
         private void RemoveSoldierFeature()
         {
-            soldierShopData.RemoveAt(soldierShopData.Count-1);
+            soldierShopData.RemoveAt(soldierShopData.Count - 1);
         }
-
-
-
-
-
     }
 }

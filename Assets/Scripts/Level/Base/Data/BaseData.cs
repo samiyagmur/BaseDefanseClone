@@ -9,7 +9,5 @@ namespace Data.ValueObject.LevelData
         public MineBaseData MineBaseData;
         public MilitaryBaseData MilitaryBaseData;
         public BuyablesData BuyablesData;
-        
-
     }
 }

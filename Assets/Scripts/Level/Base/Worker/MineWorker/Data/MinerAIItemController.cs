@@ -1,39 +1,37 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Enum;
 using Enums;
-using UnityEngine;
 using Interfaces;
 using Signals;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Controllers
 {
-    public class MinerAIItemController : MonoBehaviour,IGetPoolObject
+    public class MinerAIItemController : MonoBehaviour, IGetPoolObject
     {
         #region Self Variables
 
         #region Public Variables
 
         public Dictionary<MinerItems, GameObject> ItemList = new Dictionary<MinerItems, GameObject>();
-       
-        
 
-        #endregion
+        #endregion Public Variables
+
         #region Serialized Variables
 
         [SerializeField] private GameObject pickaxe;
         [SerializeField] private GameObject gem;
         [SerializeField] private Transform gemHolder;
 
-        #endregion
-        #endregion
+        #endregion Serialized Variables
+
+        #endregion Self Variables
 
         private void Awake()
         {
             AddToDictionary();
             CloseAllObject();
-            
         }
 
         private void CloseAllObject()
@@ -56,27 +54,29 @@ namespace Controllers
             {
                 ItemList[currentItem].SetActive(true);
             }
-            if (MinerItems.None==currentItem)
+            if (MinerItems.None == currentItem)
             {
-               foreach (Transform child in gemHolder) {
+                foreach (Transform child in gemHolder)
+                {
                     Destroy(child.gameObject);
                 }
             }
             if (MinerItems.Gem == currentItem)
             {
                 gem = GetObject(PoolType.Gem);
-                gem.transform.parent=gemHolder;
+                gem.transform.parent = gemHolder;
                 //gem.Cop
-                gem.transform.localPosition=Vector3.zero;
-                gem.transform.localScale=Vector3.one*3;
-                gem.transform.localRotation= Quaternion.identity;
+                gem.transform.localPosition = Vector3.zero;
+                gem.transform.localScale = Vector3.one * 3;
+                gem.transform.localRotation = Quaternion.identity;
             }
         }
+
         public void CloseItem(MinerItems currentItem)
         {
             if (MinerItems.Pickaxe == currentItem)
             {
-               ItemList[currentItem].SetActive(false);
+                ItemList[currentItem].SetActive(false);
             }
         }
 

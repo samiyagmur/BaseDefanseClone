@@ -14,10 +14,9 @@ namespace Managers
         private LoadGameCommand _loadGameCommand;
         private SaveGameCommand _saveGameCommand;
 
+        #endregion Private Variables
 
-        #endregion
-
-        #endregion
+        #endregion Self Variables
 
         private void Awake()
         {
@@ -48,11 +47,12 @@ namespace Managers
             SaveLoadSignals.Instance.onSaveGameData -= _saveGameCommand.Execute;
             SaveLoadSignals.Instance.onLoadGameData -= _loadGameCommand.Execute<CD_Level>;
         }
+
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
 
-        #endregion
+        #endregion Event Subscription
     }
 }

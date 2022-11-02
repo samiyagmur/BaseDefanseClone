@@ -4,8 +4,6 @@ using Data.ValueObject;
 using Enums;
 using Interfaces;
 using Signals;
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Managers
@@ -14,9 +12,7 @@ namespace Managers
     {
         #region Self Variables
 
-        #region Public Variables
 
-        #endregion
 
         #region Serialized Variables
 
@@ -29,20 +25,22 @@ namespace Managers
         [SerializeField]
         private BulletPhysicsController physicsController;
 
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
         private WeaponData _data;
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
+
         private void Awake()
         {
             _data = GetBulletData();
             SetDataToControllers();
         }
+
         private void OnEnable()
         {
             Invoke(nameof(SetBulletToPool), 1f);
@@ -51,17 +49,15 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-
             PlayerSignal.Instance.onSetWeaponTransform += OnSetWeaponTransform;
-
         }
 
         private void UnsubscribeEvents()
         {
             PlayerSignal.Instance.onSetWeaponTransform -= OnSetWeaponTransform;
         }
-        private void OnDisable() => UnsubscribeEvents();
 
+        private void OnDisable() => UnsubscribeEvents();
 
         private void OnSetWeaponTransform(Transform playerTransform)
         {
@@ -70,13 +66,15 @@ namespace Managers
         }
 
         private WeaponData GetBulletData() => Resources.Load<CD_Weapon>("Data/CD_Weapon").WeaponData[(int)weaponType];
+
         private void SetDataToControllers() => physicsController.GetData(_data);
+
         public void ReleaseObject(GameObject obj, PoolType poolName) => PoolSignals.Instance.onReleaseObjectFromPool.Invoke(poolName, obj);
+
         public void SetBulletToPool()
         {
             var poolName = (PoolType)System.Enum.Parse(typeof(PoolType), weaponType.ToString());
             ReleaseObject(gameObject, poolName);
         }
-
     }
 }

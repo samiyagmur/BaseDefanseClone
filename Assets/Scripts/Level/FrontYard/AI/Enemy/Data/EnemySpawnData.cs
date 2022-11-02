@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using UnityEngine;
 
 namespace Data.ValueObject
 {
@@ -11,6 +9,5 @@ namespace Data.ValueObject
         public float SpawnDelay;
         public int RandomMaxRange;
         public int MinPossibilityToSpawnEnemy;
-
     }
 }

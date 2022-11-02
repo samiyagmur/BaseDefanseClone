@@ -6,10 +6,7 @@ namespace Controllers
 {
     public class MilitaryBaseAttackButtonPhysicsController : MonoBehaviour
     {
-
-
         [SerializeField] private MilitaryBaseManager manager;
-
 
         private void OnTriggerEnter(Collider other)
         {

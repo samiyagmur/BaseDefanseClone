@@ -1,16 +1,13 @@
-﻿using Enums;
+﻿using DG.Tweening;
+using Enums;
 using Interfaces;
-using Signals;
-using System;
-using System.Collections;
-using UnityEngine;
-using DG.Tweening;
-using System.Threading.Tasks;
 using Managers;
+using Signals;
+using UnityEngine;
 
 namespace Controllers
 {
-    public class FireToTurret : MonoBehaviour,IReleasePoolObject,IGetPoolObject
+    public class FireToTurret : MonoBehaviour, IReleasePoolObject, IGetPoolObject
     {
         [SerializeField]
         private float rockedSpeed;
@@ -18,20 +15,19 @@ namespace Controllers
         [SerializeField]
         private TurretManager turretManager;
 
-        Rigidbody _rigidbody;
+        private Rigidbody _rigidbody;
 
         private GameObject _rocked;
 
         private Sequence _moveToTurret;
         private float _timer;
 
-        public  void LoadMagazine(TurretId turretKey, bool IsDeadListEmty, SphereCollider attackerTurretCollider)
+        public void LoadMagazine(TurretId turretKey, bool IsDeadListEmty, SphereCollider attackerTurretCollider)
         {
             _moveToTurret = DOTween.Sequence();
             if (attackerTurretCollider.radius <= 0) return;
 
-          
-            if (turretManager.GetToStackStatus(turretKey) == false);
+            if (turretManager.GetToStackStatus(turretKey) == false) ;
 
             if (!IsDeadListEmty) return;
 
@@ -43,14 +39,12 @@ namespace Controllers
 
                 FireToRocked(turretManager.GetToRocked(turretKey));
             }
-
         }
-        internal  void FireToRocked(GameObject ammo)
-        {
-            
 
+        internal void FireToRocked(GameObject ammo)
+        {
             if (ammo == false) return;
-       
+
             _moveToTurret.Append(ammo.transform.DOMove(transform.position, 0.8f));
 
             _moveToTurret.Join(ammo.transform.DOScale(Vector3.zero, 0.8f));
@@ -59,14 +53,13 @@ namespace Controllers
 
             _rocked = GetObject(PoolType.TurretRocket);
 
-            _rigidbody=_rocked.GetComponent<Rigidbody>();
+            _rigidbody = _rocked.GetComponent<Rigidbody>();
 
             _rocked.transform.position = transform.position;
 
             _rocked.transform.rotation = transform.rotation;
 
             _rigidbody.AddForce(transform.forward * 20, ForceMode.VelocityChange);
-
         }
 
         public void ReleaseObject(GameObject rocked, PoolType poolName)
@@ -78,12 +71,5 @@ namespace Controllers
         {
             return PoolSignals.Instance.onGetObjectFromPool(PoolType.TurretRocket);
         }
-
-
-
-
-
-
-
-    }   
+    }
 }

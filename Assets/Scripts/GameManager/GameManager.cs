@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Managers
 {
@@ -9,6 +8,5 @@ namespace Managers
         {
             Application.targetFrameRate = 60;
         }
-
     }
 }

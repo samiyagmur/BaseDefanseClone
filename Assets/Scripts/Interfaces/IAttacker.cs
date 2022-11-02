@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace Interfaces
+﻿namespace Interfaces
 {
-    public interface IAttacker 
+    public interface IAttacker
     {
         int Damage();
-
     }
 }

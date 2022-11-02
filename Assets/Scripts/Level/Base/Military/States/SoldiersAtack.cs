@@ -72,7 +72,7 @@ namespace AI.States
 
         private void FireBullets()
         {
-            _bulletFireController.FireBullets(_soldierAIBrain.WeaponHolder , new Vector3(0,0,0));
+            _bulletFireController.FireBullets(_soldierAIBrain.WeaponHolder, new Vector3(0, 0, 0));
         }
 
         private void SetEnemyTargetTransform()

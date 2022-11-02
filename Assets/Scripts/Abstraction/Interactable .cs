@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Abstraction
 {
     public abstract class Interactable : MonoBehaviour
     {
-
     }
 }

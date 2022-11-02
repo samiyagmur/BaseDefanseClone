@@ -1,4 +1,3 @@
-using System;
 using Controllers;
 using Controllers.SoldierPhysicsControllers;
 using Data.UnityObject;
@@ -7,9 +6,9 @@ using Enums;
 using Interfaces;
 using Signals;
 using StateBehavior;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 namespace AIBrains.EnemyBrain
 {
@@ -26,7 +25,7 @@ namespace AIBrains.EnemyBrain
         public bool EnemyReachedBase { get; set; }
         public int Health { get => _health; set => _health = value; }
 
-        #endregion
+        #endregion Public Variables
 
         #region Serialized Variables
 
@@ -42,11 +41,9 @@ namespace AIBrains.EnemyBrain
         [SerializeField]
         private Animator animator;
 
-
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
-
 
         private int _health;
         private EnemyData _data;
@@ -58,9 +55,9 @@ namespace AIBrains.EnemyBrain
         private PlayerPhysicsController _playerPhysicsController;
         private SoldierHealthController _soldierHealthController;
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
 
         private void Awake()
         {
@@ -77,7 +74,6 @@ namespace AIBrains.EnemyBrain
 
         private void OnEnable()
         {
-
             TurretTarget = CurrentTarget;
 
             Health = _data.Healt;
@@ -146,14 +142,15 @@ namespace AIBrains.EnemyBrain
         {
             if (soldierHealthController != null && soldierHealthController == _soldierHealthController) return;
             _soldierHealthController = soldierHealthController;
-
         }
+
         public void CachePlayer(PlayerPhysicsController playerPhysicsController)
         {
             _playerPhysicsController = playerPhysicsController;
         }
+
         public void HitDamage()
-        {   
+        {
             if (_soldierHealthController != null)
             {
                 int soldierHealth = _soldierHealthController.TakeDamage(_data.Damage);
@@ -164,6 +161,5 @@ namespace AIBrains.EnemyBrain
             if (_playerPhysicsController == null) return;
             PlayerSignal.Instance.onTakePlayerDamage?.Invoke(_data.Damage);
         }
-
     }
 }

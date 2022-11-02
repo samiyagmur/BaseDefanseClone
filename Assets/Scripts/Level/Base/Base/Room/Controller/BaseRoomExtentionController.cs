@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Interfaces;
-using Data.ValueObject.LevelData;
-using Enums;
+﻿using Enums;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Controllers
@@ -16,8 +14,5 @@ namespace Controllers
             _openUpExtentions[(int)baseRoomType].SetActive(true);
             _closeDownExtentions[(int)baseRoomType].SetActive(false);
         }
-
-
-
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Enums;
-using System.Collections;
 using UnityEngine;
 
 namespace Controllers
@@ -12,9 +11,6 @@ namespace Controllers
         public UIPanels GetShoopType()
         {
             return shopType;
-
         }
-
-
     }
 }

@@ -3,14 +3,13 @@ using DG.Tweening;
 using Enums;
 using Interfaces;
 using Signals;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Controller
 {
-    public class PlayerStackerController : AStacker,IGetPoolObject,IReleasePoolObject
+    public class PlayerStackerController : AStacker, IGetPoolObject, IReleasePoolObject
     {
         [SerializeField] private List<Vector3> positionList;
 
@@ -26,20 +25,22 @@ namespace Controller
 
         private bool _canRemove = true;
 
-
         private void Awake()
         {
             DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(500, 125);
         }
+
         private new List<GameObject> StackList
         {
             get => base.StackList;
             set => base.StackList = value;
         }
+
         public override void SetStackHolder(Transform otherTransform)
         {
             otherTransform.SetParent(transform);
         }
+
         public override void GetStack(GameObject stackableObj)
         {
             _getStackSequence = DOTween.Sequence();
@@ -57,18 +58,16 @@ namespace Controller
 
                 stackableObj.transform.localRotation = new Quaternion(0, 0, 0, 0).normalized;
             });
-
         }
+
         public void OnRemoveAllStack()
-        { 
-            
+        {
             if (!_canRemove)
                 return;
             _canRemove = false;
             _stackListConstCount = StackList.Count;
             RemoveAllStack();
-            CoreGameSignals.Instance.onUpdateMoneyScore(_stackListConstCount*10);
-
+            CoreGameSignals.Instance.onUpdateMoneyScore(_stackListConstCount * 10);
         }
 
         private async void RemoveAllStack()
@@ -76,12 +75,11 @@ namespace Controller
             if (StackList.Count == 0)
             {
                 _canRemove = true;
-                
+
                 return;
             }
             if (StackList.Count >= _stackListConstCount - 6)
-            {   
-
+            {
                 RemoveStackAnimation(StackList[StackList.Count - 1]);
                 StackList.TrimExcess();
                 await Task.Delay(201);
@@ -103,7 +101,7 @@ namespace Controller
             _getStackSequence = DOTween.Sequence();
             var randomRemovedStackPosition = CalculateRandomRemoveStackPosition();
             var randomRemovedStackRotation = CalculateRandomStackRotation();
-           
+
             _getStackSequence.Append(removedStack.transform.DOLocalMove(randomRemovedStackPosition, .2f));
             _getStackSequence.Join(removedStack.transform.DOLocalRotate(randomRemovedStackRotation, .2f)).OnComplete(() =>
             {
@@ -117,14 +115,16 @@ namespace Controller
                 });
             });
         }
+
         public override void ResetStack(IStackable stackable)
         {
-
         }
+
         public void GetStackPositions(List<Vector3> stackPositions)
         {
             positionList = stackPositions;
         }
+
         private Vector3 CalculateRandomAddStackPosition()
         {
             var randomHeight = Random.Range(0.1f, 3f);
@@ -133,6 +133,7 @@ namespace Controller
             return new Vector3(radiusAround * Mathf.Cos(rad),
                 transform.parent.position.y + randomHeight, -radiusAround * Mathf.Sin(rad));
         }
+
         private Vector3 CalculateRandomRemoveStackPosition()
         {
             var randomHeight = Random.Range(0.1f, 3f);
@@ -141,6 +142,7 @@ namespace Controller
             return new Vector3(radiusAround * Mathf.Cos(rad),
                 transform.parent.position.y + randomHeight, radiusAround * Mathf.Sin(rad));
         }
+
         private Vector3 CalculateRandomStackRotation()
         {
             var randomRotationX = Random.Range(-90, 90);
@@ -148,6 +150,7 @@ namespace Controller
             var randomRotationZ = Random.Range(-90, 90);
             return new Vector3(randomRotationX, randomRotationY, randomRotationZ);
         }
+
         public void PaymentStackAnimation(Transform transform, PoolType poolname)
         {
             _getStackSequence = DOTween.Sequence();
@@ -162,9 +165,9 @@ namespace Controller
                 moneyObj.transform.rotation = Quaternion.LookRotation(transform.forward);
 
                 moneyObj.transform.DOMove(transform.position, 0.3f).OnComplete(() => ReleaseObject(moneyObj, poolname));
-
             });
         }
+
         private Vector3 CalculateRandomAddStackPositionWithObjTransform()
         {
             var randomHeight = Random.Range(0.1f, 3f);
@@ -173,6 +176,7 @@ namespace Controller
             return new Vector3(transform.parent.position.x + radiusAround * Mathf.Cos(rad),
                 transform.parent.position.y + randomHeight, transform.parent.position.z + -radiusAround * Mathf.Sin(rad));
         }
+
         public async void ResetStack()
         {
             if (StackList.Count == 0)

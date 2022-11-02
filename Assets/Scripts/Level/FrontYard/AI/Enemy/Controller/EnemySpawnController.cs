@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Controller;
-using Data.UnityObject;
+﻿using Data.UnityObject;
 using Data.ValueObject;
 using Enums;
 using Interfaces;
 using Signals;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
 
 namespace Managers.AIManagers
 {
@@ -38,9 +36,7 @@ namespace Managers.AIManagers
         [SerializeField]
         private GameObject spriteTarget;
 
-
-
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
@@ -48,13 +44,15 @@ namespace Managers.AIManagers
 
         private bool _isSpawning;
 
-        #endregion
-        #endregion
+        #endregion Private Variables
+
+        #endregion Self Variables
 
         private void Awake()
         {
             enemySpawnData = GetData();
         }
+
         private void Start()
         {
             SpawnBoss();
@@ -75,7 +73,6 @@ namespace Managers.AIManagers
             AISignals.Instance.getSpawnTransform += SetSpawnTransform;
             AISignals.Instance.getRandomTransform += SetRandomTransform;
             AISignals.Instance.onReleaseObjectUpdate += OnReleasedObjectCount;
-
         }
 
         private void UnsubscribeEvents()
@@ -83,7 +80,6 @@ namespace Managers.AIManagers
             AISignals.Instance.getSpawnTransform -= SetSpawnTransform;
             AISignals.Instance.getRandomTransform -= SetRandomTransform;
             AISignals.Instance.onReleaseObjectUpdate -= OnReleasedObjectCount;
-     
         }
 
         private void OnDisable()
@@ -91,8 +87,7 @@ namespace Managers.AIManagers
             UnsubscribeEvents();
         }
 
-
-        #endregion
+        #endregion Event Subscription
 
         private Transform SetSpawnTransform()
         {
@@ -132,7 +127,7 @@ namespace Managers.AIManagers
         {
             if (enemyList.Count > enemySpawnData.NumberOfEnemiesToSpawn / 2) return;
             if (_isSpawning) return;
-           // StartCoroutine(SpawnEnemies());
+            // StartCoroutine(SpawnEnemies());
         }
 
         private void DoSpawnEnemy()
@@ -164,10 +159,7 @@ namespace Managers.AIManagers
         {
             var bossObj = GetObject(PoolType.BossEnemy);
             bossObj.GetComponentInChildren<ThrowEventController>().SpriteTarget = spriteTarget;
-            bossObj.transform.position =bossSpawnPos.position;
-
+            bossObj.transform.position = bossSpawnPos.position;
         }
-
-
     }
 }

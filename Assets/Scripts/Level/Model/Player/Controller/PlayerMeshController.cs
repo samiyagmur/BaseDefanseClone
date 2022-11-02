@@ -8,32 +8,29 @@ namespace Controllers
     {
         #region Self Variables
 
-        #region Public Variables
-        
-        #endregion
+
 
         #region Serialized Variables,
-         
+
         [SerializeField] private Transform manager;
         [SerializeField] private MeshRenderer weaponMeshRenderer;
         [SerializeField] private MeshRenderer sideMeshRenderer;
 
-        #endregion
+        #endregion Serialized Variables,
 
         #region Private Variables
 
         private WeaponData _data;
-        
-        #endregion
 
-        #endregion
-        
-        
+        #endregion Private Variables
+
+        #endregion Self Variables
+
         public void SetWeaponData(WeaponData weaponData)
         {
             _data = weaponData;
         }
-        
+
         public void ChangeAreaStatus(AreaType areaStatus)
         {
             if (areaStatus == AreaType.BaseDefense)
@@ -47,7 +44,5 @@ namespace Controllers
                 sideMeshRenderer.enabled = _data.HasSideMesh;
             }
         }
-
-
     }
 }

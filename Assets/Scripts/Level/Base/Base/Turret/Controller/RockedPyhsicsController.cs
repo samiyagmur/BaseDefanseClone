@@ -1,10 +1,7 @@
 ﻿using Controllers.AIControllers;
 using Enums;
 using Interfaces;
-using Managers;
 using Signals;
-using System;
-using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -14,6 +11,7 @@ namespace Controllers
     {
         [SerializeField]
         private int damage;
+
         public int Damage()
         {
             return damage;
@@ -32,9 +30,9 @@ namespace Controllers
                 {
                     Debug.Log("EnemyDeadForTurret");
                 }
-                
             }
         }
+
         private void OnEnable()
         {
             ReturnTOPool();
@@ -43,7 +41,7 @@ namespace Controllers
         private async void ReturnTOPool()
         {
             while (gameObject.activeInHierarchy)
-            {   
+            {
                 await Task.Delay(1500);
                 PoolSignals.Instance.onReleaseObjectFromPool(PoolType.TurretRocket, transform.parent.gameObject);
             }

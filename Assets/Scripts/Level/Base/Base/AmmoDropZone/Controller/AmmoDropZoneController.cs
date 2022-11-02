@@ -1,7 +1,5 @@
-﻿using Data.UnityObject;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Enums;
-using Managers;
 using Signals;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,42 +7,42 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class AmmoDropZoneController :MonoBehaviour
+    public class AmmoDropZoneController : MonoBehaviour
     {
-
         [SerializeField]
         private List<GameObject> ammoWorkerStackList;
+
         [SerializeField]
-        private List<GameObject> turretStack=new List<GameObject>();
+        private List<GameObject> turretStack = new List<GameObject>();
+
         private List<Vector3> _gridPosList;
-        private int _currentCount=0;
-        private int _count =0;
+        private int _currentCount = 0;
+        private int _count = 0;
 
         private Sequence _ammoStackingMovement;
 
         internal void LoadGrid(List<Vector3> gridList)
         {
-            _gridPosList=gridList;
+            _gridPosList = gridList;
         }
 
         public async void AddStack(List<GameObject> ammoWorkerStackList)
-        {   
-             int _counter = 0;
+        {
+            int _counter = 0;
 
-             ammoWorkerStackList.Reverse();
+            ammoWorkerStackList.Reverse();
 
             this.ammoWorkerStackList = ammoWorkerStackList;
 
             _ammoStackingMovement = DOTween.Sequence();
 
-            
-                while ( _counter < _gridPosList.Count)
-                {   
-                    if (_currentCount < _gridPosList.Count)
+            while (_counter < _gridPosList.Count)
+            {
+                if (_currentCount < _gridPosList.Count)
+                {
+                    if (_count < this.ammoWorkerStackList.Count)
                     {
-                        if (_count < this.ammoWorkerStackList.Count)
-                        {
-                            this.ammoWorkerStackList[_count].transform.SetParent(transform);
+                        this.ammoWorkerStackList[_count].transform.SetParent(transform);
 
                         GameObject bullets = this.ammoWorkerStackList[_count];
 
@@ -66,31 +64,29 @@ namespace Controllers
 
                         turretStack.Add(this.ammoWorkerStackList[_count]);
 
-                            await Task.Delay(100);
+                        await Task.Delay(100);
 
                         _currentCount++;
 
                         _count++;
-                            
-                         }
-
-                        else
-                        {
+                    }
+                    else
+                    {
                         _count = 0;
 
                         AmmoManagerSignals.Instance.onSetAmmoStackStatus.Invoke(AmmoStackStatus.Empty);
 
-                            this.ammoWorkerStackList.Clear();
+                        this.ammoWorkerStackList.Clear();
 
-                            this.ammoWorkerStackList.TrimExcess();
+                        this.ammoWorkerStackList.TrimExcess();
 
-                            break;
-                        }
+                        break;
                     }
-                    _counter++;
-                    if (_currentCount >= _gridPosList.Count)
+                }
+                _counter++;
+                if (_currentCount >= _gridPosList.Count)
                     AmmoManagerSignals.Instance.onSetAmmoStackStatus.Invoke(AmmoStackStatus.Full);
-                }            
+            }
         }
 
         public GameObject RemoveToStack()
@@ -99,6 +95,7 @@ namespace Controllers
 
             return turretStack[turretStack.Count - 1];
         }
+
         public void UpDateList()
         {
             if (turretStack.Count <= 0) return;
@@ -106,6 +103,7 @@ namespace Controllers
             turretStack.TrimExcess();
             _currentCount--;
         }
+
         public int GetCurrentCount()
         {
             return _currentCount;

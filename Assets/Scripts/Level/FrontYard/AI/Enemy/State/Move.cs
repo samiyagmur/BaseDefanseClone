@@ -23,6 +23,7 @@ namespace AIBrains.EnemyBrain
             _navMeshAgent = agent;
             _animator = animator;
         }
+
         public void Tick()
         {
             if ((_enemyAIBrain.transform.position - _lastPosition).sqrMagnitude <= 0f)
@@ -30,7 +31,6 @@ namespace AIBrains.EnemyBrain
 
             _lastPosition = _enemyAIBrain.transform.position;
             _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
-
         }
 
         public void OnEnter()

@@ -1,11 +1,7 @@
-﻿using Datas.UnityObject;
-using Datas.ValueObject;
-using Enums;
+﻿using Datas.ValueObject;
 using Keys;
 using Signals;
-using System;
 using UnityEngine;
-
 
 namespace Managers
 {
@@ -13,15 +9,13 @@ namespace Managers
     {
         #region Self Variables
 
-        #region Public Variables
 
-        #endregion
 
         #region Serialized Variables,
 
         [SerializeField] private FloatingJoystick joystickInput;
 
-        #endregion
+        #endregion Serialized Variables,
 
         #region Private Variables
 
@@ -29,30 +23,30 @@ namespace Managers
         private Vector2 _inputValuesVector = Vector2.zero;
         private bool _hasTouched;
 
+        #endregion Private Variables
 
-        #endregion
-
-        #endregion
+        #endregion Self Variables
 
         #region Event Subscription
+
         private void OnEnable() => SubscribeEvents();
+
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.onReset += OnReset;
-
         }
 
         private void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.onReset -= OnReset;
-
         }
+
         private void OnDisable() => UnsubscribeEvents();
 
-        #endregion
+        #endregion Event Subscription
+
         private void Update()
         {
-            
             JoystickInputUpdate();
         }
 
@@ -63,7 +57,7 @@ namespace Managers
                 _hasTouched = true;
             }
             if (!_hasTouched) return;
-            {   
+            {
                 _inputValuesVector = new Vector2(joystickInput.Horizontal, joystickInput.Vertical);
 
                 InputSignals.Instance.onInputDragged?.Invoke(new HorizontalInputParams()
@@ -81,6 +75,5 @@ namespace Managers
         {
             _hasTouched = false;
         }
-
     }
 }

@@ -1,13 +1,10 @@
-using Abstraction;
 using Interfaces;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace StateBehavior
 {
-    public class StateMachine 
+    public class StateMachine
     {
         private IState _currentState;
         private Dictionary<Type, List<Transition>> _transitions = new Dictionary<Type, List<Transition>>();
@@ -41,7 +38,6 @@ namespace StateBehavior
 
         public void AddTransition(IState from, IState to, Func<bool> predicate)
         {
-            
             if (_transitions.TryGetValue(from.GetType(), out var transitions) == false)
             {
                 transitions = new List<Transition>();
@@ -60,7 +56,6 @@ namespace StateBehavior
         {
             public Func<bool> Condition { get; }
             public IState To { get; }
-
 
             public Transition(IState to, Func<bool> condition)
             {
@@ -81,5 +76,5 @@ namespace StateBehavior
 
             return null;
         }
-    } 
+    }
 }

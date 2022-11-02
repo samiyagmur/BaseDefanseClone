@@ -1,14 +1,14 @@
-using UnityEngine;
+using Assets.Scripts;
+using Controllers;
+using Data.UnityObject;
+using Data.ValueObject;
+using Enums;
 using Interfaces;
+using Sirenix.OdinInspector;
+using StateBehavior;
 using StateMachines.AIBrain.Enemy.States;
 using System;
-using Data.ValueObject;
-using Sirenix.OdinInspector;
-using Enums;
-using Controllers;
-using StateBehavior;
-using Data.UnityObject;
-using Assets.Scripts;
+using UnityEngine;
 
 namespace StateMachines.AIBrain.Enemy
 {
@@ -16,13 +16,15 @@ namespace StateMachines.AIBrain.Enemy
     {
         #region Self Variables
 
-        #region Public Variables 
+        #region Public Variables
 
         [BoxGroup("Public Variables")]
         public Transform PlayerTarget;
+
         [BoxGroup("Public Variables")]
         public int Health;
-        #endregion
+
+        #endregion Public Variables
 
         #region Serilizable Variables
 
@@ -41,10 +43,10 @@ namespace StateMachines.AIBrain.Enemy
         [SerializeField]
         private BossHealtController bossHealtController;
 
-
-        #endregion
+        #endregion Serilizable Variables
 
         #region Private Variables
+
         private EnemyData _enemyData;
         private EnemyAIData _enemyAIData;
         private StateMachine _stateMachine;
@@ -56,17 +58,17 @@ namespace StateMachines.AIBrain.Enemy
         private BossAttackState _attackState;
         private BossDeathState _deathState;
 
-        #endregion
+        #endregion States
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
 
         private void Awake()
         {
             _enemyAIData = GetAIData();
             _enemyData = GetEnemyType();
-            SetEnemyVariables(); 
+            SetEnemyVariables();
             GetReferenceStates();
         }
 
@@ -78,29 +80,32 @@ namespace StateMachines.AIBrain.Enemy
         }
 
         #region Data Jobs
+
         private EnemyData GetEnemyType()
         {
             return _enemyAIData.EnemyDatas[(int)enemyType];
         }
+
         private EnemyAIData GetAIData()
         {
             return Resources.Load<CD_AIData>("Data/CD_AIData").EnemyAIData;
         }
-        #endregion
+
+        #endregion Data Jobs
 
         #region AI State Jobs
+
         private void GetReferenceStates()
         {
-
             _waitState = new BossWaitState(_animator, this);
-            _attackState = new BossAttackState( _animator, this, _enemyData.AttackRange, ref bombHolder);
-            _deathState = new BossDeathState( _animator, this, enemyType);
+            _attackState = new BossAttackState(_animator, this, _enemyData.AttackRange, ref bombHolder);
+            _deathState = new BossDeathState(_animator, this, enemyType);
 
             //Statemachine statelerden sonra tanimlanmali ?
             _stateMachine = new StateMachine();
 
-            At(_waitState, _attackState, IAttackPlayer()); 
-            At(_attackState, _waitState, INoAttackPlayer()); 
+            At(_waitState, _attackState, IAttackPlayer());
+            At(_attackState, _waitState, INoAttackPlayer());
 
             _stateMachine.AddAnyTransition(_deathState, AmIDead());
             //SetState state durumlari belirlendikten sonra default deger cagirilmali
@@ -110,10 +115,9 @@ namespace StateMachines.AIBrain.Enemy
             Func<bool> IAttackPlayer() => () => PlayerTarget != null;
             Func<bool> INoAttackPlayer() => () => PlayerTarget == null;
             Func<bool> AmIDead() => () => Health <= 0;
-
         }
 
-        #endregion
+        #endregion AI State Jobs
 
         private void Update() => _stateMachine.Tick();
 
@@ -121,6 +125,6 @@ namespace StateMachines.AIBrain.Enemy
         private void BossDeathState()
         {
             Health = 0;
-        } 
+        }
     }
 }

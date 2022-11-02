@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 namespace Controllers
 {
@@ -16,22 +16,24 @@ namespace Controllers
 
         [SerializeField]
         private float dissolveOpenValue = 6;
+
         [SerializeField]
         private float dissolveCloseValue = 35;
 
-        #endregion
+        #endregion Serializable Variables
 
         #region Private Variables
 
         private const float dissolveTime = 2f;
         private const string dissolveName = "_DissolveAmount";
 
-        #endregion
+        #endregion Private Variables
 
         private void Awake()
         {
             portalCollider.enabled = false;
         }
+
         public void OpenPortal()
         {
             for (int i = 0; i < portalMeshRenderers.Count; i++)
@@ -49,6 +51,5 @@ namespace Controllers
             }
             portalCollider.enabled = false;
         }
-
     }
 }

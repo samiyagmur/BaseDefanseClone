@@ -1,7 +1,5 @@
 ﻿using Command;
 using Data.UnityObject;
-using Data.ValueObject;
-using Data.ValueObject.LevelData;
 using Signals;
 using UnityEngine;
 
@@ -11,15 +9,13 @@ namespace Managers
     {
         #region Self Variables
 
-        #region Public Variables
 
-        #endregion
 
         #region Private Variables
 
         private int _levelID;
 
-        #endregion
+        #endregion Private Variables
 
         #region Serialized Variables
 
@@ -27,9 +23,9 @@ namespace Managers
         [SerializeField] private LevelLoaderCommand levelLoaderCommand;
         [SerializeField] private ClearActiveLevelCommand clearActiveLevelCommand;
 
-        #endregion
+        #endregion Serialized Variables
 
-        #endregion
+        #endregion Self Variables
 
         #region Event Subscribetions
 
@@ -53,12 +49,13 @@ namespace Managers
             CoreGameSignals.Instance.onClearActiveLevel -= OnClearActiveLevel;
             CoreGameSignals.Instance.onNextLevel -= OnNextLevel;
         }
+
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
 
-        #endregion
+        #endregion Event Subscribetions
 
         private void OnNextLevel()
         {
@@ -77,6 +74,7 @@ namespace Managers
         {
             _levelID = levelID;
         }
+
         private void OnInitializeLevel()
         {
             int newlevelData = _levelID % Resources.Load<CD_Level>("Data/CD_Level").LevelDatas.Count;
@@ -87,6 +85,5 @@ namespace Managers
         {
             clearActiveLevelCommand.ClearActiveLevel(levelHolder.transform);
         }
-
     }
 }

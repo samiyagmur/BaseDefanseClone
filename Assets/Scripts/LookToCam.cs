@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts
 {
     public class LookToCam : MonoBehaviour
     {
-
         private Camera _mainCamera;
-        private void Awake()
-        {   
 
+        private void Awake()
+        {
             _mainCamera = Camera.main;
         }
 

@@ -1,11 +1,6 @@
-﻿using AIBrain;
-using AIBrains.EnemyBrain;
-using Assinger;
+﻿using Assinger;
 using Controllers.AIControllers;
-using Enums;
-using Interfaces;
 using Managers;
-using System.Collections;
 using UnityEngine;
 
 namespace Controllers
@@ -18,7 +13,7 @@ namespace Controllers
         [SerializeField]
         private TurretID turretID;
 
-        public TurretID TurretID { get => turretID;  }
+        public TurretID TurretID { get => turretID; }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -39,6 +34,5 @@ namespace Controllers
                 turretManager.Attack(TurretID.GetId);
             }
         }
-
     }
 }

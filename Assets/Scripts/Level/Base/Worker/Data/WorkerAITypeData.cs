@@ -1,7 +1,5 @@
-using System;
 using Enums;
-using UnityEngine;
-using Sirenix.OdinInspector;
+using System;
 
 namespace Data.ValueObject
 {
@@ -17,7 +15,5 @@ namespace Data.ValueObject
         public int MaxWorkerAmount;
 
         public float MaxSpeed;
-
     }
-
 }

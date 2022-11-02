@@ -1,8 +1,5 @@
 ﻿using Datas.ValueObject;
 using Signals;
-using System;
-using System.Collections;
-using TMPro;
 using UnityEngine;
 
 namespace Managers
@@ -28,10 +25,7 @@ namespace Managers
             CoreGameSignals.Instance.onGetCurrentDiamond += OnGetCurrentDiamond;
 
             CoreGameSignals.Instance.onHasEnoughMoney += OnHasEnoughMoney;
-
-
         }
-
 
         private void UnsubscribeEvents()
         {
@@ -46,12 +40,11 @@ namespace Managers
             CoreGameSignals.Instance.onGetCurrentDiamond -= OnGetCurrentDiamond;
 
             CoreGameSignals.Instance.onHasEnoughMoney -= OnHasEnoughMoney;
-
         }
 
         private void OnDisable() => UnsubscribeEvents();
 
-        #endregion
+        #endregion EventSubscription
 
         private void OnLevelInitialize() => LoadScoreData();
 
@@ -79,6 +72,5 @@ namespace Managers
         private int OnGetCurrentDiamond() => _scoreData.Diamond;
 
         private bool OnHasEnoughMoney() => _scoreData.Money != 0;
-
     }
 }

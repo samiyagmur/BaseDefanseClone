@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Managers;
+﻿using Managers;
 using UnityEngine;
 
 namespace Controllers
@@ -10,26 +8,32 @@ namespace Controllers
         #region Self Variables
 
         #region Serialized Variables
+
         [SerializeField]
         private MineManager mineManager;
+
         [SerializeField]
         private SphereCollider lureCollider;
+
         [SerializeField]
         private Collider marketCollider;
+
         [SerializeField]
         private SphereCollider explosionCollider;
-        #endregion
+
+        #endregion Serialized Variables
 
         #region Private Variables
+
         private int _initalLureSphereSize = 20;
         private int _initalExplosionSphereSize = 10;
 
         private float _timer;
         private float _payOffset = 0.1f;
 
+        #endregion Private Variables
 
-        #endregion
-        #endregion
+        #endregion Self Variables
 
         private void Awake()
         {
@@ -41,7 +45,6 @@ namespace Controllers
             {
                 if (_timer > _payOffset)
                 {
-
                     //Revize edecegim button modulunu yapinca
                     mineManager.PayGemToMine();
                     _timer = 0;
@@ -50,7 +53,6 @@ namespace Controllers
                 {
                     _timer += Time.deltaTime;
                 }
-
             }
         }
 
@@ -58,7 +60,6 @@ namespace Controllers
         {
             if (_state)
             {
-
                 //gameObject.tag = "MineLure";
                 lureCollider.radius = _initalLureSphereSize;
                 lureCollider.enabled = true;
@@ -69,16 +70,17 @@ namespace Controllers
                 lureCollider.enabled = false;
             }
         }
+
         public void ExplosionColliderState(bool _state)
         {
             if (_state)
-            {   
+            {
                 //gameObject.tag = "MineExplosion";
                 lureCollider.radius = _initalExplosionSphereSize;
                 explosionCollider.enabled = true;
             }
             else
-            {   
+            {
                 lureCollider.radius = .1f;
                 explosionCollider.enabled = false;
                 //Satin alma veonun etkilesimi revize edilecek

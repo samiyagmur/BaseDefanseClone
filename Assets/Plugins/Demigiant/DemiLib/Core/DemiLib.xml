@@ -6,7 +6,7 @@
     <members>
         <member name="T:DG.DemiLib.Attributes.DeScriptExecutionOrderAttribute">
             <summary>
-            <code>Class attribute</code><para/>
+            <code>Class attribute</code><para />
             Sets the script execution order index
             </summary>
         </member>
@@ -72,7 +72,7 @@
              <summary>
              Extend this to replicate Unity's Scope system with any Unity version.
              Thanks to Dmitriy Yukhanov for pointing this out and creating an initial version.
-             Expand this class to create scopes.<para/>
+             Expand this class to create scopes.<para />
              Example:
              <code>public class VBoxScope : DeScope
              {
@@ -80,9 +80,9 @@
                  {
                      BeginVBox(style);
                  }
-            
+
                  protected override void CloseScope()
-                 { 
+                 {
                      EndVBox();
                  }
              }</code>
@@ -140,7 +140,7 @@
         </member>
         <member name="M:DG.DemiLib.External.DeHierarchyComponent.GetColor(DG.DemiLib.External.DeHierarchyComponent.HColor)">
             <summary>
-            Returns the color corresponding to the given <see cref="T:DG.DemiLib.External.DeHierarchyComponent.HColor"/>
+            Returns the color corresponding to the given <see cref="T:DG.DemiLib.External.DeHierarchyComponent.HColor" />
             </summary>
         </member>
         <member name="P:DG.DemiLib.IEditorGUINode.id">

@@ -1,5 +1,5 @@
-﻿using System;
-using Enums;
+﻿using Enums;
+using System;
 using UnityEngine;
 
 namespace Data.ValueObject

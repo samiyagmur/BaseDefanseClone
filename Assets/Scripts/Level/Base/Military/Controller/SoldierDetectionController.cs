@@ -1,13 +1,11 @@
 ﻿using AIBrains.SoldierBrain;
 using Interfaces;
-using System.Collections;
 using UnityEngine;
 
 namespace Controllers
 {
     public class SoldierDetectionController : MonoBehaviour
     {
-
         [SerializeField]
         private SoldierAIBrain soldierAIBrain;
 
@@ -26,6 +24,7 @@ namespace Controllers
                 }
             }
         }
+
         private void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent(out IDamagable damagable))

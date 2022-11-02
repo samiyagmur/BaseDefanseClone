@@ -1,19 +1,16 @@
-﻿using Signals;
-using System.Collections;
+﻿using Controller;
+using Controllers;
+using Datas.ValueObject;
+using Enums;
+using Interfaces;
+using Signals;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using Enums;
-using Controllers;
-using System;
-using System.Collections.Generic;
-using Datas.ValueObject;
-using Controller;
-using System.Threading.Tasks;
-using Interfaces;
 
 namespace Managers
 {
-    public class UIManager : MonoBehaviour,IGetPoolObject
+    public class UIManager : MonoBehaviour, IGetPoolObject
     {
         #region Self Variables
 
@@ -21,18 +18,23 @@ namespace Managers
 
         [SerializeField]
         private Transform weponShopHolder;
+
         [SerializeField]
         private Transform workerShopHolder;
+
         [SerializeField]
         private Transform playerShopHolder;
+
         [SerializeField]
         private Transform soldierShopHolder;
+
         [SerializeField]
         private UIPanelController uIPanelController;
+
         [SerializeField]
         private List<TextMeshProUGUI> levelPanelText;
 
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
@@ -46,12 +48,14 @@ namespace Managers
 
         private SoldierShopUIController _soldierShopUIController;
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
 
         #region EventSubscription
+
         private void OnEnable() => SubscribeEvents();
+
         private void SubscribeEvents()
         {
             UISignals.Instance.onOpenUIPanel += OnOpenUIPanel;
@@ -59,8 +63,8 @@ namespace Managers
             UISignals.Instance.onChangeMoney += OnChangeMoney;
             UISignals.Instance.onChangeDiamond += OnChangeDiamond;
             CoreGameSignals.Instance.onLevelInitialize += OnLevelInitialize;
-
         }
+
         private void UnsubscribeEvents()
         {
             UISignals.Instance.onOpenUIPanel -= OnOpenUIPanel;
@@ -69,13 +73,13 @@ namespace Managers
             UISignals.Instance.onChangeDiamond -= OnChangeDiamond;
             CoreGameSignals.Instance.onLevelInitialize -= OnLevelInitialize;
         }
+
         private void OnDisable() => UnsubscribeEvents();
 
         private void OnLevelInitialize()
         {
-            
             _shopdata = InitializeDataSignals.Instance.onLoadShopData?.Invoke();
-            
+
             LoadWeaponSlot();
 
             LoadWorkerSlot();
@@ -85,29 +89,24 @@ namespace Managers
             LoadSoldierSlot();
         }
 
-        internal  void LoadWeaponSlot()
+        internal void LoadWeaponSlot()
         {
-
             for (int i = 0; i < _shopdata._weaponShopSlot.Count; i++)
             {
-
                 _weaponShopUI = GetObject(PoolType.WeaponPanel).GetComponent<WeaponShopUI>();
 
                 _weaponShopUI.transform.SetParent(weponShopHolder);
 
                 _weaponShopUI.SetWeaponType((WeaponTypes)i);
 
-                _weaponShopUI.SetToShopData(_shopdata._weaponShopSlot,this);
+                _weaponShopUI.SetToShopData(_shopdata._weaponShopSlot, this);
             }
-
         }
 
         internal void LoadWorkerSlot()
         {
-
             for (int i = 0; i < _shopdata._workerShopSlot.Count; i++)
             {
-
                 _workerSopUIController = GetObject(PoolType.NewWorkerFeturesSlot).GetComponent<WorkerSopUIController>();
 
                 _workerSopUIController.transform.SetParent(workerShopHolder);
@@ -115,17 +114,13 @@ namespace Managers
                 _workerSopUIController.SetWeaponType((WorkerUpgradeType)i);
 
                 _workerSopUIController.SetToShopData(_shopdata._workerShopSlot, this);
-
-               
             }
-
         }
+
         internal void LoadPlayerSlot()
         {
-
             for (int i = 0; i < _shopdata._playerShopSlot.Count; i++)
             {
-
                 _playerShopUIController = GetObject(PoolType.NewPlayerFeturesSlot).GetComponent<PlayerShopUIController>();
 
                 _playerShopUIController.transform.SetParent(playerShopHolder);
@@ -134,14 +129,12 @@ namespace Managers
 
                 _playerShopUIController.SetToShopData(_shopdata._playerShopSlot, this);
             }
-
         }
+
         internal void LoadSoldierSlot()
         {
-
             for (int i = 0; i < _shopdata.soldierShopData.Count; i++)
             {
-
                 _soldierShopUIController = GetObject(PoolType.NewSoldierrFeturesSlot).GetComponent<SoldierShopUIController>();
 
                 _soldierShopUIController.transform.SetParent(soldierShopHolder);
@@ -149,14 +142,12 @@ namespace Managers
                 _soldierShopUIController.SetWeaponType((SoldierUpgradeType)i);
 
                 _soldierShopUIController.SetToShopData(_shopdata.soldierShopData, this);
-
-               
             }
-
         }
 
         #region Button
-        public void OnOpenUIPanel(UIPanels panels) => 
+
+        public void OnOpenUIPanel(UIPanels panels) =>
             uIPanelController.OpenPanel(panels);
 
         public void OnCloseUIPanel(UIPanels panels) =>
@@ -164,10 +155,11 @@ namespace Managers
 
         public void ChangeWeaponType(WeaponTypes weapontype) =>
             UISignals.Instance.onChangeWeaponType?.Invoke(weapontype);
+
         private void OnChangeMoney(int amount) =>
            levelPanelText[(int)LevelPanelTextType.money].text = amount.ToString();
 
-        private void OnChangeDiamond(int amount) => 
+        private void OnChangeDiamond(int amount) =>
            levelPanelText[(int)LevelPanelTextType.diamond].text = amount.ToString();
 
         public void BuyWeapon(WeaponTypes weapontype) =>
@@ -176,25 +168,22 @@ namespace Managers
         public void UpgradeWeapon(WeaponTypes weaponType) =>
             UISignals.Instance.onPressUpgradeButton.Invoke(weaponType);
 
-        public void UpgradeWorkerButton(WorkerUpgradeType workerUpgradeType) => 
+        public void UpgradeWorkerButton(WorkerUpgradeType workerUpgradeType) =>
             UISignals.Instance.onPressWorkersUpgradeButtons.Invoke(workerUpgradeType);
 
-        public void UpgradePlayerButton(PlayerUpgradeType playerUpgradeType) => 
+        public void UpgradePlayerButton(PlayerUpgradeType playerUpgradeType) =>
             UISignals.Instance.onPressPlayerUpgradeButtons.Invoke(playerUpgradeType);
 
-        public void UpgradeSoldierButton(SoldierUpgradeType soldierUpgradeType) => 
+        public void UpgradeSoldierButton(SoldierUpgradeType soldierUpgradeType) =>
             UISignals.Instance.onPressSoldierUpgradeButton.Invoke(soldierUpgradeType);
 
         public GameObject GetObject(PoolType poolName)
         {
             return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
         }
-        #endregion
 
-        #endregion
+        #endregion Button
 
-
-
-
+        #endregion EventSubscription
     }
 }

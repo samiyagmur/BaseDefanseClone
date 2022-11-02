@@ -15,15 +15,15 @@ namespace Managers
 
         [SerializeField] private BaseExtentionController extentionController;
 
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
         private BaseRoomData _baseRoomData;
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
 
         private void Awake()
         {
@@ -31,25 +31,28 @@ namespace Managers
             SetExistingRooms();
         }
 
-
         #region Event Subscription
 
         private void OnEnable() => SubscribeEvents();
+
         private void SubscribeEvents()
         {
             BaseSignals.Instance.onChangeExtentionVisibility += OnChangeVisibility;
             BaseSignals.Instance.onSetRoomData += OnSetRoomData;
             BaseSignals.Instance.onUpdateRoomData += OnUpdateRoomData;
-
         }
+
         private void UnsubscribeEvents()
         {
             BaseSignals.Instance.onChangeExtentionVisibility -= OnChangeVisibility;
             BaseSignals.Instance.onSetRoomData -= OnSetRoomData;
             BaseSignals.Instance.onUpdateRoomData -= OnUpdateRoomData;
         }
+
         private void OnDisable() => UnsubscribeEvents();
-        #endregion  
+
+        #endregion Event Subscription
+
         private BaseRoomData GetData() => InitializeDataSignals.Instance.onLoadBaseRoomData?.Invoke();
 
         private void SaveData() => InitializeDataSignals.Instance.onSaveBaseRoomData?.Invoke(_baseRoomData);
@@ -69,6 +72,7 @@ namespace Managers
         }
 
         private RoomData OnSetRoomData(RoomTypes roomTypes) => _baseRoomData.Rooms[(int)roomTypes];
+
         private void OnChangeVisibility(RoomTypes roomTypes)
         {
             ChangeVisibility(roomTypes);
@@ -82,6 +86,5 @@ namespace Managers
         }
 
         private void ChangeVisibility(RoomTypes roomTypes) => extentionController.ChangeExtentionVisibility(roomTypes);
-
     }
 }

@@ -1,10 +1,6 @@
-﻿using Assinger;
-using Controllers;
-using Enums;
+﻿using Enums;
 using Interfaces;
 using Signals;
-using System;
-using System.Collections;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -26,15 +22,12 @@ namespace Controllers
         private TextMeshPro priceText;
 
         private bool _canTake;
-        private const int _payedAmount= 10;
+        private const int _payedAmount = 10;
 
         private void OnTriggerEnter(Collider other)
         {
-
             if (!other.TryGetComponent(out ICustomer customer)) return;
             StartPayment(customer.CanPay, customer);
-
-
         }
 
         public void StartPayment(bool canTake, ICustomer customer)
@@ -47,13 +40,11 @@ namespace Controllers
 
         private async void UpdatePayment(ICustomer customer)
         {
-
             if (price == 0)
             {
                 TurretSignals.Instance.onGenarateBot?.Invoke(botCreatType);
                 transform.parent.gameObject.SetActive(false);
 
-                
                 _canTake = false;
                 customer.CanPay = false;
             }
@@ -68,8 +59,8 @@ namespace Controllers
             price -= _payedAmount;
             CoreGameSignals.Instance.onStartMoneyPayment?.Invoke();
             CoreGameSignals.Instance.onUpdateMoneyScore(-_payedAmount);
-            priceText.text=price.ToString();
-          
+            priceText.text = price.ToString();
+
             await Task.Delay(100);
 
             UpdatePayment(customer);

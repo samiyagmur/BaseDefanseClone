@@ -1,33 +1,24 @@
-﻿using Interfaces;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Controllers
 {
-
     public class AmmoDropZoneGridController
     {
-
-        private int _orderOfContayner ;
-        private float _offset=0.75f;
-        private int _xGridSize=2;
-        private int _yGridSize=2;
-        private int _maxContaynerAmount=40;
+        private int _orderOfContayner;
+        private float _offset = 0.75f;
+        private int _xGridSize = 2;
+        private int _yGridSize = 2;
+        private int _maxContaynerAmount = 40;
         private bool _contaynerFull;
         private Vector3 _lastPosition;
-        private List<Vector3> _contaynerStackGridPositions= new List<Vector3>();
-
+        private List<Vector3> _contaynerStackGridPositions = new List<Vector3>();
 
         public void GanarateGrid()
         {
-
-            
             for (int i = 0; i < _maxContaynerAmount; i++)
             {
                 if (_contaynerFull) return;
-
 
                 var modx = _orderOfContayner % _xGridSize;
 
@@ -49,18 +40,13 @@ namespace Controllers
                 {
                     _contaynerFull = false;
                     _orderOfContayner += 1;
-                } 
+                }
             }
-
-
         }
 
         public List<Vector3> LastPosition()
         {
             return _contaynerStackGridPositions;
         }
-
-
-        
     }
 }

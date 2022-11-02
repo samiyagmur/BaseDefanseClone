@@ -1,5 +1,4 @@
-﻿using Data.ValueObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Data.ValueObject
@@ -9,6 +8,5 @@ namespace Data.ValueObject
     {
         public List<StageData> StageDataList;
         public List<FrontYardItemsData> FrontYardItemsDataList;
-
     }
 }

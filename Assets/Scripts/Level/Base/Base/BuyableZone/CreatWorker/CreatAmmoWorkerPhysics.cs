@@ -1,8 +1,6 @@
 ﻿using Enums;
 using Interfaces;
-using Managers;
 using Signals;
-using System.Collections;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -22,17 +20,16 @@ namespace Controllers
 
         private bool _canTake;
         private const int _payedAmount = 10;
+
         private void Awake()
         {
             priceText.text = price.ToString();
         }
+
         private void OnTriggerEnter(Collider other)
         {
-       
             if (!other.TryGetComponent(out ICustomer customer)) return;
             StartPayment(customer.CanPay, customer);
-
-
         }
 
         public void StartPayment(bool canTake, ICustomer customer)
@@ -45,12 +42,10 @@ namespace Controllers
 
         private async void UpdatePayment(ICustomer customer)
         {
-
             if (price == 0)
             {
                 AmmoManagerSignals.Instance.onPlayerEnterAmmoWorkerCreaterArea?.Invoke(transform);
                 transform.parent.gameObject.SetActive(false);
-
 
                 _canTake = false;
                 customer.CanPay = false;
@@ -81,7 +76,5 @@ namespace Controllers
         }
 
         public void StopPayment(bool canTake) => _canTake = canTake;
-
- 
     }
 }

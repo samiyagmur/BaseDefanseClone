@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
-
+using UnityEngine;
 
 namespace Data.ValueObject
 {
@@ -12,5 +9,5 @@ namespace Data.ValueObject
         public GameObject ObjectType;
         public int InitalAmount;
         public bool IsDynamic;
-    } 
+    }
 }

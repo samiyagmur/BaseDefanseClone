@@ -11,13 +11,7 @@ namespace AIBrains.EnemyBrain
     {
         #region Self Variables
 
-        #region Public Variables
 
-        #endregion
-
-        #region Serialized Variables,
-
-        #endregion
 
         #region Private Variables
 
@@ -27,9 +21,10 @@ namespace AIBrains.EnemyBrain
         private EnemyType _enemyType;
         private static readonly int Die = Animator.StringToHash("Die");
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
+
         public Death(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain enemyAIBrain, EnemyType enemyType)
         {
             _navMeshAgent = navMeshAgent;
@@ -37,10 +32,11 @@ namespace AIBrains.EnemyBrain
             _enemyAIBrain = enemyAIBrain;
             _enemyType = enemyType;
         }
+
         public void Tick()
         {
-
         }
+
         public void OnEnter()
         {
             EnemyDead();
@@ -49,20 +45,19 @@ namespace AIBrains.EnemyBrain
             for (int i = 0; i < 3; i++)
             {
                 var createObj = GetObject(PoolType.Money);
-                    
+
                 if (createObj == null) return;
                 if (_enemyAIBrain.transform.position == null) return;
                 createObj.transform.position = _enemyAIBrain.transform.position + new Vector3(0, 3, 0);
             }
         }
+
         public void OnExit()
         {
-
         }
 
         private void EnemyDead()
         {
-            
             var poolType = (PoolType)System.Enum.Parse(typeof(PoolType), _enemyType.ToString());
 
             DOVirtual.DelayedCall(1f, () =>
@@ -76,6 +71,7 @@ namespace AIBrains.EnemyBrain
         {
             PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolName, obj);
         }
+
         public GameObject GetObject(PoolType poolName)
         {
             return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);

@@ -9,13 +9,13 @@ namespace Controllers
     {
         [SerializeField]
         private PlayerManager manager;
+
         private void OnTriggerEnter(Collider other)
         {
             if (manager.CurrentAreaType == AreaType.BaseDefense) return;
 
             if (other.TryGetComponent(out IDamagable damagable))
             {
-
                 if (damagable.IsTaken) return;
 
                 manager.EnemyList.Add(damagable);
@@ -28,6 +28,7 @@ namespace Controllers
                 }
             }
         }
+
         private void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent(out IDamagable damagable))
@@ -35,7 +36,7 @@ namespace Controllers
                 damagable.IsTaken = false;
 
                 manager.EnemyList.Remove(damagable);
-                
+
                 manager.EnemyList.TrimExcess();
 
                 if (manager.EnemyList.Count == 0)

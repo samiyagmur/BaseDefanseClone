@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Controllers;
 using Interfaces;
-using Controllers;
 using UnityEngine;
 
 namespace Managers
@@ -8,39 +7,36 @@ namespace Managers
     public class MineManager : MonoBehaviour, IDamager
 
     {
-
         #region Self Variables
 
         #region Public Variables
 
         public bool IsPayedTotalAmount => (_payedGemAmount >= requiredGemAmount);
 
-        public int Damage { get; set ; }
+        public int Damage { get; set; }
 
         public int GemAmount; //Sinyalle Cekilecek Score Manager Uzerinden
         public int LureTime = 5;
         public int MineCountDownTime = 60;
         [SerializeField] private int explosionDamage = 999;
 
-        #endregion
+        #endregion Public Variables
 
         #region Serialized Variables
 
         [SerializeField] private MinePhysicsController minePhysicsController;
         [SerializeField] private int requiredGemAmount;
 
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
         private int _payedGemAmount = 0;
 
+        #endregion Private Variables
 
+        #endregion Self Variables
 
-
-        #endregion
-
-        #endregion
         private void Awake()
         {
             //Data= GetMineData();
@@ -64,18 +60,16 @@ namespace Managers
         public void PayGemToMine()
         {
             GemAmount--;
-            if (GemAmount<=0)
+            if (GemAmount <= 0)
             {
                 GemAmount = 0;
             }
             _payedGemAmount++;
-
         }
 
         public int GetDamage()
         {
             return explosionDamage;
         }
-
     }
 }

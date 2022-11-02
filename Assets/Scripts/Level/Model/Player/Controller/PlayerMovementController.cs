@@ -2,20 +2,15 @@
 using Enums;
 using Keys;
 using Managers;
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Controllers
 {
     public class PlayerMovementController : MonoBehaviour
     {
-
         #region Self Variables
 
-        #region Public Variables
 
-        #endregion
 
         #region Serialized Variables
 
@@ -25,7 +20,7 @@ namespace Controllers
         [SerializeField]
         private PlayerManager manager;
 
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
@@ -36,18 +31,18 @@ namespace Controllers
         private bool _isReadyToMove;
 
         private GameObject _currentParent;
-    
 
         public bool IsOutPlace { get; private set; }
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
+
         public void SetMovementData(PlayerMovementData movementData)
         {
             _data = movementData;
-
         }
+
         public void UpdateInputValues(HorizontalInputParams inputParams)
         {
             _inputVector = inputParams.MovementVector;
@@ -56,8 +51,8 @@ namespace Controllers
 
         public void LookAtTarget(Transform enemyTarget)
         {
-            if (manager.EnemyList.Count==0) return;
-            
+            if (manager.EnemyList.Count == 0) return;
+
             transform.LookAt(new Vector3(enemyTarget.position.x, 0, enemyTarget.position.z), Vector3.up * 3f);
         }
 
@@ -65,10 +60,12 @@ namespace Controllers
         {
             _isReadyToMove = movementStatus;
         }
+
         private void FixedUpdate()
         {
             PlayerMove();
         }
+
         private void PlayerMove()
         {
             if (_isReadyToMove)
@@ -83,19 +80,17 @@ namespace Controllers
                 }
             }
             else if (rigidbody.velocity != Vector3.zero)
-            {   
+            {
                 rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
             }
         }
 
         private void LateUpdate()
         {
-           // Debug.Log(IsOutPlace);
+            // Debug.Log(IsOutPlace);
             if (manager.EnemyList.Count == 0) return;
-           // if (!IsOutPlace) return;
+            // if (!IsOutPlace) return;
             LookAtTarget(manager.EnemyList[0].GetTransform());
-
-           
         }
 
         private void RotatePlayer()
@@ -105,6 +100,7 @@ namespace Controllers
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
             rigidbody.rotation = Quaternion.RotateTowards(rigidbody.rotation, toRotation, 30);
         }
+
         public void DisableMovement(InputHandlers inputHandlers)
         {
             if (inputHandlers != InputHandlers.Turret) return;
@@ -114,8 +110,6 @@ namespace Controllers
 
         internal void SetLayer(int layer)
         {
-
-            
             CheckToArea(layer == LayerMask.NameToLayer("BaseDefense"));
         }
 
@@ -125,5 +119,3 @@ namespace Controllers
         }
     }
 }
-
-

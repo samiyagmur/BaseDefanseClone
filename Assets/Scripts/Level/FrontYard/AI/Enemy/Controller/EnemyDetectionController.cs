@@ -1,4 +1,3 @@
-
 using AIBrains.EnemyBrain;
 using Controllers.SoldierPhysicsControllers;
 using Interfaces;
@@ -10,23 +9,23 @@ namespace Controllers.AIControllers
     {
         #region Self Variables
 
-        #region Public Variables
 
-        #endregion
 
         #region Serialized Variables
+
         [SerializeField]
         private EnemyAIBrain enemyAIBrain;
 
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
         private Transform _detectedMine;
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out PlayerPhysicsController physicsController))
@@ -42,8 +41,8 @@ namespace Controllers.AIControllers
                 PickOneTarget(other);
                 enemyAIBrain.CacheSoldier(soldierHealthController);
             }
-
         }
+
         private void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent(out PlayerPhysicsController physicsController))
@@ -56,6 +55,7 @@ namespace Controllers.AIControllers
             enemyAIBrain.SetTarget(null);
             enemyAIBrain.CacheSoldier(null);
         }
+
         private void PickOneTarget(Collider other)
         {
             if (enemyAIBrain.CurrentTarget == enemyAIBrain.TurretTarget)

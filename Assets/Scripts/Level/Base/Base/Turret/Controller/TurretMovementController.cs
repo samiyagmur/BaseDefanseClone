@@ -9,7 +9,6 @@
 
 //namespace Controllers
 //{
-  
 //    public class TurretMovementController : MonoBehaviour
 //    {
 //        private float _horizontalInput;
@@ -22,8 +21,6 @@
 
 //        public void SetInputParams(HorizontalInputParams input)//it can be turn on interface
 //        {
-
-            
 //            //if (_status == TurretStatus.OutPlace) return;
 
 //            _horizontalInput = input.MovementVector.x;
@@ -33,14 +30,13 @@
 
 //        private void EnterToTaret()//It can be abstract
 //        {
-            
 //                if ((-0.9f < _horizontalInput && _verticalInput > 0.3f) && (+0.9f > _horizontalInput && _verticalInput > 0.3f))
 //                {
 //                   Rotate();//
 //                }
 
 //                transform.rotation = new Quaternion(0, 0, 0, 0);
-                   
+
 //        }
 //        private void Rotate()
 //        {
@@ -50,9 +46,9 @@
 //            transform.rotation = Quaternion.RotateTowards(transform.rotation, _toRotation, _moveSpeed);
 
 //        }
-        
+
 //        public void TurretActivationWithPlayer(TurretStatus status)
-//        {   
+//        {
 //            Debug.Log(_status);
 
 //            _status = status;

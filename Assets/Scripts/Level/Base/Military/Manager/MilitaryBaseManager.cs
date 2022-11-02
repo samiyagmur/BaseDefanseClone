@@ -4,7 +4,6 @@ using Enums;
 using Interfaces;
 using Signals;
 using Sirenix.OdinInspector;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,8 +15,6 @@ namespace Managers
     public class MilitaryBaseManager : MonoBehaviour, IGetPoolObject
     {
         #region Self Variables
-
-
 
         #region Serialized Variables
 

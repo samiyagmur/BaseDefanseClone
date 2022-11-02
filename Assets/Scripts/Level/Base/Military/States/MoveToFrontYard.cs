@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace AI.States
 {
-    public class MoveToFrontYard : IState   
+    public class MoveToFrontYard : IState
     {
         private NavMeshAgent _navMeshAgent;
         private Transform _frontYardSoldierPosition;

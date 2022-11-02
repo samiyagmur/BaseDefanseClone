@@ -1,5 +1,4 @@
 ﻿using Interfaces;
-using Signals;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,22 +14,20 @@ namespace AIBrains.EnemyBrain
 
         private float _attackTimer = 1f;
 
-
         public Attack(NavMeshAgent agent, Animator animator, EnemyAIBrain enemyAIBrain)
         {
             _navMeshAgent = agent;
             _animator = animator;
             _enemyAIBrain = enemyAIBrain;
         }
+
         public void Tick()
         {
-
             _attackTimer -= Time.deltaTime;
             if (!(_attackTimer <= 0)) return;
             _enemyAIBrain.HitDamage();
             _animator.SetTrigger(Attack1);
             _attackTimer = 1f;
-
         }
 
         public void OnEnter()

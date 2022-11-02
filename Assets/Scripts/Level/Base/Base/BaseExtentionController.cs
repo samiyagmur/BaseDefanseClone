@@ -1,5 +1,4 @@
 ﻿using Enums;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,14 +8,15 @@ namespace Controller
     {
         [SerializeField]
         private List<GameObject> OpenUpExtentions;
+
         [SerializeField]
         private List<GameObject> CloseDownExtentions;
+
         [SerializeField]
         private List<GameObject> SideOpenClose;
 
         public void ChangeExtentionVisibility(RoomTypes roomTypes)
         {
-
             SideOpenClose[(int)roomTypes].SetActive(false);
             OpenUpExtentions[(int)roomTypes].SetActive(true);
             CloseDownExtentions[(int)roomTypes].SetActive(false);

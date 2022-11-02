@@ -1,13 +1,8 @@
-using Data.ValueObject;
+using Datas.ValueObject;
 using Enums;
-using System;
-using System.Collections;
+using Managers;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
-using System.Linq;
-using Managers;
-using Datas.ValueObject;
 
 namespace Controllers
 {
@@ -16,7 +11,7 @@ namespace Controllers
         [SerializeField]
         private ShopManager shopManager;
 
-        List<WeaponShopData> _curretWeaponData;
+        private List<WeaponShopData> _curretWeaponData;
 
         internal void SetShopData(List<WeaponShopData> weaponShop)
         {
@@ -25,25 +20,22 @@ namespace Controllers
 
         internal bool OnSetBuyWeapon(WeaponTypes type, int _currentMoney)
         {
-            
             if (CheckCanBuy(type, _currentMoney))
             {
                 SendCurrentMoney(_curretWeaponData[(int)type].PurchasePrice);
 
                 return BuyWeapon(type);
             }
-          return false;
-  
+            return false;
         }
 
-
         internal WeaponShopData OnSetUpgradeWeapon(WeaponTypes type, int _currentMoney)
-        {   
+        {
             if (CheckCanBuy(type, _currentMoney))
-            {   
+            {
                 SendCurrentMoney(_curretWeaponData[(int)type].UpgradePrice);
 
-                _curretWeaponData[(int)type].UpgradePrice+=100;
+                _curretWeaponData[(int)type].UpgradePrice += 100;
 
                 _curretWeaponData[(int)type].WeaponLevel++;
 
@@ -53,27 +45,25 @@ namespace Controllers
             return _curretWeaponData[(int)type];
         }
 
-
         private bool CheckCanBuy(WeaponTypes type, int _currentScore)
         {
             if (_curretWeaponData[(int)type].UpgradePrice <= _currentScore)
-            {   
+            {
                 return true;
             }
             return false;
         }
 
         private bool BuyWeapon(WeaponTypes type)
-        {   
+        {
             _curretWeaponData[(int)type].WeaponHasSold = true;
 
             return _curretWeaponData[(int)type].WeaponHasSold;
         }
+
         private void SendCurrentMoney(int _currentMoney)
         {
-           shopManager.SendScoreToWeaponShop(_currentMoney);
+            shopManager.SendScoreToWeaponShop(_currentMoney);
         }
-
-       
-    } 
+    }
 }

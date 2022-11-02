@@ -1,33 +1,25 @@
-﻿using Managers;
-using UnityEngine;
-using Enums;
-using System;
+﻿using Enums;
 using Interfaces;
+using Managers;
 using Signals;
-using Controller;
+using UnityEngine;
 
 namespace Controllers
 {
     public class PlayerPhysicsController : MonoBehaviour
     {
-
         #region Self Variables
 
-        #region Public Variables
 
-        #endregion
 
         #region Serialized Variables,
+
         [SerializeField]
-        PlayerManager playerManager;
-        #endregion
+        private PlayerManager playerManager;
 
-        #region Private Variables
+        #endregion Serialized Variables,
 
-
-        #endregion
-
-        #endregion
+        #endregion Self Variables
 
         private void GateEnter(Collider other)
         {
@@ -36,6 +28,7 @@ namespace Controllers
             playerManager.CheckAreaStatus(playerIsGoingToFrontYard ? AreaType.BattleOn : AreaType.BaseDefense);
             playerManager.CloseHealtBar();
         }
+
         private void GateExit(Collider other)
         {
             var playerIsGoingToFrontYard = other.transform.position.z < transform.position.z;
@@ -57,9 +50,8 @@ namespace Controllers
             }
 
             if (other.TryGetComponent(out IDamager damager))
-            {   
+            {
                 PlayerSignal.Instance.onTakePlayerDamage(damager.GetDamage());
-
             }
 
             //if (other.TryGetComponent(out BotGenareteController botGenareteController))
@@ -67,9 +59,7 @@ namespace Controllers
             //    Debug.Log("BotGenareteController");
             //    playerManager.PayToBuyableZone(botGenareteController.transform, botGenareteController.Price, botGenareteController.BotCreatType);
             //}
-
         }
-
 
         private void OnTriggerExit(Collider other)
         {
@@ -83,10 +73,10 @@ namespace Controllers
         public void ResetPlayerLayer()
         {
             gameObject.layer = LayerMask.NameToLayer("BaseDefense");//bakcaz
-
         }
     }
 }
+
 //#region Self Variables
 
 //#region Public Variables

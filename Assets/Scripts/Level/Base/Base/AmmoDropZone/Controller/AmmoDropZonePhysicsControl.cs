@@ -1,9 +1,5 @@
-﻿using AIBrain;
-using Managers;
-using System.Collections;
+﻿using Enums;
 using UnityEngine;
-using Interfaces;
-using Enums;
 
 namespace Controllers
 {
@@ -16,8 +12,6 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-
         }
-  
     }
 }

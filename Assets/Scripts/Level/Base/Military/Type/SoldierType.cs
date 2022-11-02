@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using UnityEngine;
-
-
-    namespace Enums
+﻿namespace Enums
+{
+    public enum SoldierType
     {
-        public enum SoldierType
-        {
-            FreshManSoldier
-        }
+        FreshManSoldier
     }
+}

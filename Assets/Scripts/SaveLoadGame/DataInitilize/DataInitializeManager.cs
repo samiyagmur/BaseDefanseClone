@@ -4,7 +4,6 @@ using Data.ValueObject.LevelData;
 using Datas.UnityObject;
 using Datas.ValueObject;
 using Signals;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +13,7 @@ namespace Managers
     {
         #region Self Variables
 
-        #region Public Variables
 
-        #endregion
 
         #region Serialized Variables
 
@@ -26,7 +23,7 @@ namespace Managers
         [SerializeField]
         private CD_Enemy cdEnemy;
 
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
@@ -41,28 +38,23 @@ namespace Managers
         private ScoreData _scoreData;
         private CD_Level _cdLevel;
 
+        #endregion Private Variables
 
-        #endregion
-
-        #endregion
+        #endregion Self Variables
 
         private CD_Level GetLevelDatas() => Resources.Load<CD_Level>("Data/CD_Level");
+
         private void Awake()
         {
             _cdLevel = GetLevelDatas();
             _levelID = _cdLevel.LevelId;
             levelDatas = _cdLevel.LevelDatas;
             _shopData = _cdLevel.ShopData;
-            _scoreData = _cdLevel.ScoreData; 
-            
-
-
-
-
+            _scoreData = _cdLevel.ScoreData;
         }
+
         private void Start()
         {
-           
             InitData();
             CoreGameSignals.Instance.onLevelInitialize?.Invoke();
         }
@@ -71,7 +63,6 @@ namespace Managers
 
         private void InitData()
         {
-
             if (!ES3.FileExists($"_levelData{_uniqueID}.es3"))
             {
                 if (!ES3.KeyExists("_levelData"))
@@ -87,11 +78,10 @@ namespace Managers
             }
 
             Load(_uniqueID);
-           
         }
+
         public void Load(int uniqueId)
         {
-
             CD_Level cdLevel = SaveLoadSignals.Instance.onLoadGameData.Invoke("_levelData", uniqueId);
 
             _levelID = cdLevel.LevelId;
@@ -102,12 +92,9 @@ namespace Managers
             _buyablesData = cdLevel.LevelDatas[_levelID].BaseData.BuyablesData;
             _shopData = cdLevel.ShopData;
             _scoreData = cdLevel.ScoreData;
-
-           
         }
 
-
-        #endregion
+        #endregion InıtData
 
         #region Event Subscriptions
 
@@ -152,32 +139,31 @@ namespace Managers
             InitializeDataSignals.Instance.onLoadBuyablesData -= SyncOnLoadBuyablesData;
             InitializeDataSignals.Instance.onLoadMineBaseData -= SyncOnLoadMineBaseData;
 
-
-        InitializeDataSignals.Instance.onLoadScoreData -= OnLoadScoreData;
+            InitializeDataSignals.Instance.onLoadScoreData -= OnLoadScoreData;
             InitializeDataSignals.Instance.onLoadShopData -= OnLoadShopData;
             //InitializeDataSignals.Instance.onSaveWeaponData -= SyncWeaponData;
         }
-
- 
 
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
 
-        #endregion
+        #endregion Event Subscriptions
 
         private void SendDataToManagers()
         {
-
             InitializeDataSignals.Instance.onLoadLevelID?.Invoke(_levelID);
             //InitializeDataSignals.Instance.onLoadAmmoWorkerData?.Invoke(_)
         }
-        #region Level Save - Load 
+
+        #region Level Save - Load
+
         private void OnApplicationQuit()
         {
             Save(_uniqueID);
         }
+
         public void Save(int uniqueId)
         {
             CD_Level cdLevel = new CD_Level(_levelID, levelDatas, _shopData, _scoreData);
@@ -185,10 +171,10 @@ namespace Managers
             SaveLoadSignals.Instance.onSaveGameData.Invoke(cdLevel, uniqueId);
         }
 
-        #endregion
-
+        #endregion Level Save - Load
 
         #region Data Sync
+
         private void OnSyncLevel()
         {
             SendDataToManagers();
@@ -198,6 +184,7 @@ namespace Managers
         {
             _levelID = levelID;
         }
+
         private void SyncBaseRoomDatas(BaseRoomData baseRoomData)
         {
             _baseRoomData = baseRoomData;
@@ -222,8 +209,9 @@ namespace Managers
         {
             _shopData = shopData;
         }
+
         private void SyncScoreData(ScoreData scoredata)
-        {   
+        {
             _scoreData = scoredata;
         }
 
@@ -239,8 +227,6 @@ namespace Managers
 
         private MilitaryBaseData SyncOnLoadMilitaryBaseData() => _militaryBaseData;
 
-
-        #endregion
-
+        #endregion Data Sync
     }
 }

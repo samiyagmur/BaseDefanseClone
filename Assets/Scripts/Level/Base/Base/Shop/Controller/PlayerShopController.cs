@@ -1,13 +1,9 @@
-﻿using Datas.UnityObject;
-using Datas.ValueObject;
+﻿using Datas.ValueObject;
 using Enums;
 using Managers;
 using Signals;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Controllers
 {
@@ -17,28 +13,24 @@ namespace Controllers
         private ShopManager shopManager;
 
         private List<PlayerShopData> _playerShopData;
-        private int _increasedSpeedCost= +10;
+        private int _increasedSpeedCost = +10;
 
         internal void SetShopData(List<PlayerShopData> playerShop) => _playerShopData = playerShop;
 
         internal PlayerShopData OnSetUpgradeFeature(PlayerUpgradeType value, int _currentMoney)
         {
-           
-
             if (_playerShopData[(int)value].UpgradePrice <= _currentMoney)
             {
                 SendCurrentMoney(_playerShopData[(int)value].UpgradePrice);
 
                 _playerShopData[(int)value].UpgradePrice += 100;
-    
+
                 _playerShopData[(int)value].UpgradeLevel++;
                 UpdateFeateru(value);
-               
 
                 return _playerShopData[(int)value];
             }
             return _playerShopData[(int)value];
-            
         }
 
         private void UpdateFeateru(PlayerUpgradeType playerUpgradeType)
@@ -47,11 +39,14 @@ namespace Controllers
             {
                 case PlayerUpgradeType.Capasity:
                     break;
+
                 case PlayerUpgradeType.Speed:
                     break;
+
                 case PlayerUpgradeType.Healt:
                     PlayerSignal.Instance.onIncreaseHealt?.Invoke(_increasedSpeedCost);
                     break;
+
                 default:
                     break;
             }

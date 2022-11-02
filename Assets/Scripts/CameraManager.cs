@@ -1,18 +1,17 @@
 ﻿using Enums;
 using Signals;
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Managers
 {
     public class CameraManager : MonoBehaviour
-    {   
+    {
         private Animator _animator;
 
-
         #region Event Subscription
+
         private void OnEnable() => SubscribeEvents();
+
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.onReset += OnReset;
@@ -22,9 +21,11 @@ namespace Managers
         {
             CoreGameSignals.Instance.onReset -= OnReset;
         }
+
         private void OnDisable() => UnsubscribeEvents();
 
-        #endregion
+        #endregion Event Subscription
+
         private void ChangeCamera(CameraTypes type)
         {
             _animator.Play(type.ToString());
@@ -32,7 +33,6 @@ namespace Managers
 
         private void OnSetCameraTarget()
         {
-           
         }
 
         private void OnReset()
@@ -40,6 +40,5 @@ namespace Managers
             ChangeCamera(CameraTypes.Level);
             OnSetCameraTarget();
         }
-
     }
 }

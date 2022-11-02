@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Abstraction;
-using AI.States;
+﻿using AI.States;
 using Data.UnityObject;
 using Data.ValueObject;
 using Interfaces;
 using StateBehavior;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,15 +28,18 @@ namespace AIBrains.SoldierBrain
         public IDamagable DamageableEnemy;
         public Transform WeaponHolder;
         public bool HasSoldiersActivated;
-        #endregion
+
+        #endregion Public Variables
 
         #region Serialized Variables
+
         [SerializeField]
         private Animator animator;
-    
-        #endregion
+
+        #endregion Serialized Variables
 
         #region Private Variables
+
         private NavMeshAgent _navMeshAgent;
 
         [Header("Data")]
@@ -48,21 +50,26 @@ namespace AIBrains.SoldierBrain
         private int _health;
         public int Health { get => _health; set => _health = value; }
 
-        #endregion
-        #endregion
+        #endregion Private Variables
+
+        #endregion Self Variables
+
         private void Awake()
         {
             _data = GetSoldierAIData();
         }
+
         private void Start()
         {
             GetStateReferences();
         }
+
         private SoldierAIData GetSoldierAIData() => Resources.Load<CD_AIData>("Data/CD_AIData").SoldierAIDatas;
+
         private void GetStateReferences()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            Idle idle = new Idle(this,TentPosition, _navMeshAgent, animator);
+            Idle idle = new Idle(this, TentPosition, _navMeshAgent, animator);
             MoveToSlotZone moveToSlotZone = new MoveToSlotZone(this, _navMeshAgent, HasReachedSlotTarget, _slotTransform, animator);
             Wait wait = new Wait(animator, _navMeshAgent);
             MoveToFrontYard moveToFrontYard = new MoveToFrontYard(this, _navMeshAgent, FrontYardStartPosition, animator);
@@ -88,7 +95,9 @@ namespace AIBrains.SoldierBrain
             Func<bool> hasEnemyTarget() => () => HasEnemyTarget;
             Func<bool> hasNoEnemyTarget() => () => !HasEnemyTarget;
         }
+
         private void Update() => _stateMachine.Tick();
+
         public void GetSlotTransform(Vector3 slotTransfrom) => _slotTransform = slotTransfrom;
     }
 }

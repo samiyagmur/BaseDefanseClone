@@ -1,21 +1,16 @@
-﻿using System.Collections;
+﻿using Enums;
 using UnityEngine;
-using DG.Tweening;
-using Enums;
-using Datas.ValueObject;
-using System;
 
 namespace Controllers
 {
     public class TurretShootController : MonoBehaviour
     {
+        private float rotateSpeed = 35;
 
-        private float rotateSpeed=35;
         private void Spin(GattalingActivateStatus Activatable) => transform.Rotate((int)Activatable * Time.deltaTime * rotateSpeed, 0, 0);
 
         public void ActiveGattaling() => Spin(GattalingActivateStatus.Active);
+
         public void DeactiveGattaling() => Spin(GattalingActivateStatus.Pasive);
-
-
     }
 }

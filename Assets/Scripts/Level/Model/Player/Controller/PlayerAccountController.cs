@@ -11,10 +11,10 @@ namespace Controllers.PlayerControllers
     {
         public SphereCollider Collider;
 
-       [SerializeField] private PlayerStackerController playerMoneyStackerController;
+        [SerializeField] private PlayerStackerController playerMoneyStackerController;
+
         private void OnTriggerEnter(Collider other)
         {
-
             if (other.TryGetComponent<StackableMoney>(out StackableMoney stackableMoney))
             {
                 stackableMoney.IsCollected = true;
@@ -34,14 +34,14 @@ namespace Controllers.PlayerControllers
 
         #region Account
 
-        public bool CanPay { get => CoreGameSignals.Instance.onHasEnoughMoney.Invoke(); set { } }
- 
+        public bool CanPay
+        { get => CoreGameSignals.Instance.onHasEnoughMoney.Invoke(); set { } }
+
         public void PaymentAnimation(Transform stackableTransform, PoolType stackabletype)
         {
             playerMoneyStackerController.PaymentStackAnimation(stackableTransform, stackabletype);
         }
 
-        #endregion
-
+        #endregion Account
     }
 }

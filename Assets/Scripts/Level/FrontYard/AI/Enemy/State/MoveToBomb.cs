@@ -14,19 +14,17 @@ namespace AIBrains.EnemyBrain
             _navMeshAgent = agent;
             _animator = animator;
         }
+
         public void Tick()
         {
-
         }
 
         public void OnEnter()
         {
-
         }
 
         public void OnExit()
         {
-
         }
     }
 }

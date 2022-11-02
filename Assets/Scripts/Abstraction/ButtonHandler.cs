@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace ChainOfResponsibilityExample1
 {
     public class ChainOfResponsibilityExample1 : MonoBehaviour
     {
-        void Start()
+        private void Start()
         {
             // Setup Chain of Responsibility
             Approver larry = new Director();
@@ -24,14 +23,13 @@ namespace ChainOfResponsibilityExample1
 
             p = new Purchase(2036, 122100.00, "Project Y");
             larry.ProcessRequest(p);
-
         }
     }
 
     /// <summary>
     /// The 'Handler' abstract class
     /// </summary>
-    abstract class Approver
+    internal abstract class Approver
     {
         protected Approver successor;
 
@@ -46,7 +44,7 @@ namespace ChainOfResponsibilityExample1
     /// <summary>
     /// The 'ConcreteHandler' class
     /// </summary>
-    class Director : Approver
+    internal class Director : Approver
     {
         public override void ProcessRequest(Purchase purchase)
         {
@@ -64,7 +62,7 @@ namespace ChainOfResponsibilityExample1
     /// <summary>
     /// The 'ConcreteHandler' class
     /// </summary>
-    class VicePresident : Approver
+    internal class VicePresident : Approver
     {
         public override void ProcessRequest(Purchase purchase)
         {
@@ -82,7 +80,7 @@ namespace ChainOfResponsibilityExample1
     /// <summary>
     /// The 'ConcreteHandler' class
     /// </summary>
-    class President : Approver
+    internal class President : Approver
     {
         public override void ProcessRequest(Purchase purchase)
         {
@@ -100,7 +98,7 @@ namespace ChainOfResponsibilityExample1
     /// <summary>
     /// Class holding request details
     /// </summary>
-    class Purchase
+    internal class Purchase
     {
         private int _number;
         private double _amount;
@@ -136,5 +134,3 @@ namespace ChainOfResponsibilityExample1
         }
     }
 }
-
-

@@ -1,7 +1,7 @@
+using DG.Tweening;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
-using Interfaces;
-using DG.Tweening;
 
 namespace StateMachines.AIBrain.Workers.MoneyStates
 {
@@ -14,6 +14,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         private readonly float _speed;
 
         public bool IsArrive = false;
+
         public MoveToGateState(NavMeshAgent navMeshAgent, Animator animator, Vector3 gateTarget, float maxSpeed)
         {
             _navmeshAgent = navMeshAgent;
@@ -21,6 +22,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
             _gateTarget = gateTarget;
             _speed = maxSpeed;
         }
+
         public void OnEnter()
         {
             //isWalking anim

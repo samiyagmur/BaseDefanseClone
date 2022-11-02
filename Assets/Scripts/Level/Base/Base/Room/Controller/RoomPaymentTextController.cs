@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Controller
 {
     public class RoomPaymentTextController : MonoBehaviour
     {
-
         [SerializeField]
         private TextMeshPro remainingCostText;
 

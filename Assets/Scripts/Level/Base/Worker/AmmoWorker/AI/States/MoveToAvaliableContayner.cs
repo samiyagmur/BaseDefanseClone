@@ -1,5 +1,4 @@
 ﻿using Interfaces;
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -48,7 +47,7 @@ namespace AI.States
 
         internal void IncreaseSpeed(float speed)
         {
-           _movementSpeed=speed;
+            _movementSpeed = speed;
         }
 
         #endregion State

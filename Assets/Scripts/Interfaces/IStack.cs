@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Interfaces
 {
- 
-        public interface IStack
-        {
-            void SetStackHolder(GameObject gameObject);
+    public interface IStack
+    {
+        void SetStackHolder(GameObject gameObject);
 
-            void SetGrid();
+        void SetGrid();
 
-            void SendGridDataToStacker();
-        }
-    
+        void SendGridDataToStacker();
+    }
 }

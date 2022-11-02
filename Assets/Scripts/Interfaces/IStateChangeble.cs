@@ -2,9 +2,8 @@
 
 namespace Interfaces
 {
-    interface IStateChangeble
+    internal interface IStateChangeble
     {
         void ChangeGateState(GateState state);
     }
-
 }

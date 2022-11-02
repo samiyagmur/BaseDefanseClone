@@ -1,17 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using AI.MinerAI;
-using Controllers;
 using Data.UnityObject;
 using Data.ValueObject;
-using Data.ValueObject.LevelData;
-using Data.ValueObjects;
-using DG.Tweening.Core;
 using Enum;
 using Enums;
 using Interfaces;
 using Signals;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -22,26 +18,26 @@ namespace Managers
     {
         #region Self Variables
 
-        #region Public Variables
 
-        #endregion
 
         #region Serialized Variables
 
-        [SerializeField] 
+        [SerializeField]
         private TextMeshPro gemWorkerText;
+
         [SerializeField]
         private List<Transform> mineLocations;//Cd_obkjeyegidecek.
+
         [SerializeField]
         private List<Transform> cartLocations;
 
         [SerializeField]
         private Transform gemHolderPosition;
+
         [SerializeField]
         private Transform instantiatePosition;
 
-
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
@@ -50,17 +46,15 @@ namespace Managers
         private int _maxWorkerAmount;
         private Dictionary<MinerAIBrain, GameObject> _mineWorkers = new Dictionary<MinerAIBrain, GameObject>();
         private MineBaseData _mineBaseData;
-        
 
+        #endregion Private Variables
 
-        #endregion
+        #endregion Self Variables
 
-        #endregion
         private void Awake()
         {
             _mineBaseData = GetMineBaseData();
             AssignDataValues();
-
         }
 
         private void Start()
@@ -74,8 +68,6 @@ namespace Managers
             _currentWorkerAmount = _mineBaseData.CurrentWorkerAmount;
             _maxWorkerAmount = _mineBaseData.MaxWorkerAmount;
         }
-
-
 
         #region Event Subscription
 
@@ -93,27 +85,24 @@ namespace Managers
             MineBaseSignals.Instance.onGetRandomMineTarget -= GetRandomMineTarget;
             MineBaseSignals.Instance.onGetGemHolderPos -= OnGetGemHolderPos;
             MineBaseSignals.Instance.onNewMineWorkerAdd -= OnNewMineWorkerAdd;
-
         }
+
         private void OnDisable() => UnSubscribeEvents();
 
-        #endregion
-
+        #endregion Event Subscription
 
         private void OnNewMineWorkerAdd(MinerAIBrain minerBrainAi)
         {
             _currentWorkerAmount++;
             _mineWorkers.Add(minerBrainAi, minerBrainAi.gameObject);
- 
+
             //InitializeDataSignals.Instance.onSaveMineBaseData()
         }
-
 
         private Transform OnGetGemHolderPos()
         {
             return gemHolderPosition;
         }
-
 
         private void InstantiateAllMiners()
         {
@@ -126,14 +115,12 @@ namespace Managers
             }
         }
 
-
         private void AssignMinerValuesToDictionary()
         {
             for (int index = 0; index < _mineWorkers.Count; index++)
             {
                 _mineWorkers.ElementAt(index).Key.GemHolder = gemHolderPosition;
             }
-
         }
 
         public Tuple<Transform, GemMineType> GetRandomMineTarget()
@@ -143,7 +130,6 @@ namespace Managers
                 ? Tuple.Create(cartLocations[randomMineTargetIndex % cartLocations.Count], GemMineType.Cart)
                 : Tuple.Create(mineLocations[randomMineTargetIndex], GemMineType.Mine);//Tuple ile enum donecek maden tipine gore animasyon degisecek stateler uzerinden
         }
-
 
         public MineBaseData GetMineBaseData() => Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[_currentLevel].BaseData.MineBaseData;
 

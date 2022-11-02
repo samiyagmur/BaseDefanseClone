@@ -1,7 +1,6 @@
 ﻿using Enums;
 using Sirenix.OdinInspector;
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Datas.ValueObject

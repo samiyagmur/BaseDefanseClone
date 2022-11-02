@@ -1,7 +1,7 @@
+using Data.ValueObject;
+using Enums;
 using UnityEngine;
 using UnityEngine.Rendering;
-using Enums;
-using Data.ValueObject;
 
 namespace Data.UnityObject
 {
@@ -9,6 +9,6 @@ namespace Data.UnityObject
         order = 0)]
     public class CD_Pool : ScriptableObject
     {
-        public SerializedDictionary<PoolType,PoolData> PoolDataDic = new SerializedDictionary<PoolType,PoolData>();
+        public SerializedDictionary<PoolType, PoolData> PoolDataDic = new SerializedDictionary<PoolType, PoolData>();
     }
 }

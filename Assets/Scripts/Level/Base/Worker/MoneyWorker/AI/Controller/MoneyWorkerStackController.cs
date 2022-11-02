@@ -1,11 +1,9 @@
 ﻿using Abstraction;
-using Controllers;
 using Data.UnityObject;
 using Datas.ValueObject;
 using Enums;
 using Managers;
 using Sirenix.OdinInspector;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +18,6 @@ namespace Controller
         [SerializeField]
         private MoneyWorkerManager moneyWorkerManager;
 
-
         [SerializeField]
         private Transform GridParent;
 
@@ -29,7 +26,6 @@ namespace Controller
         [ShowIf("stackingSystem", Enums.StackingSystem.Static)]
         [SerializeField]
         private StackAreaType stackAreaType;
-
 
         [ShowIf("stackingSystem", Enums.StackingSystem.Static)]
         [SerializeField]
@@ -40,13 +36,12 @@ namespace Controller
         [SerializeField]
         private StackerType stackerType;
 
-
         [ShowIf("stackingSystem", Enums.StackingSystem.Dynamic)]
         [SerializeField]
         [ReadOnly]
         private GridData stackerGridData;
 
-        #endregion
+        #endregion Serialized Variables
 
         #region Private Variables
 
@@ -58,13 +53,9 @@ namespace Controller
 
         private GridData _gridData;
 
-        #endregion
+        #endregion Private Variables
 
-        #region Public Variables
-
-        #endregion
-
-        #endregion
+        #endregion Self Variables
 
         private void GetData()
         {
@@ -96,7 +87,6 @@ namespace Controller
             gameObject.transform.SetParent(transform);
         }
 
-
         public override void SetGrid()
         {
             if (stackingSystem == StackingSystem.Static)
@@ -124,18 +114,13 @@ namespace Controller
                      modZ * _gridData.Offset.z + position.z);
                 }
 
-
                 gridPositionsData.Add(_gridPositions);
-
             }
         }
+
         public override void SendGridDataToStacker()
         {
             moneyWorkerManager.GetStackPositions(gridPositionsData);
         }
-
-
-
-
     }
 }

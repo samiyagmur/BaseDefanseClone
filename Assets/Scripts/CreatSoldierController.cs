@@ -1,7 +1,6 @@
 ﻿using Enums;
 using Interfaces;
 using Signals;
-using System.Collections;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -21,17 +20,16 @@ namespace Controller
 
         private bool _canTake;
         private const int _payedAmount = 10;
+
         private void Awake()
         {
             priceText.text = price.ToString();
         }
+
         private void OnTriggerEnter(Collider other)
         {
-
             if (!other.TryGetComponent(out ICustomer customer)) return;
             StartPayment(customer.CanPay, customer);
-
-
         }
 
         public void StartPayment(bool canTake, ICustomer customer)
@@ -44,12 +42,10 @@ namespace Controller
 
         private async void UpdatePayment(ICustomer customer)
         {
-
             if (price == 0)
             {
                 AISignals.Instance.onGenerateSoldier?.Invoke();
                 transform.parent.gameObject.SetActive(false);
-
 
                 _canTake = false;
                 customer.CanPay = false;
@@ -80,6 +76,5 @@ namespace Controller
         }
 
         public void StopPayment(bool canTake) => _canTake = canTake;
-
     }
 }

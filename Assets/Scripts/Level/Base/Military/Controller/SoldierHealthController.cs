@@ -1,13 +1,10 @@
-﻿using System;
-
-using AIBrains.SoldierBrain;
-using DG.Tweening.Core;
+﻿using AIBrains.SoldierBrain;
 using Interfaces;
 using UnityEngine;
 
 namespace Controllers.SoldierPhysicsControllers
 {
-    public class SoldierHealthController : MonoBehaviour,IDamagable
+    public class SoldierHealthController : MonoBehaviour, IDamagable
     {
         [SerializeField]
         private SoldierAIBrain soldierAIBrain;
@@ -19,6 +16,7 @@ namespace Controllers.SoldierPhysicsControllers
 
         public bool IsTaken { get; set; }
         public bool IsDead { get; set; }
+
         public int TakeDamage(int damage)
         {
             soldierAIBrain.Health -= damage;

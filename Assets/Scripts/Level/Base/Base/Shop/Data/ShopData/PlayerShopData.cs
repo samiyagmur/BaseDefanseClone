@@ -1,15 +1,12 @@
-﻿using Enums;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Datas.ValueObject
 {
     [Serializable]
-    public class PlayerShopData 
+    public class PlayerShopData
     {
-
         [HorizontalGroup("Split")]
         [VerticalGroup("Split/Right")]
         [PreviewField(80)]

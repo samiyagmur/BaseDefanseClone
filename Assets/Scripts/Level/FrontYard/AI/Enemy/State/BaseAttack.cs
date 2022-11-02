@@ -17,6 +17,7 @@ namespace AIBrains.EnemyBrain
             _navMeshAgent = agent;
             _animator = animator;
         }
+
         public void Tick()
         {
             _attackTimer -= Time.deltaTime;

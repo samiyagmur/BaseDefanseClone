@@ -1,7 +1,4 @@
-using Controllers;
 using Managers;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Controllers
@@ -25,8 +22,7 @@ namespace Controllers
             if (other.TryGetComponent(out PlayerPhysicsController playerPhyiscs))
             {
                 shopManager.IsExitAnyShops(transform.parent.GetComponent<ShopTypeController>().GetShoopType());
-
             }
         }
-    } 
+    }
 }
