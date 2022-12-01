@@ -1,4 +1,4 @@
-# Base dDfense Mobile Game Clone
+# Base Defense Mobile Game Clone
 
 ## Indroduce
 *I would like to present to you the 4rd mobile game we made in the training we cloned in 6 weeks at the Level-Up academy.*
